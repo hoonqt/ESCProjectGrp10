@@ -8,10 +8,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.cindy.esc_50005.MainActivity;
 import com.example.cindy.esc_50005.R;
 
 /**
@@ -24,19 +22,17 @@ import com.example.cindy.esc_50005.R;
 
 public class FaqAdapter extends RecyclerView.Adapter<FaqAdapter.FaqViewHolder> {
 
+    private FaqFragment.FaqJsonData[] data;
     private static int viewHolderCount = 0;
     Context parentContext;
 
     //TODO 4.4 - Constructor
     //constructor needs the context and the data
-    FaqAdapter(Context context){
+    FaqAdapter(Context context, FaqFragment.FaqJsonData[] data){
         this.parentContext = context;
+        this.data=data;
     }
 
-    //@Override
-    //public AnimeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-    //    return null;
-    //}
 
     //TODO 4.7 - onBindViewHolder
     //references are created to the individual widgets by the instantiation
@@ -45,9 +41,7 @@ public class FaqAdapter extends RecyclerView.Adapter<FaqAdapter.FaqViewHolder> {
     @Override
     public void onBindViewHolder(FaqViewHolder holder, int position) {
         //TODO invoke bind method in inner class
-        Log.i("position", Integer.toString(position));
         holder.bind(position);
-//        Log.i("checkIfEmpty",);
     }
 
     //TODO 4.8 - getItemCount
@@ -55,8 +49,9 @@ public class FaqAdapter extends RecyclerView.Adapter<FaqAdapter.FaqViewHolder> {
     @Override
     public int getItemCount() {
         //vary the value by putting 1,2,3
-        return 0;
+        return data.length;
     }
+
 
     //TODO 4.5 - onCreateViewHolder
     //inflates the layout
@@ -80,10 +75,12 @@ public class FaqAdapter extends RecyclerView.Adapter<FaqAdapter.FaqViewHolder> {
 
 
     class FaqViewHolder extends RecyclerView.ViewHolder implements  View.OnClickListener {
-        CardView characterName1;
-        CardView itemNumber1;
-        CardView characterName2;
-        CardView itemNumber2;
+        TextView question;
+        TextView answer;
+        CardView firstCard;
+//        CardView answer1;
+//        CardView question2;
+//        CardView answer2;
 
         FaqViewHolder(View v){
 
@@ -91,22 +88,16 @@ public class FaqAdapter extends RecyclerView.Adapter<FaqAdapter.FaqViewHolder> {
             // and get references to the various widgets in the List Item Layout
             super(v);
             //we need the v object because the view contains the references to the widgets that we need
-            characterName1 = (CardView)itemView.findViewById(R.id.item_text1);
-            itemNumber1 = (CardView)itemView.findViewById(R.id.item_count1);
-            characterName2 = (CardView)itemView.findViewById(R.id.item_text2);
-            itemNumber2 = (CardView)itemView.findViewById(R.id.item_count2);
-            v.setOnClickListener(this);
-            //wants object of onclick interface
+//            question1 = (CardView)itemView.findViewById(R.id.item_text1);
+//            answer1 = (CardView)itemView.findViewById(R.id.item_count1);
+//            question2 = (CardView)itemView.findViewById(R.id.item_text2);
+//            answer2 = (CardView)itemView.findViewById(R.id.item_count2);
+            firstCard=(CardView) v.findViewById(R.id.cv);
+            question = (TextView) v.findViewById(R.id.item_question);
+            answer = (TextView) v.findViewById(R.id.item_answer);
 
-            //since not possible to have it in the xml to specify the button
-            //implement interface annoynomously
-//            v.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//
-//                }
-//            });
-            //now not neccessary since we make our class implement it now no longer annoynymously
+
+            v.setOnClickListener(this);
 
         }
 
@@ -115,25 +106,11 @@ public class FaqAdapter extends RecyclerView.Adapter<FaqAdapter.FaqViewHolder> {
         public void bind(int position ){
 
 
-            //TODO 4.6A - get the filename of the image
-//            String filename = data[position].file;
-
-            String packageName = parentContext.getPackageName();
-            String typeOfResource = "drawable";
-
-            //resId is id of the resource
-//            Log.i("fileName",filename);
-//            Log.i("packageName",filename);
-//            Log.i("typeOfResource",packageName);
-//            int resID = parentContext.getResources().getIdentifier(filename, typeOfResource, packageName);
-            //TODO 4.6 B pass the resource ID to the image widget
-//            picture.setImageResource(resID);
-
             //TODO 4.6 C pass the character name to the characterName widget
-//            characterName.setText(data[position].name);   ;
+            question.setText(data[position].question);
 
             //TODO 4.6 D display the position number
-//            itemNumber.setText(String.valueOf(position)) ;
+            answer.setText(data[position].answer) ;
 
         }
 
@@ -143,8 +120,8 @@ public class FaqAdapter extends RecyclerView.Adapter<FaqAdapter.FaqViewHolder> {
             int clickedPosition=getAdapterPosition();
             AlertDialog.Builder builder=new AlertDialog.Builder(parentContext);
 
-//            String animeName=data[clickedPosition].anime;
-//            builder.setMessage("Anime: " + animeName);
+            String question=data[clickedPosition].question;
+            builder.setMessage("Question: " + question );
 
             AlertDialog alertDialog=builder.create();
             //instantiates the object

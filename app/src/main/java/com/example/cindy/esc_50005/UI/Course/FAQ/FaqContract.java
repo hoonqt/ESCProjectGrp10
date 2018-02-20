@@ -15,7 +15,7 @@ public interface FaqContract {
         void processEmptyFaq();
         void upvoteFaq();
     }
-   interface FaqContractView extends BaseView {
+    interface FaqContractView extends BaseView {
         void showFaq();
         void showNoFaq();
         void showLoadFaqError();
