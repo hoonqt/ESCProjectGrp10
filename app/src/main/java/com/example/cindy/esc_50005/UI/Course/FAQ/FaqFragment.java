@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +14,8 @@ import com.google.gson.Gson;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 
 /**
@@ -33,6 +34,8 @@ public class FaqFragment extends Fragment implements FaqContract {
     FaqJsonData[] faqJsonData;
     private FaqAdapter mFaqAdapter;
 
+    ArrayList<FaqJsonData> FaqList;
+
     public FaqFragment() {
         // Required empty public constructor
     }
@@ -43,13 +46,19 @@ public class FaqFragment extends Fragment implements FaqContract {
         parseJson();
         View view=inflater.inflate(R.layout.faq_main, container, false);
 
-        RecyclerView faqList=(RecyclerView) view.findViewById(R.id.recyclerViewFaqs);
+        RecyclerView faqListRecycler=(RecyclerView) view.findViewById(R.id.recyclerViewFaqs);
         mLayoutManager= new LinearLayoutManager(getActivity());
         mCurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
-        faqList.setLayoutManager(new LinearLayoutManager(this.getActivity()));
+        faqListRecycler.setLayoutManager(new LinearLayoutManager(this.getActivity()));
         mFaqAdapter=new FaqAdapter(getContext(),faqJsonData);
-        faqList.setAdapter(mFaqAdapter);
+        faqListRecycler.setAdapter(mFaqAdapter);
+
         return view;
+    }
+
+    public void AddItemsToRecyclerViewArrayList(){
+
+        FaqList = new ArrayList<>();
     }
 
     public class FaqJsonData {
@@ -90,7 +99,6 @@ public class FaqFragment extends Fragment implements FaqContract {
         // It can also be used to convert a JSON string to an equivalent Java object.
         //TODO 3.3 Invoke readTxt
         String myJsonData=readTxt(R.raw.faq);
-        Log.i("@@@@",myJsonData);
         //TODO 3.4 parse the JSON file
         faqJsonData=gson.fromJson(myJsonData, FaqJsonData[].class);
     }
