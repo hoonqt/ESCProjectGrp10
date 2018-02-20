@@ -3,7 +3,10 @@
     <string name="faq">FAQ</string>
     <string name="progress">Progress</string>
     <string name="sessions">Sessions</string>
+    <string name="questions">Questions</string>
+    <string name="activities">Activities</string>
     <string name="course_name">Elements of Software Construction</string>
     <string name="recyclerViewFaqs">Elements of Software Construction</string>
+    <string name="title_activity_session">SessionActivity</string>
 
 </resources>
