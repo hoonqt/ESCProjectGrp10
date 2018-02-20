@@ -10,68 +10,99 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/cv"
-        >
-        <RelativeLayout
+
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/item_text1"
-                android:layout_alignParentTop="true"
-                android:textSize="25sp"
-                android:text="Why is the sky blue?"
-                />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/item_count1"
-                android:layout_below="@+id/item_text1"
-                android:layout_alignParentLeft="true"
-                android:text="Because why not!"
-                />
-        </RelativeLayout>
-
-    </android.support.v7.widget.CardView>
-    <android.support.v7.widget.CardView
+            android:id="@+id/cv"
+            >
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:id="@+id/cv2"
-                >
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="16dp">
+                android:padding="16dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/item_text2"
-                android:layout_alignParentTop="true"
-                android:textSize="25sp"
-                android:text="What is the difference between Observer and Strategy Pattern?"
-                />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/item_question"
+                    android:layout_alignParentTop="true"
+                    android:textSize="25sp"/>
+                    <!--android:text="Why is the sky blue?"-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/item_count2"
-                android:layout_below="@+id/item_text2"
-                android:layout_alignParentLeft="true"
-                android:text="Blah blah blah!"
-                />
 
-        </RelativeLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/item_answer"
+                    android:layout_below="@+id/item_question"
+                    android:layout_alignParentLeft="true" />
+                    <!--android:text="Because why not!"-->
 
-    </android.support.v7.widget.CardView>
+
+                <!--<ImageButton-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:id="@+id/arrow"-->
+                    <!--android:onClick="sendMessage"-->
+                    <!--android:src="@drawable/arrow" />-->
+
+                <!--<FrameLayout-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content">-->
+                    <!--<ImageButton-->
+                        <!--android:id="@+id/arrow"-->
+                        <!--android:layout_width="20dp"-->
+                        <!--android:layout_height="50dp"-->
+                        <!--/>-->
+                    <!--<ImageView-->
+                        <!--android:layout_width="30dp"-->
+                        <!--android:layout_height="30dp"-->
+                        <!--android:scaleType="fitXY"-->
+                        <!--android:src="@drawable/arrow">-->
+                    <!--</ImageView>-->
+                <!--</FrameLayout>-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/replyTest"
+                    android:layout_alignParentRight="true"
+
+                    />
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+    <!--<android.support.v7.widget.CardView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:id="@+id/cv2"-->
+                <!--&gt;-->
+        <!--<RelativeLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:padding="16dp">-->
+
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:id="@+id/item_text2"-->
+                <!--android:layout_alignParentTop="true"-->
+                <!--android:textSize="25sp"-->
+                <!--android:text="What is the difference between Observer and Strategy Pattern?"-->
+                <!--/>-->
+
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:id="@+id/item_count2"-->
+                <!--android:layout_below="@+id/item_text2"-->
+                <!--android:layout_alignParentLeft="true"-->
+                <!--android:text="Blah blah blah!"-->
+                <!--/>-->
+
+        <!--</RelativeLayout>-->
+
+    <!--</android.support.v7.widget.CardView>-->
     </LinearLayout>
     <!--<TextView-->
         <!--android:layout_width="match_parent"-->
