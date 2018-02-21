@@ -1,5 +1,7 @@
 package com.example.cindy.esc_50005.UI.Session;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -8,26 +10,22 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 
 import com.example.cindy.esc_50005.R;
+import com.example.cindy.esc_50005.UI.Course.FAQ.CourseActivity;
 
-public class SessionActivity extends AppCompatActivity {
-
+public class SessionActivity extends AppCompatActivity implements View.OnClickListener{
+    private Button btn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_session);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        btn = findViewById(R.id.clickToGoToPostQuestion);
+        btn.setOnClickListener(this);
 
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
         TabLayout tabLayout=(TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText(R.string.questions));
         tabLayout.addTab(tabLayout.newTab().setText(R.string.activities));
@@ -37,9 +35,6 @@ public class SessionActivity extends AppCompatActivity {
 
         final ViewPager viewPager=(ViewPager) findViewById(R.id.pager);
 
-        //The ViewPager is the widget that allows the user to swipe left or right to see an entirely new screen. In a sense, it's just a nicer way to show the user multiple tabs.
-        // It also has the ability to dynamically add and remove pages (or tabs) at anytime.
-//
         final com.example.cindy.esc_50005.UI.Session.SessionPagerAdapter pagerAdapter=new com.example.cindy.esc_50005.UI.Session.SessionPagerAdapter(getSupportFragmentManager(),tabLayout.getTabCount());
 
         viewPager.setAdapter(pagerAdapter);
@@ -64,6 +59,13 @@ public class SessionActivity extends AppCompatActivity {
 
         });
 
+
+    }
+    @Override
+    public void onClick(View v) {
+        Intent intent = new Intent(SessionActivity.this, CourseActivity.class);
+        startActivity(intent);
+        finish();
 
     }
 

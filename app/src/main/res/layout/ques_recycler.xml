@@ -1,147 +1,28 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context="com.example.cindy.esc_50005.UI.Course.FAQ.CourseActivity">
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/cv">
-
-            <RelativeLayout
-                xmlns:tools="http://schemas.Android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="vertical"
-                android:id="@+id/ll1">
-
-                <EditText
-                    android:id="@+id/question_input"
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    android:hint="Type Question Here!"
-                    android:inputType="text" />
-
-                <Button
-                    android:id="@+id/add_button"
-                    android:layout_toRightOf="@+id/question_input"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="+"
-                    android:textSize="20dp"/>
-            </RelativeLayout>
-        </android.support.v7.widget.CardView>
-
-
-
-
-        <LinearLayout
-            xmlns:tools="http://schemas.Android.com/tools"
-            android:id="@+id/recycler"
-            android:layout_below="@+id/cv"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:id="@+id/cv1"
                 >
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="16dp">
 
                     <TextView
+                        android:id="@+id/item_post_question"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/item_text1"
                         android:layout_alignParentTop="true"
-                        android:textSize="25sp"
-                        android:text="Why is the sky blue?"
-                        />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/item_count1"
-                        android:layout_below="@+id/item_text1"
-                        android:layout_alignParentLeft="true"
-                        android:text="Because why not!"
-                        />
+                        android:textSize="25sp" />
                 </RelativeLayout>
 
             </android.support.v7.widget.CardView>
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:id="@+id/cv2"
-                >
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="16dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/item_text2"
-                        android:layout_alignParentTop="true"
-                        android:textSize="25sp"
-                        android:text="What is the difference between Observer and Strategy Pattern?"
-                        />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/item_count2"
-                        android:layout_below="@+id/item_text2"
-                        android:layout_alignParentLeft="true"
-                        android:text="Blah blah blah!"
-                        />
-
-                </RelativeLayout>
-
-            </android.support.v7.widget.CardView>
-        </LinearLayout>
-
-
-
-    </RelativeLayout>
-    <!-- TODO: Update blank fragment layout -->
-
-    <!--<TextView-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:text="hello_blank_fragment TWO!" />-->
-
-    <!--<ImageView-->
-    <!--android:id="@+id/item_image"-->
-    <!--android:layout_width="52dp"-->
-    <!--android:layout_height="52dp"-->
-    <!--android:padding="8dp"/>-->
-
-    <!--<TextView-->
-    <!--android:id="@+id/item_text"-->
-    <!--android:padding="8dp"-->
-    <!--android:text="item name"-->
-    <!--android:textSize="32dp"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content" />-->
-
-    <!--<TextView-->
-    <!--android:id="@+id/item_count"-->
-    <!--android:padding="8dp"-->
-    <!--android:text="0"-->
-    <!--android:textSize="32dp"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content" />-->
-
-</FrameLayout>
+</LinearLayout>

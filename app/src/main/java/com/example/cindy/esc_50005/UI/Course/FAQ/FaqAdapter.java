@@ -9,6 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
+import com.example.cindy.esc_50005.Database.questionMethods;
 import com.example.cindy.esc_50005.R;
 
 /**
@@ -20,8 +23,9 @@ import com.example.cindy.esc_50005.R;
 //TODO 4.2 go back to activity_main.xml and put in the recycler view widget
 
 public class FaqAdapter extends RecyclerView.Adapter<FaqAdapter.FaqViewHolder> {
-
+//    DynamoDBMapper dynamoDBMapper;
     private FaqFragment.FaqJsonData[] data;
+
     private static int viewHolderCount = 0;
     Context parentContext;
 
@@ -71,7 +75,7 @@ public class FaqAdapter extends RecyclerView.Adapter<FaqAdapter.FaqViewHolder> {
         TextView answer;
 
 
-        FaqViewHolder(View v){
+        FaqViewHolder(View v) {
 
             super(v);
             //we need the v object because the view contains the references to the widgets that we need
@@ -82,26 +86,32 @@ public class FaqAdapter extends RecyclerView.Adapter<FaqAdapter.FaqViewHolder> {
 
         }
 
-        public void bind(int position ){
+        public void bind(int position) {
 
             question.setText(data[position].question);
-            answer.setText(data[position].answer) ;
-
-
+            answer.setText(data[position].answer);
         }
 
         @Override
-        public void onClick(View v)
-        {
-            int clickedPosition=getAdapterPosition();
-            AlertDialog.Builder builder=new AlertDialog.Builder(parentContext);
+        public void onClick(View v) {
+            int clickedPosition = getAdapterPosition();
+            AlertDialog.Builder builder = new AlertDialog.Builder(parentContext);
 
-            String question=data[clickedPosition].question;
-            builder.setMessage("Question: " + question );
+            String question = data[clickedPosition].question;
+            builder.setMessage("Question: " + question);
 
-            AlertDialog alertDialog=builder.create();
+            AlertDialog alertDialog = builder.create();
             //instantiates the object
             alertDialog.show();
+
+//            questionMethods questions=new questionMethods();
+//            questions.postQuestion("What is the difference between decorator and strategy pattern?", "1111");
+//
+//            DynamoDB dynamoDB = new DynamoDB(new AmazonDynamoDBClient(
+//                    new ProfileCredentialsProvider()));
+//            Table table = dynamoDB.getTable("ProductList");
+//            escproject-mobilehub-27166461-newfaq
+
 
         }
     }

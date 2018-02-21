@@ -74,7 +74,7 @@ public class questionMethods {
     //Process to get all the entries in the database for  certain session code
 
     public void queryBase(final String sessionCode) {
-
+        String result;
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -93,7 +93,9 @@ public class questionMethods {
                     String jsonFormOfItem = gson.toJson(result.get(i));
                     stringBuilder.append(jsonFormOfItem + "\n\n");
                 }
+
             }
         }).start();
+
     }
 }

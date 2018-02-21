@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -99,8 +100,11 @@ public class FaqFragment extends Fragment implements FaqContract {
         // It can also be used to convert a JSON string to an equivalent Java object.
         //TODO 3.3 Invoke readTxt
         String myJsonData=readTxt(R.raw.faq);
+        Log.i("myJsonData",myJsonData);
+
         //TODO 3.4 parse the JSON file
         faqJsonData=gson.fromJson(myJsonData, FaqJsonData[].class);
+        Log.i("type",faqJsonData.getClass().getName());
     }
 
 }
