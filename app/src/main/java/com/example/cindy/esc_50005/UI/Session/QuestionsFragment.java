@@ -1,5 +1,6 @@
 package com.example.cindy.esc_50005.UI.Session;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -96,10 +97,6 @@ public class QuestionsFragment extends android.support.v4.app.Fragment implement
         private String readTxt(int resource) {
 
             InputStream inputStream = getResources().openRawResource(resource);
-            //TODO 3.2 Complete readTxt to take in a resource ID of a file,
-            //          read it and return it as a single string
-            // Reads an InputStream and converts it to a String.
-
 
             String line;
             String output="";
@@ -140,6 +137,13 @@ public class QuestionsFragment extends android.support.v4.app.Fragment implement
                 questionsJsonData=gson.fromJson(string.toString(), QuestionsFragment.QuestionsJsonData[].class);
                 mQuestionsAdapter=new QuestionsAdapter(getContext(),questionsJsonData);
                 questionListRecycler.setAdapter(mQuestionsAdapter);
+                AlertDialog.Builder builder=new AlertDialog.Builder(getContext());
+
+                builder.setMessage("Question has been successfully posted! " );
+
+                AlertDialog alertDialog=builder.create();
+                //instantiates the object
+                alertDialog.show();
 
             }catch(Exception e){
                 e.printStackTrace();

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">esc_50.005</string>
+    <string name="app_name"></string>
     <string name="faq">FAQ</string>
     <string name="progress">Progress</string>
     <string name="sessions">Sessions</string>
@@ -7,6 +7,6 @@
     <string name="activities">Activities</string>
     <string name="course_name">Elements of Software Construction</string>
     <string name="recyclerViewFaqs">Elements of Software Construction</string>
-    <string name="title_activity_session">SessionActivity</string>
+    <string name="title_activity_session">Elements of Software Construction</string>
 
 </resources>
