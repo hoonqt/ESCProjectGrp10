@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.cindy.esc_50005.R;
 
@@ -15,15 +17,17 @@ import com.example.cindy.esc_50005.R;
  * Created by 1002215 on 20/2/18.
  */
 
-public class QuestionsAdapter extends RecyclerView.Adapter<com.example.cindy.esc_50005.UI.Session.QuestionsAdapter.QuestionsViewHolder> {
+public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.QuestionsViewHolder> {
 
+    private QuestionsFragment.QuestionsJsonData[] data;
     private static int viewHolderCount = 0;
     Context parentContext;
 
     //TODO 4.4 - Constructor
     //constructor needs the context and the data
-    QuestionsAdapter(Context context){
+    QuestionsAdapter(Context context, QuestionsFragment.QuestionsJsonData[] data){
         this.parentContext = context;
+        this.data=data;
     }
 
     //@Override
@@ -48,14 +52,14 @@ public class QuestionsAdapter extends RecyclerView.Adapter<com.example.cindy.esc
     @Override
     public int getItemCount() {
         //vary the value by putting 1,2,3
-        return 0;
+        return data.length;
     }
 
     //TODO 4.5 - onCreateViewHolder
     //inflates the layout
     //instantiates the view holder object
     @Override
-    public com.example.cindy.esc_50005.UI.Session.QuestionsAdapter.QuestionsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public QuestionsAdapter.QuestionsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         int layoutIDForListItem = R.layout.ques_recycler;
         LayoutInflater inflater = LayoutInflater.from(parentContext);
@@ -64,7 +68,7 @@ public class QuestionsAdapter extends RecyclerView.Adapter<com.example.cindy.esc
         //java object of layout
         View view = inflater.inflate(layoutIDForListItem,parent,shouldAttachToParentImmediately);
 
-        com.example.cindy.esc_50005.UI.Session.QuestionsAdapter.QuestionsViewHolder questionsViewHolder = new com.example.cindy.esc_50005.UI.Session.QuestionsAdapter.QuestionsViewHolder(view);
+        QuestionsViewHolder questionsViewHolder = new QuestionsViewHolder(view);
         viewHolderCount++;
         Log.i("Cindy","OnCreateViewHolder"+viewHolderCount);
 
@@ -73,10 +77,8 @@ public class QuestionsAdapter extends RecyclerView.Adapter<com.example.cindy.esc
 
 
     class QuestionsViewHolder extends RecyclerView.ViewHolder implements  View.OnClickListener {
-        CardView characterName1;
-        CardView itemNumber1;
-        CardView characterName2;
-        CardView itemNumber2;
+        TextView question;
+        TextView answer;
 
         QuestionsViewHolder(View v){
 
@@ -84,10 +86,8 @@ public class QuestionsAdapter extends RecyclerView.Adapter<com.example.cindy.esc
             // and get references to the various widgets in the List Item Layout
             super(v);
             //we need the v object because the view contains the references to the widgets that we need
-            characterName1 = (CardView)itemView.findViewById(R.id.item_text1);
-            itemNumber1 = (CardView)itemView.findViewById(R.id.item_count1);
-            characterName2 = (CardView)itemView.findViewById(R.id.item_text2);
-            itemNumber2 = (CardView)itemView.findViewById(R.id.item_count2);
+            question = (TextView) v.findViewById(R.id.item_question);
+            answer = (TextView) v.findViewById(R.id.item_answer);
             v.setOnClickListener(this);
             //wants object of onclick interface
 
@@ -107,26 +107,8 @@ public class QuestionsAdapter extends RecyclerView.Adapter<com.example.cindy.esc
         //            to the respective widgets
         public void bind(int position ){
 
-
-            //TODO 4.6A - get the filename of the image
-//            String filename = data[position].file;
-
-            String packageName = parentContext.getPackageName();
-            String typeOfResource = "drawable";
-
-            //resId is id of the resource
-//            Log.i("fileName",filename);
-//            Log.i("packageName",filename);
-//            Log.i("typeOfResource",packageName);
-//            int resID = parentContext.getResources().getIdentifier(filename, typeOfResource, packageName);
-            //TODO 4.6 B pass the resource ID to the image widget
-//            picture.setImageResource(resID);
-
-            //TODO 4.6 C pass the character name to the characterName widget
-//            characterName.setText(data[position].name);   ;
-
-            //TODO 4.6 D display the position number
-//            itemNumber.setText(String.valueOf(position)) ;
+            question.setText(data[position].question);
+            answer.setText(data[position].answer);
 
         }
 
@@ -136,14 +118,16 @@ public class QuestionsAdapter extends RecyclerView.Adapter<com.example.cindy.esc
             int clickedPosition=getAdapterPosition();
             AlertDialog.Builder builder=new AlertDialog.Builder(parentContext);
 
-//            String animeName=data[clickedPosition].anime;
-//            builder.setMessage("Anime: " + animeName);
+            String question=data[clickedPosition].question;
+            builder.setMessage("Question: " + question);
 
             AlertDialog alertDialog=builder.create();
             //instantiates the object
             alertDialog.show();
 
         }
+
+
 
     }
 }
