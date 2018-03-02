@@ -85,6 +85,7 @@ public class QuestionsFragment extends android.support.v4.app.Fragment implement
             }
             array.put(json);
             parseJson();
+            editText.setText("");
 
         }
 
