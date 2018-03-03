@@ -37,6 +37,7 @@ public class QuestionsFragment extends android.support.v4.app.Fragment implement
         private JSONArray array = new JSONArray();
         private RecyclerView questionListRecycler;
         QuestionsJsonData[] questionsJsonData;
+        SessionQuestionsRemoteDataSource session = new SessionQuestionsRemoteDataSource(); //not sure if this is right, need to check again.
 
         private enum LayoutManagerType {
             LINEAR_LAYOUT_MANAGER
@@ -76,6 +77,10 @@ public class QuestionsFragment extends android.support.v4.app.Fragment implement
         @Override
         public void onClick(View v) {
             String your_question = editText.getText().toString();
+
+            //Create call a session and add question using method from sessionquestionremotedatasource.
+//            session.addQuestion(your_question,"123");
+            // might not use this part as well.
             JSONObject json = new JSONObject();
             try{
                 json.put("question", your_question);
@@ -86,6 +91,8 @@ public class QuestionsFragment extends android.support.v4.app.Fragment implement
             }
             array.put(json);
             parseJson();
+
+            //for clearing the text once it has been added.
             editText.setText("");
 
         }
@@ -117,6 +124,7 @@ public class QuestionsFragment extends android.support.v4.app.Fragment implement
         }
 
         void parseJson() {
+            // might not need this part if we going to use DB
             try {
                 Gson gson = new Gson();
                 StringBuilder string = new StringBuilder();
@@ -139,7 +147,7 @@ public class QuestionsFragment extends android.support.v4.app.Fragment implement
                 questionsJsonData=gson.fromJson(string.toString(), QuestionsJsonData[].class);
                 // Trying to use create a new session class to extract questions form there
 //                SessionQuestionsRemoteDataSource a = new SessionQuestionsRemoteDataSource();
-//                questionsJsonData=gson.fromJson(a.getQuestionsList("123123123"), QuestionsJsonData[].class);
+//                questionsJsonData=gson.fromJson(session.getQuestionsList("123"), QuestionsJsonData[].class);
                 mQuestionsAdapter=new QuestionsAdapter(getContext(),questionsJsonData);
                 questionListRecycler.setAdapter(mQuestionsAdapter);
                 AlertDialog.Builder builder=new AlertDialog.Builder(getContext());
