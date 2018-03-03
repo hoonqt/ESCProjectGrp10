@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.cindy.esc_50005.Database.SessionQuestionsRemoteDataSource;
 import com.example.cindy.esc_50005.R;
 import com.google.gson.Gson;
 
@@ -35,7 +36,7 @@ public class QuestionsFragment extends android.support.v4.app.Fragment implement
         private Button btn;
         private JSONArray array = new JSONArray();
         private RecyclerView questionListRecycler;
-        QuestionsFragment.QuestionsJsonData[] questionsJsonData;
+        QuestionsJsonData[] questionsJsonData;
 
         private enum LayoutManagerType {
             LINEAR_LAYOUT_MANAGER
@@ -135,7 +136,10 @@ public class QuestionsFragment extends android.support.v4.app.Fragment implement
 
 
                 string.append("]");
-                questionsJsonData=gson.fromJson(string.toString(), QuestionsFragment.QuestionsJsonData[].class);
+                questionsJsonData=gson.fromJson(string.toString(), QuestionsJsonData[].class);
+                // Trying to use create a new session class to extract questions form there
+//                SessionQuestionsRemoteDataSource a = new SessionQuestionsRemoteDataSource();
+//                questionsJsonData=gson.fromJson(a.getQuestionsList("123123123"), QuestionsJsonData[].class);
                 mQuestionsAdapter=new QuestionsAdapter(getContext(),questionsJsonData);
                 questionListRecycler.setAdapter(mQuestionsAdapter);
                 AlertDialog.Builder builder=new AlertDialog.Builder(getContext());
