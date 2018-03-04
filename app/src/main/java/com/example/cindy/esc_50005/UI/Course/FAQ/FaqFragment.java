@@ -1,6 +1,7 @@
 package com.example.cindy.esc_50005.UI.Course.FAQ;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,21 +17,20 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Iterator;
 
+import static com.google.common.base.Preconditions.checkNotNull;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class FaqFragment extends Fragment implements FaqContract {
+public class FaqFragment extends Fragment implements FaqContract.FaqContractView {
 
     private enum LayoutManagerType {
-        GRID_LAYOUT_MANAGER,
         LINEAR_LAYOUT_MANAGER
     }
 
     protected LayoutManagerType mCurrentLayoutManagerType;
     protected RecyclerView.LayoutManager mLayoutManager;
+    private FaqContract.FaqContractPresenter mPresenter;
+    private  @NonNull
+    FaqContract.FaqContractPresenter presenter;
 
     FaqJsonData[] faqJsonData;
     private FaqAdapter mFaqAdapter;
@@ -40,13 +40,24 @@ public class FaqFragment extends Fragment implements FaqContract {
     public FaqFragment() {
         // Required empty public constructor
     }
+    @Override
+    public void setPresenter() {
+        Log.i("checkIfNull","checkIfNull");
+
+        mPresenter = checkNotNull(presenter);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         parseJson();
         View view=inflater.inflate(R.layout.faq_main, container, false);
+        showFaq(view);
+        return view;
+    }
 
+    public void showFaq(View view)
+    {
         RecyclerView faqListRecycler=(RecyclerView) view.findViewById(R.id.recyclerViewFaqs);
         mLayoutManager= new LinearLayoutManager(getActivity());
         mCurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
@@ -54,8 +65,17 @@ public class FaqFragment extends Fragment implements FaqContract {
         mFaqAdapter=new FaqAdapter(getContext(),faqJsonData);
         faqListRecycler.setAdapter(mFaqAdapter);
 
-        return view;
     }
+
+    public void showNoFaq()
+    {
+
+    }
+    public void showLoadFaqError()
+    {
+
+    }
+
 
     public void AddItemsToRecyclerViewArrayList(){
 
@@ -72,10 +92,6 @@ public class FaqFragment extends Fragment implements FaqContract {
     private String readTxt(int resource) {
 
         InputStream inputStream = getResources().openRawResource(resource);
-        //TODO 3.2 Complete readTxt to take in a resource ID of a file,
-        //          read it and return it as a single string
-        // Reads an InputStream and converts it to a String.
-
         String line;
         String output="";
 
@@ -96,15 +112,8 @@ public class FaqFragment extends Fragment implements FaqContract {
     void parseJson() {
 
         Gson gson = new Gson();
-        //Gson is a Java library that can be used to convert Java Objects into their JSON representation.
-        // It can also be used to convert a JSON string to an equivalent Java object.
-        //TODO 3.3 Invoke readTxt
         String myJsonData=readTxt(R.raw.faq);
-        Log.i("myJsonData",myJsonData);
-
-        //TODO 3.4 parse the JSON file
         faqJsonData=gson.fromJson(myJsonData, FaqJsonData[].class);
-        Log.i("type",faqJsonData.getClass().getName());
     }
 
 }

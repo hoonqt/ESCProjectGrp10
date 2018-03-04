@@ -18,10 +18,6 @@ import com.example.cindy.esc_50005.R;
  * Created by cindy on 27/11/2017.
  */
 
-//TODO 4.1 (in a separate XML File) Design your list item layout
-
-//TODO 4.2 go back to activity_main.xml and put in the recycler view widget
-
 public class FaqAdapter extends RecyclerView.Adapter<FaqAdapter.FaqViewHolder> {
 //    DynamoDBMapper dynamoDBMapper;
     private FaqFragment.FaqJsonData[] data;
@@ -29,14 +25,10 @@ public class FaqAdapter extends RecyclerView.Adapter<FaqAdapter.FaqViewHolder> {
     private static int viewHolderCount = 0;
     Context parentContext;
 
-    //constructor needs the context and the data
     FaqAdapter(Context context, FaqFragment.FaqJsonData[] data){
         this.parentContext = context;
         this.data=data;
     }
-
-    //references are created to the individual widgets by the instantiation
-    //joins data to the widgets
 
     @Override
     public void onBindViewHolder(FaqViewHolder holder, int position) {
@@ -47,12 +39,9 @@ public class FaqAdapter extends RecyclerView.Adapter<FaqAdapter.FaqViewHolder> {
     //indicates how many list objects it has
     @Override
     public int getItemCount() {
-        //vary the value by putting 1,2,3
         return data.length;
     }
 
-    //inflates the layout
-    //instantiates the view holder object
     @Override
     public FaqAdapter.FaqViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 

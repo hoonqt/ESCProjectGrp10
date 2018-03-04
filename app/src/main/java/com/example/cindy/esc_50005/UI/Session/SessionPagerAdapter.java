@@ -2,12 +2,7 @@ package com.example.cindy.esc_50005.UI.Session;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
-
-import com.example.cindy.esc_50005.UI.Course.FAQ.FaqFragment;
-import com.example.cindy.esc_50005.UI.Course.FAQ.ProgressFragment;
-import com.example.cindy.esc_50005.UI.Course.FAQ.SessionsFragment;
 
 /**
  * Created by 1002215 on 20/2/18.

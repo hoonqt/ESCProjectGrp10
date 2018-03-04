@@ -1,5 +1,7 @@
 package com.example.cindy.esc_50005.UI.Course.FAQ;
 
+import android.view.View;
+
 import com.example.cindy.esc_50005.UI.Base.BasePresenter;
 import com.example.cindy.esc_50005.UI.Base.BaseView;
 
@@ -16,7 +18,7 @@ public interface FaqContract {
         void upvoteFaq();
     }
     interface FaqContractView extends BaseView {
-        void showFaq();
+        void showFaq(View view);
         void showNoFaq();
         void showLoadFaqError();
     }
