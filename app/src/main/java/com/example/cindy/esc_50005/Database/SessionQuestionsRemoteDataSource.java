@@ -5,6 +5,9 @@ import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBQueryExp
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.PaginatedList;
 import com.google.gson.Gson;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 /**
@@ -15,6 +18,7 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
 
     DynamoDBMapper dynamoDBMapper;
     private String finalresult;
+    JSONObject datainjson;
 
     @Override
     public void addQuestion(String question, String sessionCode) {
@@ -61,7 +65,7 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
     }
 
     @Override
-    public String getQuestionsList(final String sessionCode) {
+    public JSONObject getQuestionsList(final String sessionCode) {
 
         new Thread(new Runnable() {
             @Override
@@ -82,12 +86,18 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
                     stringBuilder.append(jsonFormOfItem + "\n\n");
                 }
 
-                finalresult = stringBuilder.toString();
+                try {
+                    datainjson = new JSONObject(stringBuilder.toString());
+                }
+
+                catch (JSONException ex) {
+                    System.out.println(ex);
+                }
 
             }
         }).start();
 
-        return finalresult;
+        return datainjson;
     }
 
     @Override

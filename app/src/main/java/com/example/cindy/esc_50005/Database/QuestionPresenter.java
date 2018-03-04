@@ -5,6 +5,8 @@ import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBQueryExp
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.PaginatedList;
 import com.google.gson.Gson;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 /**
@@ -18,7 +20,7 @@ public class QuestionPresenter implements QuestionContract {
     public void loadQuestions(final String sessionCode) {
 
         SessionQuestionsRemoteDataSource questionLoader = new SessionQuestionsRemoteDataSource();
-        String allthequestions = questionLoader.getQuestionsList(sessionCode);
+        JSONObject allthequestions = questionLoader.getQuestionsList(sessionCode);
 
     };
 

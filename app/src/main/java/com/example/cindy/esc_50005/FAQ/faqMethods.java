@@ -6,6 +6,9 @@ import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.PaginatedList;
 import com.example.cindy.esc_50005.Database.NewfaqDO;
 import com.google.gson.Gson;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 /**
@@ -15,6 +18,7 @@ import java.util.ArrayList;
 public class faqMethods {
 
     DynamoDBMapper dynamoDBMapper;
+    JSONObject datainjson;
 
     public void addFaq(String question, String courseID, String date, String answer, String userID) {
 
@@ -73,8 +77,17 @@ public class faqMethods {
                 StringBuilder stringBuilder = new StringBuilder();
 
                 for (int i = 0;i<result.size();i++) {
+
                     String jsonFormOfItem = gson.toJson(result.get(i));
                     stringBuilder.append(jsonFormOfItem + "\n\n");
+                }
+
+                try {
+                    datainjson = new JSONObject(stringBuilder.toString());
+                }
+
+                catch (JSONException ex) {
+                    System.out.println(ex);
                 }
 
             }
