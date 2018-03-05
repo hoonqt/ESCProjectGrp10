@@ -37,7 +37,7 @@ public class QuestionsFragment extends android.support.v4.app.Fragment implement
         private JSONArray array = new JSONArray();
         private RecyclerView questionListRecycler;
         QuestionsJsonData[] questionsJsonData;
-        SessionQuestionsRemoteDataSource session = new SessionQuestionsRemoteDataSource(); //not sure if this is right, need to check again.
+//        SessionQuestionsRemoteDataSource session = new SessionQuestionsRemoteDataSource(); //not sure if this is right, need to check again.
 
         private enum LayoutManagerType {
             LINEAR_LAYOUT_MANAGER
@@ -60,6 +60,7 @@ public class QuestionsFragment extends android.support.v4.app.Fragment implement
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View view=inflater.inflate(R.layout.post_question_main, container, false);
+//            session.addQuestion("[]","123");
             parseJson();
             btn = view.findViewById(R.id.add_button);
             editText = (EditText) view.findViewById(R.id.question_input);
@@ -146,8 +147,14 @@ public class QuestionsFragment extends android.support.v4.app.Fragment implement
                 string.append("]");
                 questionsJsonData=gson.fromJson(string.toString(), QuestionsJsonData[].class);
                 // Trying to use create a new session class to extract questions form there
-//                SessionQuestionsRemoteDataSource a = new SessionQuestionsRemoteDataSource();
-//                questionsJsonData=gson.fromJson(session.getQuestionsList("123"), QuestionsJsonData[].class);
+
+//                Gson gson = new Gson();
+//                if(session.getQuestionsList("123").toString()==""){
+//                    questionsJsonData=gson.fromJson("[]",QuestionsJsonData[].class);
+//                } else{
+//                    questionsJsonData=gson.fromJson(session.getQuestionsList("123").toString(), QuestionsJsonData[].class);
+//                }
+
                 mQuestionsAdapter=new QuestionsAdapter(getContext(),questionsJsonData);
                 questionListRecycler.setAdapter(mQuestionsAdapter);
                 AlertDialog.Builder builder=new AlertDialog.Builder(getContext());
