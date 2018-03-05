@@ -23,7 +23,7 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
     @Override
     public void addQuestion(String question, String sessionCode) {
 
-        final NewfaqDO newQuestion = new NewfaqDO();
+        final SessionQuestionsDO newQuestion = new SessionQuestionsDO();
 
         newQuestion.setSessioncode(sessionCode);
         newQuestion.setAnswers(new ArrayList<String>());
@@ -44,7 +44,7 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
     @Override
     public void removeQuestion(String question, String sessionCode) {
 
-        final NewfaqDO deleteQn = new NewfaqDO();
+        final SessionQuestionsDO deleteQn = new SessionQuestionsDO();
         deleteQn.setSessioncode(sessionCode);
         deleteQn.setQuestion(question);
 
@@ -70,13 +70,13 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
         new Thread(new Runnable() {
             @Override
             public void run() {
-                NewfaqDO faq = new NewfaqDO();
+                SessionQuestionsDO faq = new SessionQuestionsDO();
                 faq.setSessioncode(sessionCode);
 
                 DynamoDBQueryExpression queryExpression = new DynamoDBQueryExpression()
                         .withHashKeyValues(faq);
 
-                PaginatedList<NewfaqDO> result = dynamoDBMapper.query(NewfaqDO.class,queryExpression);
+                PaginatedList<SessionQuestionsDO> result = dynamoDBMapper.query(SessionQuestionsDO.class,queryExpression);
 
                 Gson gson = new Gson();
                 StringBuilder stringBuilder = new StringBuilder();

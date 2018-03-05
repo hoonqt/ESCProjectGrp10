@@ -17,7 +17,7 @@ public class questionMethods {
 
     public void postQuestion(String question, String sessionCode) {
 
-        final NewfaqDO newQuestion = new NewfaqDO();
+        final SessionQuestionsDO newQuestion = new SessionQuestionsDO();
 
         newQuestion.setSessioncode(sessionCode);
         newQuestion.setAnswers(new ArrayList<String>());
@@ -35,7 +35,7 @@ public class questionMethods {
     }
 
     public void upvoteQn(String question, String sessionCode) {
-        final NewfaqDO newQuestion = new NewfaqDO();
+        final SessionQuestionsDO newQuestion = new SessionQuestionsDO();
 
         newQuestion.setSessioncode(sessionCode);
         newQuestion.setQuestion(question);
@@ -53,7 +53,7 @@ public class questionMethods {
     //Answers are all stored in an ArrayList, we can add more complications later
 
     public void answerQn(String question, String sessionCode, String answer) {
-        final NewfaqDO newQuestion = new NewfaqDO();
+        final SessionQuestionsDO newQuestion = new SessionQuestionsDO();
 
         newQuestion.setSessioncode(sessionCode);
         ArrayList<String> currentanswers = new ArrayList<>();
@@ -78,13 +78,13 @@ public class questionMethods {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                NewfaqDO faq = new NewfaqDO();
+                SessionQuestionsDO faq = new SessionQuestionsDO();
                 faq.setSessioncode(sessionCode);
 
                 DynamoDBQueryExpression queryExpression = new DynamoDBQueryExpression()
                         .withHashKeyValues(faq);
 
-                PaginatedList<NewfaqDO> result = dynamoDBMapper.query(NewfaqDO.class,queryExpression);
+                PaginatedList<SessionQuestionsDO> result = dynamoDBMapper.query(SessionQuestionsDO.class,queryExpression);
 
                 Gson gson = new Gson();
                 StringBuilder stringBuilder = new StringBuilder();

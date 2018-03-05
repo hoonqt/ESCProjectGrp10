@@ -11,9 +11,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-@DynamoDBTable(tableName = "escproject-mobilehub-27166461-newfaq")
+@DynamoDBTable(tableName = "escproject-mobilehub-27166461-sessionQuestions")
 
-public class NewfaqDO {
+public class SessionQuestionsDO {
     private String _sessioncode;
     private String _question;
     private List<String> _answers;
