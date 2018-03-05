@@ -37,7 +37,7 @@ public class QuestionPresenter implements QuestionContract {
 
     public void upvoteQuestion(String question, String sessionCode) {
 
-        final NewfaqDO newQuestion = new NewfaqDO();
+        final SessionQuestionsDO newQuestion = new SessionQuestionsDO();
 
         newQuestion.setSessioncode(sessionCode);
         newQuestion.setQuestion(question);

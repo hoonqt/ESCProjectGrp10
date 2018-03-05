@@ -3,7 +3,7 @@ package com.example.cindy.esc_50005.FAQ;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBQueryExpression;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.PaginatedList;
-import com.example.cindy.esc_50005.Database.NewfaqDO;
+import com.example.cindy.esc_50005.Database.SessionQuestionsDO;
 import com.google.gson.Gson;
 
 import org.json.JSONException;
@@ -71,7 +71,7 @@ public class faqMethods {
                 DynamoDBQueryExpression queryExpression = new DynamoDBQueryExpression()
                         .withHashKeyValues(faq);
 
-                PaginatedList<NewfaqDO> result = dynamoDBMapper.query(NewfaqDO.class,queryExpression);
+                PaginatedList<SessionQuestionsDO> result = dynamoDBMapper.query(SessionQuestionsDO.class,queryExpression);
 
                 Gson gson = new Gson();
                 StringBuilder stringBuilder = new StringBuilder();
