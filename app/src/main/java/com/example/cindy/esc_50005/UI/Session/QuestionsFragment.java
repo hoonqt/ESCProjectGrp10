@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.cindy.esc_50005.Database.SessionQuestionsRemoteDataSource;
 import com.example.cindy.esc_50005.R;
 import com.google.gson.Gson;
 
@@ -35,7 +36,8 @@ public class QuestionsFragment extends android.support.v4.app.Fragment implement
         private Button btn;
         private JSONArray array = new JSONArray();
         private RecyclerView questionListRecycler;
-        QuestionsFragment.QuestionsJsonData[] questionsJsonData;
+        QuestionsJsonData[] questionsJsonData;
+//        SessionQuestionsRemoteDataSource session = new SessionQuestionsRemoteDataSource(); //not sure if this is right, need to check again.
 
         private enum LayoutManagerType {
             LINEAR_LAYOUT_MANAGER
@@ -58,6 +60,7 @@ public class QuestionsFragment extends android.support.v4.app.Fragment implement
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View view=inflater.inflate(R.layout.post_question_main, container, false);
+//            session.addQuestion("[]","123");
             parseJson();
             btn = view.findViewById(R.id.add_button);
             editText = (EditText) view.findViewById(R.id.question_input);
@@ -75,6 +78,10 @@ public class QuestionsFragment extends android.support.v4.app.Fragment implement
         @Override
         public void onClick(View v) {
             String your_question = editText.getText().toString();
+
+            //Create call a session and add question using method from sessionquestionremotedatasource.
+//            session.addQuestion(your_question,"123");
+            // might not use this part as well.
             JSONObject json = new JSONObject();
             try{
                 json.put("question", your_question);
@@ -85,6 +92,9 @@ public class QuestionsFragment extends android.support.v4.app.Fragment implement
             }
             array.put(json);
             parseJson();
+
+            //for clearing the text once it has been added.
+            editText.setText("");
 
         }
 
@@ -115,6 +125,7 @@ public class QuestionsFragment extends android.support.v4.app.Fragment implement
         }
 
         void parseJson() {
+            // might not need this part if we going to use DB
             try {
                 Gson gson = new Gson();
                 StringBuilder string = new StringBuilder();
@@ -134,7 +145,16 @@ public class QuestionsFragment extends android.support.v4.app.Fragment implement
 
 
                 string.append("]");
-                questionsJsonData=gson.fromJson(string.toString(), QuestionsFragment.QuestionsJsonData[].class);
+                questionsJsonData=gson.fromJson(string.toString(), QuestionsJsonData[].class);
+                // Trying to use create a new session class to extract questions form there
+
+//                Gson gson = new Gson();
+//                if(session.getQuestionsList("123").toString()==""){
+//                    questionsJsonData=gson.fromJson("[]",QuestionsJsonData[].class);
+//                } else{
+//                    questionsJsonData=gson.fromJson(session.getQuestionsList("123").toString(), QuestionsJsonData[].class);
+//                }
+
                 mQuestionsAdapter=new QuestionsAdapter(getContext(),questionsJsonData);
                 questionListRecycler.setAdapter(mQuestionsAdapter);
                 AlertDialog.Builder builder=new AlertDialog.Builder(getContext());

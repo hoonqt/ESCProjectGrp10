@@ -39,10 +39,6 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
         tabLayout.setTabGravity(tabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-
-        //The ViewPager is the widget that allows the user to swipe left or right to see an entirely new screen. In a sense, it's just a nicer way to show the user multiple tabs.
-        // It also has the ability to dynamically add and remove pages (or tabs) at anytime.
-//
         final com.example.cindy.esc_50005.UI.Course.FAQ.CoursePagerAdapter coursePagerAdapter = new com.example.cindy.esc_50005.UI.Course.FAQ.CoursePagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
 
         viewPager.setAdapter(coursePagerAdapter);
