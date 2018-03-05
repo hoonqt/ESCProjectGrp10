@@ -16,7 +16,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    buildToolsVersion '26.0.1'
+    buildToolsVersion '26.0.2'
 }
 
 dependencies {
@@ -29,7 +29,8 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-    implementation 'com.amazonaws:aws-android-sdk-ddb-mapper:2.6.+'
+    compile 'com.amazonaws:aws-android-sdk-ddb-mapper:2.6.+'
+    compile ('com.amazonaws:aws-android-sdk-mobile-client:2.6.7@aar') { transitive = true; }
 
     // or, for Android:
     implementation 'com.google.guava:guava:23.3-android'

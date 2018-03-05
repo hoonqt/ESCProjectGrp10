@@ -1,8 +1,10 @@
 package com.example.cindy.esc_50005.Database;
 
+import com.amazonaws.mobile.client.AWSMobileClient;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBQueryExpression;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.PaginatedList;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import com.google.gson.Gson;
 
 import org.json.JSONException;
@@ -19,6 +21,16 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
     DynamoDBMapper dynamoDBMapper;
     private String finalresult;
     JSONObject datainjson;
+
+    public SessionQuestionsRemoteDataSource() {
+
+        AmazonDynamoDBClient dynamoDBClient = new AmazonDynamoDBClient(AWSMobileClient.getInstance().getCredentialsProvider());
+        this.dynamoDBMapper = DynamoDBMapper.builder()
+                .dynamoDBClient(dynamoDBClient)
+                .awsConfiguration(AWSMobileClient.getInstance().getConfiguration())
+                .build();
+
+    }
 
     @Override
     public void addQuestion(String question, String sessionCode) {
