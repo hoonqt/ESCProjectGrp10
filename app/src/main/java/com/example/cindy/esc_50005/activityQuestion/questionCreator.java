@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -76,7 +77,18 @@ public class questionCreator {
 
     }
 
+    public static void main(String[] args) {
 
+        questionCreator creator = new questionCreator();
+
+        List<String> options = new ArrayList<>();
+        options.add("I don't know");
+        options.add("I know");
+
+
+        creator.createQuestion("abc123","123","What is antimatter?",options,0.0);
+
+    }
 
 
 
