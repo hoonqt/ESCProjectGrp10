@@ -1,8 +1,10 @@
 package com.example.cindy.esc_50005.FAQ;
 
+import com.amazonaws.mobile.client.AWSMobileClient;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBQueryExpression;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.PaginatedList;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import com.example.cindy.esc_50005.Database.SessionQuestionsDO;
 import com.google.gson.Gson;
 
@@ -19,6 +21,17 @@ public class faqMethods {
 
     DynamoDBMapper dynamoDBMapper;
     JSONObject datainjson;
+
+    public faqMethods() {
+
+        AmazonDynamoDBClient dynamoDBClient = new AmazonDynamoDBClient(AWSMobileClient.getInstance().getCredentialsProvider());
+        this.dynamoDBMapper = DynamoDBMapper.builder()
+                .dynamoDBClient(dynamoDBClient)
+                .awsConfiguration(AWSMobileClient.getInstance().getConfiguration())
+                .build();
+
+
+    }
 
     public void addFaq(String question, String courseID, String date, String answer, String userID) {
 
