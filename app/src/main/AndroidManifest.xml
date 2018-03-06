@@ -11,7 +11,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".UI.Login.LoginActivity"
+            android:name=".UI.Course.FAQ.CourseActivity"
             android:label="@string/title_activity_session"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
