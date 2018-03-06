@@ -1,5 +1,7 @@
 package com.example.cindy.esc_50005.Database;
 
+import android.util.Log;
+
 import com.amazonaws.mobile.client.AWSMobileClient;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBQueryExpression;
@@ -19,10 +21,21 @@ import java.util.ArrayList;
 public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSource {
 
     DynamoDBMapper dynamoDBMapper;
-    private String finalresult;
-    JSONObject datainjson;
+//    private String finalresult;
+//    JSONObject datainjson=new JSONObject();
+    private StringBuilder finalResult=new StringBuilder();
+
+    private void setFinalResult(String append)
+    {
+        this.finalResult.append(append);
+    }
+    private StringBuilder getFinalResult()
+    {
+        return this.finalResult;
+    }
 
     public SessionQuestionsRemoteDataSource() {
+
 
         AmazonDynamoDBClient dynamoDBClient = new AmazonDynamoDBClient(AWSMobileClient.getInstance().getCredentialsProvider());
         this.dynamoDBMapper = DynamoDBMapper.builder()
@@ -96,10 +109,15 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
                 for (int i = 0;i<result.size();i++) {
                     String jsonFormOfItem = gson.toJson(result.get(i));
                     stringBuilder.append(jsonFormOfItem + "\n\n");
+
                 }
+                Log.i("resultSize",Integer.toString(result.size()));
+                setFinalResult(stringBuilder.toString());
+                Log.i("inside final result",getFinalResult().toString());
 
                 try {
-                    datainjson = new JSONObject(stringBuilder.toString());
+                    JSONObject datainjson = new JSONObject(stringBuilder.toString());
+                    Log.i("inside data",datainjson.toString());
                 }
 
                 catch (JSONException ex) {
@@ -109,7 +127,18 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
             }
         }).start();
 
-        return datainjson;
+        try{
+            Log.i("outside final result", getFinalResult().toString());
+            JSONObject data=new JSONObject(getFinalResult().toString());
+            Log.i("outside data",data.toString());
+            return data;
+        }
+        catch(Exception ex)
+        {
+
+        }
+
+        return null;
     }
 
     @Override

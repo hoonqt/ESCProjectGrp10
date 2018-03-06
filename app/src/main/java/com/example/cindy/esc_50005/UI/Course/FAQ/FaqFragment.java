@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.amazonaws.mobile.client.AWSMobileClient;
 import com.example.cindy.esc_50005.Database.SessionQuestionsRemoteDataSource;
 import com.example.cindy.esc_50005.R;
 import com.google.gson.Gson;
@@ -65,6 +67,7 @@ public class FaqFragment extends Fragment implements FaqContract.FaqContractView
         mFaqAdapter=new FaqAdapter(getContext(),faqJsonData);
         faqListRecycler.setAdapter(mFaqAdapter);
 
+        AWSMobileClient.getInstance().initialize(getContext()).execute();
         SessionQuestionsRemoteDataSource session= new SessionQuestionsRemoteDataSource();
         session.addQuestion("Why is the sky blue?","111");
         Log.i("addedToDb","addedToDb");
@@ -74,10 +77,11 @@ public class FaqFragment extends Fragment implements FaqContract.FaqContractView
 
     public void showNoFaq()
     {
+        AWSMobileClient.getInstance().initialize(getContext()).execute();
         SessionQuestionsRemoteDataSource session= new SessionQuestionsRemoteDataSource();
-//        session.getQuestionsList("111");
+        session.getQuestionsList("111");
         JSONObject answers=session.getQuestionsList("111");
-//        Log.i("questions",answers.toString());
+        Log.i("questions",answers.toString());
 
     }
     public void showLoadFaqError()
