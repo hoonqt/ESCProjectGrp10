@@ -10,9 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.amazonaws.mobile.client.AWSMobileClient;
+import com.example.cindy.esc_50005.Database.SessionQuestionsRemoteDataSource;
 import com.example.cindy.esc_50005.R;
 import com.google.gson.Gson;
-
+import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -29,8 +31,8 @@ public class FaqFragment extends Fragment implements FaqContract.FaqContractView
     protected LayoutManagerType mCurrentLayoutManagerType;
     protected RecyclerView.LayoutManager mLayoutManager;
     private FaqContract.FaqContractPresenter mPresenter;
-    private  @NonNull
-    FaqContract.FaqContractPresenter presenter;
+//    private  @NonNull
+//    FaqContract.FaqContractPresenter presenter;
 
     FaqJsonData[] faqJsonData;
     private FaqAdapter mFaqAdapter;
@@ -44,7 +46,7 @@ public class FaqFragment extends Fragment implements FaqContract.FaqContractView
     public void setPresenter() {
         Log.i("checkIfNull","checkIfNull");
 
-        mPresenter = checkNotNull(presenter);
+//        mPresenter = checkNotNull(presenter);
     }
 
     @Override
@@ -65,10 +67,21 @@ public class FaqFragment extends Fragment implements FaqContract.FaqContractView
         mFaqAdapter=new FaqAdapter(getContext(),faqJsonData);
         faqListRecycler.setAdapter(mFaqAdapter);
 
+        AWSMobileClient.getInstance().initialize(getContext()).execute();
+        SessionQuestionsRemoteDataSource session= new SessionQuestionsRemoteDataSource();
+        session.addQuestion("Why is the sky blue?","111");
+        Log.i("addedToDb","addedToDb");
+        showNoFaq();
+
     }
 
     public void showNoFaq()
     {
+        AWSMobileClient.getInstance().initialize(getContext()).execute();
+        SessionQuestionsRemoteDataSource session= new SessionQuestionsRemoteDataSource();
+        session.getQuestionsList("111");
+        JSONObject answers=session.getQuestionsList("111");
+        Log.i("questions",answers.toString());
 
     }
     public void showLoadFaqError()
