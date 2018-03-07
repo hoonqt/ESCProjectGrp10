@@ -2,8 +2,6 @@ package com.example.trialesc;
 
 public interface allDataInterface {
 
-    public void postQuestion(String question);
-
     public void getQuestions(String sessionId,String questionNo);
 
     public void pushQuestions();

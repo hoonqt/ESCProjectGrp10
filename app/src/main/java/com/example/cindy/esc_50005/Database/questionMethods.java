@@ -1,53 +1,19 @@
-package com.example.trialesc;
+package com.example.cindy.esc_50005.Database;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.TextView;
-
-import com.amazonaws.mobile.client.AWSMobileClient;
+import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBQueryExpression;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.PaginatedList;
-import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import com.google.gson.Gson;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+/**
+ * Created by hoonqt on 20/2/18.
+ */
+
+public class questionMethods {
 
     DynamoDBMapper dynamoDBMapper;
-    String newQn;
-    EditText questionBox;
-    TextView textbox;
-
-    String longtext = "";
-    JSONObject datainjson;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        AWSMobileClient.getInstance().initialize(this).execute();
-
-        AmazonDynamoDBClient dynamoDBClient = new AmazonDynamoDBClient(AWSMobileClient.getInstance().getCredentialsProvider());
-        this.dynamoDBMapper = DynamoDBMapper.builder()
-                .dynamoDBClient(dynamoDBClient)
-                .awsConfiguration(AWSMobileClient.getInstance().getConfiguration())
-                .build();
-
-
-    }
-
-    public void onClickaddDB(View view) {
-        questionBox = (EditText)findViewById(R.id.questionBox);
-        newQn = questionBox.getText().toString();
-        postQuestion(newQn,"abc1234");
-    }
 
     public void postQuestion(String question, String sessionCode) {
 
@@ -108,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
     //Process to get all the entries in the database for  certain session code
 
     public void queryBase(final String sessionCode) {
-
+        String result;
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -128,30 +94,8 @@ public class MainActivity extends AppCompatActivity {
                     stringBuilder.append(jsonFormOfItem + "\n\n");
                 }
 
-                longtext = stringBuilder.toString();
-
-                try {
-                    datainjson = new JSONObject(longtext);
-                }
-
-                catch (JSONException ex) {
-                    System.out.println(ex);
-                }
-
             }
         }).start();
 
-
     }
-
-    public void onClickshowDB(View view) {
-
-        queryBase("abc1234");
-        textbox = (TextView)findViewById(R.id.showmaker);
-        textbox.setText(longtext);
-
-    }
-
-
-
 }

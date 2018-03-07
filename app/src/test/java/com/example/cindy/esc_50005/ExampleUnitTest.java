@@ -1,4 +1,4 @@
-package com.example.trialesc;
+package com.example.cindy.esc_50005;
 
 import org.junit.Test;
 
