@@ -5,6 +5,7 @@ import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBQueryExp
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.PaginatedList;
 import com.google.gson.Gson;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -18,7 +19,7 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
 
     DynamoDBMapper dynamoDBMapper;
     private String finalresult;
-    JSONObject datainjson;
+    JSONArray datainjson;
 
     @Override
     public void addQuestion(String question, String sessionCode) {
@@ -65,11 +66,14 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
     }
 
     @Override
-    public JSONObject getQuestionsList(final String sessionCode) {
+    public void getQuestionsList(final String sessionCode) {
 
         new Thread(new Runnable() {
             @Override
             public void run() {
+
+                ArrayList<JSONObject> allthedata = new ArrayList<>();
+
                 SessionQuestionsDO faq = new SessionQuestionsDO();
                 faq.setSessioncode(sessionCode);
 
@@ -84,20 +88,43 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
                 for (int i = 0;i<result.size();i++) {
                     String jsonFormOfItem = gson.toJson(result.get(i));
                     stringBuilder.append(jsonFormOfItem + "\n\n");
+
+                    try {
+                        allthedata.add(new JSONObject(jsonFormOfItem));
+                    }
+
+                    catch (JSONException e) {
+                        System.out.println(e);
+                    }
                 }
 
-                try {
-                    datainjson = new JSONObject(stringBuilder.toString());
-                }
+                JSONprocessor(allthedata);
 
-                catch (JSONException ex) {
-                    System.out.println(ex);
-                }
 
             }
         }).start();
 
-        return datainjson;
+    }
+
+    public void JSONprocessor(ArrayList<JSONObject> tobeprocessed) {
+
+        ArrayList<Question> allquestions = new ArrayList<>();
+
+        for (int i = 0;i<tobeprocessed.size();i++) {
+
+            JSONObject object = tobeprocessed.get(i);
+
+            try {
+                String question = object.getString("_question");
+            }
+
+            catch (JSONException ex) {
+
+            }
+
+        }
+
+
     }
 
     @Override

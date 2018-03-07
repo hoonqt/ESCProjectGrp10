@@ -3,8 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ESCproject.iml" filepath="$PROJECT_DIR$/ESCproject.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/ESCproject-app.iml" filepath="$PROJECT_DIR$/app/ESCproject-app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/GitHub-ESCproject.iml" filepath="$PROJECT_DIR$/GitHub-ESCproject.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

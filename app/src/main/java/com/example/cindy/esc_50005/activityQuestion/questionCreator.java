@@ -3,6 +3,8 @@ package com.example.cindy.esc_50005.activityQuestion;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBQueryExpression;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.PaginatedList;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
+import com.amazonaws.mobile.client.AWSMobileClient;
 import com.example.cindy.esc_50005.Database.SessionQuestionsDO;
 import com.google.gson.Gson;
 
@@ -20,6 +22,10 @@ public class questionCreator {
 
     DynamoDBMapper dynamoDBMapper;
     JSONObject datainjson;
+
+    public questionCreator() {
+
+    }
 
     public void createQuestion(String courseID, String sessionID,String question, List<String> options,Double answer) {
 
@@ -76,21 +82,5 @@ public class questionCreator {
         return datainjson;
 
     }
-
-    public static void main(String[] args) {
-
-        questionCreator creator = new questionCreator();
-
-        List<String> options = new ArrayList<>();
-        options.add("I don't know");
-        options.add("I know");
-
-
-        creator.createQuestion("abc123","123","What is antimatter?",options,0.0);
-
-    }
-
-
-
 
 }
