@@ -1,14 +1,17 @@
 package com.example.cindy.esc_50005.Database;
 
+<<<<<<< HEAD
 import android.util.Log;
 
 import com.amazonaws.mobile.client.AWSMobileClient;
+=======
+>>>>>>> Database
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBQueryExpression;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.PaginatedList;
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import com.google.gson.Gson;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -21,6 +24,7 @@ import java.util.ArrayList;
 public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSource {
 
     DynamoDBMapper dynamoDBMapper;
+<<<<<<< HEAD
 //    private String finalresult;
 //    JSONObject datainjson=new JSONObject();
     private StringBuilder finalResult=new StringBuilder();
@@ -44,6 +48,10 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
                 .build();
 
     }
+=======
+    private String finalresult;
+    JSONArray datainjson;
+>>>>>>> Database
 
     @Override
     public void addQuestion(String question, String sessionCode) {
@@ -90,11 +98,14 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
     }
 
     @Override
-    public JSONObject getQuestionsList(final String sessionCode) {
+    public void getQuestionsList(final String sessionCode) {
 
         new Thread(new Runnable() {
             @Override
             public void run() {
+
+                ArrayList<JSONObject> allthedata = new ArrayList<>();
+
                 SessionQuestionsDO faq = new SessionQuestionsDO();
                 faq.setSessioncode(sessionCode);
 
@@ -109,6 +120,7 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
                 for (int i = 0;i<result.size();i++) {
                     String jsonFormOfItem = gson.toJson(result.get(i));
                     stringBuilder.append(jsonFormOfItem + "\n\n");
+<<<<<<< HEAD
 
                 }
                 Log.i("resultSize",Integer.toString(result.size()));
@@ -119,14 +131,25 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
                     JSONObject datainjson = new JSONObject(stringBuilder.toString());
                     Log.i("inside data",datainjson.toString());
                 }
+=======
 
-                catch (JSONException ex) {
-                    System.out.println(ex);
+                    try {
+                        allthedata.add(new JSONObject(jsonFormOfItem));
+                    }
+>>>>>>> Database
+
+                    catch (JSONException e) {
+                        System.out.println(e);
+                    }
                 }
+
+                JSONprocessor(allthedata);
+
 
             }
         }).start();
 
+<<<<<<< HEAD
         try{
             Log.i("outside final result", getFinalResult().toString());
             JSONObject data=new JSONObject(getFinalResult().toString());
@@ -139,6 +162,29 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
         }
 
         return null;
+=======
+    }
+
+    public void JSONprocessor(ArrayList<JSONObject> tobeprocessed) {
+
+        ArrayList<Question> allquestions = new ArrayList<>();
+
+        for (int i = 0;i<tobeprocessed.size();i++) {
+
+            JSONObject object = tobeprocessed.get(i);
+
+            try {
+                String question = object.getString("_question");
+            }
+
+            catch (JSONException ex) {
+
+            }
+
+        }
+
+
+>>>>>>> Database
     }
 
     @Override
