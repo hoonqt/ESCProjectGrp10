@@ -19,7 +19,7 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
 
     DynamoDBMapper dynamoDBMapper;
     private String finalresult;
-    JSONArray datainjson;
+    private ArrayList<JSONObject> datainjson;
 
     @Override
     public void addQuestion(String question, String sessionCode) {
@@ -100,6 +100,8 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
 
                 JSONprocessor(allthedata);
 
+                datainjson = allthedata;
+
 
             }
         }).start();
@@ -130,5 +132,10 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
     @Override
     public void findQuestionsById() {
 
+    }
+
+    public ArrayList<JSONObject> getdatainjson(final String sessionCode) {
+        getQuestionsList(sessionCode);
+        return datainjson;
     }
 }
