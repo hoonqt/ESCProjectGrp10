@@ -1,14 +1,14 @@
 package com.example.cindy.esc_50005.Database;
 
-<<<<<<< HEAD
+
 import android.util.Log;
 
 import com.amazonaws.mobile.client.AWSMobileClient;
-=======
->>>>>>> Database
+
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBQueryExpression;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.PaginatedList;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -24,7 +24,6 @@ import java.util.ArrayList;
 public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSource {
 
     DynamoDBMapper dynamoDBMapper;
-<<<<<<< HEAD
 //    private String finalresult;
 //    JSONObject datainjson=new JSONObject();
     private StringBuilder finalResult=new StringBuilder();
@@ -48,10 +47,10 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
                 .build();
 
     }
-=======
+
+
     private String finalresult;
     JSONArray datainjson;
->>>>>>> Database
 
     @Override
     public void addQuestion(String question, String sessionCode) {
