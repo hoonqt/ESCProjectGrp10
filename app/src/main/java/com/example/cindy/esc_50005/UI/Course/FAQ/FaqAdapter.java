@@ -32,7 +32,6 @@ public class FaqAdapter extends RecyclerView.Adapter<FaqAdapter.FaqViewHolder> {
 
     @Override
     public void onBindViewHolder(FaqViewHolder holder, int position) {
-        Log.i("position", Integer.toString(position));
         holder.bind(position);
     }
 
