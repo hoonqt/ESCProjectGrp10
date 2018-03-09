@@ -119,7 +119,6 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
                 for (int i = 0;i<result.size();i++) {
                     String jsonFormOfItem = gson.toJson(result.get(i));
                     stringBuilder.append(jsonFormOfItem + "\n\n");
-<<<<<<< HEAD
 
                 }
                 Log.i("resultSize",Integer.toString(result.size()));
@@ -129,17 +128,11 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
                 try {
                     JSONObject datainjson = new JSONObject(stringBuilder.toString());
                     Log.i("inside data",datainjson.toString());
+                    allthedata.add(datainjson);
                 }
-=======
 
-                    try {
-                        allthedata.add(new JSONObject(jsonFormOfItem));
-                    }
->>>>>>> Database
-
-                    catch (JSONException e) {
-                        System.out.println(e);
-                    }
+                catch (JSONException e) {
+                    System.out.println(e);
                 }
 
                 JSONprocessor(allthedata);
@@ -150,20 +143,17 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
             }
         }).start();
 
-<<<<<<< HEAD
         try{
             Log.i("outside final result", getFinalResult().toString());
             JSONObject data=new JSONObject(getFinalResult().toString());
             Log.i("outside data",data.toString());
-            return data;
         }
         catch(Exception ex)
         {
 
         }
 
-        return null;
-=======
+
     }
 
     public void JSONprocessor(ArrayList<JSONObject> tobeprocessed) {
@@ -185,7 +175,6 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
         }
 
 
->>>>>>> Database
     }
 
     @Override
