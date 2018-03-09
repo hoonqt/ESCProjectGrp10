@@ -120,20 +120,19 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
                     String jsonFormOfItem = gson.toJson(result.get(i));
                     stringBuilder.append(jsonFormOfItem + "\n\n");
 
+                    try {
+                        datainjson.add(new JSONObject(jsonFormOfItem));
+                    }
+
+                    catch (JSONException ex) {
+                        System.out.println(ex);
+                    }
+
+
                 }
                 Log.i("resultSize",Integer.toString(result.size()));
                 setFinalResult(stringBuilder.toString());
                 Log.i("inside final result",getFinalResult().toString());
-
-                try {
-                    JSONObject datainjson = new JSONObject(stringBuilder.toString());
-                    Log.i("inside data",datainjson.toString());
-                    allthedata.add(datainjson);
-                }
-
-                catch (JSONException e) {
-                    System.out.println(e);
-                }
 
                 JSONprocessor(allthedata);
 
