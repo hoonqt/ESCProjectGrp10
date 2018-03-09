@@ -1,7 +1,13 @@
 package com.example.cindy.esc_50005.Database;
 
+<<<<<<< HEAD
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
+||||||| merged common ancestors
+<<<<<<< HEAD
+=======
+
+>>>>>>> e49bdd0e53a22515ddf09ef70c1191d1acc51ffa
 import android.util.Log;
 
 import com.amazonaws.mobile.client.AWSMobileClient;
@@ -9,6 +15,7 @@ import com.amazonaws.mobile.client.AWSMobileClient;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBQueryExpression;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.PaginatedList;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -24,7 +31,12 @@ import java.util.ArrayList;
 public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSource {
 
     DynamoDBMapper dynamoDBMapper;
+<<<<<<< HEAD
 
+||||||| merged common ancestors
+<<<<<<< HEAD
+=======
+>>>>>>> e49bdd0e53a22515ddf09ef70c1191d1acc51ffa
 //    private String finalresult;
 //    JSONObject datainjson=new JSONObject();
     private StringBuilder finalResult=new StringBuilder();
@@ -48,7 +60,19 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
                 .build();
 
     }
+<<<<<<< HEAD
 
+||||||| merged common ancestors
+=======
+    private String finalresult;
+    JSONArray datainjson;
+>>>>>>> Database
+=======
+
+
+    private String finalresult;
+    JSONArray datainjson;
+>>>>>>> e49bdd0e53a22515ddf09ef70c1191d1acc51ffa
 
     @Override
     public void addQuestion(String question, String sessionCode) {
