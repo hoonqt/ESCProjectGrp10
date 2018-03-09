@@ -13,6 +13,6 @@ public interface SessionQuestionsDataSource {
     public void addQuestion(String question, String sessionCode);
     public void removeQuestion(String question, String sessionCode);
     public void updateQuestion(String oldquestion, String sessionCode, String newQuestion);
-    public void getQuestionsList(String sessionID);
+    public ArrayList<JSONObject> getQuestionsList(String sessionID);
     public void findQuestionsById();
 }

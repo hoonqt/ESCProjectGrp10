@@ -97,13 +97,13 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
     }
 
     @Override
-    public void getQuestionsList(final String sessionCode) {
+    public ArrayList<JSONObject> getQuestionsList(final String sessionCode) {
+
+        final ArrayList<JSONObject> allthedata = new ArrayList<>();
 
         new Thread(new Runnable() {
             @Override
             public void run() {
-
-                ArrayList<JSONObject> allthedata = new ArrayList<>();
 
                 SessionQuestionsDO faq = new SessionQuestionsDO();
                 faq.setSessioncode(sessionCode);
@@ -121,7 +121,7 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
                     stringBuilder.append(jsonFormOfItem + "\n\n");
 
                     try {
-                        datainjson.add(new JSONObject(jsonFormOfItem));
+                        allthedata.add(new JSONObject(jsonFormOfItem));
                     }
 
                     catch (JSONException ex) {
@@ -134,9 +134,6 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
                 setFinalResult(stringBuilder.toString());
                 Log.i("inside final result",getFinalResult().toString());
 
-                JSONprocessor(allthedata);
-
-                datainjson = allthedata;
 
 
             }
@@ -151,6 +148,8 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
         {
 
         }
+
+        return allthedata;
 
 
     }
@@ -180,9 +179,5 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
     public void findQuestionsById() {
 
     }
-
-    public ArrayList<JSONObject> getdatainjson(final String sessionCode) {
-        getQuestionsList(sessionCode);
-        return datainjson;
-    }
+    
 }
