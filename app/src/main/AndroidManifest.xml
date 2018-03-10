@@ -14,38 +14,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <!--<activity-->
-            <!--android:name=".UI.Course.FAQ.CourseActivity"-->
-            <!--android:label="@string/title_activity_session"-->
-            <!--android:theme="@style/AppTheme.NoActionBar">-->
-        <!--</activity>-->
         <activity
-<<<<<<< HEAD
-
-||||||| merged common ancestors
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-            android:name=".UI.Session.SessionActivity"
-=======
-<<<<<<< HEAD
->>>>>>> e49bdd0e53a22515ddf09ef70c1191d1acc51ffa
             android:name=".UI.Course.FAQ.CourseActivity"
-<<<<<<< HEAD
-||||||| merged common ancestors
-=======
-            android:name=".UI.Login.LoginActivity"
-=======
-=======
-            android:name=".UI.Login.LoginActivity"
->>>>>>> 607a8fec86a550894c56fbaf54f08eeca98d98ed
->>>>>>> e49bdd0e53a22515ddf09ef70c1191d1acc51ffa
             android:label="@string/title_activity_session"
-
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

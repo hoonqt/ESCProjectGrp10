@@ -1,13 +1,6 @@
 package com.example.cindy.esc_50005.Database;
 
-<<<<<<< HEAD
-import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
-||||||| merged common ancestors
-<<<<<<< HEAD
-=======
 
->>>>>>> e49bdd0e53a22515ddf09ef70c1191d1acc51ffa
 import android.util.Log;
 
 import com.amazonaws.mobile.client.AWSMobileClient;
@@ -23,6 +16,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by hoonqt on 1/3/18.
@@ -31,14 +25,7 @@ import java.util.ArrayList;
 public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSource {
 
     DynamoDBMapper dynamoDBMapper;
-<<<<<<< HEAD
-
-||||||| merged common ancestors
-<<<<<<< HEAD
-=======
->>>>>>> e49bdd0e53a22515ddf09ef70c1191d1acc51ffa
-//    private String finalresult;
-//    JSONObject datainjson=new JSONObject();
+    //    private String finalresult;
     private StringBuilder finalResult=new StringBuilder();
 
     private void setFinalResult(String append)
@@ -52,7 +39,6 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
 
     public SessionQuestionsRemoteDataSource() {
 
-
         AmazonDynamoDBClient dynamoDBClient = new AmazonDynamoDBClient(AWSMobileClient.getInstance().getCredentialsProvider());
         this.dynamoDBMapper = DynamoDBMapper.builder()
                 .dynamoDBClient(dynamoDBClient)
@@ -60,19 +46,10 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
                 .build();
 
     }
-<<<<<<< HEAD
-
-||||||| merged common ancestors
-=======
-    private String finalresult;
-    JSONArray datainjson;
->>>>>>> Database
-=======
 
 
     private String finalresult;
-    JSONArray datainjson;
->>>>>>> e49bdd0e53a22515ddf09ef70c1191d1acc51ffa
+    private ArrayList<JSONObject> datainjson;
 
     @Override
     public void addQuestion(String question, String sessionCode) {
@@ -121,11 +98,11 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
     @Override
     public void getQuestionsList(final String sessionCode) {
 
+        datainjson = new ArrayList<>();
+
         new Thread(new Runnable() {
             @Override
             public void run() {
-
-                ArrayList<JSONObject> allthedata = new ArrayList<>();
 
                 SessionQuestionsDO faq = new SessionQuestionsDO();
                 faq.setSessioncode(sessionCode);
@@ -143,19 +120,24 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
                     stringBuilder.append(jsonFormOfItem + "\n\n");
 
                     try {
-                        allthedata.add(new JSONObject(jsonFormOfItem));
+                        datainjson.add(new JSONObject(jsonFormOfItem));
                     }
 
-                    catch (JSONException e) {
-                        System.out.println(e);
+                    catch (JSONException ex) {
+                        System.out.println(ex);
                     }
+
+
                 }
-
-                JSONprocessor(allthedata);
+                Log.i("resultSize",Integer.toString(result.size()));
+                setFinalResult(stringBuilder.toString());
+                Log.i("inside final result",getFinalResult().toString());
 
 
             }
         }).start();
+
+
 
     }
 
@@ -183,5 +165,20 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
     @Override
     public void findQuestionsById() {
 
+    }
+
+    public ArrayList<JSONObject> getDatainjson(String sessionCode) {
+
+        getQuestionsList(sessionCode);
+
+        try {
+            TimeUnit.MILLISECONDS.sleep(5);
+        }
+
+        catch (InterruptedException ex) {
+
+        }
+
+        return datainjson;
     }
 }

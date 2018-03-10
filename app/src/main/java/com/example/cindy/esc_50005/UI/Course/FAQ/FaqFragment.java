@@ -19,6 +19,7 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -67,9 +68,8 @@ public class FaqFragment extends Fragment implements FaqContract.FaqContractView
         mFaqAdapter=new FaqAdapter(getContext(),faqJsonData);
         faqListRecycler.setAdapter(mFaqAdapter);
 
-        AWSMobileClient.getInstance().initialize(getContext()).execute();
         SessionQuestionsRemoteDataSource session= new SessionQuestionsRemoteDataSource();
-        session.addQuestion("Why is the sky blue?","111");
+        session.addQuestion("Why is the sky blue","111");
         Log.i("addedToDb","addedToDb");
         showNoFaq();
 
@@ -77,11 +77,12 @@ public class FaqFragment extends Fragment implements FaqContract.FaqContractView
 
     public void showNoFaq()
     {
-        AWSMobileClient.getInstance().initialize(getContext()).execute();
         SessionQuestionsRemoteDataSource session= new SessionQuestionsRemoteDataSource();
-        session.getQuestionsList("111");
-        JSONObject answers=session.getQuestionsList("111");
-        Log.i("questions",answers.toString());
+        ArrayList<JSONObject> answers = session.getDatainjson("111");
+        Log.i("Size of list",Integer.toString(answers.size()));
+        for (int i = 0;i<answers.size();i++) {
+            System.out.println(answers.get(i));
+        }
 
     }
     public void showLoadFaqError()
