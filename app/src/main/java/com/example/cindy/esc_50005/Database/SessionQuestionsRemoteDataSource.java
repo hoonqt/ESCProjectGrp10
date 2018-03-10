@@ -172,13 +172,13 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
         getQuestionsList(sessionCode);
 
         try {
-            TimeUnit.MILLISECONDS.sleep(50);
+            TimeUnit.SECONDS.sleep(2);
         }
 
         catch (InterruptedException ex) {
 
         }
-
+        
         return datainjson;
     }
 }
