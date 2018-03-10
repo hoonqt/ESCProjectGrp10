@@ -16,6 +16,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by hoonqt on 1/3/18.
@@ -25,7 +26,6 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
 
     DynamoDBMapper dynamoDBMapper;
 //    private String finalresult;
-//    JSONObject datainjson=new JSONObject();
     private StringBuilder finalResult=new StringBuilder();
 
     private void setFinalResult(String append)
@@ -38,7 +38,6 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
     }
 
     public SessionQuestionsRemoteDataSource() {
-
 
         AmazonDynamoDBClient dynamoDBClient = new AmazonDynamoDBClient(AWSMobileClient.getInstance().getCredentialsProvider());
         this.dynamoDBMapper = DynamoDBMapper.builder()
@@ -99,11 +98,11 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
     @Override
     public void getQuestionsList(final String sessionCode) {
 
+        datainjson = new ArrayList<>();
+
         new Thread(new Runnable() {
             @Override
             public void run() {
-
-                ArrayList<JSONObject> allthedata = new ArrayList<>();
 
                 SessionQuestionsDO faq = new SessionQuestionsDO();
                 faq.setSessioncode(sessionCode);
@@ -134,23 +133,10 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
                 setFinalResult(stringBuilder.toString());
                 Log.i("inside final result",getFinalResult().toString());
 
-                JSONprocessor(allthedata);
-
-                datainjson = allthedata;
-
 
             }
         }).start();
 
-        try{
-            Log.i("outside final result", getFinalResult().toString());
-            JSONObject data=new JSONObject(getFinalResult().toString());
-            Log.i("outside data",data.toString());
-        }
-        catch(Exception ex)
-        {
-
-        }
 
 
     }
@@ -181,8 +167,18 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
 
     }
 
-    public ArrayList<JSONObject> getdatainjson(final String sessionCode) {
+    public ArrayList<JSONObject> getDatainjson(String sessionCode) {
+
         getQuestionsList(sessionCode);
+
+        try {
+            TimeUnit.MILLISECONDS.sleep(5);
+        }
+
+        catch (InterruptedException ex) {
+
+        }
+
         return datainjson;
     }
 }
