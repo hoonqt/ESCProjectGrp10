@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import com.amazonaws.mobile.client.AWSMobileClient;
 import com.example.cindy.esc_50005.R;
 import com.example.cindy.esc_50005.UI.Session.SessionActivity;
 
@@ -24,6 +25,8 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.course_activity);
+
+        AWSMobileClient.getInstance().initialize(this).execute();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
