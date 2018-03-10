@@ -79,6 +79,9 @@ public class FaqFragment extends Fragment implements FaqContract.FaqContractView
     {
         SessionQuestionsRemoteDataSource session= new SessionQuestionsRemoteDataSource();
         ArrayList<JSONObject> answers = session.getDatainjson("111");
+
+
+
         Log.i("Size of list",Integer.toString(answers.size()));
         for (int i = 0;i<answers.size();i++) {
             System.out.println(answers.get(i));
