@@ -10,6 +10,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by hoonqt on 5/3/18.
@@ -58,20 +59,23 @@ public class questionCreator {
                 PaginatedList<SessionQuestionsDO> result = dynamoDBMapper.query(SessionQuestionsDO.class,queryExpression);
 
                 Gson gson = new Gson();
-                StringBuilder stringBuilder = new StringBuilder();
 
-                for (int i = 0;i<result.size();i++) {
-                    String jsonFormOfItem = gson.toJson(result.get(i));
-                    stringBuilder.append(jsonFormOfItem + "\n\n");
-                }
 
                 try {
-                    datainjson = new JSONObject(stringBuilder.toString());
+                    datainjson = new JSONObject(gson.toJson(result.get(0)));
+                    TimeUnit.SECONDS.sleep(2);
+
                 }
 
                 catch (JSONException ex) {
                     System.out.println(ex);
                 }
+
+                catch (InterruptedException ex) {
+                    System.out.println(ex);
+                }
+
+
 
             }
         }).start();
