@@ -1,5 +1,6 @@
 package com.example.cindy.esc_50005.Database.activityQuestion;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import okhttp3.OkHttpClient;
@@ -40,6 +41,14 @@ public class questionRetriver {
     }
 
     public void convertJSON() {
+
+        try {
+            String don = allQnsfromSession.getString("_question");
+        }
+
+        catch (JSONException ex) {
+
+        }
 
 
 
