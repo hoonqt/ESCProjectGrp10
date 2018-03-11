@@ -1,5 +1,6 @@
 package com.example.cindy.esc_50005.UI.Course.FAQ;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.support.annotation.NonNull;
@@ -12,11 +13,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.example.cindy.esc_50005.Database.Database.SessionQuestionsRemoteDataSource;
 
 import com.example.cindy.esc_50005.R;
+import com.example.cindy.esc_50005.UI.Session.SessionActivity;
+
 import java.util.ArrayList;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -29,12 +33,13 @@ public class FaqFragment extends Fragment implements FaqContract.View {
 
     protected LayoutManagerType mCurrentLayoutManagerType;
     protected RecyclerView.LayoutManager mLayoutManager;
-    private SessionQuestionsRemoteDataSource faqRepository= new SessionQuestionsRemoteDataSource();;
+    private SessionQuestionsRemoteDataSource faqRepository= new SessionQuestionsRemoteDataSource();
     private FaqContract.Presenter mPresenter = new FaqPresenter(faqRepository, this);
     private LinearLayout mFaqView;
     private RecyclerView faqListRecycler;
 
     private FaqAdapter mFaqAdapter;
+    Button clickToGoToSessions;
 
     ArrayList<FaqJsonData> FaqList;
 
@@ -70,6 +75,8 @@ public class FaqFragment extends Fragment implements FaqContract.View {
         mLayoutManager= new LinearLayoutManager(getActivity());
         mCurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
         faqListRecycler.setLayoutManager(new LinearLayoutManager(this.getActivity()));
+
+
 
         return view;
     }

@@ -44,6 +44,7 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
 
     @Override
     public void addQuestion(String question, String sessionCode) {
+        Log.i("question",question);
 
         final SessionQuestionsDO newQuestion = new SessionQuestionsDO();
 
@@ -120,7 +121,7 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
 
                 }
 
-                Log.i("stringBuilder",stringBuilder.toString());
+//                Log.i("stringBuilder",stringBuilder.toString());
 
                 setFinalResult(stringBuilder.toString());
 
@@ -166,7 +167,7 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
         catch (InterruptedException ex) {
 
         }
-        Log.i("dataInJson",dataInJson.toString());
+//        Log.i("dataInJson",dataInJson.toString());
         return dataInJson;
     }
 }
