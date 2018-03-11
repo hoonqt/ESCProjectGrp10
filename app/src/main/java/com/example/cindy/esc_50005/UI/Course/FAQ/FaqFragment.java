@@ -1,7 +1,6 @@
 package com.example.cindy.esc_50005.UI.Course.FAQ;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,8 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.amazonaws.mobile.client.AWSMobileClient;
-import com.example.cindy.esc_50005.Database.SessionQuestionsRemoteDataSource;
+import com.example.cindy.esc_50005.Database.Database.SessionQuestionsRemoteDataSource;
 import com.example.cindy.esc_50005.R;
 import com.google.gson.Gson;
 import org.json.JSONObject;
@@ -19,7 +17,6 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 

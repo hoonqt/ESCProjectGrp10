@@ -1,15 +1,13 @@
-package com.example.cindy.esc_50005.FAQ;
+package com.example.cindy.esc_50005.Database.FAQ;
 
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBQueryExpression;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.PaginatedList;
-import com.example.cindy.esc_50005.Database.SessionQuestionsDO;
+import com.example.cindy.esc_50005.Database.Database.SessionQuestionsDO;
 import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
 
 /**
  * Created by hoonqt on 2/3/18.

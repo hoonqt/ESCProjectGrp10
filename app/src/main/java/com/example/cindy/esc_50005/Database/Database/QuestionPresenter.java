@@ -1,13 +1,6 @@
-package com.example.cindy.esc_50005.Database;
+package com.example.cindy.esc_50005.Database.Database;
 
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
-import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBQueryExpression;
-import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.PaginatedList;
-import com.google.gson.Gson;
-
-import org.json.JSONObject;
-
-import java.util.ArrayList;
 
 /**
  * Created by hoonqt on 1/3/18.

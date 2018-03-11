@@ -1,4 +1,4 @@
-package com.example.cindy.esc_50005.Database;
+package com.example.cindy.esc_50005.Database.Database;
 
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBAttribute;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBHashKey;
