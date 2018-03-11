@@ -1,4 +1,4 @@
-package com.example.cindy.esc_50005.Database;
+package com.example.cindy.esc_50005.Database.Database;
 
 
 import android.util.Log;
@@ -11,7 +11,6 @@ import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.PaginatedList;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import com.google.gson.Gson;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 

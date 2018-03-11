@@ -3,15 +3,11 @@ package com.example.cindy.esc_50005.UI.Course.FAQ;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
-import com.example.cindy.esc_50005.Database.questionMethods;
 import com.example.cindy.esc_50005.R;
 
 /**
