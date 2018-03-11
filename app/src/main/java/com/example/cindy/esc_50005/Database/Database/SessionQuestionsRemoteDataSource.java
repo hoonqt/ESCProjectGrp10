@@ -1,6 +1,5 @@
 package com.example.cindy.esc_50005.Database.Database;
 
-
 import android.util.Log;
 
 import com.amazonaws.mobile.client.AWSMobileClient;
@@ -17,19 +16,14 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
-/**
- * Created by hoonqt on 1/3/18.
- */
-
 public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSource {
 
     DynamoDBMapper dynamoDBMapper;
-//    private String finalresult;
     private StringBuilder finalResult=new StringBuilder();
 
-    private void setFinalResult(String append)
+    private void setFinalResult(String resultsFromQuery)
     {
-        this.finalResult.append(append);
+        this.finalResult.append(resultsFromQuery);
     }
     private StringBuilder getFinalResult()
     {
@@ -46,12 +40,11 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
 
     }
 
-
-    private String finalresult;
-    private ArrayList<JSONObject> datainjson;
+    private ArrayList<JSONObject> dataInJson;
 
     @Override
     public void addQuestion(String question, String sessionCode) {
+        Log.i("question",question);
 
         final SessionQuestionsDO newQuestion = new SessionQuestionsDO();
 
@@ -97,17 +90,17 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
     @Override
     public void getQuestionsList(final String sessionCode) {
 
-        datainjson = new ArrayList<>();
+        dataInJson = new ArrayList<>();
 
         new Thread(new Runnable() {
             @Override
             public void run() {
 
-                SessionQuestionsDO faq = new SessionQuestionsDO();
-                faq.setSessioncode(sessionCode);
+                SessionQuestionsDO sessionSelected = new SessionQuestionsDO();
+                sessionSelected.setSessioncode(sessionCode);
 
                 DynamoDBQueryExpression queryExpression = new DynamoDBQueryExpression()
-                        .withHashKeyValues(faq);
+                        .withHashKeyValues(sessionSelected);
 
                 PaginatedList<SessionQuestionsDO> result = dynamoDBMapper.query(SessionQuestionsDO.class,queryExpression);
 
@@ -119,30 +112,27 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
                     stringBuilder.append(jsonFormOfItem + "\n\n");
 
                     try {
-                        datainjson.add(new JSONObject(jsonFormOfItem));
+                        dataInJson.add(new JSONObject(jsonFormOfItem));
                     }
 
                     catch (JSONException ex) {
                         System.out.println(ex);
                     }
 
-
                 }
-                Log.i("resultSize",Integer.toString(result.size()));
-                setFinalResult(stringBuilder.toString());
-                Log.i("inside final result",getFinalResult().toString());
 
+//                Log.i("stringBuilder",stringBuilder.toString());
+
+                setFinalResult(stringBuilder.toString());
 
             }
         }).start();
-
-
 
     }
 
     public void JSONprocessor(ArrayList<JSONObject> tobeprocessed) {
 
-        ArrayList<Question> allquestions = new ArrayList<>();
+        ArrayList<Question> allQuestions = new ArrayList<>();
 
         for (int i = 0;i<tobeprocessed.size();i++) {
 
@@ -166,7 +156,7 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
 
     }
 
-    public ArrayList<JSONObject> getDatainjson(String sessionCode) {
+    public ArrayList<JSONObject> getDataInJson(String sessionCode) {
 
         getQuestionsList(sessionCode);
 
@@ -177,7 +167,7 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
         catch (InterruptedException ex) {
 
         }
-        
-        return datainjson;
+//        Log.i("dataInJson",dataInJson.toString());
+        return dataInJson;
     }
 }

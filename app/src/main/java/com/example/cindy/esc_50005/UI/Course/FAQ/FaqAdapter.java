@@ -15,29 +15,38 @@ import com.example.cindy.esc_50005.R;
  */
 
 public class FaqAdapter extends RecyclerView.Adapter<FaqAdapter.FaqViewHolder> {
-//    DynamoDBMapper dynamoDBMapper;
-    private FaqFragment.FaqJsonData[] data;
+    private FaqPresenter.FaqJsonData[] dataInClass;
 
     private static int viewHolderCount = 0;
     Context parentContext;
 
-    FaqAdapter(Context context, FaqFragment.FaqJsonData[] data){
+    <T> FaqAdapter(Context context, T data){
         this.parentContext = context;
-        this.data=data;
+        final Class<FaqPresenter.FaqJsonData[]> faqJsonDataType = FaqPresenter.FaqJsonData[].class;
+        final FaqPresenter.FaqJsonData[] instance = convertInstanceOfObject(data, faqJsonDataType);
+        dataInClass=instance;
     }
 
-    @Override
+    public static <T> T convertInstanceOfObject(Object o, Class<T> clazz) {
+        try {
+            return clazz.cast(o);
+        } catch(ClassCastException e) {
+            return null;
+        }
+    }
+
+
     public void onBindViewHolder(FaqViewHolder holder, int position) {
         holder.bind(position);
     }
 
     //indicates how many list objects it has
-    @Override
+
     public int getItemCount() {
-        return data.length;
+        return dataInClass.length;
     }
 
-    @Override
+
     public FaqAdapter.FaqViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
 
@@ -72,8 +81,8 @@ public class FaqAdapter extends RecyclerView.Adapter<FaqAdapter.FaqViewHolder> {
 
         public void bind(int position) {
 
-            question.setText(data[position].question);
-            answer.setText(data[position].answer);
+            question.setText(dataInClass[position]._question);
+//            answer.setText(dataInClass[position]._answers);
         }
 
         @Override
@@ -81,22 +90,11 @@ public class FaqAdapter extends RecyclerView.Adapter<FaqAdapter.FaqViewHolder> {
             int clickedPosition = getAdapterPosition();
             AlertDialog.Builder builder = new AlertDialog.Builder(parentContext);
 
-            String question = data[clickedPosition].question;
+            String question = dataInClass[clickedPosition]._question;
             builder.setMessage("Question: " + question);
 
             AlertDialog alertDialog = builder.create();
-            //instantiates the object
             alertDialog.show();
-
-//            questionMethods questions=new questionMethods();
-//            questions.postQuestion("What is the difference between decorator and strategy pattern?", "1111");
-//
-//            DynamoDB dynamoDB = new DynamoDB(new AmazonDynamoDBClient(
-//                    new ProfileCredentialsProvider()));
-//            Table table = dynamoDB.getTable("ProductList");
-//            escproject-mobilehub-27166461-newfaq
-
-
         }
     }
 }

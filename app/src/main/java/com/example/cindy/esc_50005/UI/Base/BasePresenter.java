@@ -5,5 +5,7 @@ package com.example.cindy.esc_50005.UI.Base;
  */
 
 public interface BasePresenter {
+
     void start();
+
 }
