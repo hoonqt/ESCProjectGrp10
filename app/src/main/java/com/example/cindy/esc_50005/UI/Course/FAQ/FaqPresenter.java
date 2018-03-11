@@ -2,7 +2,7 @@ package com.example.cindy.esc_50005.UI.Course.FAQ;
 
 import android.support.annotation.NonNull;
 
-import com.example.cindy.esc_50005.Database.SessionQuestionsRemoteDataSource;
+import com.example.cindy.esc_50005.Database.Database.SessionQuestionsRemoteDataSource;
 import com.google.gson.Gson;
 
 import org.json.JSONObject;

@@ -1,4 +1,4 @@
-package com.example.cindy.esc_50005.FAQ;
+package com.example.cindy.esc_50005.Database.FAQ;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
