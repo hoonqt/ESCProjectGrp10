@@ -9,16 +9,16 @@ import com.example.cindy.esc_50005.UI.Base.BaseView;
 
 public interface QuestionsContract {
 
-    interface QuestionContractView extends BaseView{
-        void showQuestion();
-        void showAddQuestion();
+    interface View extends BaseView <Presenter>{
+        void showQuestions();
+        <T> void showAddedQuestion(T data);
         void showNoQuestions();
         void showLoadQuestionsError();
     }
 
-    interface QuestionContractPresenter extends BasePresenter{
+    interface Presenter extends BasePresenter{
         void loadQuestions();
-        void addNewQuestion();
+        void addNewQuestion(String question);
         void processEmptyQuestion();
         void upvoteQuestion();
     }
