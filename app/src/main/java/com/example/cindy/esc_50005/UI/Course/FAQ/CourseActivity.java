@@ -3,16 +3,31 @@ package com.example.cindy.esc_50005.UI.Course.FAQ;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.amazonaws.mobile.client.AWSMobileClient;
+import com.example.cindy.esc_50005.Database.activityQuestion.questionCreator;
 import com.example.cindy.esc_50005.R;
 import com.example.cindy.esc_50005.UI.Session.SessionActivity;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import okhttp3.WebSocket;
+import okhttp3.WebSocketListener;
 
 public class CourseActivity extends AppCompatActivity implements View.OnClickListener {
     private Button btn;
@@ -60,6 +75,10 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
 
             }
         });
+
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
 
     }

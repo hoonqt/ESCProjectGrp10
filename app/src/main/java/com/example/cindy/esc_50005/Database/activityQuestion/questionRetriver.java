@@ -36,7 +36,6 @@ public class questionRetriver {
     public void questionRetriver(String courseID, String sessionId) {
 
         questionCreator gatherer = new questionCreator();
-        allQnsfromSession = gatherer.getQuestions(courseID, sessionId);
 
     }
 
@@ -49,8 +48,6 @@ public class questionRetriver {
         catch (JSONException ex) {
 
         }
-
-
 
 
     }

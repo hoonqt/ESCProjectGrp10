@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.amazonaws.mobile.client.AWSMobileClient;
 import com.example.cindy.esc_50005.Database.Database.SessionQuestionsRemoteDataSource;
 
 import com.example.cindy.esc_50005.R;
@@ -94,15 +95,12 @@ public class FaqFragment extends Fragment implements FaqContract.View {
 
     public void showNoFaq()
     {
-<<<<<<< HEAD
         AWSMobileClient.getInstance().initialize(getContext()).execute();
         SessionQuestionsRemoteDataSource session= new SessionQuestionsRemoteDataSource();
         session.getQuestionsList("111");
 //        JSONObject answers=session.getQuestionsList("111");
 //        Log.i("questions",answers.toString());
-=======
 
->>>>>>> db7fd3ef14720d3f81d027dbfd7b5b166e4b2de8
 
     }
     public void showLoadFaqError()
