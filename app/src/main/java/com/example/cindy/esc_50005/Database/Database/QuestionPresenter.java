@@ -14,6 +14,10 @@ public class QuestionPresenter implements QuestionContract {
 
         SessionQuestionsRemoteDataSource questionLoader = new SessionQuestionsRemoteDataSource();
         questionLoader.getQuestionsList(sessionCode);
+<<<<<<< HEAD:app/src/main/java/com/example/cindy/esc_50005/Database/QuestionPresenter.java
+
+=======
+>>>>>>> db7fd3ef14720d3f81d027dbfd7b5b166e4b2de8:app/src/main/java/com/example/cindy/esc_50005/Database/Database/QuestionPresenter.java
     };
 
     public void addNewQuestion(String question, String sessionCode) {
