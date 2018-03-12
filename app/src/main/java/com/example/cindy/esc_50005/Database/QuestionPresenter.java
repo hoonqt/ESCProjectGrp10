@@ -20,7 +20,7 @@ public class QuestionPresenter implements QuestionContract {
     public void loadQuestions(final String sessionCode) {
 
         SessionQuestionsRemoteDataSource questionLoader = new SessionQuestionsRemoteDataSource();
-        JSONObject allthequestions = questionLoader.getQuestionsList(sessionCode);
+        questionLoader.getQuestionsList(sessionCode);
 
     };
 

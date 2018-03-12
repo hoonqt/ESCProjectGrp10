@@ -80,8 +80,8 @@ public class FaqFragment extends Fragment implements FaqContract.FaqContractView
         AWSMobileClient.getInstance().initialize(getContext()).execute();
         SessionQuestionsRemoteDataSource session= new SessionQuestionsRemoteDataSource();
         session.getQuestionsList("111");
-        JSONObject answers=session.getQuestionsList("111");
-        Log.i("questions",answers.toString());
+//        JSONObject answers=session.getQuestionsList("111");
+//        Log.i("questions",answers.toString());
 
     }
     public void showLoadFaqError()
