@@ -21,42 +21,39 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.Ques
 
     private static int viewHolderCount = 0;
     Context parentContext;
-    private QuestionsFragment.QuestionsJsonData[] data;
+    private QuestionsPresenter.QuestionsJsonData[] dataInClass;
 
-    //TODO 4.4 - Constructor
-    //constructor needs the context and the data
 
-    QuestionsAdapter(Context context, QuestionsFragment.QuestionsJsonData[] data){
+    <T>  QuestionsAdapter(Context context, T data){
         this.parentContext = context;
-        this.data=data;
+        final Class<QuestionsPresenter.QuestionsJsonData[]> questionsJsonDataType = QuestionsPresenter.QuestionsJsonData[].class;
+        final QuestionsPresenter.QuestionsJsonData[] instance = convertInstanceOfObject(data, questionsJsonDataType);
+        dataInClass=instance;
     }
 
-
-    //TODO 4.7 - onBindViewHolder
-    //references are created to the individual widgets by the instantiation
-    //joins data to the widgets
+    public static <T> T convertInstanceOfObject(Object o, Class<T> clazz) {
+        try {
+            return clazz.cast(o);
+        } catch(ClassCastException e) {
+            return null;
+        }
+    }
 
     @Override
     public void onBindViewHolder(com.example.cindy.esc_50005.UI.Session.QuestionsAdapter.QuestionsViewHolder holder, int position) {
-        //TODO invoke bind method in inner class
         holder.bind(position);
     }
 
-    //TODO 4.8 - getItemCount
-    //indicates how many list objects it has
+
     @Override
     public int getItemCount() {
-        //vary the value by putting 1,2,3
-        return data.length;
+        return dataInClass.length;
     }
 
-    //TODO 4.5 - onCreateViewHolder
-    //inflates the layout
-    //instantiates the view holder object
     @Override
     public QuestionsAdapter.QuestionsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        int layoutIDForListItem = R.layout.ques_recycler;
+        int layoutIDForListItem = R.layout.sessionquestions_postquestions_recycler;
         LayoutInflater inflater = LayoutInflater.from(parentContext);
         boolean shouldAttachToParentImmediately = false;
 
@@ -76,8 +73,6 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.Ques
 
         QuestionsViewHolder(View v){
 
-            //TODO 4.3 Invoke the superclass constructor
-            // and get references to the various widgets in the List Item Layout
             super(v);
 
             question = (TextView) v.findViewById(R.id.item_post_question);
@@ -86,11 +81,10 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.Ques
 
         }
 
-        //TODO 4.6 - write a bind method to attach content
-        //            to the respective widgets
         public void bind(int position ){
-            Log.i("data",data[position].question);
-            question.setText(data[position].question);
+            Log.i("data position",Integer.toString(dataInClass.length));
+            Log.i("question to be posted",dataInClass.toString());
+            question.setText(dataInClass[position]._question);
 
         }
 
@@ -100,7 +94,8 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.Ques
             int clickedPosition=getAdapterPosition();
             AlertDialog.Builder builder=new AlertDialog.Builder(parentContext);
 
-            String question=data[clickedPosition].question;
+            String question=dataInClass[clickedPosition]._question;
+            Log.i("question clicked","question clicked");
             builder.setMessage("Question: " + question);
 
             AlertDialog alertDialog=builder.create();

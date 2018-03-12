@@ -14,23 +14,21 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <!--<activity-->
-            <!--android:name=".UI.Course.FAQ.CourseActivity"-->
-            <!--android:label="@string/title_activity_session"-->
-            <!--android:theme="@style/AppTheme.NoActionBar">-->
-        <!--</activity>-->
         <activity
+<<<<<<< HEAD
             android:name=".UI.Session.SessionActivity"
+=======
+            android:name=".UI.Course.FAQ.CourseActivity"
+>>>>>>> db7fd3ef14720d3f81d027dbfd7b5b166e4b2de8
             android:label="@string/title_activity_session"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".UI.Login.LoginActivity"
+            android:name=".UI.Session.SessionActivity"
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>

@@ -3,16 +3,10 @@ package com.example.cindy.esc_50005.UI.Session;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-
-/**
- * Created by 1002215 on 20/2/18.
- */
+import android.util.Log;
 
 public class SessionPagerAdapter extends FragmentStatePagerAdapter {
 
-
-    //Implement the PagerAdapter which then populates the ViewPager widget with the chosen fragment.
-    //chosen Fragment means which fragment you swipe to
     int mNumOfTabs;
 
     public SessionPagerAdapter(FragmentManager fm, int mNumOfTabs) {
@@ -26,6 +20,7 @@ public class SessionPagerAdapter extends FragmentStatePagerAdapter {
         switch (position)
         {
             case 0:
+                Log.i("question fragment","selected question fragment");
                 return new QuestionsFragment();
             case 1:
                 return new ActivitiesFragment();
@@ -39,9 +34,5 @@ public class SessionPagerAdapter extends FragmentStatePagerAdapter {
         return mNumOfTabs;
     }
 
-    //TODO 2.1  - implement the method skeleton by using Alt+Enter
-    //TODO 2.2  - getItem takes in a position and returns a fragment
-    //            depending on the position chosen
-    //TODO 2.3  - getCount returns the number of tabs
 
 }

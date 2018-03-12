@@ -9,6 +9,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -19,11 +20,12 @@ public class SessionActivity extends AppCompatActivity implements View.OnClickLi
     private Button btn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.i("here","session activity");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_session);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        btn = findViewById(R.id.clickToGoToPostQuestion);
+        btn = findViewById(R.id.clickToGoToFAQ);
         btn.setOnClickListener(this);
 
         TabLayout tabLayout=(TabLayout) findViewById(R.id.tab_layout);

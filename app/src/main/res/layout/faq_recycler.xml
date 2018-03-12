@@ -26,7 +26,8 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/item_answer"
                     android:layout_below="@+id/item_question"
-                    android:layout_alignParentLeft="true" />
+                    android:layout_alignParentLeft="true"
+                    android:textSize="10sp"/>
 
             </RelativeLayout>
 

@@ -1,28 +1,31 @@
 package com.example.cindy.esc_50005.UI.Course.FAQ;
 
+import android.content.Intent;
 import android.os.Bundle;
+
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
 
-import com.amazonaws.mobile.client.AWSMobileClient;
-import com.example.cindy.esc_50005.Database.SessionQuestionsRemoteDataSource;
+import com.example.cindy.esc_50005.Database.Database.SessionQuestionsRemoteDataSource;
+
 import com.example.cindy.esc_50005.R;
-import com.google.gson.Gson;
-import org.json.JSONObject;
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import com.example.cindy.esc_50005.UI.Session.SessionActivity;
+
 import java.util.ArrayList;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-public class FaqFragment extends Fragment implements FaqContract.FaqContractView {
+public class FaqFragment extends Fragment implements FaqContract.View {
 
     private enum LayoutManagerType {
         LINEAR_LAYOUT_MANAGER
@@ -30,58 +33,76 @@ public class FaqFragment extends Fragment implements FaqContract.FaqContractView
 
     protected LayoutManagerType mCurrentLayoutManagerType;
     protected RecyclerView.LayoutManager mLayoutManager;
-    private FaqContract.FaqContractPresenter mPresenter;
-//    private  @NonNull
-//    FaqContract.FaqContractPresenter presenter;
+    private SessionQuestionsRemoteDataSource faqRepository= new SessionQuestionsRemoteDataSource();
+    private FaqContract.Presenter mPresenter = new FaqPresenter(faqRepository, this);
+    private LinearLayout mFaqView;
+    private RecyclerView faqListRecycler;
 
-    FaqJsonData[] faqJsonData;
     private FaqAdapter mFaqAdapter;
+    Button clickToGoToSessions;
 
     ArrayList<FaqJsonData> FaqList;
 
     public FaqFragment() {
         // Required empty public constructor
     }
-    @Override
-    public void setPresenter() {
-        Log.i("checkIfNull","checkIfNull");
 
-//        mPresenter = checkNotNull(presenter);
+    public static FaqFragment newInstance() {
+        return new FaqFragment();
+    }
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        mPresenter.start();
+    }
+
+    @Override
+    public void setPresenter(@NonNull FaqContract.Presenter presenter) {
+        mPresenter = checkNotNull(presenter);
+    }
+
+    @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        parseJson();
         View view=inflater.inflate(R.layout.faq_main, container, false);
-        showFaq(view);
-        return view;
-    }
-
-    public void showFaq(View view)
-    {
-        RecyclerView faqListRecycler=(RecyclerView) view.findViewById(R.id.recyclerViewFaqs);
+        faqListRecycler=(RecyclerView) view.findViewById(R.id.recyclerViewFaqs);
         mLayoutManager= new LinearLayoutManager(getActivity());
         mCurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
         faqListRecycler.setLayoutManager(new LinearLayoutManager(this.getActivity()));
-        mFaqAdapter=new FaqAdapter(getContext(),faqJsonData);
+
+
+
+        return view;
+    }
+
+    @Override
+    public <T> void showFaq(T data) {
+
+        mFaqAdapter=new FaqAdapter(getContext(),data);
         faqListRecycler.setAdapter(mFaqAdapter);
 
-        AWSMobileClient.getInstance().initialize(getContext()).execute();
-        SessionQuestionsRemoteDataSource session= new SessionQuestionsRemoteDataSource();
-        session.addQuestion("Why is the sky blue?","111");
-        Log.i("addedToDb","addedToDb");
-        showNoFaq();
+//        SessionQuestionsRemoteDataSource session= new SessionQuestionsRemoteDataSource();
+//        session.addQuestion("What is the difference between Observer and Strategy Design Pattern?","111");
 
     }
 
     public void showNoFaq()
     {
+<<<<<<< HEAD
         AWSMobileClient.getInstance().initialize(getContext()).execute();
         SessionQuestionsRemoteDataSource session= new SessionQuestionsRemoteDataSource();
         session.getQuestionsList("111");
 //        JSONObject answers=session.getQuestionsList("111");
 //        Log.i("questions",answers.toString());
+=======
+
+>>>>>>> db7fd3ef14720d3f81d027dbfd7b5b166e4b2de8
 
     }
     public void showLoadFaqError()
@@ -101,32 +122,6 @@ public class FaqFragment extends Fragment implements FaqContract.FaqContractView
         String answer;
         String upvotes;
 
-    }
-    private String readTxt(int resource) {
-
-        InputStream inputStream = getResources().openRawResource(resource);
-        String line;
-        String output="";
-
-        try{
-            BufferedReader reader = new BufferedReader( new InputStreamReader(inputStream,"UTF-8"));
-            while( (line = reader.readLine()) != null){
-                output = output + line;
-            }
-        }
-        catch(Exception ex)
-        {
-            ex.printStackTrace();
-        }
-        return output;
-
-    }
-
-    void parseJson() {
-
-        Gson gson = new Gson();
-        String myJsonData=readTxt(R.raw.faq);
-        faqJsonData=gson.fromJson(myJsonData, FaqJsonData[].class);
     }
 
 }

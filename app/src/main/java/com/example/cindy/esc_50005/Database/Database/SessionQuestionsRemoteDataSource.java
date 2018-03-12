@@ -1,29 +1,59 @@
-package com.example.cindy.esc_50005.Database;
+package com.example.cindy.esc_50005.Database.Database;
 
+<<<<<<< HEAD:app/src/main/java/com/example/cindy/esc_50005/Database/SessionQuestionsRemoteDataSource.java
+=======
+import android.util.Log;
+
+import com.amazonaws.mobile.client.AWSMobileClient;
+
+>>>>>>> db7fd3ef14720d3f81d027dbfd7b5b166e4b2de8:app/src/main/java/com/example/cindy/esc_50005/Database/Database/SessionQuestionsRemoteDataSource.java
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBQueryExpression;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.PaginatedList;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import com.google.gson.Gson;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-
-/**
- * Created by hoonqt on 1/3/18.
- */
+import java.util.concurrent.TimeUnit;
 
 public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSource {
 
     DynamoDBMapper dynamoDBMapper;
+<<<<<<< HEAD:app/src/main/java/com/example/cindy/esc_50005/Database/SessionQuestionsRemoteDataSource.java
 
     private String finalresult;
     JSONArray datainjson;
+=======
+    private StringBuilder finalResult=new StringBuilder();
+
+    private void setFinalResult(String resultsFromQuery)
+    {
+        this.finalResult.append(resultsFromQuery);
+    }
+    private StringBuilder getFinalResult()
+    {
+        return this.finalResult;
+    }
+
+    public SessionQuestionsRemoteDataSource() {
+
+        AmazonDynamoDBClient dynamoDBClient = new AmazonDynamoDBClient(AWSMobileClient.getInstance().getCredentialsProvider());
+        this.dynamoDBMapper = DynamoDBMapper.builder()
+                .dynamoDBClient(dynamoDBClient)
+                .awsConfiguration(AWSMobileClient.getInstance().getConfiguration())
+                .build();
+
+    }
+
+    private ArrayList<JSONObject> dataInJson;
+>>>>>>> db7fd3ef14720d3f81d027dbfd7b5b166e4b2de8:app/src/main/java/com/example/cindy/esc_50005/Database/Database/SessionQuestionsRemoteDataSource.java
 
     @Override
     public void addQuestion(String question, String sessionCode) {
+        Log.i("question",question);
 
         final SessionQuestionsDO newQuestion = new SessionQuestionsDO();
 
@@ -69,17 +99,17 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
     @Override
     public void getQuestionsList(final String sessionCode) {
 
+        dataInJson = new ArrayList<>();
+
         new Thread(new Runnable() {
             @Override
             public void run() {
 
-                ArrayList<JSONObject> allthedata = new ArrayList<>();
-
-                SessionQuestionsDO faq = new SessionQuestionsDO();
-                faq.setSessioncode(sessionCode);
+                SessionQuestionsDO sessionSelected = new SessionQuestionsDO();
+                sessionSelected.setSessioncode(sessionCode);
 
                 DynamoDBQueryExpression queryExpression = new DynamoDBQueryExpression()
-                        .withHashKeyValues(faq);
+                        .withHashKeyValues(sessionSelected);
 
                 PaginatedList<SessionQuestionsDO> result = dynamoDBMapper.query(SessionQuestionsDO.class,queryExpression);
 
@@ -91,16 +121,18 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
                     stringBuilder.append(jsonFormOfItem + "\n\n");
 
                     try {
-                        allthedata.add(new JSONObject(jsonFormOfItem));
+                        dataInJson.add(new JSONObject(jsonFormOfItem));
                     }
 
-                    catch (JSONException e) {
-                        System.out.println(e);
+                    catch (JSONException ex) {
+                        System.out.println(ex);
                     }
+
                 }
 
-                JSONprocessor(allthedata);
+//                Log.i("stringBuilder",stringBuilder.toString());
 
+                setFinalResult(stringBuilder.toString());
 
             }
         }).start();
@@ -109,7 +141,7 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
 
     public void JSONprocessor(ArrayList<JSONObject> tobeprocessed) {
 
-        ArrayList<Question> allquestions = new ArrayList<>();
+        ArrayList<Question> allQuestions = new ArrayList<>();
 
         for (int i = 0;i<tobeprocessed.size();i++) {
 
@@ -125,10 +157,29 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
 
         }
 
+<<<<<<< HEAD:app/src/main/java/com/example/cindy/esc_50005/Database/SessionQuestionsRemoteDataSource.java
+=======
+
+>>>>>>> db7fd3ef14720d3f81d027dbfd7b5b166e4b2de8:app/src/main/java/com/example/cindy/esc_50005/Database/Database/SessionQuestionsRemoteDataSource.java
     }
 
     @Override
     public void findQuestionsById() {
 
+    }
+
+    public ArrayList<JSONObject> getDataInJson(String sessionCode) {
+
+        getQuestionsList(sessionCode);
+
+        try {
+            TimeUnit.SECONDS.sleep(2);
+        }
+
+        catch (InterruptedException ex) {
+
+        }
+//        Log.i("dataInJson",dataInJson.toString());
+        return dataInJson;
     }
 }
