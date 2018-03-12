@@ -1,12 +1,9 @@
 package com.example.cindy.esc_50005.Database.Database;
 
-<<<<<<< HEAD:app/src/main/java/com/example/cindy/esc_50005/Database/SessionQuestionsRemoteDataSource.java
-=======
 import android.util.Log;
 
 import com.amazonaws.mobile.client.AWSMobileClient;
 
->>>>>>> db7fd3ef14720d3f81d027dbfd7b5b166e4b2de8:app/src/main/java/com/example/cindy/esc_50005/Database/Database/SessionQuestionsRemoteDataSource.java
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBQueryExpression;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.PaginatedList;
@@ -22,11 +19,6 @@ import java.util.concurrent.TimeUnit;
 public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSource {
 
     DynamoDBMapper dynamoDBMapper;
-<<<<<<< HEAD:app/src/main/java/com/example/cindy/esc_50005/Database/SessionQuestionsRemoteDataSource.java
-
-    private String finalresult;
-    JSONArray datainjson;
-=======
     private StringBuilder finalResult=new StringBuilder();
 
     private void setFinalResult(String resultsFromQuery)
@@ -49,7 +41,6 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
     }
 
     private ArrayList<JSONObject> dataInJson;
->>>>>>> db7fd3ef14720d3f81d027dbfd7b5b166e4b2de8:app/src/main/java/com/example/cindy/esc_50005/Database/Database/SessionQuestionsRemoteDataSource.java
 
     @Override
     public void addQuestion(String question, String sessionCode) {
@@ -157,10 +148,6 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
 
         }
 
-<<<<<<< HEAD:app/src/main/java/com/example/cindy/esc_50005/Database/SessionQuestionsRemoteDataSource.java
-=======
-
->>>>>>> db7fd3ef14720d3f81d027dbfd7b5b166e4b2de8:app/src/main/java/com/example/cindy/esc_50005/Database/Database/SessionQuestionsRemoteDataSource.java
     }
 
     @Override

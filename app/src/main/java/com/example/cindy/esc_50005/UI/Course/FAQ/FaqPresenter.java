@@ -1,6 +1,7 @@
 package com.example.cindy.esc_50005.UI.Course.FAQ;
 
 import android.support.annotation.NonNull;
+import android.widget.EditText;
 
 import com.example.cindy.esc_50005.Database.Database.SessionQuestionsRemoteDataSource;
 import com.google.gson.Gson;
@@ -42,6 +43,7 @@ public class FaqPresenter implements FaqContract.Presenter {
     }
 
     public void loadFaq(){
+
 
         ArrayList<JSONObject> answers = mFaqRepository.getDataInJson("111");
         Gson gson = new Gson();

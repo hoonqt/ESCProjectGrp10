@@ -15,11 +15,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-<<<<<<< HEAD
-            android:name=".UI.Session.SessionActivity"
-=======
             android:name=".UI.Course.FAQ.CourseActivity"
->>>>>>> db7fd3ef14720d3f81d027dbfd7b5b166e4b2de8
             android:label="@string/title_activity_session"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
