@@ -132,27 +132,6 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
 
     }
 
-    public void JSONprocessor(ArrayList<JSONObject> tobeprocessed) {
-
-        ArrayList<Question> allQuestions = new ArrayList<>();
-
-        for (int i = 0;i<tobeprocessed.size();i++) {
-
-            JSONObject object = tobeprocessed.get(i);
-
-            try {
-                String question = object.getString("_question");
-            }
-
-            catch (JSONException ex) {
-
-            }
-
-        }
-
-
-    }
-
     @Override
     public void findQuestionsById() {
 
