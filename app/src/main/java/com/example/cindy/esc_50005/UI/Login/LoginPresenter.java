@@ -38,6 +38,7 @@ public class LoginPresenter implements LoginContract.Presenter {
         Log.i("here to check","here to check");
         for(UsersInformationDO user: userInformationJsonData)
         {
+            Log.i("Password",user.getPassword());
             if(user.getPassword().equals(password) && user.getUsername().equals(username) && user.getUserType().equals(userType))
             {
                 Log.i("yay",user.getUsername());
