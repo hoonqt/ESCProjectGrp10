@@ -1,6 +1,5 @@
 package com.example.cindy.esc_50005.UI.Course.FAQ;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import android.support.annotation.NonNull;
@@ -16,7 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
-import com.amazonaws.mobile.client.AWSMobileClient;
+
 import com.example.cindy.esc_50005.Database.Database.SessionQuestionsRemoteDataSource;
 
 import com.example.cindy.esc_50005.R;
