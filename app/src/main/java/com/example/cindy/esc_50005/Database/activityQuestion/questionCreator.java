@@ -65,20 +65,11 @@ public class questionCreator {
                 DynamoDBQueryExpression queryExpression = new DynamoDBQueryExpression()
                         .withHashKeyValues(faq);
 
+                long startTime = System.currentTimeMillis();
+
                 PaginatedList<ActivityQuestionsDO> result = dynamoDBMapper.query(ActivityQuestionsDO.class,queryExpression);
 
                 Gson gson = new Gson();
-
-
-                try {
-                    TimeUnit.SECONDS.sleep(2);
-
-                }
-
-
-                catch (InterruptedException ex) {
-                    System.out.println(ex);
-                }
 
                 try {
                     datainjson = new JSONObject(gson.toJson(result.get(0)));
@@ -88,7 +79,9 @@ public class questionCreator {
                     System.out.println(ex);
                 }
 
+                long endTime = System.currentTimeMillis();
 
+                System.out.println(endTime-startTime);
 
             }
         }).start();
@@ -100,7 +93,7 @@ public class questionCreator {
         getQuestions(courseID,sessionNO);
 
         try {
-            TimeUnit.MILLISECONDS.sleep(10);
+            TimeUnit.MILLISECONDS.sleep(4000);
         }
 
         catch (InterruptedException ex) {

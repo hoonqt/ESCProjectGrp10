@@ -1,6 +1,7 @@
 package com.example.cindy.esc_50005.UI.Course.FAQ;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
@@ -31,6 +32,7 @@ import okhttp3.WebSocketListener;
 
 public class CourseActivity extends AppCompatActivity implements View.OnClickListener {
     private Button btn;
+    private OkHttpClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +82,9 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
+        GetQuestionTask task = new GetQuestionTask();
+        task.execute();
+
 
     }
 
@@ -89,6 +94,81 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
         Intent intent = new Intent(CourseActivity.this, SessionActivity.class);
         startActivity(intent);
         finish();
+
+    }
+
+    public class GetQuestionTask extends AsyncTask<Void, Void,String> {
+
+        String questiontext = "";
+
+        @Override
+        protected String doInBackground(Void... voids) {
+
+            client = new OkHttpClient();
+            Request request = new Request.Builder().url("ws://10.0.2.2:8083").build();
+            EchoWebSocketListener listener = new EchoWebSocketListener();
+            WebSocket ws = client.newWebSocket(request, listener);
+            client.dispatcher().executorService().shutdown();
+
+            while (questiontext.isEmpty()) {
+
+            }
+
+            return questiontext;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+
+            Bundle bundle = new Bundle();
+            String myMessage = s;
+            bundle.putString("message", myMessage );
+
+            QuizFragment fragment = new QuizFragment();
+            fragment.setArguments(bundle);
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.pager, fragment);
+            transaction.commit();
+
+            super.onPostExecute(s);
+        }
+
+
+        private final class EchoWebSocketListener extends WebSocketListener {
+            private static final int NORMAL_CLOSURE_STATUS = 1000;
+            @Override
+            public void onOpen(WebSocket webSocket, Response response) {
+
+                webSocket.send("donald");
+
+            }
+            @Override
+            public void onMessage(WebSocket webSocket, String text) {
+                Log.i("Received",text);
+                questionRetriver(text.substring(0,2),text.substring(2));
+            }
+
+
+        }
+
+        public String questionRetriver(String courseID, String sessionId) {
+
+            questionCreator gatherer = new questionCreator();
+            JSONObject question = gatherer.getDatainjson("s1","q1");
+
+            try {
+                questiontext = question.getString("_question");
+            }
+
+            catch (JSONException ex) {
+
+            }
+
+            Log.i("Something",questiontext);
+
+            return questiontext;
+        }
+
 
     }
 }

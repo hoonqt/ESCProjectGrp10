@@ -3,6 +3,7 @@ package com.example.cindy.esc_50005.UI.Course.FAQ;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,9 @@ public class QuizFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_quiz, container, false);
         textbox = view.findViewById(R.id.quizQuestionBox);
+
+        String question = getArguments().getString("message");
+
 
         // Inflate the layout for this fragment
         return view;

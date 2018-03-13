@@ -1,6 +1,7 @@
 package com.example.cindy.esc_50005.UI.Course.FAQ;
 
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -30,61 +31,7 @@ public class SessionsFragment extends Fragment {
 
     //QT stuff
     private OkHttpClient client;
-    JSONObject allQnsfromSession;
     TextView thetext;
-
-
-    private final class EchoWebSocketListener extends WebSocketListener {
-        private static final int NORMAL_CLOSURE_STATUS = 1000;
-        @Override
-        public void onOpen(WebSocket webSocket, Response response) {
-
-            webSocket.send("donald");
-
-        }
-        @Override
-        public void onMessage(WebSocket webSocket, String text) {
-            questionRetriver(text.substring(0,2),text.substring(2));
-        }
-
-    }
-
-    public void questionRetriver(String courseID, String sessionId) {
-
-        questionCreator gatherer = new questionCreator();
-        allQnsfromSession = gatherer.getDatainjson("s1","q1");
-
-        String output = convertJSON();
-
-        thetext.setText(sessionId);
-    }
-
-    public String convertJSON() {
-
-        String don = "";
-
-        try {
-            don = allQnsfromSession.getString("_question");
-        }
-
-        catch (JSONException ex) {
-
-        }
-
-        return don;
-
-
-    }
-
-    private void start() {
-        client = new OkHttpClient();
-        Request request = new Request.Builder().url("ws://10.0.2.2:8083").build();
-        EchoWebSocketListener listener = new EchoWebSocketListener();
-        WebSocket ws = client.newWebSocket(request, listener);
-        client.dispatcher().executorService().shutdown();
-    }
-
-    //QT stuff
 
 
     public SessionsFragment() {
@@ -98,12 +45,6 @@ public class SessionsFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.sessions, container, false);
 
-        thetext = view.findViewById(R.id.newquizbox);
-        start();
-
-
-
-
 
         // Inflate the layout for this fragment
 //        AWSMobileClient.getInstance().initialize(getContext()).execute();
@@ -112,5 +53,6 @@ public class SessionsFragment extends Fragment {
 //        Log.i("addedToDb","addedToDb");
         return view;
     }
+
 
 }
