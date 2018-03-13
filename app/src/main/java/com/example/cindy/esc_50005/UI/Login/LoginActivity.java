@@ -31,6 +31,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.amazonaws.mobile.client.AWSMobileClient;
 import com.example.cindy.esc_50005.MainActivity;
 import com.example.cindy.esc_50005.R;
 
@@ -44,10 +45,12 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        AWSMobileClient.getInstance().initialize(this).execute();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity);
         Fragment fragment = new LoginFragment();
         getSupportFragmentManager().beginTransaction();
+
     }
     public Fragment getFragment()
     {
