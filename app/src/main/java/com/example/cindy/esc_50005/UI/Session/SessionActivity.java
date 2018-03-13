@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.amazonaws.mobile.client.AWSMobileClient;
 import com.example.cindy.esc_50005.R;
 import com.example.cindy.esc_50005.UI.Course.FAQ.CourseActivity;
 
@@ -20,6 +21,7 @@ public class SessionActivity extends AppCompatActivity implements View.OnClickLi
     private Button btn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        AWSMobileClient.getInstance().initialize(this).execute();
         Log.i("here","session activity");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_session);

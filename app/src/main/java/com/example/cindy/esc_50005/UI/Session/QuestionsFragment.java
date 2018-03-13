@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
+import com.amazonaws.mobile.client.AWSMobileClient;
 import com.example.cindy.esc_50005.Database.Database.SessionQuestionsDO;
 import com.example.cindy.esc_50005.Database.FAQ.Faq;
 import com.example.cindy.esc_50005.R;
