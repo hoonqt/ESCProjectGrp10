@@ -20,6 +20,7 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     public LoginPresenter(@NonNull LoginContract.View contractView) {
         Log.i("login presenter", "login presenter");
+
         mLoginRepository=new UsersInformationRemoteDataSource();
         mLoginView = checkNotNull(contractView, "loginView cannot be null!");
         mLoginView.setPresenter(this);
