@@ -31,6 +31,12 @@ public class QuestionsFragment extends android.support.v4.app.Fragment implement
 
 
 
+    private EditText editText;
+    private Button btn;
+    private JSONArray array = new JSONArray();
+    private RecyclerView questionListRecycler;
+    QuestionsJsonData[] questionsJsonData;
+
     private QuestionsFragment.LayoutManagerType mCurrentLayoutManagerType;
     private RecyclerView.LayoutManager mLayoutManager;
     private SessionQuestionsRemoteDataSource sessionQuestionsRepository= new SessionQuestionsRemoteDataSource();
@@ -64,7 +70,7 @@ public class QuestionsFragment extends android.support.v4.app.Fragment implement
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-
+            View view=inflater.inflate(R.layout.sessionquestions_postquestions_main, container, false);
             btn = view.findViewById(R.id.add_button);
             editText = (EditText) view.findViewById(R.id.question_input);
             btn.setOnClickListener(this);

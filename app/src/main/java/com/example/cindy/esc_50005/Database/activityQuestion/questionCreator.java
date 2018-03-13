@@ -1,7 +1,5 @@
 package com.example.cindy.esc_50005.Database.activityQuestion;
 
-import android.util.Log;
-
 import com.amazonaws.mobile.client.AWSMobileClient;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBQueryExpression;
@@ -14,10 +12,6 @@ import org.json.JSONObject;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-
-/**
- * Created by hoonqt on 5/3/18.
- */
 
 public class questionCreator {
 
