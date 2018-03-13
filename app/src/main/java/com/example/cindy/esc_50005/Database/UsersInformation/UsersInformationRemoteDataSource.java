@@ -55,16 +55,17 @@ public class UsersInformationRemoteDataSource implements UsersInformationDataSou
             @Override
             public void run() {
 
-                UsersInformation userSelected = new UsersInformation();
+                UsersInformationDO userSelected = new UsersInformationDO();
                 userSelected.setUsername(username);
 
                 DynamoDBQueryExpression queryExpression = new DynamoDBQueryExpression()
                         .withHashKeyValues(userSelected);
 
-                PaginatedList<UsersInformation> result = dynamoDBMapper.query(UsersInformation.class, queryExpression);
+                PaginatedList<UsersInformationDO> result = dynamoDBMapper.query(UsersInformationDO.class, queryExpression);
 
-                for (UsersInformation userInformation : result) {
-                    usersArrayList.add(userInformation);
+                for (UsersInformationDO userInformation : result) {
+
+                    //You gonna have to change the way you retrive stuff here.
                 }
 
 
