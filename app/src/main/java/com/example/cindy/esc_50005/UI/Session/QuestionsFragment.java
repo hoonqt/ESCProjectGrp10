@@ -29,12 +29,6 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 public class QuestionsFragment extends android.support.v4.app.Fragment implements QuestionsContract.View, View.OnClickListener {
 
-    private EditText editText;
-    private Button btn;
-    private JSONArray array = new JSONArray();
-    private RecyclerView questionListRecycler;
-    QuestionsJsonData[] questionsJsonData;
-    SessionQuestionsRemoteDataSource session = new SessionQuestionsRemoteDataSource(); //not sure if this is right, need to check again.
 
 
     private QuestionsFragment.LayoutManagerType mCurrentLayoutManagerType;
@@ -70,11 +64,6 @@ public class QuestionsFragment extends android.support.v4.app.Fragment implement
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-
-            View view=inflater.inflate(R.layout.post_question_main, container, false);
-            parseJson();
-
-            view=inflater.inflate(R.layout.sessionquestions_postquestions_main, container, false);
 
             btn = view.findViewById(R.id.add_button);
             editText = (EditText) view.findViewById(R.id.question_input);
@@ -137,47 +126,6 @@ public class QuestionsFragment extends android.support.v4.app.Fragment implement
             String question;
             String upvotes;
 
-        }
-
-
-        void parseJson() {
-            // might not need this part if we going to use DB
-            try {
-                Gson gson = new Gson();
-                StringBuilder string = new StringBuilder();
-                string.append("[");
-                //read each object of array with Json library
-                for (int i = 0; i < array.length(); i++) {
-
-                    //get the object
-                    JSONObject jsonObject = array.getJSONObject(i);
-
-                    //get string of object from Json library to convert it to real object with Gson library
-                    string.append(jsonObject.toString());
-                    if (i != array.length() - 1) {
-                        string.append(",");
-                    }
-                }
-
-
-                string.append("]");
-                questionsJsonData=gson.fromJson(string.toString(), QuestionsJsonData[].class);
-                // Trying to use create a new session class to extract questions form there
-//                SessionQuestionsRemoteDataSource a = new SessionQuestionsRemoteDataSource();
-//                questionsJsonData=gson.fromJson(session.getQuestionsList("123"), QuestionsJsonData[].class);
-                mQuestionsAdapter=new QuestionsAdapter(getContext(),questionsJsonData);
-                questionListRecycler.setAdapter(mQuestionsAdapter);
-                AlertDialog.Builder builder=new AlertDialog.Builder(getContext());
-
-                builder.setMessage("Question has been successfully posted! " );
-
-                AlertDialog alertDialog=builder.create();
-                //instantiates the object
-                alertDialog.show();
-
-            }catch(Exception e){
-                e.printStackTrace();
-            }
         }
 
 }

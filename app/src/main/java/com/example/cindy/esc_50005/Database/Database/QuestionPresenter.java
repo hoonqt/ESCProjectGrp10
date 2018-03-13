@@ -14,7 +14,6 @@ public class QuestionPresenter implements QuestionContract {
 
         SessionQuestionsRemoteDataSource questionLoader = new SessionQuestionsRemoteDataSource();
         questionLoader.getQuestionsList(sessionCode);
-
     };
 
     public void addNewQuestion(String question, String sessionCode) {

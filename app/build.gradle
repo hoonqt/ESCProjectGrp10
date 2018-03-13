@@ -33,13 +33,10 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
 
 
+
     implementation 'com.amazonaws:aws-android-sdk-ddb-mapper:2.6.+'
     implementation 'com.google.android.gms:play-services-auth:11.6.0'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
-
-    implementation('com.amazonaws:aws-android-sdk-mobile-client:2.6.7@aar') { transitive = true; }
-
-    implementation 'com.google.guava:guava:23.3-android'
     implementation 'com.squareup.okhttp3:okhttp:3.6.0'
 
 }

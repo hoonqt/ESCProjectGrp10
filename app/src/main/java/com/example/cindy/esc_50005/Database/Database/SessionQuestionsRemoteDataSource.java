@@ -20,8 +20,6 @@ import java.util.concurrent.TimeUnit;
 public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSource {
 
     DynamoDBMapper dynamoDBMapper;
-
-    private String finalresult;
     private StringBuilder finalResult=new StringBuilder();
 
     private void setFinalResult(String resultsFromQuery)
