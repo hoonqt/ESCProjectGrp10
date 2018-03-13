@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.amazonaws.mobile.client.AWSMobileClient;
 import com.example.cindy.esc_50005.Database.Database.SessionQuestionsRemoteDataSource;
 
 import com.example.cindy.esc_50005.R;
@@ -94,6 +95,7 @@ public class FaqFragment extends Fragment implements FaqContract.View {
 
     public void showNoFaq()
     {
+
 
     }
     public void showLoadFaqError()

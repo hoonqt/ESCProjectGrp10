@@ -3,6 +3,7 @@ package com.example.cindy.esc_50005.UI.Session;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -14,8 +15,10 @@ import android.widget.EditText;
 
 import com.example.cindy.esc_50005.Database.Database.SessionQuestionsRemoteDataSource;
 import com.example.cindy.esc_50005.R;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -27,11 +30,6 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class QuestionsFragment extends android.support.v4.app.Fragment implements QuestionsContract.View, View.OnClickListener {
 
 
-    private EditText editText;
-    private Button btn;
-    private JSONArray array = new JSONArray();
-    private RecyclerView questionListRecycler;
-    QuestionsJsonData[] questionsJsonData;
 
     private QuestionsFragment.LayoutManagerType mCurrentLayoutManagerType;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -66,7 +64,7 @@ public class QuestionsFragment extends android.support.v4.app.Fragment implement
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View view=inflater.inflate(R.layout.sessionquestions_postquestions_main, container, false);
+
             btn = view.findViewById(R.id.add_button);
             editText = (EditText) view.findViewById(R.id.question_input);
             btn.setOnClickListener(this);
@@ -129,4 +127,5 @@ public class QuestionsFragment extends android.support.v4.app.Fragment implement
             String upvotes;
 
         }
+
 }

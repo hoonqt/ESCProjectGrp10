@@ -1,9 +1,12 @@
 package com.example.cindy.esc_50005.Database.activityQuestion;
 
+import android.util.Log;
+
+import com.amazonaws.mobile.client.AWSMobileClient;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBQueryExpression;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.PaginatedList;
-import com.example.cindy.esc_50005.Database.Database.SessionQuestionsDO;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import com.google.gson.Gson;
 
 import org.json.JSONException;
@@ -22,6 +25,13 @@ public class questionCreator {
     JSONObject datainjson;
 
     public questionCreator() {
+
+        AmazonDynamoDBClient dynamoDBClient = new AmazonDynamoDBClient(AWSMobileClient.getInstance().getCredentialsProvider());
+        this.dynamoDBMapper = DynamoDBMapper.builder()
+                .dynamoDBClient(dynamoDBClient)
+                .awsConfiguration(AWSMobileClient.getInstance().getConfiguration())
+                .build();
+
 
     }
 
@@ -44,34 +54,37 @@ public class questionCreator {
 
     }
 
-    public JSONObject getQuestions(final String courseID, final String sessionID) {
+    public void getQuestions(final String courseID, final String sessionNO) {
 
         new Thread(new Runnable() {
             @Override
             public void run() {
-                SessionQuestionsDO faq = new SessionQuestionsDO();
-                faq.setSessioncode(courseID);
-                faq.setSessioncode(sessionID);
+                ActivityQuestionsDO faq = new ActivityQuestionsDO();
+                faq.setCourseID(courseID);
 
                 DynamoDBQueryExpression queryExpression = new DynamoDBQueryExpression()
                         .withHashKeyValues(faq);
 
-                PaginatedList<SessionQuestionsDO> result = dynamoDBMapper.query(SessionQuestionsDO.class,queryExpression);
+                PaginatedList<ActivityQuestionsDO> result = dynamoDBMapper.query(ActivityQuestionsDO.class,queryExpression);
 
                 Gson gson = new Gson();
 
 
                 try {
-                    datainjson = new JSONObject(gson.toJson(result.get(0)));
                     TimeUnit.SECONDS.sleep(2);
 
                 }
 
-                catch (JSONException ex) {
+
+                catch (InterruptedException ex) {
                     System.out.println(ex);
                 }
 
-                catch (InterruptedException ex) {
+                try {
+                    datainjson = new JSONObject(gson.toJson(result.get(0)));
+                }
+
+                catch (JSONException ex) {
                     System.out.println(ex);
                 }
 
@@ -80,8 +93,21 @@ public class questionCreator {
             }
         }).start();
 
-        return datainjson;
-
     }
 
+    public JSONObject getDatainjson(final String courseID, final String sessionNO) {
+
+        getQuestions(courseID,sessionNO);
+
+        try {
+            TimeUnit.MILLISECONDS.sleep(10);
+        }
+
+        catch (InterruptedException ex) {
+
+        }
+
+
+        return datainjson;
+    }
 }
