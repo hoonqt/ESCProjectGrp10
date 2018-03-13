@@ -5,16 +5,12 @@ import android.view.View;
 import com.example.cindy.esc_50005.UI.Base.BasePresenter;
 import com.example.cindy.esc_50005.UI.Base.BaseView;
 
-/**
- * Created by cindy on 19/2/2018.
- */
-
 public interface LoginContract {
 
-    interface LoginContractPresenter extends BasePresenter {
-        void loadLogin();
+    interface Presenter extends BasePresenter {
+        void checkIfLoginIsValid(String username, String password, String userType);
     }
-    interface LoginContractView extends BaseView {
+    interface View extends BaseView <Presenter> {
         void setupLogin(View view);
     }
 }
