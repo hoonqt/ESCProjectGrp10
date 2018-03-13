@@ -12,6 +12,6 @@ public interface UsersInformationDataSource {
 
     void removeUser(UsersInformation faq);
     void addUser(UsersInformation faq);
-    ArrayList<UsersInformation> queryUser(String username, String password, String userType);
+    ArrayList<UsersInformationDO> queryUser(String username, String password, String userType);
 
 }
