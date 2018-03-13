@@ -55,6 +55,7 @@ public class questionCreator {
             public void run() {
                 ActivityQuestionsDO faq = new ActivityQuestionsDO();
                 faq.setCourseID(courseID);
+                faq.setSessionNO(sessionNO);
 
                 DynamoDBQueryExpression queryExpression = new DynamoDBQueryExpression()
                         .withHashKeyValues(faq);
