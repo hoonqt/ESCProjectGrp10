@@ -59,7 +59,9 @@ public class UsersInformationRemoteDataSource implements UsersInformationDataSou
             public void run() {
 
                 UsersInformationDO userSelected = new UsersInformationDO();
+
                 userSelected.setUserType(userType);
+                userSelected.setUsername(username);
 
                 DynamoDBQueryExpression queryExpression = new DynamoDBQueryExpression()
                         .withHashKeyValues(userSelected);

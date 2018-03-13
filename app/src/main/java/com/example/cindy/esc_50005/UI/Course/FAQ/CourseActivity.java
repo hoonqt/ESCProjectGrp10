@@ -122,13 +122,9 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
 
             Bundle bundle = new Bundle();
             String myMessage = s;
-            bundle.putString("message", myMessage );
 
-            QuizFragment fragment = new QuizFragment();
-            fragment.setArguments(bundle);
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.pager, fragment);
-            transaction.commit();
+            TextView update = findViewById(R.id.newquizbox);
+            update.setText(myMessage);
 
             super.onPostExecute(s);
         }

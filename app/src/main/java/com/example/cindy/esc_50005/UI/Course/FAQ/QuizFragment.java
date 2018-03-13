@@ -33,7 +33,7 @@ public class QuizFragment extends Fragment {
 
         String question = getArguments().getString("message");
 
-
+        textbox.setText(question);
         // Inflate the layout for this fragment
         return view;
     }
