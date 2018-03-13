@@ -1,7 +1,6 @@
 package com.example.cindy.esc_50005.UI.Course.FAQ;
 
 import android.support.annotation.NonNull;
-import android.widget.EditText;
 
 import com.example.cindy.esc_50005.Database.Database.SessionQuestionsRemoteDataSource;
 import com.google.gson.Gson;
@@ -9,7 +8,6 @@ import com.google.gson.Gson;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -35,8 +33,6 @@ public class FaqPresenter implements FaqContract.Presenter {
 
     public class FaqJsonData {
 
-
-        List<String> _answers;
         String _question;
         String upvotes;
 
@@ -45,10 +41,10 @@ public class FaqPresenter implements FaqContract.Presenter {
     public void loadFaq(){
 
 
-        ArrayList<JSONObject> answers = mFaqRepository.getDataInJson("111");
-        Gson gson = new Gson();
-        faqJsonData=gson.fromJson(answers.toString(), FaqJsonData[].class);
-        processFaq(faqJsonData);
+//        ArrayList<JSONObject> answers = mFaqRepository;
+//        Gson gson = new Gson();
+//        faqJsonData=gson.fromJson(answers.toString(), FaqJsonData[].class);
+//        processFaq(faqJsonData);
     }
     public void processEmptyFaq()
     {

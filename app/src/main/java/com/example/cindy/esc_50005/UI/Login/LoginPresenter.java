@@ -1,32 +1,45 @@
 package com.example.cindy.esc_50005.UI.Login;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
+
+import com.example.cindy.esc_50005.Database.FAQ.Faq;
+import com.example.cindy.esc_50005.Database.UsersInformation.UsersInformation;
+import com.example.cindy.esc_50005.Database.UsersInformation.UsersInformationRemoteDataSource;
+
+import java.util.ArrayList;
 
 import static com.google.common.base.Preconditions.*;
 
-/**
- * Created by cindy on 19/2/2018.
- */
 
-public class LoginPresenter implements LoginContract.LoginContractPresenter {
+public class LoginPresenter implements LoginContract.Presenter {
 
-//    private final LoginContract.LoginContractView mLoginView;
-//    private final LoginRepository mFaqRepository;
+    private final LoginContract.View mLoginView;
+    private final UsersInformationRemoteDataSource mLoginRepository;
+    ArrayList<UsersInformation> userInformationJsonData;
 
-//    public LoginPresenter(@NonNull LoginRepository faqRepository, @NonNull LoginContract.LoginContractView faqView) {
-//        mFaqRepository = checkNotNull(faqRepository, "tasksRepository cannot be null");
-//        mLoginView = checkNotNull(faqView, "faqView cannot be null!");
-//
-//        mLoginView.setPresenter(this);
-//    }
+    public LoginPresenter(@NonNull LoginContract.View contractView) {
+        Log.i("login presenter", "login presenter");
+        mLoginRepository=new UsersInformationRemoteDataSource();
+        mLoginView = checkNotNull(contractView, "loginView cannot be null!");
+        mLoginView.setPresenter(this);
+    }
     @Override
     public void start()
     {
 
     }
 
+    public void checkIfLoginIsValid(String username, String password, String userType){
+        userInformationJsonData=mLoginRepository.queryUser(username,password,userType);
 
-    public void loadLogin(){
+        for(UsersInformation user: userInformationJsonData)
+        {
+            if(user.getPassword().equals(password) && user.getUsername().equals(username) && user.getUserType().equals(userType))
+            {
+                Log.i("yay",user.getUsername());
+            }
+        }
 
     }
 

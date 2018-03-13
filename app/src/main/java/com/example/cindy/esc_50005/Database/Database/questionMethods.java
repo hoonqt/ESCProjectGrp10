@@ -7,10 +7,6 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
-/**
- * Created by hoonqt on 20/2/18.
- */
-
 public class questionMethods {
 
     DynamoDBMapper dynamoDBMapper;
@@ -56,9 +52,9 @@ public class questionMethods {
         final SessionQuestionsDO newQuestion = new SessionQuestionsDO();
 
         newQuestion.setSessioncode(sessionCode);
-        ArrayList<String> currentanswers = new ArrayList<>();
-        newQuestion.setAnswers(currentanswers);
-        currentanswers.add(answer);
+        ArrayList<String> currentAnswers = new ArrayList<>();
+        newQuestion.setAnswers(currentAnswers);
+        currentAnswers.add(answer);
         newQuestion.setQuestion(question);
 
         new Thread(new Runnable() {

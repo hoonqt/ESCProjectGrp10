@@ -8,11 +8,6 @@ import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBQueryExpression;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.PaginatedList;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
-import com.google.gson.Gson;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
@@ -20,16 +15,8 @@ import java.util.concurrent.TimeUnit;
 public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSource {
 
     DynamoDBMapper dynamoDBMapper;
-    private StringBuilder finalResult=new StringBuilder();
-
-    private void setFinalResult(String resultsFromQuery)
-    {
-        this.finalResult.append(resultsFromQuery);
-    }
-    private StringBuilder getFinalResult()
-    {
-        return this.finalResult;
-    }
+    ArrayList<SessionQuestionsDO> questionsArrayList;
+    public static final String TAG = "QuestionsRemote";
 
     public SessionQuestionsRemoteDataSource() {
 
@@ -38,11 +25,7 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
                 .dynamoDBClient(dynamoDBClient)
                 .awsConfiguration(AWSMobileClient.getInstance().getConfiguration())
                 .build();
-
     }
-
-    private ArrayList<JSONObject> dataInJson;
-
 
     @Override
     public void addQuestion(String question, String sessionCode) {
@@ -84,15 +67,26 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
 
     }
 
+    public void saveQuestion(final SessionQuestionsDO question) {
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                dynamoDBMapper.save(question);
+            }
+        }).start();
+    }
+
+
     @Override
-    public void updateQuestion(String oldquestion, String sessionCode, String newQuestion) {
+    public void updateQuestion(String oldQuestion, String sessionCode, String newQuestion) {
 
     }
 
     @Override
-    public void getQuestionsList(final String sessionCode) {
+    public ArrayList<SessionQuestionsDO> getQuestionsListBySessionId(final String sessionCode) {
 
-        dataInJson = new ArrayList<>();
+        questionsArrayList=new ArrayList<>();
 
         new Thread(new Runnable() {
             @Override
@@ -106,29 +100,23 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
 
                 PaginatedList<SessionQuestionsDO> result = dynamoDBMapper.query(SessionQuestionsDO.class,queryExpression);
 
-                Gson gson = new Gson();
-                StringBuilder stringBuilder = new StringBuilder();
-
-                for (int i = 0;i<result.size();i++) {
-                    String jsonFormOfItem = gson.toJson(result.get(i));
-                    stringBuilder.append(jsonFormOfItem + "\n\n");
-
-                    try {
-                        dataInJson.add(new JSONObject(jsonFormOfItem));
-                    }
-
-                    catch (JSONException ex) {
-                        System.out.println(ex);
-                    }
-
+                for (SessionQuestionsDO question : result) {
+                    questionsArrayList.add(question);
+                    Log.i(TAG, question.getQuestion());
                 }
-
-//                Log.i("stringBuilder",stringBuilder.toString());
-
-                setFinalResult(stringBuilder.toString());
 
             }
         }).start();
+
+        try {
+            TimeUnit.SECONDS.sleep(2);
+        } catch (InterruptedException ex) {
+            ex.printStackTrace();
+        }
+
+        Log.i(TAG, "questionsArrayList" + questionsArrayList.toString());
+
+        return questionsArrayList;
 
     }
 
@@ -137,18 +125,5 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
 
     }
 
-    public ArrayList<JSONObject> getDataInJson(String sessionCode) {
 
-        getQuestionsList(sessionCode);
-
-        try {
-            TimeUnit.SECONDS.sleep(2);
-        }
-
-        catch (InterruptedException ex) {
-
-        }
-//        Log.i("dataInJson",dataInJson.toString());
-        return dataInJson;
-    }
 }

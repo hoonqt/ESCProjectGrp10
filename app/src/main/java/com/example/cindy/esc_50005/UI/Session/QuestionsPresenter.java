@@ -2,32 +2,29 @@ package com.example.cindy.esc_50005.UI.Session;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import android.app.AlertDialog;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.example.cindy.esc_50005.Database.Database.SessionQuestionsDO;
 import com.example.cindy.esc_50005.Database.Database.SessionQuestionsRemoteDataSource;
-import com.example.cindy.esc_50005.UI.Course.FAQ.FaqContract;
-import com.google.gson.Gson;
-
-import org.json.JSONObject;
-
 import java.util.ArrayList;
-import java.util.List;
 
-import static com.google.common.base.Preconditions.checkNotNull;
 
 
 public class QuestionsPresenter implements QuestionsContract.Presenter {
 
+    public static final String TAG = "QuestionsPresenter";
+    //temporary set session code to be as such
+    private static final String SESSION_CODE="111";
+
     private final QuestionsContract.View mSessionQuestionView;
-    private SessionQuestionsRemoteDataSource mSessionQuestionsRepository= new SessionQuestionsRemoteDataSource();
-    QuestionsPresenter.QuestionsJsonData[] questionsJsonData;
+    private SessionQuestionsRemoteDataSource mSessionQuestionsRepository;
+    ArrayList<SessionQuestionsDO> questionsJsonData;
 
 
-    public QuestionsPresenter(@NonNull SessionQuestionsRemoteDataSource sessionQuestionsRepository, @NonNull QuestionsContract.View sessionQuestionsView) {
+    public QuestionsPresenter(@NonNull QuestionsContract.View sessionQuestionsView) {
         Log.i("question presenter","question presenter");
-        mSessionQuestionsRepository = checkNotNull(sessionQuestionsRepository, "sessionQuestionsRepository cannot be null");
+        mSessionQuestionsRepository = new SessionQuestionsRemoteDataSource();
         mSessionQuestionView = checkNotNull(sessionQuestionsView, "sessionQuestionView cannot be null!");
         mSessionQuestionView.setPresenter(this);
     }
@@ -48,18 +45,14 @@ public class QuestionsPresenter implements QuestionsContract.Presenter {
     @Override
     public void loadQuestions() {
 
-        ArrayList<JSONObject> answers = mSessionQuestionsRepository.getDataInJson("111");
-        Log.i("answers",answers.toString());
-        Gson gson = new Gson();
-        questionsJsonData=gson.fromJson(answers.toString(), QuestionsPresenter.QuestionsJsonData[].class);
-        processLoadedQuestions(questionsJsonData);
+       questionsJsonData = mSessionQuestionsRepository.getQuestionsListBySessionId(SESSION_CODE);
 
     }
 
     @Override
     public void addNewQuestion(String question) {
 
-        mSessionQuestionsRepository.addQuestion(question,"111");
+        mSessionQuestionsRepository.addQuestion(question,SESSION_CODE);
         loadQuestions();
 
     }
@@ -69,18 +62,22 @@ public class QuestionsPresenter implements QuestionsContract.Presenter {
 
     }
 
-    public void processLoadedQuestions(QuestionsPresenter.QuestionsJsonData[] questionsJsonData)
+    public void processQuestions(ArrayList<SessionQuestionsDO> questionsJsonData)
     {
-        if(questionsJsonData.length!=0)
-        {
-            Log.i("question json data",questionsJsonData.toString());
+        Log.i(TAG, "Length of faqJsonData = " + questionsJsonData.size());
+
+        if (questionsJsonData.size() != 0) {
             mSessionQuestionView.showAddedQuestion(questionsJsonData);
+            mSessionQuestionView.questionsLoaded();
         }
     }
 
-    @Override
-    public void upvoteQuestion() {
 
+    public void upvoteQuestion(SessionQuestionsDO question) {
+        question.setUpvote(question.getUpvote() + 1);
+        mSessionQuestionsRepository.saveQuestion(question);
+        Log.i(TAG, "upvote question" + question.getUpvote());
+        loadQuestions();
     }
 
 

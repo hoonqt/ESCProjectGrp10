@@ -76,8 +76,6 @@ public class FaqFragment extends Fragment implements FaqContract.View {
         mCurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
         faqListRecycler.setLayoutManager(new LinearLayoutManager(this.getActivity()));
 
-
-
         return view;
     }
 

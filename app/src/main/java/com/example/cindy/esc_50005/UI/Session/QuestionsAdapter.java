@@ -8,35 +8,30 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.cindy.esc_50005.Database.Database.SessionQuestionsDO;
+import com.example.cindy.esc_50005.Database.FAQ.Faq;
 import com.example.cindy.esc_50005.R;
 
+import java.util.ArrayList;
 
-/**
- * Created by 1002215 on 20/2/18.
- */
 
 public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.QuestionsViewHolder> {
 
+    public static final String TAG = "QuestionsAdapter";
+
+    private ArrayList<SessionQuestionsDO> mQuestionsList;
+    private QuestionsItemListener mQuestionsItemListener;
+
     private static int viewHolderCount = 0;
-    Context parentContext;
-    private QuestionsPresenter.QuestionsJsonData[] dataInClass;
 
 
-    <T>  QuestionsAdapter(Context context, T data){
-        this.parentContext = context;
-        final Class<QuestionsPresenter.QuestionsJsonData[]> questionsJsonDataType = QuestionsPresenter.QuestionsJsonData[].class;
-        final QuestionsPresenter.QuestionsJsonData[] instance = convertInstanceOfObject(data, questionsJsonDataType);
-        dataInClass=instance;
-    }
-
-    public static <T> T convertInstanceOfObject(Object o, Class<T> clazz) {
-        try {
-            return clazz.cast(o);
-        } catch(ClassCastException e) {
-            return null;
-        }
+    public QuestionsAdapter(ArrayList<SessionQuestionsDO> questionsList, QuestionsItemListener itemListener){
+        this.mQuestionsList = questionsList;
+        this.mQuestionsItemListener = itemListener;
     }
 
     @Override
@@ -47,14 +42,18 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.Ques
 
     @Override
     public int getItemCount() {
-        return dataInClass.length;
+        if (mQuestionsList == null) {
+            return 0;
+        } else {
+            return mQuestionsList.size();
+        }
     }
 
     @Override
     public QuestionsAdapter.QuestionsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         int layoutIDForListItem = R.layout.sessionquestions_postquestions_recycler;
-        LayoutInflater inflater = LayoutInflater.from(parentContext);
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         boolean shouldAttachToParentImmediately = false;
 
         //java object of layout
@@ -76,31 +75,28 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.Ques
             super(v);
 
             question = (TextView) v.findViewById(R.id.item_post_question);
+//            btn_upvote = (Button) v.findViewById(R.id.faq_btn_upvote);
+
 
             v.setOnClickListener(this);
+//            btn_upvote.setOnClickListener(this);
 
         }
 
         public void bind(int position ){
-            Log.i("data position",Integer.toString(dataInClass.length));
-            Log.i("question to be posted",dataInClass.toString());
-            question.setText(dataInClass[position]._question);
-
+            SessionQuestionsDO questionsList = mQuestionsList.get(position);
+            question.setText(questionsList.getQuestion());
+//            tv_upvote.setText(String.valueOf(faq.getUpvotes()));
+//            tv_time.setText(faq.getAuthor() + ", " + faq.getDate());
         }
 
         @Override
         public void onClick(View v)
         {
-            int clickedPosition=getAdapterPosition();
-            AlertDialog.Builder builder=new AlertDialog.Builder(parentContext);
-
-            String question=dataInClass[clickedPosition]._question;
-            Log.i("question clicked","question clicked");
-            builder.setMessage("Question: " + question);
-
-            AlertDialog alertDialog=builder.create();
-            //instantiates the object
-            alertDialog.show();
+//            if (v.getId() == btn_upvote.getId()) {
+//                Toast.makeText(v.getContext(), "ITEM PRESSED = " + String.valueOf(getAdapterPosition()), Toast.LENGTH_SHORT).show();
+//                mQuestionsItemListener.onUpvoteClick(mQuestionsList.get(getAdapterPosition()));
+//            }
 
         }
 
