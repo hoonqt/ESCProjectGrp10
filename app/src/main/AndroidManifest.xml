@@ -32,10 +32,7 @@
 
 
         </activity>
-        <activity
-            android:name=".UI.Session.SessionActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+
     </application>
 
 </manifest>

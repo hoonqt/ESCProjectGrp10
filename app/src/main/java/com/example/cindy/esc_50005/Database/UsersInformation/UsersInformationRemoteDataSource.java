@@ -1,6 +1,8 @@
 package com.example.cindy.esc_50005.Database.UsersInformation;
 
 
+import android.util.Log;
+
 import com.amazonaws.mobile.client.AWSMobileClient;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBQueryExpression;
@@ -13,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 public class UsersInformationRemoteDataSource implements UsersInformationDataSource {
 
     DynamoDBMapper dynamoDBMapper;
-    ArrayList<UsersInformation> usersArrayList;
+    ArrayList<UsersInformationDO> usersArrayList;
     public static final String TAG = "UsersInformationRemote";
 
     public UsersInformationRemoteDataSource() {
@@ -47,16 +49,18 @@ public class UsersInformationRemoteDataSource implements UsersInformationDataSou
 
     }
 
-    public ArrayList<UsersInformation> queryUser(final String username, String password, String userType) {
+    public ArrayList<UsersInformationDO> queryUser(final String username, String password, final String userType) {
 
-        usersArrayList = new ArrayList<UsersInformation>();
+        Log.i("username",userType);
+        usersArrayList = new ArrayList<UsersInformationDO>();
 
         new Thread(new Runnable() {
             @Override
             public void run() {
 
                 UsersInformationDO userSelected = new UsersInformationDO();
-                userSelected.setUserType("student");
+
+                userSelected.setUserType(userType);
                 userSelected.setUsername(username);
 
                 DynamoDBQueryExpression queryExpression = new DynamoDBQueryExpression()
@@ -65,6 +69,7 @@ public class UsersInformationRemoteDataSource implements UsersInformationDataSou
                 PaginatedList<UsersInformationDO> result = dynamoDBMapper.query(UsersInformationDO.class, queryExpression);
 
                 for (UsersInformationDO userInformation : result) {
+                    usersArrayList.add(userInformation);
 
                     //You gonna have to change the way you retrive stuff here.
                 }
