@@ -1,11 +1,10 @@
 package com.example.cindy.esc_50005.UI.Course.FAQ;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
-import com.example.cindy.esc_50005.Database.Database.SessionQuestionsRemoteDataSource;
-import com.google.gson.Gson;
-
-import org.json.JSONObject;
+import com.example.cindy.esc_50005.Database.FAQ.Faq;
+import com.example.cindy.esc_50005.Database.FAQ.FaqRemoteDataSource;
 
 import java.util.ArrayList;
 
@@ -17,50 +16,52 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 public class FaqPresenter implements FaqContract.Presenter {
 
-    private final FaqContract.View mFaqView;
-    private SessionQuestionsRemoteDataSource mFaqRepository= new SessionQuestionsRemoteDataSource();
-    FaqPresenter.FaqJsonData[] faqJsonData;
+    public static final String TAG = "FaqPresenter";
 
-    public FaqPresenter(@NonNull SessionQuestionsRemoteDataSource faqRepository, @NonNull FaqContract.View faqView) {
-        mFaqRepository = checkNotNull(faqRepository, "faqRepository cannot be null");
+    private final FaqContract.View mFaqView;
+    private FaqRemoteDataSource mFaqRepository;
+    ArrayList<Faq> faqJsonData;
+
+    public FaqPresenter(@NonNull FaqContract.View faqView) {
+        mFaqRepository = new FaqRemoteDataSource();
         mFaqView = checkNotNull(faqView, "faqView cannot be null!");
         mFaqView.setPresenter(this);
     }
+
     @Override
     public void start() {
         loadFaq();
     }
 
-    public class FaqJsonData {
+    public void loadFaq() {
 
-        String _question;
-        String upvotes;
+        faqJsonData = mFaqRepository.getFaqListByCourseId("50003");
+        processFaq(faqJsonData);
 
-    }
-
-    public void loadFaq(){
-
-
-//        ArrayList<JSONObject> answers = mFaqRepository;
-//        Gson gson = new Gson();
-//        faqJsonData=gson.fromJson(answers.toString(), FaqJsonData[].class);
-//        processFaq(faqJsonData);
-    }
-    public void processEmptyFaq()
-    {
-
-    }
-    public void upvoteFaq()
-    {
+        Log.i(TAG, "LoadFaq size is " + faqJsonData.size());
 
     }
 
-    public void processFaq(FaqPresenter.FaqJsonData[] faqJsonData)
-    {
-        if(faqJsonData.length!=0)
-        {
+    public void processEmptyFaq() {
+
+    }
+
+    public void upvoteFaq(Faq faq) {
+        faq.setUpvotes(faq.getUpvotes() + 1);
+        mFaqRepository.saveFaq(faq);
+        Log.i(TAG, "upvote Faq" + faq.getUpvotes());
+        loadFaq();
+    }
+
+    public void processFaq(ArrayList<Faq> faqJsonData) {
+
+        Log.i(TAG, "Length of faqJsonData = " + faqJsonData.size());
+
+        if (faqJsonData.size() != 0) {
             mFaqView.showFaq(faqJsonData);
+            mFaqView.faqLoaded();
         }
+
     }
 
 }

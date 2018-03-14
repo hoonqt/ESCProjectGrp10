@@ -1,7 +1,10 @@
 package com.example.cindy.esc_50005.UI.Course.FAQ;
 
+import com.example.cindy.esc_50005.Database.FAQ.Faq;
 import com.example.cindy.esc_50005.UI.Base.BasePresenter;
 import com.example.cindy.esc_50005.UI.Base.BaseView;
+
+import java.util.ArrayList;
 
 
 public interface FaqContract {
@@ -9,12 +12,14 @@ public interface FaqContract {
     interface Presenter extends BasePresenter {
         void loadFaq();
         void processEmptyFaq();
-        void upvoteFaq();
+        void upvoteFaq(Faq faq);
     }
 
     interface View extends BaseView<Presenter> {
-        <T> void showFaq(T data);
+//        <T> void showFaq(T data);
+        void showFaq(ArrayList<Faq> data);
         void showNoFaq();
         void showLoadFaqError();
+        void faqLoaded();
     }
 }
