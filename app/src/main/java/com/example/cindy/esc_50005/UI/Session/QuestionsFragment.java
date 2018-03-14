@@ -25,14 +25,11 @@ public class QuestionsFragment extends android.support.v4.app.Fragment implement
 
     private EditText editText;
     private Button btn;
-    private JSONArray array = new JSONArray();
     private RecyclerView questionListRecycler;
-    QuestionsJsonData[] questionsJsonData;
 
     private QuestionsFragment.LayoutManagerType mCurrentLayoutManagerType;
     private RecyclerView.LayoutManager mLayoutManager;
     private QuestionsContract.Presenter mPresenter = new QuestionsPresenter(this);
-    com.example.cindy.esc_50005.UI.Course.FAQ.FaqFragment.FaqJsonData[] faqJsonData;
     private QuestionsAdapter mQuestionsAdapter;
     private LinearLayout mFaqView;
     private RecyclerView faqListRecycler;
@@ -67,6 +64,7 @@ public class QuestionsFragment extends android.support.v4.app.Fragment implement
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
+            Log.i("onCreateView","onCreateView");
             View view=inflater.inflate(R.layout.sessionquestions_postquestions_main, container, false);
             btn = view.findViewById(R.id.add_button);
             editText = (EditText) view.findViewById(R.id.question_input);
@@ -74,16 +72,16 @@ public class QuestionsFragment extends android.support.v4.app.Fragment implement
             questionListRecycler=(RecyclerView) view.findViewById(R.id.recyclerViewPostQuestions);
             mLayoutManager= new LinearLayoutManager(getActivity());
             mCurrentLayoutManagerType = QuestionsFragment.LayoutManagerType.LINEAR_LAYOUT_MANAGER;
-            questionListRecycler.setLayoutManager(new LinearLayoutManager(this.getContext()));
+            questionListRecycler.setLayoutManager(new LinearLayoutManager(view.getContext()));
 //            mQuestionsAdapter=new QuestionsAdapter(getContext(),questionsJsonData);
 //            questionListRecycler.setAdapter(mQuestionsAdapter);
 //            swipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.faq_swipe);
-            swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                mPresenter.loadQuestions();
-            }
-        });
+//            swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                mPresenter.loadQuestions();
+//            }
+//        });
 
             return view;
         }
@@ -113,9 +111,9 @@ public class QuestionsFragment extends android.support.v4.app.Fragment implement
 //        AlertDialog alertDialog=builder.create();
 //        //instantiates the object
 //        alertDialog.show();
-
-        mQuestionsAdapter=new QuestionsAdapter(questionsList,mItemListener);
-        questionListRecycler.setAdapter(mQuestionsAdapter);
+//
+//        mQuestionsAdapter=new QuestionsAdapter(questionsList,mItemListener);
+//        questionListRecycler.setAdapter(mQuestionsAdapter);
 
     }
 
@@ -129,25 +127,20 @@ public class QuestionsFragment extends android.support.v4.app.Fragment implement
 
     }
 
-    public class QuestionsJsonData {
-
-            String question;
-            String upvotes;
-
-        }
 
 
-    public void questionsLoaded() {
-        if(swipeLayout.isRefreshing()) {
-            swipeLayout.setRefreshing(false);
-        }
-    }
 
-    QuestionsItemListener mItemListener = new QuestionsItemListener() {
-        @Override
-        public void onUpvoteClick(SessionQuestionsDO clickedQuestion) {
-            mPresenter.upvoteQuestion(clickedQuestion);
-        }
-    };
+//    public void questionsLoaded() {
+//        if(swipeLayout.isRefreshing()) {
+//            swipeLayout.setRefreshing(false);
+//        }
+//    }
+//
+//    QuestionsItemListener mItemListener = new QuestionsItemListener() {
+//        @Override
+//        public void onUpvoteClick(SessionQuestionsDO clickedQuestion) {
+//            mPresenter.upvoteQuestion(clickedQuestion);
+//        }
+//    };
 
 }

@@ -44,7 +44,7 @@ public class QuestionsPresenter implements QuestionsContract.Presenter {
 
     @Override
     public void loadQuestions() {
-
+        Log.i("load qns","load qns");
        questionsJsonData = mSessionQuestionsRepository.getQuestionsListBySessionId(SESSION_CODE);
 
     }
@@ -68,7 +68,7 @@ public class QuestionsPresenter implements QuestionsContract.Presenter {
 
         if (questionsJsonData.size() != 0) {
             mSessionQuestionView.showAddedQuestion(questionsJsonData);
-            mSessionQuestionView.questionsLoaded();
+//            mSessionQuestionView.questionsLoaded();
         }
     }
 
