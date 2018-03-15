@@ -34,6 +34,7 @@ public class LoginPresenter implements LoginContract.Presenter {
         userInformationJsonData=mLoginRepository.queryUser(username,password,userType);
         for(UsersInformationDO user: userInformationJsonData)
         {
+            Log.i("Password",user.getPassword());
             if(user.getPassword().equals(password) && user.getUsername().equals(username) && user.getUserType().equals(userType))
             {
                 Log.i("yay",user.getUsername());
