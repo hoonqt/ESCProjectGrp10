@@ -17,7 +17,7 @@ public interface QuestionsContract {
         void showAddedQuestion(ArrayList<SessionQuestionsDO> questionsList);
         void showNoQuestions();
         void showLoadQuestionsError();
-        void questionsLoaded();
+//        void questionsLoaded();
     }
 
     interface Presenter extends BasePresenter{
