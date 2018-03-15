@@ -20,8 +20,6 @@ public class LoginPresenter implements LoginContract.Presenter {
     ArrayList<UsersInformationDO> userInformationJsonData;
 
     public LoginPresenter(@NonNull LoginContract.View contractView) {
-        Log.i("login presenter", "login presenter");
-
         mLoginRepository=new UsersInformationRemoteDataSource();
         mLoginView = checkNotNull(contractView, "loginView cannot be null!");
         mLoginView.setPresenter(this);
@@ -32,18 +30,21 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     }
 
-    public void checkIfLoginIsValid(String username, String password, String userType){
+    public boolean checkIfLoginIsValid(String username, String password, String userType){
         userInformationJsonData=mLoginRepository.queryUser(username,password,userType);
-        Log.i("user information",userInformationJsonData.get(0).getUsername());
-        Log.i("here to check","here to check");
         for(UsersInformationDO user: userInformationJsonData)
         {
             Log.i("Password",user.getPassword());
             if(user.getPassword().equals(password) && user.getUsername().equals(username) && user.getUserType().equals(userType))
             {
                 Log.i("yay",user.getUsername());
+                return true;
+            }
+            else{
+                return false;
             }
         }
+        return false;
 
     }
 

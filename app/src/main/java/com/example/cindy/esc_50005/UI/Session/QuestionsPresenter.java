@@ -44,9 +44,8 @@ public class QuestionsPresenter implements QuestionsContract.Presenter {
 
     @Override
     public void loadQuestions() {
-
-       questionsJsonData = mSessionQuestionsRepository.getQuestionsListBySessionId(SESSION_CODE);
-
+        questionsJsonData = mSessionQuestionsRepository.getQuestionsListBySessionId(SESSION_CODE);
+        processQuestions(questionsJsonData);
     }
 
     @Override
@@ -64,11 +63,10 @@ public class QuestionsPresenter implements QuestionsContract.Presenter {
 
     public void processQuestions(ArrayList<SessionQuestionsDO> questionsJsonData)
     {
-        Log.i(TAG, "Length of faqJsonData = " + questionsJsonData.size());
+        Log.i(TAG, "Length of sessionQuestionsJsonData = " + questionsJsonData.size());
 
         if (questionsJsonData.size() != 0) {
             mSessionQuestionView.showAddedQuestion(questionsJsonData);
-            mSessionQuestionView.questionsLoaded();
         }
     }
 

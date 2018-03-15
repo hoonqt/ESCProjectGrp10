@@ -48,9 +48,9 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
-    private String username;
-    private String password;
-    private String userType;
+    public static String username;
+    public static String password;
+    public static String userType;
     private LoginContract.Presenter mPresenter= new LoginPresenter(this);
 
     public LoginFragment() {
@@ -84,7 +84,7 @@ public class LoginFragment extends Fragment implements LoginContract.View {
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
                 if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
                     password=mPasswordView.toString();
-                    attemptLogin(view);
+                    attemptLogin();
                     return true;
                 }
                 return false;
@@ -96,7 +96,8 @@ public class LoginFragment extends Fragment implements LoginContract.View {
 
             public void onClick(View view) {
                 username=mEmailView.toString();
-                attemptLogin(view);
+//                attemptLogin(view);
+                attemptLogin();
             }
         });
 
@@ -122,9 +123,10 @@ public class LoginFragment extends Fragment implements LoginContract.View {
         });
     }
 
-    public void attemptLogin(View view)
+    public boolean attemptLogin()
     {
-        mPresenter.checkIfLoginIsValid(username,password,userType);
+        boolean result=mPresenter.checkIfLoginIsValid(username,password,userType);
+        return result;
     }
 
 

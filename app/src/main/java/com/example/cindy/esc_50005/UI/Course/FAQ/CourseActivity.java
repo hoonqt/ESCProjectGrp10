@@ -105,7 +105,7 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
         protected String doInBackground(Void... voids) {
 
             client = new OkHttpClient();
-            Request request = new Request.Builder().url("ws://10.0.2.2:8083").build();
+            Request request = new Request.Builder().url("ws://10.12.42.198:8080").build();
             EchoWebSocketListener listener = new EchoWebSocketListener();
             WebSocket ws = client.newWebSocket(request, listener);
             client.dispatcher().executorService().shutdown();
@@ -134,6 +134,7 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
             private static final int NORMAL_CLOSURE_STATUS = 1000;
             @Override
             public void onOpen(WebSocket webSocket, Response response) {
+
 
             }
             @Override

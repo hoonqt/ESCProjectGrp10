@@ -17,7 +17,7 @@
 
 
         <activity
-            android:name=".UI.Login.LoginActivity"
+            android:name=".UI.Session.SessionActivity"
             android:label="@string/title_activity_session"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
@@ -43,6 +43,16 @@
 
         </activity>
 
+        <activity
+            android:name=".UI.Session.SessionActivity"
+            android:label="Session"
+            android:theme="@style/AppTheme.NoActionBar">
+
+
+        </activity>
+
     </application>
+
+
 
 </manifest>

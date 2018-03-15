@@ -87,7 +87,7 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
     public ArrayList<SessionQuestionsDO> getQuestionsListBySessionId(final String sessionCode) {
 
         questionsArrayList=new ArrayList<>();
-
+        Log.i("sessionCode",sessionCode);
         new Thread(new Runnable() {
             @Override
             public void run() {
