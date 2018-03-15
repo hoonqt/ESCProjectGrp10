@@ -39,6 +39,14 @@
 
         </activity>
 
+        <activity
+            android:name=".UI.Session.SessionActivity"
+            android:label="Session"
+            android:theme="@style/AppTheme.NoActionBar">
+
+
+        </activity>
+
     </application>
 
 </manifest>
