@@ -113,8 +113,8 @@ public class QuestionsFragment extends android.support.v4.app.Fragment implement
 //        //instantiates the object
 //        alertDialog.show();
 //
-//        mQuestionsAdapter=new QuestionsAdapter(questionsList,mItemListener);
-//        questionListRecycler.setAdapter(mQuestionsAdapter);
+        mQuestionsAdapter=new QuestionsAdapter(questionsList,mItemListener);
+        questionListRecycler.setAdapter(mQuestionsAdapter);
 
     }
 
@@ -137,11 +137,11 @@ public class QuestionsFragment extends android.support.v4.app.Fragment implement
 //        }
 //    }
 //
-//    QuestionsItemListener mItemListener = new QuestionsItemListener() {
-//        @Override
-//        public void onUpvoteClick(SessionQuestionsDO clickedQuestion) {
-//            mPresenter.upvoteQuestion(clickedQuestion);
-//        }
-//    };
+    QuestionsItemListener mItemListener = new QuestionsItemListener() {
+        @Override
+        public void onUpvoteClick(SessionQuestionsDO clickedQuestion) {
+            mPresenter.upvoteQuestion(clickedQuestion);
+        }
+    };
 
 }
