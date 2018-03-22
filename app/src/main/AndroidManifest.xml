@@ -16,14 +16,14 @@
 
 
 
-        <activity
-            android:name=".UI.Session.SessionActivity"
-            android:label="@string/title_activity_session"
-            android:theme="@style/AppTheme.NoActionBar">
+        <!--<activity-->
+            <!--android:name=".UI.Session.SessionActivity"-->
+            <!--android:label="@string/title_activity_session"-->
+            <!--android:theme="@style/AppTheme.NoActionBar">-->
 
-        </activity>
+        <!--</activity>-->
         <activity
-            android:name=".UI.Course.FAQ.CourseActivity"
+            android:name=".UI.Login.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -38,6 +38,22 @@
             android:label="Add FAQ">
 
         </activity>
+        <activity
+            android:name=".UI.Course.FAQ.CourseActivity"
+            android:label="Add FAQ">
+
+        </activity>
+        <activity
+            android:name=".UI.Session.SessionActivity"
+            android:label="Add FAQ">
+
+        </activity>
+        <activity
+            android:name=".UI.Dashboard.DashboardActivity"
+            android:label="Add FAQ">
+
+        </activity>
+
 
     </application>
 

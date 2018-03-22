@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.cindy.esc_50005.UI.Course.FAQ.CourseActivity">
+    tools:context="com.example.cindy.esc_50005.UI.Login.LoginActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"

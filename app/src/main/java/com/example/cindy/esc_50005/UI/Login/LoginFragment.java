@@ -3,13 +3,16 @@ package com.example.cindy.esc_50005.UI.Login;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.AlertDialog;
 import android.app.LoaderManager;
 import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
@@ -31,7 +34,10 @@ import android.widget.TextView;
 
 import com.example.cindy.esc_50005.MainActivity;
 import com.example.cindy.esc_50005.R;
+import com.example.cindy.esc_50005.UI.Course.FAQ.CourseActivity;
 import com.example.cindy.esc_50005.UI.Course.FAQ.FaqContract;
+import com.example.cindy.esc_50005.UI.Dashboard.DashboardActivity;
+import com.example.cindy.esc_50005.UI.Session.SessionActivity;
 
 import static com.google.common.base.Preconditions.*;
 
@@ -51,7 +57,9 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     public static String username;
     public static String password;
     public static String userType;
+    SharedPreferences sharedPreferences;
     private LoginContract.Presenter mPresenter= new LoginPresenter(this);
+
 
     public LoginFragment() {
         // Required empty public constructor
@@ -66,37 +74,30 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         View view=inflater.inflate(R.layout.login_fragment, container, false);
-        setupLogin(view);
-
+        setUpLogin(view);
         return view;
     }
 
 
-    public void setupLogin(final View view)
+    public void setUpLogin(View view)
     {
         mEmailView = (AutoCompleteTextView) view.findViewById(R.id.email);
 
         mPasswordView = (EditText) view.findViewById(R.id.password);
-        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
-                    password=mPasswordView.toString();
-                    attemptLogin();
-                    return true;
-                }
-                return false;
-            }
-        });
 
         Button mEmailSignInButton = (Button) view.findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
-                username=mEmailView.toString();
-//                attemptLogin(view);
+                username=mEmailView.getText().toString();
+                password=mPasswordView.getText().toString();
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("Username", username);
+                editor.putString("Password", password);
+                editor.putString("UserType", userType);
+                editor.commit();
                 attemptLogin();
             }
         });
@@ -123,17 +124,28 @@ public class LoginFragment extends Fragment implements LoginContract.View {
         });
     }
 
-    public boolean attemptLogin()
+    public void attemptLogin()
     {
-        boolean result=mPresenter.checkIfLoginIsValid(username,password,userType);
-        return result;
+        mPresenter.loadUsersFromDatabase(getActivity().getApplicationContext());
     }
 
-
-    @Override
-    public void setupLogin(LoginContract.View view) {
-
+    public void showSuccessfulLogin()
+    {
+        Log.i("showSuccessfulLogin","showSuccessfulLogin");
+        Intent intent = new Intent(getActivity(), DashboardActivity.class);
+        startActivity(intent);
     }
+
+    public void showUnsuccessfulLogin()
+    {
+        mEmailView.clearListSelection();
+        mPasswordView.clearComposingText();
+        AlertDialog.Builder builder=new AlertDialog.Builder(getContext());
+        builder.setMessage("Wrong username or password sorry! " );
+        AlertDialog alertDialog=builder.create();
+        alertDialog.show();
+    }
+
 }
 
 

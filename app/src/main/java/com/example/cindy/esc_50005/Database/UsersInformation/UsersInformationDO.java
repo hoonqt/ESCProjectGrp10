@@ -16,6 +16,8 @@ import java.util.Set;
 public class UsersInformationDO {
     private String _userType;
     private Double _userId;
+    private List<String> _courseIds;
+    private List<String> _courseNames;
     private String _password;
     private String _username;
 
@@ -36,6 +38,22 @@ public class UsersInformationDO {
 
     public void setUserId(final Double _userId) {
         this._userId = _userId;
+    }
+    @DynamoDBAttribute(attributeName = "courseIds")
+    public List<String> getCourseIds() {
+        return _courseIds;
+    }
+
+    public void setCourseIds(final List<String> _courseIds) {
+        this._courseIds = _courseIds;
+    }
+    @DynamoDBAttribute(attributeName = "courseNames")
+    public List<String> getCourseNames() {
+        return _courseNames;
+    }
+
+    public void setCourseNames(final List<String> _courseNames) {
+        this._courseNames = _courseNames;
     }
     @DynamoDBAttribute(attributeName = "password")
     public String getPassword() {

@@ -1,4 +1,4 @@
-package com.example.cindy.esc_50005.Database.UsersInformation;
+package com.example.cindy.esc_50005.Database.CoursesInformation;
 
 
 import android.util.Log;
@@ -8,17 +8,20 @@ import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBQueryExpression;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.PaginatedList;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
+import com.example.cindy.esc_50005.Database.UsersInformation.UsersInformation;
+import com.example.cindy.esc_50005.Database.UsersInformation.UsersInformationDO;
+import com.example.cindy.esc_50005.Database.UsersInformation.UsersInformationDataSource;
 
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
-public class UsersInformationRemoteDataSource implements UsersInformationDataSource {
+public class CoursesInformationRemoteDataSource implements UsersInformationDataSource {
 
     DynamoDBMapper dynamoDBMapper;
     ArrayList<UsersInformationDO> usersArrayList;
     public static final String TAG = "UsersInformationRemote";
 
-    public UsersInformationRemoteDataSource() {
+    public CoursesInformationRemoteDataSource() {
 
         AmazonDynamoDBClient dynamoDBClient = new AmazonDynamoDBClient(AWSMobileClient.getInstance().getCredentialsProvider());
         this.dynamoDBMapper = DynamoDBMapper.builder()
@@ -70,8 +73,8 @@ public class UsersInformationRemoteDataSource implements UsersInformationDataSou
 
                 for (UsersInformationDO userInformation : result) {
                     usersArrayList.add(userInformation);
-                    Log.i("gettingData","gettingData");
-                    //You gonna have to change the way you retrieve stuff here.
+
+                    //You gonna have to change the way you retrive stuff here.
                 }
 
 
