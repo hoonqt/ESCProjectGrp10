@@ -135,7 +135,6 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
             @Override
             public void onOpen(WebSocket webSocket, Response response) {
 
-                webSocket.send("donald");
 
             }
             @Override
@@ -150,7 +149,7 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
         public String questionRetriver(String courseID, String sessionId) {
 
             questionCreator gatherer = new questionCreator();
-            JSONObject question = gatherer.getDatainjson("s1","q1");
+            JSONObject question = gatherer.getDatainjson(courseID, sessionId);
 
             try {
                 questiontext = question.getString("_question");

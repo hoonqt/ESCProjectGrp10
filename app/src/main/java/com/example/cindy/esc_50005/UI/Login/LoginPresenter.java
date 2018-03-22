@@ -56,8 +56,9 @@ public class LoginPresenter implements LoginContract.Presenter  {
         Log.i("checkIfLoginIsValid","checkIfLoginIsValid");
         for(UsersInformationDO user: userInformationJsonData)
         {
-            if(user.getPassword().equals(userInformation.getString("Password","")) && user.getUsername().equals(userInformation.getString("Username","")) && user.getUserType().equals(userInformation.getString("UserType","")))
-            {
+
+            if(user.getPassword().equals(userInformation.getString("Password","")) && user.getUsername().equals(userInformation.getString("Username","")) && user.getUserType().equals(userInformation.getString("UserType",""))){
+
                 Log.i("successful","successful");
                 loadSuccessfulLogin();
             }
