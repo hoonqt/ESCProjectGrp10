@@ -68,14 +68,11 @@ public class QuestionsFragment extends android.support.v4.app.Fragment implement
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             Log.i("onCreateView","onCreateView");
-            //to get values from shared preferences
-//            SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
-//            String language = settings.getString("Username", "");
             View view=inflater.inflate(R.layout.sessionquestions_postquestions_main, container, false);
             btn = view.findViewById(R.id.add_button);
             editText = (EditText) view.findViewById(R.id.question_input);
             btn.setOnClickListener(this);
-            questionListRecycler=(RecyclerView) view.findViewById(R.id.recyclerViewPostQuestions);
+            questionListRecycler=view.findViewById(R.id.recyclerViewPostQuestions);
             mLayoutManager= new LinearLayoutManager(getActivity());
             mCurrentLayoutManagerType = QuestionsFragment.LayoutManagerType.LINEAR_LAYOUT_MANAGER;
             questionListRecycler.setLayoutManager(new LinearLayoutManager(view.getContext()));

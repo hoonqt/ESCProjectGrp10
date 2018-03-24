@@ -1,15 +1,11 @@
 package com.example.cindy.esc_50005.UI.Session;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -23,7 +19,7 @@ public class SessionActivity extends AppCompatActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         AWSMobileClient.getInstance().initialize(this).execute();
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_session);
+        setContentView(R.layout.session_activity);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         btn = findViewById(R.id.clickToGoToFAQ);

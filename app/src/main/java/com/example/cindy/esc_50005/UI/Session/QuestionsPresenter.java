@@ -52,7 +52,6 @@ public class QuestionsPresenter implements QuestionsContract.Presenter {
 
     public void processQuestions(ArrayList<SessionQuestionsDO> questionsJsonData)
     {
-
         if (questionsJsonData.size() != 0) {
             mSessionQuestionView.showAddedQuestion(questionsJsonData);
         }

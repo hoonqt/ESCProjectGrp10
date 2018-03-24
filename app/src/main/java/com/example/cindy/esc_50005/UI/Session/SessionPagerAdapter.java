@@ -20,7 +20,6 @@ public class SessionPagerAdapter extends FragmentStatePagerAdapter {
         switch (position)
         {
             case 0:
-                Log.i("question fragment","selected question fragment");
                 return new QuestionsFragment();
             case 1:
                 return new ActivitiesFragment();
