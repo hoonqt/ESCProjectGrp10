@@ -105,7 +105,7 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
         protected String doInBackground(Void... voids) {
 
             client = new OkHttpClient();
-            Request request = new Request.Builder().url("ws://10.12.42.198:8080").build();
+            Request request = new Request.Builder().url("ws://ec2-35-171-6-169.compute-1.amazonaws.com:3000").build();
             EchoWebSocketListener listener = new EchoWebSocketListener();
             WebSocket ws = client.newWebSocket(request, listener);
             client.dispatcher().executorService().shutdown();
