@@ -1,16 +1,23 @@
 package com.example.cindy.esc_50005.UI.Login;
 
-import android.view.View;
+import android.content.Context;
 
+import com.example.cindy.esc_50005.Database.UsersInformation.UsersInformationDO;
 import com.example.cindy.esc_50005.UI.Base.BasePresenter;
 import com.example.cindy.esc_50005.UI.Base.BaseView;
+
+import java.util.ArrayList;
 
 public interface LoginContract {
 
     interface Presenter extends BasePresenter {
-        boolean checkIfLoginIsValid(String username, String password, String userType);
+        void checkIfLoginIsValid(ArrayList<UsersInformationDO> userInformationJsonData);
+        void loadUsersFromDatabase(Context context);
+        void loadUnsuccessfulLogin();
+        void loadSuccessfulLogin();
     }
     interface View extends BaseView <Presenter> {
-        void setupLogin(View view);
+        void showSuccessfulLogin();
+        void showUnsuccessfulLogin();
     }
 }

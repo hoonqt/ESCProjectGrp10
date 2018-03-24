@@ -3,12 +3,10 @@ package com.example.cindy.esc_50005.UI.Session;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.example.cindy.esc_50005.Database.Database.SessionQuestionsDO;
 import com.example.cindy.esc_50005.Database.Database.SessionQuestionsRemoteDataSource;
 import java.util.ArrayList;
-
 
 
 public class QuestionsPresenter implements QuestionsContract.Presenter {
@@ -23,7 +21,6 @@ public class QuestionsPresenter implements QuestionsContract.Presenter {
 
 
     public QuestionsPresenter(@NonNull QuestionsContract.View sessionQuestionsView) {
-        Log.i("question presenter","question presenter");
         mSessionQuestionsRepository = new SessionQuestionsRemoteDataSource();
         mSessionQuestionView = checkNotNull(sessionQuestionsView, "sessionQuestionView cannot be null!");
         mSessionQuestionView.setPresenter(this);
@@ -33,14 +30,6 @@ public class QuestionsPresenter implements QuestionsContract.Presenter {
 
         loadQuestions();
     }
-
-    public class QuestionsJsonData {
-
-        String _question;
-        String upvotes;
-
-    }
-
 
     @Override
     public void loadQuestions() {
@@ -63,7 +52,6 @@ public class QuestionsPresenter implements QuestionsContract.Presenter {
 
     public void processQuestions(ArrayList<SessionQuestionsDO> questionsJsonData)
     {
-        Log.i(TAG, "Length of sessionQuestionsJsonData = " + questionsJsonData.size());
 
         if (questionsJsonData.size() != 0) {
             mSessionQuestionView.showAddedQuestion(questionsJsonData);
@@ -74,10 +62,7 @@ public class QuestionsPresenter implements QuestionsContract.Presenter {
     public void upvoteQuestion(SessionQuestionsDO question) {
         question.setUpvote(question.getUpvote() + 1);
         mSessionQuestionsRepository.saveQuestion(question);
-        Log.i(TAG, "upvote question" + question.getUpvote());
         loadQuestions();
     }
-
-
 
 }

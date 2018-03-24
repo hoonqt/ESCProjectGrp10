@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <fragment
+        android:id="@+id/dashboardFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        class="com.example.cindy.esc_50005.UI.Dashboard.DashboardFragment"
+        >
+    </fragment>
+
+</android.support.constraint.ConstraintLayout>
