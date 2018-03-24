@@ -14,15 +14,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-
-
-        <activity
-            android:name=".UI.Course.FAQ.CourseActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-
-
-
         <activity
             android:name=".UI.Session.SessionActivity"
             android:label="@string/title_activity_session"
@@ -33,27 +24,32 @@
 
         <activity
             android:name=".UI.Login.LoginActivity"
+            android:theme="@style/AppTheme.NoActionBar">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
-        /activity>
+        </activity>
 
         <activity
             android:name=".UI.Course.FAQ.addEditFaq.AddEditFaqActivity"
             android:label="Add FAQ">
 
         </activity>
+        <activity
+            android:name=".UI.Course.FAQ.CourseActivity"
+            android:label="Add FAQ">
 
+        </activity>
 
         <activity
-
             android:name=".UI.Dashboard.DashboardActivity"
             android:label="Add FAQ">
 
         </activity>
+
 
     </application>
 
