@@ -22,7 +22,6 @@ public class SessionActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         AWSMobileClient.getInstance().initialize(this).execute();
-        Log.i("here","session activity");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_session);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);

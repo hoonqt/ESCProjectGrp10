@@ -1,6 +1,8 @@
 package com.example.cindy.esc_50005.UI.Session;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -66,6 +68,9 @@ public class QuestionsFragment extends android.support.v4.app.Fragment implement
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             Log.i("onCreateView","onCreateView");
+            //to get values from shared preferences
+//            SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
+//            String language = settings.getString("Username", "");
             View view=inflater.inflate(R.layout.sessionquestions_postquestions_main, container, false);
             btn = view.findViewById(R.id.add_button);
             editText = (EditText) view.findViewById(R.id.question_input);
