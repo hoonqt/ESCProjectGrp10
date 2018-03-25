@@ -30,9 +30,9 @@ public class ProfSessionAdapter extends FragmentStatePagerAdapter {
                 Log.i("question fragment","selected question fragment");
                 return new ProfQuestionFrag();
             case 1:
-                return new ActivitiesFragment();
+                return new ProfFAQFragment();
             default:
-                return null;
+                return new ProfProgressFrag();
         }
     }
 
