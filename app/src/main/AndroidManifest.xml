@@ -32,13 +32,15 @@
         <activity
             android:name=".UI.ProfSession.ProfSessionActivity"
             android:label="Add FAQ">
+
+        </activity>
+        <activity android:name=".UI.DataAdder.AddDatahere">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
-        <activity android:name=".UI.DataAdder.AddDatahere"></activity>
     </application>
 
 </manifest>
