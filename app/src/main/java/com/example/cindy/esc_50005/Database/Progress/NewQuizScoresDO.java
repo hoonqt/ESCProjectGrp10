@@ -1,4 +1,4 @@
-package com.example.cindy.esc_50005.Database.ScoreDB;
+package com.example.cindy.esc_50005.Database.Progress;
 
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBAttribute;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBHashKey;
@@ -21,8 +21,10 @@ public class NewQuizScoresDO {
     public void setStudentIDsubjectID(final String _studentIDsubjectID) {
         this._studentIDsubjectID = _studentIDsubjectID;
     }
+
     @DynamoDBRangeKey(attributeName = "quizID")
     @DynamoDBAttribute(attributeName = "quizID")
+
     public String getQuizID() {
         return _quizID;
     }

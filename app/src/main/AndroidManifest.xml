@@ -12,6 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <activity
+            android:name=".UI.Course.FAQ.CourseActivity"
         <activity
             android:name=".UI.Session.SessionActivity"
             android:label="@string/title_activity_session"
