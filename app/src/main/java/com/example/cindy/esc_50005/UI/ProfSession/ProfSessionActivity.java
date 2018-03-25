@@ -23,8 +23,8 @@ public class ProfSessionActivity extends AppCompatActivity {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.proftab_layout);
         tabLayout.addTab(tabLayout.newTab().setText(R.string.questiontab));
-        tabLayout.addTab(tabLayout.newTab().setText(R.string.faq));
-        tabLayout.addTab(tabLayout.newTab().setText(R.string.progress));
+        tabLayout.addTab(tabLayout.newTab().setText("Quiz"));
+        tabLayout.addTab(tabLayout.newTab().setText("Feedback"));
 
         //fragment is reusable cuz you can use it in other activities
         tabLayout.setTabGravity(tabLayout.GRAVITY_FILL);
