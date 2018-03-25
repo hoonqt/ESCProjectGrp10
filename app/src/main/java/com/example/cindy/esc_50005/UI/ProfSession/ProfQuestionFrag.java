@@ -33,6 +33,7 @@ public class ProfQuestionFrag extends Fragment implements ProfQnContract.View {
     private ProfQuestionFrag.LayoutManagerType mCurrentLayoutManagerType;
     private RecyclerView.LayoutManager mLayoutManager;
     private ProfQnContract.Presenter mPresenter = new ProfQnPresenter(this);
+    private ProfQnAdapter mQnAdapter;
 
     private enum LayoutManagerType {
         LINEAR_LAYOUT_MANAGER
@@ -62,11 +63,13 @@ public class ProfQuestionFrag extends Fragment implements ProfQnContract.View {
         // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.fragment_prof_question, container, false);
-        questionsrecycler=view.findViewById(R.id.recyclerViewProfQuestion);
+        questionsrecycler=view.findViewById(R.id.recyclerViewProfQn);
         mLayoutManager= new LinearLayoutManager(getActivity());
         mCurrentLayoutManagerType = ProfQuestionFrag.LayoutManagerType.LINEAR_LAYOUT_MANAGER;
         questionsrecycler.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
+        mQnAdapter = new ProfQnAdapter();
+        questionsrecycler.setAdapter(mQnAdapter);
 
         return view;
     }
@@ -83,6 +86,8 @@ public class ProfQuestionFrag extends Fragment implements ProfQnContract.View {
 
     @Override
     public void showQuestions() {
+
+
 
     }
 
