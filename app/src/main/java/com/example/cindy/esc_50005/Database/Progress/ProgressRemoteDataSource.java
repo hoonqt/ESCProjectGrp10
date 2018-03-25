@@ -114,7 +114,7 @@ public class ProgressRemoteDataSource implements ProgressDataSource {
 
                 for (NewQuizScoresDO score : result) {
                     progressArrayList.add(score);
-                    Log.i(TAG, score.getScore().toString());
+                    Log.i("scores in prds","scores: " + score.getScore().toString());
                 }
 
             }
@@ -126,7 +126,7 @@ public class ProgressRemoteDataSource implements ProgressDataSource {
             ex.printStackTrace();
         }
 
-        Log.i(TAG, "faqlist2" + progressArrayList.toString());
+        Log.i("Progresslist in prds", "progressList" + progressArrayList.toString());
 
         return progressArrayList;
 

@@ -20,6 +20,6 @@ public class MyValueFormatter implements IValueFormatter {
 
     @Override
     public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
-        return mFormat.format(value) + "%";
+        return "Quiz " + ((int)entry.getX()+1) + ": " + mFormat.format(value) + "%";
     }
 }
