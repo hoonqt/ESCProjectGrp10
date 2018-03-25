@@ -101,11 +101,12 @@ public class ProgressFragment extends Fragment implements ProgressContract.View 
         return view;
     }
 
-        private void setData(int count){
+        private void setData(ArrayList<Double> scoreList){
         ArrayList<BarEntry> yVals = new ArrayList<BarEntry>();
-
-        for(int i=0; i<count; i++){
-            float value = (i * 20 );
+        for(int i=0; i<scoreList.size(); i++){
+            double score = scoreList.get(i);
+            System.out.println("score: " + score);
+            float value = (float) score;
             yVals.add(new BarEntry(i,value));
         }
 
@@ -135,12 +136,10 @@ public class ProgressFragment extends Fragment implements ProgressContract.View 
         mChart.getDescription().setEnabled(false);
         mChart.setMaxVisibleValueCount(40);
 
-        final String[] ds = new String[5];
-        ds[0]="Quiz 1";
-        ds[1]="Quiz 2";
-        ds[2]="Quiz 3";
-        ds[3]="Quiz 4";
-        ds[4]="Quiz 5";
+        final String[] ds = new String[scoreList.size()];
+        for(int i=0; i<scoreList.size();i++){
+            ds[i]= "Quiz " + i;
+        }
 
 
         XAxis xval = mChart.getXAxis();
@@ -158,7 +157,7 @@ public class ProgressFragment extends Fragment implements ProgressContract.View 
 //            }
         });
 
-        setData(5);
+        setData(scoreList);
         mChart.setFitBars(true);
 
 //        SessionQuestionsRemoteDataSource session= new SessionQuestionsRemoteDataSource();
