@@ -3,7 +3,13 @@ package com.example.cindy.esc_50005.UI.Course.FAQ;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.example.cindy.esc_50005.Database.ScoreDB.ScoreRetriever;
+
+import com.example.cindy.esc_50005.Database.Database.SessionQuestionsRemoteDataSource;
+import com.example.cindy.esc_50005.Database.FAQ.Faq;
+import com.example.cindy.esc_50005.Database.FAQ.FaqRemoteDataSource;
+import com.example.cindy.esc_50005.Database.Progress.NewQuizScoresDO;
+import com.example.cindy.esc_50005.Database.Progress.ProgressRemoteDataSource;
+
 
 import org.json.JSONObject;
 
@@ -20,11 +26,11 @@ public class ProgressPresenter implements ProgressContract.Presenter {
     public static final String TAG = "ProgressPresenter";
 
     private final ProgressContract.View mProgressView;
-    private ScoreRetriever mProgressRepository;
-    ArrayList<JSONObject> progressJsonData;
+    private ProgressRemoteDataSource mProgressRepository;
+    ArrayList<NewQuizScoresDO> progressArrayList;
 
     public ProgressPresenter(@NonNull ProgressContract.View progressView) {
-        mProgressRepository = new ScoreRetriever();
+        mProgressRepository = new ProgressRemoteDataSource();
         mProgressView = checkNotNull(progressView, "progressView cannot be null!");
         mProgressView.setPresenter(this);
     }
@@ -36,22 +42,22 @@ public class ProgressPresenter implements ProgressContract.Presenter {
 
     @Override
     public void loadScores() {
-        progressJsonData = mProgressRepository.getScores("1002215","111");
-        processScores(progressJsonData);
+        progressArrayList = mProgressRepository.getScores("1002210","50.001");// need to change it to base on the user login details
+        processScores(progressArrayList);
 
-        Log.i(TAG, "LoadScores size is " + progressJsonData.size());
+        Log.i(TAG, "LoadScores size is " + progressArrayList.size());
     }
 
 
-    public void processScores(ArrayList<JSONObject> progressJsonData) {
+    public void processScores(ArrayList<NewQuizScoresDO> progressArrayList) {
         ArrayList<Double> scoreList = new ArrayList<Double>();
-        Log.i(TAG, "Length of progressJsonData = " + progressJsonData.size());
+        Log.i(TAG, "Length of progressArrayList = " + progressArrayList.size());
 
-        if (progressJsonData.size() != 0) {
+        if (progressArrayList.size() != 0) {
 
-            for(int i = 0; i<progressJsonData.size();i++){
+            for(int i = 0; i<progressArrayList.size();i++){
                 try{
-                    scoreList.add(progressJsonData.get(i).getDouble("_score"));
+                    scoreList.add(progressArrayList.get(i).getScore());
                 } catch(Exception e){
                     e.printStackTrace();
                 }

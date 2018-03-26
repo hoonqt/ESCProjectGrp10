@@ -14,7 +14,10 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".UI.Session.Main.SessionActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:label="@string/title_activity_session"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
         <activity
             android:name=".UI.Course.FAQ.addEditFaq.AddEditFaqActivity"
             android:label="Add FAQ" />
@@ -38,5 +41,6 @@
 
         </activity>
     </application>
+
 
 </manifest>
