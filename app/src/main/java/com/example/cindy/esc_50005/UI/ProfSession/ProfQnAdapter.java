@@ -16,10 +16,14 @@ import java.util.ArrayList;
 
 public class ProfQnAdapter extends RecyclerView.Adapter<ProfQnAdapter.QnViewHolder> {
 
-    private ArrayList dataset;
+    private ArrayList<QuizStuff> dataset;
     private static int viewHolderCount = 0;
 
     public ProfQnAdapter() {
+
+        dataset = new ArrayList<>();
+        dataset.add(new QuizStuff("Quiz 1","Who voted leave?"));
+        dataset.add(new QuizStuff("Quiz 2","Who voted remain?"));
 
     }
 
@@ -59,14 +63,16 @@ public class ProfQnAdapter extends RecyclerView.Adapter<ProfQnAdapter.QnViewHold
 
         public QnViewHolder(View v) {
             super(v);
+            stuff = (TextView)v.findViewById(R.id.qnname);
 
         }
 
         public void bind(int position) {
 
+            QuizStuff question = dataset.get(position);
+            stuff.setText(question.getQuestions());
 
         }
-
 
     }
 }

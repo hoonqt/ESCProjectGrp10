@@ -17,13 +17,11 @@ import java.util.ArrayList;
 public class ProfQuizAdapter extends RecyclerView.Adapter<ProfQuizAdapter.QuizViewHolder> {
 
     private ArrayList<QuizStuff> dataset;
-
     private static int viewHolderCount = 0;
 
     public ProfQuizAdapter() {
 
         dataset = new ArrayList<>();
-
         dataset.add(new QuizStuff("Quiz 1","Who voted leave?"));
         dataset.add(new QuizStuff("Quiz 2","Who voted remain?"));
 

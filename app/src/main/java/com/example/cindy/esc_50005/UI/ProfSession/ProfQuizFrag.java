@@ -24,7 +24,6 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 public class ProfQuizFrag extends Fragment implements ProfQuizContract.View {
 
-    private Button addbuton;
     private RecyclerView quizRecycler;
 
     private ProfQuizFrag.LayoutManagerType mCurrentLayoutManagerType;

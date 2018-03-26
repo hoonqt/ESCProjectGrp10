@@ -4,11 +4,10 @@
     android:layout_height="match_parent"
     tools:context="com.example.cindy.esc_50005.UI.ProfSession.ProfQuestionFrag">
 
-
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerViewProfQn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:id="@+id/recyclerViewProfQn"></android.support.v7.widget.RecyclerView>
+        android:layout_marginTop="0dp"></android.support.v7.widget.RecyclerView>
 
 </FrameLayout>
