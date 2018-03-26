@@ -19,9 +19,7 @@
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
-        <activity
-            android:name=".UI.Login.LoginActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".UI.Course.FAQ.addEditFaq.AddEditFaqActivity"
             android:label="Add FAQ" />
@@ -37,17 +35,6 @@
         <activity
             android:name=".UI.ProfSession.ProfSessionActivity" />
 
-        <activity
-            android:name=".UI.Course.FAQ.CourseActivity"
-            android:name=".UI.Course.FAQ.addEditFaq.AddEditFaqActivity"
-            android:label="Add FAQ" />
-        <activity
-            android:name=".UI.Course.FAQ.CourseActivity"
-            android:label="Add FAQ" />
-        <activity
-            android:name=".UI.Dashboard.DashboardActivity"
-            android:label="Add FAQ" />
-        <activity android:name=".UI.QuizSession.QuizActivity" />
 
         <activity
             android:name=".UI.Login.LoginActivity"
