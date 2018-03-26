@@ -50,9 +50,7 @@ public class ProfQuizFrag extends Fragment implements ProfQuizContract.View {
         mPresenter = checkNotNull(presenter);
     }
 
-
-
-
+    
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

@@ -15,7 +15,9 @@
         <activity
             android:name=".UI.Session.SessionActivity"
             android:label="@string/title_activity_session"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
         <activity
             android:name=".UI.Login.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -24,7 +26,9 @@
             android:label="Add FAQ" />
         <activity
             android:name=".UI.Course.FAQ.CourseActivity"
-            android:label="Add FAQ"></activity>
+            android:label="Add FAQ">
+
+        </activity>
         <activity
             android:name=".UI.Dashboard.DashboardActivity"
             android:label="Add FAQ" />
@@ -33,12 +37,13 @@
             android:name=".UI.ProfSession.ProfSessionActivity"
             android:label="Add FAQ">
 
-        </activity>
-        <activity android:name=".UI.DataAdder.AddDatahere">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+        </activity>
+        <activity android:name=".UI.DataAdder.AddDatahere">
 
         </activity>
     </application>
