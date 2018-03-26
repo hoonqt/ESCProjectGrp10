@@ -1,0 +1,77 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.cindy.esc_50005.UI.ProfSession.SideScreens.ActivityInfo"
+    android:background="#59000000"
+    android:clickable="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="70dp"
+        android:background="#eeeeee">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/editbutton"
+                android:text="Edit"
+                android:layout_marginTop="50dp"
+                android:layout_marginBottom="5dp"
+                android:padding="10dp"
+                android:background="#fafafa"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignTop="@+id/editbutton"
+                android:layout_marginTop="13dp"
+                android:layout_marginRight="10dp"
+                android:background="#fafafa"
+                android:src="@drawable/ic_keyboard_arrow_right_black_24dp"
+                android:id="@+id/imageView1" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/gradesbutton"
+                android:text="Grades"
+                android:background="#fafafa"
+                android:padding="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_below="@id/editbutton"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignTop="@+id/gradesbutton"
+                android:layout_marginTop="12dp"
+                android:layout_marginRight="10dp"
+                android:background="#fafafa"
+                android:src="@drawable/ic_keyboard_arrow_right_black_24dp"
+                android:id="@+id/imageView2"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+
+</RelativeLayout>
