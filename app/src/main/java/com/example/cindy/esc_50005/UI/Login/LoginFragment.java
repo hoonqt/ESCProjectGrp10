@@ -1,43 +1,24 @@
 package com.example.cindy.esc_50005.UI.Login;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.annotation.TargetApi;
 import android.app.AlertDialog;
-import android.app.LoaderManager;
-import android.content.Context;
-import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.provider.ContactsContract;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.text.TextUtils;
-import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
-import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 
-import com.example.cindy.esc_50005.MainActivity;
 import com.example.cindy.esc_50005.R;
-import com.example.cindy.esc_50005.UI.Course.FAQ.CourseActivity;
-import com.example.cindy.esc_50005.UI.Course.FAQ.FaqContract;
 import com.example.cindy.esc_50005.UI.Dashboard.DashboardActivity;
-import com.example.cindy.esc_50005.UI.Session.SessionActivity;
 
 import static com.google.common.base.Preconditions.*;
 
@@ -84,8 +65,8 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     public void setUpLogin(View view)
     {
         mEmailView = (AutoCompleteTextView) view.findViewById(R.id.email);
-
         mPasswordView = (EditText) view.findViewById(R.id.password);
+        RadioGroup selectProfessorOrStudentButton = (RadioGroup) view.findViewById(R.id.professorOrStudent);
 
         Button mEmailSignInButton = (Button) view.findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new View.OnClickListener() {
@@ -93,6 +74,10 @@ public class LoginFragment extends Fragment implements LoginContract.View {
             public void onClick(View view) {
                 username=mEmailView.getText().toString();
                 password=mPasswordView.getText().toString();
+                if(userType==null)
+                {
+                    userType="professor";
+                }
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString("Username", username);
                 editor.putString("Password", password);
@@ -103,8 +88,6 @@ public class LoginFragment extends Fragment implements LoginContract.View {
         });
 
         mLoginFormView = view.findViewById(R.id.login_form);
-//        mProgressView = view.findViewById(R.id.login_progress);
-        RadioGroup selectProfessorOrStudentButton = (RadioGroup) view.findViewById(R.id.professorOrStudent);
 
         selectProfessorOrStudentButton.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -113,6 +96,7 @@ public class LoginFragment extends Fragment implements LoginContract.View {
                 switch(checkedId)
                 {
                     case R.id.professor:
+                        Log.i("clicked","clicked");
                         userType="professor";
                         break;
                     case R.id.student:

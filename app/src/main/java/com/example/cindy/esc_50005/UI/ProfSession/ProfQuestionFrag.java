@@ -14,9 +14,7 @@ import android.widget.Button;
 
 import com.example.cindy.esc_50005.Database.Database.SessionQuestionsDO;
 import com.example.cindy.esc_50005.R;
-import com.example.cindy.esc_50005.UI.Session.QuestionsContract;
-import com.example.cindy.esc_50005.UI.Session.QuestionsFragment;
-import com.example.cindy.esc_50005.UI.Session.QuestionsPresenter;
+
 
 import java.util.ArrayList;
 

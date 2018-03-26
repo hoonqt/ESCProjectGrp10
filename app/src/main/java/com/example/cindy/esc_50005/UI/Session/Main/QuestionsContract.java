@@ -1,4 +1,4 @@
-package com.example.cindy.esc_50005.UI.Session;
+package com.example.cindy.esc_50005.UI.Session.Main;
 
 import com.example.cindy.esc_50005.Database.Database.SessionQuestionsDO;
 import com.example.cindy.esc_50005.UI.Base.BasePresenter;

@@ -1,19 +1,12 @@
-package com.example.cindy.esc_50005.UI.Session;
+package com.example.cindy.esc_50005.UI.Session.Main;
 
-import android.app.AlertDialog;
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.cindy.esc_50005.Database.Database.SessionQuestionsDO;
-import com.example.cindy.esc_50005.Database.FAQ.Faq;
 import com.example.cindy.esc_50005.R;
 
 import java.util.ArrayList;
@@ -35,7 +28,7 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.Ques
     }
 
     @Override
-    public void onBindViewHolder(com.example.cindy.esc_50005.UI.Session.QuestionsAdapter.QuestionsViewHolder holder, int position) {
+    public void onBindViewHolder(QuestionsAdapter.QuestionsViewHolder holder, int position) {
         holder.bind(position);
     }
 

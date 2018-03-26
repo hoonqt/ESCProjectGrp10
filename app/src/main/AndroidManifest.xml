@@ -12,9 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-<<<<<<< HEAD
+
         <activity
-            android:name=".UI.Session.SessionActivity"
+            android:name=".UI.Session.Main.SessionActivity"
             android:label="@string/title_activity_session"
             android:theme="@style/AppTheme.NoActionBar">
 
@@ -35,28 +35,22 @@
             android:label="Add FAQ" />
         <activity android:name=".UI.QuizSession.QuizActivity" />
         <activity
-            android:name=".UI.ProfSession.ProfSessionActivity"
-=======
-        <!--<activity-->
-            <!--android:name=".UI.Session.SessionActivity"-->
-            <!--android:label="@string/title_activity_session"-->
-            <!--android:theme="@style/AppTheme.NoActionBar"></activity>-->
-        <!--<activity-->
-            <!--android:name=".UI.Login.LoginActivity"-->
-            <!--android:theme="@style/AppTheme.NoActionBar" />-->
-        <!--<activity-->
-            <!--android:name=".UI.Course.FAQ.addEditFaq.AddEditFaqActivity"-->
-            <!--android:label="Add FAQ" />-->
-        <!--<activity-->
-            <!--android:name=".UI.Course.FAQ.CourseActivity"-->
-            <!--android:label="Add FAQ"></activity>-->
-        <!--<activity-->
-            <!--android:name=".UI.Dashboard.DashboardActivity"-->
-            <!--android:label="Add FAQ" />-->
-        <!--<activity android:name=".UI.QuizSession.QuizActivity" />-->
+            android:name=".UI.ProfSession.ProfSessionActivity" />
+
         <activity
             android:name=".UI.Course.FAQ.CourseActivity"
->>>>>>> f3cdc0c3afceff185e51227cb531c3ead61bca73
+            android:name=".UI.Course.FAQ.addEditFaq.AddEditFaqActivity"
+            android:label="Add FAQ" />
+        <activity
+            android:name=".UI.Course.FAQ.CourseActivity"
+            android:label="Add FAQ" />
+        <activity
+            android:name=".UI.Dashboard.DashboardActivity"
+            android:label="Add FAQ" />
+        <activity android:name=".UI.QuizSession.QuizActivity" />
+
+        <activity
+            android:name=".UI.Login.LoginActivity"
             android:label="Add FAQ">
 
             <intent-filter>
@@ -69,5 +63,6 @@
 
         </activity>
     </application>
+
 
 </manifest>
