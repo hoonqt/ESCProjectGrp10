@@ -13,13 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".UI.Session.SessionActivity"
-            android:label="@string/title_activity_session"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
-        <activity
-            android:name=".UI.Login.LoginActivity"
+            android:name=".UI.Session.Main.SessionActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".UI.Course.FAQ.addEditFaq.AddEditFaqActivity"
@@ -33,7 +27,7 @@
         <activity android:name=".UI.QuizSession.QuizActivity" />
 
         <activity
-            android:name=".UI.ProfSession.ProfSessionActivity"
+            android:name=".UI.Login.LoginActivity"
             android:label="Add FAQ">
 
             <intent-filter>

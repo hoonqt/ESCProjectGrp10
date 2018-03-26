@@ -26,7 +26,6 @@ public class DashboardPresenter implements DashboardContract.Presenter  {
     private final UsersInformationRemoteDataSource mCoursesRepository;
     ArrayList<UsersInformationDO> courseInformationJsonData;
     private SharedPreferences userInformation;
-    private static Context context;
     private static  ArrayList<String> listOfCourses=new ArrayList<>();
 
 

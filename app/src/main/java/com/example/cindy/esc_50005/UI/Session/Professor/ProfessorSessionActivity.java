@@ -1,10 +1,10 @@
-package com.example.cindy.esc_50005.UI.ProfSession;
+package com.example.cindy.esc_50005.UI.Session.Professor;
 
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -15,7 +15,7 @@ import com.amazonaws.mobile.client.AWSMobileClient;
 import com.example.cindy.esc_50005.R;
 
 
-public class ProfSessionActivity extends AppCompatActivity {
+public class ProfessorSessionActivity extends AppCompatActivity {
 
     private SharedPreferences sharedPreferences;
 
@@ -39,7 +39,7 @@ public class ProfSessionActivity extends AppCompatActivity {
 
         final ViewPager viewPager=(ViewPager) findViewById(R.id.pager);
 
-        final com.example.cindy.esc_50005.UI.ProfSession.ProfSessionAdapter pagerAdapter=new com.example.cindy.esc_50005.UI.ProfSession.ProfSessionAdapter(getSupportFragmentManager(),tabLayout.getTabCount());
+        final ProfessorSessionAdapter pagerAdapter=new ProfessorSessionAdapter(getSupportFragmentManager(),tabLayout.getTabCount());
 
         viewPager.setAdapter(pagerAdapter);
 

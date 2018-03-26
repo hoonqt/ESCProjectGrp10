@@ -1,8 +1,6 @@
-package com.example.cindy.esc_50005.UI.Session;
+package com.example.cindy.esc_50005.UI.Session.Student;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,12 +13,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
-import com.amazonaws.mobile.client.AWSMobileClient;
 import com.example.cindy.esc_50005.Database.Database.SessionQuestionsDO;
-import com.example.cindy.esc_50005.Database.FAQ.Faq;
 import com.example.cindy.esc_50005.R;
-import org.json.JSONArray;
+import com.example.cindy.esc_50005.UI.Session.Main.QuestionsAdapter;
+import com.example.cindy.esc_50005.UI.Session.Main.QuestionsContract;
+import com.example.cindy.esc_50005.UI.Session.Main.QuestionsItemListener;
+import com.example.cindy.esc_50005.UI.Session.Main.QuestionsPresenter;
+
 import java.util.ArrayList;
+
 import static com.google.common.base.Preconditions.checkNotNull;
 
 
@@ -76,15 +77,6 @@ public class QuestionsFragment extends android.support.v4.app.Fragment implement
             mLayoutManager= new LinearLayoutManager(getActivity());
             mCurrentLayoutManagerType = QuestionsFragment.LayoutManagerType.LINEAR_LAYOUT_MANAGER;
             questionListRecycler.setLayoutManager(new LinearLayoutManager(view.getContext()));
-//            mQuestionsAdapter=new QuestionsAdapter(getContext(),questionsJsonData);
-//            questionListRecycler.setAdapter(mQuestionsAdapter);
-//            swipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.faq_swipe);
-//            swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//                mPresenter.loadQuestions();
-//            }
-//        });
 
             return view;
         }
@@ -105,16 +97,6 @@ public class QuestionsFragment extends android.support.v4.app.Fragment implement
 
     @Override
     public void showAddedQuestion(ArrayList<SessionQuestionsDO> questionsList) {
-//        mPresenter.loadQuestions();
-//
-//        AlertDialog.Builder builder=new AlertDialog.Builder(getContext());
-//
-//        builder.setMessage("Question has been successfully posted! " );
-//
-//        AlertDialog alertDialog=builder.create();
-//        //instantiates the object
-//        alertDialog.show();
-//
         mQuestionsAdapter=new QuestionsAdapter(questionsList,mItemListener);
         questionListRecycler.setAdapter(mQuestionsAdapter);
 
@@ -130,15 +112,6 @@ public class QuestionsFragment extends android.support.v4.app.Fragment implement
 
     }
 
-
-
-
-//    public void questionsLoaded() {
-//        if(swipeLayout.isRefreshing()) {
-//            swipeLayout.setRefreshing(false);
-//        }
-//    }
-//
     QuestionsItemListener mItemListener = new QuestionsItemListener() {
         @Override
         public void onUpvoteClick(SessionQuestionsDO clickedQuestion) {

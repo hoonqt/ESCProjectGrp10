@@ -53,8 +53,10 @@ public class LoginPresenter implements LoginContract.Presenter  {
 
     public void checkIfLoginIsValid(ArrayList<UsersInformationDO> userInformationJsonData){
         Log.i("checkIfLoginIsValid","checkIfLoginIsValid");
+
         for(UsersInformationDO user: userInformationJsonData)
         {
+            Log.i("user",user.getUsername());
 
             if(user.getPassword().equals(userInformation.getString("Password","")) && user.getUsername().equals(userInformation.getString("Username","")) && user.getUserType().equals(userInformation.getString("UserType",""))){
 

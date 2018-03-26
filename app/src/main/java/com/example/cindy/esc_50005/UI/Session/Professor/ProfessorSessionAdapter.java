@@ -1,17 +1,21 @@
-package com.example.cindy.esc_50005.UI.Session;
+package com.example.cindy.esc_50005.UI.Session.Professor;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.util.Log;
 
-import com.example.cindy.esc_50005.UI.ProfSession.ProfQuestionFrag;
+import com.example.cindy.esc_50005.UI.Session.Student.ActivitiesFragment;
 
-public class SessionPagerAdapter extends FragmentStatePagerAdapter {
+/**
+ * Created by hoonqt on 24/3/18.
+ */
+
+public class ProfessorSessionAdapter extends FragmentStatePagerAdapter {
 
     int mNumOfTabs;
 
-    public SessionPagerAdapter(FragmentManager fm, int mNumOfTabs) {
+    public ProfessorSessionAdapter(FragmentManager fm, int mNumOfTabs) {
         super(fm);
         this.mNumOfTabs = mNumOfTabs;
     }
@@ -22,9 +26,10 @@ public class SessionPagerAdapter extends FragmentStatePagerAdapter {
         switch (position)
         {
             case 0:
-                return new QuestionsFragment();
+                Log.i("question fragment","selected question fragment");
+                return new ProfessionQuestionFragment();
             case 1:
-                return new ProfQuestionFrag();
+                return new ActivitiesFragment();
             default:
                 return null;
         }
@@ -34,6 +39,5 @@ public class SessionPagerAdapter extends FragmentStatePagerAdapter {
     public int getCount() {
         return mNumOfTabs;
     }
-
 
 }

@@ -3,12 +3,7 @@ package com.example.cindy.esc_50005.UI.Course.FAQ;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.example.cindy.esc_50005.Database.Database.SessionQuestionsRemoteDataSource;
-import com.example.cindy.esc_50005.Database.FAQ.Faq;
-import com.example.cindy.esc_50005.Database.FAQ.FaqRemoteDataSource;
 import com.example.cindy.esc_50005.Database.ScoreDB.ScoreRetriever;
-import com.example.cindy.esc_50005.UI.Session.QuestionsContract;
-import com.google.gson.Gson;
 
 import org.json.JSONObject;
 

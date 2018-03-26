@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.cindy.esc_50005.MainActivity">
     <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/course_name"
+        android:id="@+id/end_session"
+        android:title="End Session"
         app:showAsAction="never" />
 </menu>

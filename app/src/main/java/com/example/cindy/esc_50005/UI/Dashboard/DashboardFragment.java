@@ -1,11 +1,10 @@
 package com.example.cindy.esc_50005.UI.Dashboard;
 
-import android.content.Context;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,28 +13,20 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioGroup;
+import android.widget.LinearLayout;
 
-import com.example.cindy.esc_50005.Database.Database.SessionQuestionsDO;
-import com.example.cindy.esc_50005.Database.UsersInformation.UsersInformationDO;
 import com.example.cindy.esc_50005.R;
 import com.example.cindy.esc_50005.UI.Course.FAQ.CourseActivity;
-import com.example.cindy.esc_50005.UI.Login.LoginContract;
-import com.example.cindy.esc_50005.UI.Login.LoginPresenter;
-import com.example.cindy.esc_50005.UI.Session.QuestionsAdapter;
-import com.example.cindy.esc_50005.UI.Session.QuestionsFragment;
-import com.example.cindy.esc_50005.UI.Session.QuestionsItemListener;
-import com.example.cindy.esc_50005.UI.Session.SessionActivity;
+import com.example.cindy.esc_50005.UI.Session.Main.SessionActivity;
 
 import java.util.ArrayList;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
 
-public class DashboardFragment extends Fragment implements DashboardContract.View {
+public class DashboardFragment extends Fragment implements DashboardContract.View, View.OnClickListener {
 
     // UI references.
     SharedPreferences sharedPreferences;
@@ -44,7 +35,7 @@ public class DashboardFragment extends Fragment implements DashboardContract.Vie
     private RecyclerView coursesListRecycler;
     private DashboardFragment.LayoutManagerType mCurrentLayoutManagerType;
     private RecyclerView.LayoutManager mLayoutManager;
-    private Context context;
+    private Button button;
 
     public DashboardFragment() {
         // Required empty public constructor
@@ -69,6 +60,9 @@ public class DashboardFragment extends Fragment implements DashboardContract.Vie
         mLayoutManager= new LinearLayoutManager(getActivity());
         mCurrentLayoutManagerType = DashboardFragment.LayoutManagerType.LINEAR_LAYOUT_MANAGER;
         coursesListRecycler.setLayoutManager(new LinearLayoutManager(view.getContext(),LinearLayoutManager.HORIZONTAL,false));
+        button=view.findViewById(R.id.addNewCourse);
+        button.setOnClickListener(this);
+
         attemptLoadCourses();
         return view;
     }
@@ -97,6 +91,12 @@ public class DashboardFragment extends Fragment implements DashboardContract.Vie
         //haven't written code that opens the dashboard if login is successful
     }
 
+    public void addNewCourse(String course)
+    {
+
+
+    }
+
 
 
     public void showLoadedCourses() {
@@ -112,6 +112,38 @@ public class DashboardFragment extends Fragment implements DashboardContract.Vie
             startActivity(intent);
         }
     };
+
+    public void onClick(View view) {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this.getActivity());
+        alertDialog.setTitle("Add New Course");
+        LinearLayout layout = new LinearLayout(this.getActivity());
+        layout.setOrientation(LinearLayout.VERTICAL);
+
+        final EditText courseId = new EditText(getActivity().getApplicationContext());
+        courseId.setHint("Course Id");
+        courseId.setId(0);
+        final EditText courseName = new EditText(getActivity().getApplicationContext());
+        courseName.setHint("Course Name");
+        final Button submit = new Button(getActivity().getApplicationContext());
+        submit.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Log.i("submit","submit");
+                String course=courseId.getText().toString() + " " + courseName.getText().toString();
+                addNewCourse(course);
+
+            }
+        });
+        submit.setText("Submit");
+        layout.addView(courseId);
+        layout.addView(courseName);
+        layout.addView(submit);
+        alertDialog.setView(layout);
+        alertDialog.create();
+        alertDialog.show();
+    }
+
 }
 
 
