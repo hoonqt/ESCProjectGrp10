@@ -1,6 +1,6 @@
 package com.example.cindy.esc_50005.Database.Progress;
 
-import com.example.cindy.esc_50005.Database.FAQ.Faq;
+
 
 import java.util.ArrayList;
 

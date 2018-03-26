@@ -37,7 +37,7 @@ public class ProgressPresenter implements ProgressContract.Presenter {
 
     @Override
     public void loadScores() {
-        progressArrayList = mProgressRepository.getScores("1002215","111");
+        progressArrayList = mProgressRepository.getScores("1002210","50.001");// need to change it to base on the user login details
         processScores(progressArrayList);
 
         Log.i(TAG, "LoadScores size is " + progressArrayList.size());

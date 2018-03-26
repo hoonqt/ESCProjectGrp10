@@ -2,6 +2,7 @@ package com.example.cindy.esc_50005.UI.Course.FAQ;
 
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -44,18 +45,8 @@ public class ProgressFragment extends Fragment implements ProgressContract.View 
     }
 
     private final String TAG = "ProgressFragment";
-
-    protected LayoutManagerType mCurrentLayoutManagerType;
-    protected RecyclerView.LayoutManager mLayoutManager;
     private ProgressContract.Presenter mPresenter = new ProgressPresenter(this);
-    private LinearLayout mFaqView;
-    private RecyclerView faqListRecycler;
-    private SwipeRefreshLayout swipeLayout;
     private BarChart mChart;
-
-
-    private FaqAdapter mFaqAdapter;
-
     public ProgressFragment() {
         // Required empty public constructor
     }
@@ -103,10 +94,11 @@ public class ProgressFragment extends Fragment implements ProgressContract.View 
 
         private void setData(ArrayList<Double> scoreList){
         ArrayList<BarEntry> yVals = new ArrayList<BarEntry>();
+            Log.i("zain", "scoreList size1 " + scoreList.size());
         for(int i=0; i<scoreList.size(); i++){
             double score = scoreList.get(i);
-            System.out.println("score: " + score);
-            float value = (float) score;
+            Log.i("zain", "score " + score);
+            float value = (float) score/5*100;
             yVals.add(new BarEntry(i,value));
         }
 
@@ -115,9 +107,11 @@ public class ProgressFragment extends Fragment implements ProgressContract.View 
         set.setColors(ColorTemplate.LIBERTY_COLORS);
         //Show value on top of each bar
         set.setDrawValues(true);
-        set.setValueTextSize(15);
+        set.setValueTextSize(10);
+//        set.setBarBorderWidth(1f);
 
         BarData data = new BarData(set);
+//        data.setBarWidth(0.5f);
         data.setValueFormatter(new MyValueFormatter());
         mChart.setData(data);
         mChart.invalidate();
@@ -129,7 +123,7 @@ public class ProgressFragment extends Fragment implements ProgressContract.View 
 
 
     @Override
-    public void showProgress(ArrayList<Double> scoreList) {
+    public void showProgress(final ArrayList<Double> scoreList) {
 
             Log.i(TAG, "hi" + scoreList.size());
 
@@ -137,28 +131,37 @@ public class ProgressFragment extends Fragment implements ProgressContract.View 
         mChart.setMaxVisibleValueCount(40);
 
         final String[] ds = new String[scoreList.size()];
+        Log.i("zain", "scoreList size " + scoreList.size());
         for(int i=0; i<scoreList.size();i++){
-            ds[i]= "Quiz " + i;
+            ds[i]= "Quiz " + (i+1);
         }
 
 
         XAxis xval = mChart.getXAxis();
-        xval.setDrawLabels(true);
-        xval.setValueFormatter(new MyAxisValueFormatter() {
-            @Override
-            public String getFormattedValue(float value, AxisBase axis) {
-                Log.i("zain", "value " + value);
-                return ds[Math.round(value)];
-            }
+        xval.setDrawLabels(false);
 
+//        xval.setValueFormatter(new MyAxisValueFormatter() {
 //            @Override
-//            public int getDecimalDigits() {
-//                return 0;
+//            public String getFormattedValue(float value, AxisBase axis) {
+//                Log.i("zain", "value " + value);
+////                if(value>scoreList.size()){
+////                    return ds[Math.round(value)-1];
+////                }else {
+////                    return ds[Math.round(value)];
+////                }
+//                return ds[1];
+//
+//
 //            }
-        });
+//
+////            @Override
+////            public int getDecimalDigits() {
+////                return 0;
+////            }
+//        });
 
         setData(scoreList);
-        mChart.setFitBars(true);
+        mChart.setFitBars(false);
 
 //        SessionQuestionsRemoteDataSource session= new SessionQuestionsRemoteDataSource();
 //        session.addQuestion("What is the difference between Observer and Strategy Design Pattern?","111");
