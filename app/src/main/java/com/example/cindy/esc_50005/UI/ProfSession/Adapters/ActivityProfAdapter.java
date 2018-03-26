@@ -6,13 +6,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.cindy.esc_50005.R;
 import com.example.cindy.esc_50005.UI.ProfSession.ProfSessionActivity;
 import com.example.cindy.esc_50005.UI.ProfSession.QuizStuff;
-import com.example.cindy.esc_50005.UI.ProfSession.SideScreens.QuestionAdder;
+import com.example.cindy.esc_50005.UI.ProfSession.SideScreens.ActivityInfo;
 
 import java.util.ArrayList;
 
@@ -31,6 +30,7 @@ public class ActivityProfAdapter extends RecyclerView.Adapter<ActivityProfAdapte
         dataset = new ArrayList<>();
         dataset.add(new QuizStuff("Quiz 1","Who voted leave?"));
         dataset.add(new QuizStuff("Quiz 2","Who voted remain?"));
+        dataset.add(new QuizStuff("Quiz 3","Who voted none?"));
 
     }
 
@@ -72,12 +72,12 @@ public class ActivityProfAdapter extends RecyclerView.Adapter<ActivityProfAdapte
     class QuizViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public TextView mTextView;
-        public Button lunchPad;
+        public TextView lunchPad;
 
         public QuizViewHolder(View v) {
             super(v);
             mTextView = (TextView)v.findViewById(R.id.quizname);
-            lunchPad = (Button)v.findViewById(R.id.moreinfobutton);
+            lunchPad = (TextView) v.findViewById(R.id.moreinfobutton);
             lunchPad.setOnClickListener(this);
 
         }
@@ -94,9 +94,9 @@ public class ActivityProfAdapter extends RecyclerView.Adapter<ActivityProfAdapte
 
             if (v.getId() == lunchPad.getId()) {
 
-                QuestionAdder adder = new QuestionAdder();
+                ActivityInfo adder = new ActivityInfo();
                 ProfSessionActivity myActivity = (ProfSessionActivity)context;
-                myActivity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_out_up,R.anim.slide_in_up).replace(R.id.profsessionhere,adder).addToBackStack(null).commit();
+                myActivity.getSupportFragmentManager().beginTransaction().addToBackStack(null).setCustomAnimations(R.anim.slide_out_up,R.anim.slide_in_up).replace(R.id.profsessionhere,adder).addToBackStack(null).commit();
                 Log.i("Donald","This ain't working");
 
             }

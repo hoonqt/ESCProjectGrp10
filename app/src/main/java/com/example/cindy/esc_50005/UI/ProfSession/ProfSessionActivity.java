@@ -31,7 +31,7 @@ public class ProfSessionActivity extends AppCompatActivity {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.proftab_layout);
         tabLayout.addTab(tabLayout.newTab().setText(R.string.questiontab));
-        tabLayout.addTab(tabLayout.newTab().setText("Quiz"));
+        tabLayout.addTab(tabLayout.newTab().setText("Activity"));
         tabLayout.addTab(tabLayout.newTab().setText("Feedback"));
 
         //fragment is reusable cuz you can use it in other activities
@@ -84,5 +84,19 @@ public class ProfSessionActivity extends AppCompatActivity {
             return true;
         }
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        int count = getFragmentManager().getBackStackEntryCount();
+        Log.i("Stormy",Integer.toString(count));
+
+        if (count == 0) {
+            super.onBackPressed();
+            //additional code
+        } else {
+            getFragmentManager().popBackStack();
+        }
+
     }
 }
