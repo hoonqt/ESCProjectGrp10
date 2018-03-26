@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.cindy.esc_50005.UI.ProfSession.QuestionAdder"
+    tools:context="com.example.cindy.esc_50005.UI.ProfSession.SideScreens.QuestionAdder"
     android:background="#33000000" >
 
 <FrameLayout
@@ -19,7 +19,7 @@
 
     </FrameLayout>
 
-    <fragment android:name="com.example.cindy.esc_50005.UI.ProfSession.StormyVag"
+    <fragment android:name="com.example.cindy.esc_50005.UI.ProfSession.SideScreens.QuizEditor"
         android:id="@+id/menu_fragment"
         android:layout_width="match_parent"
         android:layout_gravity="top|center_horizontal"

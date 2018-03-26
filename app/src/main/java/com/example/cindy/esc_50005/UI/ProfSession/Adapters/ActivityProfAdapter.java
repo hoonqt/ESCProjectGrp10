@@ -1,7 +1,5 @@
-package com.example.cindy.esc_50005.UI.ProfSession;
+package com.example.cindy.esc_50005.UI.ProfSession.Adapters;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -12,6 +10,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.cindy.esc_50005.R;
+import com.example.cindy.esc_50005.UI.ProfSession.ProfSessionActivity;
+import com.example.cindy.esc_50005.UI.ProfSession.QuizStuff;
+import com.example.cindy.esc_50005.UI.ProfSession.SideScreens.QuestionAdder;
 
 import java.util.ArrayList;
 
@@ -19,13 +20,13 @@ import java.util.ArrayList;
  * Created by hoonqt on 25/3/18.
  */
 
-public class ProfQuizAdapter extends RecyclerView.Adapter<ProfQuizAdapter.QuizViewHolder> {
+public class ActivityProfAdapter extends RecyclerView.Adapter<ActivityProfAdapter.QuizViewHolder> {
 
     private ArrayList<QuizStuff> dataset;
     private static int viewHolderCount = 0;
     private Context context;
 
-    public ProfQuizAdapter() {
+    public ActivityProfAdapter() {
 
         dataset = new ArrayList<>();
         dataset.add(new QuizStuff("Quiz 1","Who voted leave?"));
@@ -36,7 +37,7 @@ public class ProfQuizAdapter extends RecyclerView.Adapter<ProfQuizAdapter.QuizVi
 
     // Create new views (invoked by the layout manager)
     @Override
-    public ProfQuizAdapter.QuizViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ActivityProfAdapter.QuizViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         int layoutIDForListItem = R.layout.profquiz_recycler;
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
@@ -56,7 +57,7 @@ public class ProfQuizAdapter extends RecyclerView.Adapter<ProfQuizAdapter.QuizVi
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(ProfQuizAdapter.QuizViewHolder holder, int position) {
+    public void onBindViewHolder(ActivityProfAdapter.QuizViewHolder holder, int position) {
         holder.bind(position);
     }
 
