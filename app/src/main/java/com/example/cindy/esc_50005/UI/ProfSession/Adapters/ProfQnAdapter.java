@@ -1,4 +1,4 @@
-package com.example.cindy.esc_50005.UI.ProfSession;
+package com.example.cindy.esc_50005.UI.ProfSession.Adapters;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -7,12 +7,15 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.cindy.esc_50005.R;
+import com.example.cindy.esc_50005.UI.ProfSession.QuizStuff;
 
 import java.util.ArrayList;
 
 /**
  * Created by hoonqt on 25/3/18.
  */
+
+//Temporary, to remove once other stuff is in.
 
 public class ProfQnAdapter extends RecyclerView.Adapter<ProfQnAdapter.QnViewHolder> {
 

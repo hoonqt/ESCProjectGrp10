@@ -1,4 +1,4 @@
-package com.example.cindy.esc_50005.UI.ProfSession;
+package com.example.cindy.esc_50005.UI.ProfSession.MainScreens;
 
 
 import android.os.Bundle;
@@ -10,10 +10,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.example.cindy.esc_50005.Database.Database.SessionQuestionsDO;
 import com.example.cindy.esc_50005.R;
+import com.example.cindy.esc_50005.UI.ProfSession.Adapters.ActivityProfAdapter;
+import com.example.cindy.esc_50005.UI.ProfSession.Contracts.QuizProfContract;
+import com.example.cindy.esc_50005.UI.ProfSession.Presenters.ActivityProfPresenter;
 
 import java.util.ArrayList;
 
@@ -22,20 +24,20 @@ import static com.google.common.base.Preconditions.checkNotNull;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ProfQuizFrag extends Fragment implements ProfQuizContract.View {
+public class ActivityProfFrag extends Fragment implements QuizProfContract.View {
 
     private RecyclerView quizRecycler;
 
-    private ProfQuizFrag.LayoutManagerType mCurrentLayoutManagerType;
+    private ActivityProfFrag.LayoutManagerType mCurrentLayoutManagerType;
     private RecyclerView.LayoutManager mLayoutManager;
-    private ProfQuizContract.Presenter mPresenter = new ProfQuizPresenter(this);
-    private ProfQuizAdapter mQuizAdapter;
+    private QuizProfContract.Presenter mPresenter = new ActivityProfPresenter(this);
+    private ActivityProfAdapter mQuizAdapter;
 
     private enum LayoutManagerType {
         LINEAR_LAYOUT_MANAGER
     }
 
-    public ProfQuizFrag() {
+    public ActivityProfFrag() {
         // Required empty public constructor
     }
 
@@ -45,7 +47,7 @@ public class ProfQuizFrag extends Fragment implements ProfQuizContract.View {
     }
 
     @Override
-    public void setPresenter(@NonNull ProfQuizContract.Presenter presenter) {
+    public void setPresenter(@NonNull QuizProfContract.Presenter presenter) {
         Log.i("set presenter","set presenter");
         mPresenter = checkNotNull(presenter);
     }
@@ -62,7 +64,7 @@ public class ProfQuizFrag extends Fragment implements ProfQuizContract.View {
         mCurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
         quizRecycler.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
-        mQuizAdapter = new ProfQuizAdapter();
+        mQuizAdapter = new ActivityProfAdapter();
         quizRecycler.setAdapter(mQuizAdapter);
 
         return view;

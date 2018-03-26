@@ -1,4 +1,4 @@
-package com.example.cindy.esc_50005.UI.ProfSession;
+package com.example.cindy.esc_50005.UI.ProfSession.SideScreens;
 
 
 import android.os.Bundle;

@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    tools:context="com.example.cindy.esc_50005.UI.ProfSession.StormyVag"
+    tools:context="com.example.cindy.esc_50005.UI.ProfSession.SideScreens.QuizEditor"
     android:background="#ffffff"
     >
 

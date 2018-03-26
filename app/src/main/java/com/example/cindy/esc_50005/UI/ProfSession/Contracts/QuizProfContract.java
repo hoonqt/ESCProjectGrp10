@@ -1,4 +1,4 @@
-package com.example.cindy.esc_50005.UI.ProfSession;
+package com.example.cindy.esc_50005.UI.ProfSession.Contracts;
 
 import com.example.cindy.esc_50005.Database.Database.SessionQuestionsDO;
 import com.example.cindy.esc_50005.UI.Base.BasePresenter;
@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * Created by hoonqt on 25/3/18.
  */
 
-public interface ProfQuizContract {
+public interface QuizProfContract {
 
     interface View extends BaseView<Presenter> {
         void showQuizes();

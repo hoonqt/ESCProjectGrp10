@@ -1,4 +1,4 @@
-package com.example.cindy.esc_50005.UI.ProfSession;
+package com.example.cindy.esc_50005.UI.ProfSession.MainScreens;
 
 
 import android.os.Bundle;
@@ -10,10 +10,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.example.cindy.esc_50005.Database.Database.SessionQuestionsDO;
 import com.example.cindy.esc_50005.R;
+import com.example.cindy.esc_50005.UI.ProfSession.Adapters.ProfQnAdapter;
+import com.example.cindy.esc_50005.UI.ProfSession.Contracts.QnProfContract;
+import com.example.cindy.esc_50005.UI.ProfSession.Presenters.ProfQnPresenter;
 
 
 import java.util.ArrayList;
@@ -23,13 +25,13 @@ import static com.google.common.base.Preconditions.checkNotNull;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ProfQuestionFrag extends Fragment implements ProfQnContract.View {
+public class ProfQuestionFrag extends Fragment implements QnProfContract.View {
 
     private RecyclerView questionsrecycler;
 
     private ProfQuestionFrag.LayoutManagerType mCurrentLayoutManagerType;
     private RecyclerView.LayoutManager mLayoutManager;
-    private ProfQnContract.Presenter mPresenter = new ProfQnPresenter(this);
+    private QnProfContract.Presenter mPresenter = new ProfQnPresenter(this);
     private ProfQnAdapter mQnAdapter;
 
     private enum LayoutManagerType {
@@ -46,7 +48,7 @@ public class ProfQuestionFrag extends Fragment implements ProfQnContract.View {
     }
 
     @Override
-    public void setPresenter(@NonNull ProfQnContract.Presenter presenter) {
+    public void setPresenter(@NonNull QnProfContract.Presenter presenter) {
         Log.i("set presenter","set presenter");
         mPresenter = checkNotNull(presenter);
     }
