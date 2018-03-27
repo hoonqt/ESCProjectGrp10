@@ -47,6 +47,7 @@ public class FaqFragment extends Fragment implements FaqContract.View {
     public static FaqFragment newInstance() {
         return new FaqFragment();
     }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,9 +68,9 @@ public class FaqFragment extends Fragment implements FaqContract.View {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.faq_main, container, false);
-        faqListRecycler=(RecyclerView) view.findViewById(R.id.faq_rv);
-        mLayoutManager= new LinearLayoutManager(getActivity());
+        View view = inflater.inflate(R.layout.faq_main, container, false);
+        faqListRecycler = (RecyclerView) view.findViewById(R.id.faq_rv);
+        mLayoutManager = new LinearLayoutManager(getActivity());
         mCurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
         faqListRecycler.setLayoutManager(new LinearLayoutManager(this.getActivity()));
 
@@ -95,22 +96,19 @@ public class FaqFragment extends Fragment implements FaqContract.View {
 
     public void showFaq(ArrayList<Faq> faqList) {
 
-        mFaqAdapter=new FaqAdapter(faqList, mItemListener);
+        mFaqAdapter = new FaqAdapter(faqList, mItemListener);
         faqListRecycler.setAdapter(mFaqAdapter);
     }
 
-    public void showNoFaq()
-    {
-
-
+    public void showNoFaq() {
     }
-    public void showLoadFaqError()
-    {
+
+    public void showLoadFaqError() {
 
     }
 
     public void faqLoaded() {
-        if(swipeLayout.isRefreshing()) {
+        if (swipeLayout.isRefreshing()) {
             swipeLayout.setRefreshing(false);
         }
     }
@@ -120,6 +118,18 @@ public class FaqFragment extends Fragment implements FaqContract.View {
         public void onUpvoteClick(Faq clickedFaq) {
             mPresenter.upvoteFaq(clickedFaq);
         }
+
+        @Override
+        public void onDownvoteClick(Faq clickedFaq) {
+            mPresenter.downvoteFaq(clickedFaq);
+        }
+
+        @Override
+        public void onRetryClick() {
+            mPresenter.loadFaq();
+        }
+
+
     };
 
     // TO BE REMOVED (cant remove yet due to QuestionsFragment using it)

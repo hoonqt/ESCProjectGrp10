@@ -29,6 +29,11 @@ public class ProfessorSessionActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+//        TabLayout tabLayout=(TabLayout) findViewById(R.id.tab_layout);
+//        tabLayout.addTab(tabLayout.newTab().setText(R.string.questions));
+//        tabLayout.addTab(tabLayout.newTab().setText(R.string.activities));
+//        tabLayout.addTab(tabLayout.newTab().setText("Feedback"));
+
         TabLayout tabLayout = (TabLayout) findViewById(R.id.proftab_layout);
         tabLayout.addTab(tabLayout.newTab().setText(R.string.questiontab));
         tabLayout.addTab(tabLayout.newTab().setText(R.string.faq));
