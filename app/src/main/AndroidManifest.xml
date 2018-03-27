@@ -12,42 +12,29 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
             android:name=".UI.Session.Main.SessionActivity"
-            android:label="@string/title_activity_session"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
-
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".UI.Course.FAQ.addEditFaq.AddEditFaqActivity"
             android:label="Add FAQ" />
-
         <activity
             android:name=".UI.Course.FAQ.CourseActivity"
-            android:label="Add FAQ">
-
-        </activity>
+            android:label="Add FAQ" />
         <activity
             android:name=".UI.Dashboard.DashboardActivity"
             android:label="Add FAQ" />
         <activity android:name=".UI.QuizSession.QuizActivity" />
+
         <activity
-<<<<<<< HEAD
-            android:name=".UI.Login.LoginActivity" >
-=======
             android:name=".UI.Login.LoginActivity"
             android:label="Add FAQ">
 
->>>>>>> 21de1f77b61b71c6bf2a73bfbc5d747be4fa58b2
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
 
-        <activity android:name=".UI.DataAdder.AddDatahere">
 
         </activity>
     </application>
