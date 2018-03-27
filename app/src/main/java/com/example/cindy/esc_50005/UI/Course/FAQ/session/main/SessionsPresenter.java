@@ -69,10 +69,10 @@ public class SessionsPresenter implements SessionsContract.Presenter {
 
     public void generateListOfSessions()
     {
-//        Log.i("user json data",Integer.toString(usersJsonData.size()));
+        Log.i("user json data",Integer.toString(usersJsonData.size()));
         for(int i=0;i<usersJsonData.get(0).getSessionIds().size();i++)
         {
-            Log.i("user stuff",usersJsonData.get(0).getSessionDate().get(0));
+//            Log.i("user stuff",usersJsonData.get(0).getSessionDate().get(0));
             String session=usersJsonData.get(0).getSessionDate().get(i)+ " -"  + usersJsonData.get(0).getSessionName().get(i);
             listOfSessions.add(session);
         }
@@ -81,16 +81,23 @@ public class SessionsPresenter implements SessionsContract.Presenter {
 
 
     public void processSessions(ArrayList<UsersInformationDO> usersJsonData) {
-
-        for(UsersInformationDO user: usersJsonData)
+        if(usersJsonData.size()==1)
         {
-            if(user.getPassword().equals(userInformation.getString("Password","")) && user.getUsername().equals(userInformation.getString("Username","")) && user.getUserType().equals(userInformation.getString("UserType","")) && user.getSessionIds().size()!=0){
-                generateListOfSessions();
-            }
-            else{
-                loadEmptySessions();
-            }
+            generateListOfSessions();
         }
+        else{
+            loadEmptySessions();
+        }
+
+//        for(UsersInformationDO user: usersJsonData)
+//        {
+//            if(user.getPassword().equals(userInformation.getString("Password","")) && user.getUsername().equals(userInformation.getString("Username","")) && user.getUserType().equals(userInformation.getString("UserType","")) && user.getSessionIds().size()!=0){
+//                generateListOfSessions();
+//            }
+//            else{
+//                loadEmptySessions();
+//            }
+//        }
 
     }
 
@@ -129,10 +136,14 @@ public class SessionsPresenter implements SessionsContract.Presenter {
         List<String> listOfCourseIds=new ArrayList<>();
         listOfCourseIds=usersJsonData.get(0).getCourseIds();
         listOfCourseIds.add(courseId);
+        List<String> listOfTimeCreated=new ArrayList<>();
+        listOfTimeCreated=usersJsonData.get(0).getSessionDate();
+        listOfTimeCreated.add(timeOfCreation);
 
         updatedUser.setSessionIds(listOfSessionIds);
         updatedUser.setCourseIds(listOfCourseIds);
         updatedUser.setSessionName(listOfSessionNames);
+        updatedUser.setSessionDate(listOfTimeCreated);
         mUserRepository.addUser(updatedUser);
         mSessionsView.showSuccessfulAddNewSession();
 
