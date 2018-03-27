@@ -1,5 +1,6 @@
 package com.example.cindy.esc_50005.UI.Course.FAQ;
 
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -25,17 +26,33 @@ public class CoursePagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
 
-        switch (position)
-        {
-            case 0:
-                return new SessionsFragment();
-            case 1:
-                return new FaqFragment();
-            case 2:
-                return new ProgressFragment();
-            default:
-                return null;
+        userInformation = PreferenceManager.getDefaultSharedPreferences(context);
+        if(userInformation.getString("UserType","").equals("student")){
+            switch (position)
+            {
+                case 0:
+                    return new SessionsFragment();
+                case 1:
+                    return new FaqFragment();
+                case 2:
+                    return new ProgressStudentFragment();
+                default:
+                    return null;
+            }
+        } else{
+            switch (position)
+            {
+                case 0:
+                    return new SessionsFragment();
+                case 1:
+                    return new FaqFragment();
+                case 2:
+                    return new ProgressStudentFragment();
+                default:
+                    return null;
+            }
         }
+
     }
 
     @Override
