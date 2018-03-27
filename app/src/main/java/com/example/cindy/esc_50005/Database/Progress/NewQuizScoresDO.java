@@ -41,4 +41,5 @@ public class NewQuizScoresDO {
         this._score = _score;
     }
 
+
 }

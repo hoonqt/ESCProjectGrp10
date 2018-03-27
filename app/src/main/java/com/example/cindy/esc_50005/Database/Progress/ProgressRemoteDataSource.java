@@ -24,6 +24,7 @@ public class ProgressRemoteDataSource implements ProgressDataSource {
     DynamoDBMapper dynamoDBMapper;
     ArrayList<JSONObject> datainjson;
     ArrayList<NewQuizScoresDO> progressArrayList;
+    ArrayList<NewQuizScoresDO> nameList;
 
     public ProgressRemoteDataSource() {
 
@@ -129,6 +130,44 @@ public class ProgressRemoteDataSource implements ProgressDataSource {
         Log.i("Progresslist in prds", "progressList" + progressArrayList.toString());
 
         return progressArrayList;
+
+    }
+
+    public ArrayList<NewQuizScoresDO> getNames(final String userId, final String subjectCode) {
+
+//        dataInJson = new ArrayList<>();
+
+        nameList = new ArrayList<NewQuizScoresDO>();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                NewQuizScoresDO names = new NewQuizScoresDO();
+                names.setStudentIDsubjectID(userId+subjectCode);
+
+                DynamoDBQueryExpression queryExpression = new DynamoDBQueryExpression()
+                        .withHashKeyValues(names);
+
+                PaginatedList<NewQuizScoresDO> result = dynamoDBMapper.query(NewQuizScoresDO.class, queryExpression);
+
+                for (NewQuizScoresDO name : result) {
+                    nameList.add(name);
+                    Log.i("scores in prds","scores: " + name.getName().toString());
+                }
+
+            }
+        }).start();
+
+        try {
+            TimeUnit.SECONDS.sleep(2);
+        } catch (InterruptedException ex) {
+            ex.printStackTrace();
+        }
+
+        Log.i("NameList in prds", "progressList" + nameList.toString());
+
+        return nameList;
 
     }
 

@@ -162,6 +162,11 @@ public class ProgressStudentFragment extends Fragment implements ProgressContrac
 
     }
 
+    @Override
+    public void showNames(ArrayList<String> nameList) {
+
+    }
+
     // TO BE REMOVED (cant remove yet due to QuestionsFragment using it)
     public class FaqJsonData {
 
