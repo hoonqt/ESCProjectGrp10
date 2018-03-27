@@ -10,8 +10,8 @@ import java.util.ArrayList;
 
 public interface UsersInformationDataSource {
 
-    void removeUser(UsersInformation faq);
-    void addUser(UsersInformation faq);
+    void removeUser(UsersInformationDO faq);
+    void addUser(UsersInformationDO faq);
     ArrayList<UsersInformationDO> queryUser(String username, String password, String userType);
 
 }
