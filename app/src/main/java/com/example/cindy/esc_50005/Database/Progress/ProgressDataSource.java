@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public interface ProgressDataSource {
 
-    public void putScores(String userid, String subjectcode, String quizname, Double score);
+    public void putScores(String userid, String subjectcode, String quizname, Double score, String name);
 //    public void getFromDatabase(final String userid,final String subjectcode);
     public ArrayList<NewQuizScoresDO> getScores(final String userid,final String subjectcode);
 }

@@ -36,12 +36,13 @@ public class ProgressRemoteDataSource implements ProgressDataSource {
 
     }
 
-    public void putScores(String userid, String subjectcode, String quizname, Double score) {
+    public void putScores(String userid, String subjectcode, String quizname, Double score, String name) {
 
         final NewQuizScoresDO quizscore = new NewQuizScoresDO();
         quizscore.setStudentIDsubjectID(userid+subjectcode);
         quizscore.setQuizID(quizname);
         quizscore.setScore(score);
+        quizscore.setName(name);
 
         new Thread(new Runnable() {
             @Override
@@ -54,49 +55,8 @@ public class ProgressRemoteDataSource implements ProgressDataSource {
 
     }
 
-//    public void getFromDatabase(final String userid,final String subjectcode) {
-//
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                NewQuizScoresDO scores = new NewQuizScoresDO();
-//                scores.setStudentIDsubjectID(userid+subjectcode);
-//
-//                DynamoDBQueryExpression queryExpression = new DynamoDBQueryExpression()
-//                        .withHashKeyValues(scores);
-//
-//                long startTime = System.currentTimeMillis();
-//
-//                PaginatedList<NewQuizScoresDO> result = dynamoDBMapper.query(NewQuizScoresDO.class,queryExpression);
-//
-//                Gson gson = new Gson();
-//
-//                StringBuilder stringBuilder = new StringBuilder();
-//
-//                datainjson = new ArrayList<>();
-//
-//                for (int i = 0;i<result.size();i++) {
-//                    String jsonFormOfItem = gson.toJson(result.get(i));
-//
-//                    try {
-//                        datainjson.add(new JSONObject(jsonFormOfItem));
-//                    }
-//
-//                    catch (JSONException ex) {
-//                        System.out.println(ex);
-//                    }
-//
-//                }
-//
-//
-//            }
-//        }).start();
-//
-//    }
 
     public ArrayList<NewQuizScoresDO> getScores(final String userId, final String subjectCode) {
-
-//        dataInJson = new ArrayList<>();
 
         progressArrayList = new ArrayList<NewQuizScoresDO>();
 
@@ -131,21 +91,5 @@ public class ProgressRemoteDataSource implements ProgressDataSource {
         return progressArrayList;
 
     }
-
-//    public ArrayList<JSONObject> getScores(final String userid,final String subjectcode) {
-//
-//        getFromDatabase(userid, subjectcode);
-//
-//        try {
-//            TimeUnit.SECONDS.sleep(2);
-//        }
-//
-//        catch (InterruptedException ex) {
-//
-//        }
-//
-//        return datainjson;
-//    }
-
 
 }
