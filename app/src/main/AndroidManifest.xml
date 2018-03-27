@@ -45,7 +45,6 @@
         <activity
             android:name=".UI.Login.LoginActivity"
             android:label="Add FAQ">
-
         </activity>
         <activity android:name=".UI.DataAdder.AddDatahere">
 

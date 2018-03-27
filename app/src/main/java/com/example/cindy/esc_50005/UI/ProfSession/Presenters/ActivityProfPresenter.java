@@ -19,7 +19,7 @@ public class ActivityProfPresenter implements QuizProfContract.Presenter{
 
     private final QuizProfContract.View mQuizProfView;
     private QuizRemoteDataSource mQuizQuestionsRepository;
-    ArrayList<QuizQuestions1DO> questionData;
+    private ArrayList<QuizQuestions1DO> questionData;
 
     public ActivityProfPresenter(@NonNull QuizProfContract.View quizProfView) {
 
@@ -32,7 +32,7 @@ public class ActivityProfPresenter implements QuizProfContract.Presenter{
     @Override
     public void start() {
 
-        loadQuizes("a113","");
+        loadQuizes("50.004","session1");
 
     }
 
@@ -46,10 +46,16 @@ public class ActivityProfPresenter implements QuizProfContract.Presenter{
     @Override
     public void addNewQuiz(String subjCode, String sessionCode, String quizName,String question, String correctAns, ArrayList<String> options) {
 
+
     }
 
     @Override
     public void processEmptyQuiz() {
 
+    }
+
+    public ArrayList<QuizQuestions1DO> getQuestionData(String subjectCode, String sessionCode) {
+        loadQuizes(subjectCode, sessionCode);
+        return questionData;
     }
 }

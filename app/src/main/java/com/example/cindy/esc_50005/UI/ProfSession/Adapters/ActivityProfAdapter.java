@@ -1,17 +1,24 @@
 package com.example.cindy.esc_50005.UI.ProfSession.Adapters;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TextView;
 
+import com.example.cindy.esc_50005.Database.Quizstuff.QuizQuestions1DO;
 import com.example.cindy.esc_50005.R;
 import com.example.cindy.esc_50005.UI.ProfSession.ProfSessionActivity;
 import com.example.cindy.esc_50005.UI.ProfSession.QuizStuff;
 import com.example.cindy.esc_50005.UI.ProfSession.SideScreens.ActivityInfo;
+import com.example.cindy.esc_50005.WebSocket.WebSocket;
 
 import java.util.ArrayList;
 
@@ -21,16 +28,23 @@ import java.util.ArrayList;
 
 public class ActivityProfAdapter extends RecyclerView.Adapter<ActivityProfAdapter.QuizViewHolder> {
 
-    private ArrayList<QuizStuff> dataset;
+    private ArrayList<QuizQuestions1DO> dataset;
+    private ArrayList<String> names;
     private static int viewHolderCount = 0;
     private Context context;
+    SharedPreferences sharedPreferences;
 
-    public ActivityProfAdapter() {
+    public ActivityProfAdapter(ArrayList<QuizQuestions1DO> input) {
 
-        dataset = new ArrayList<>();
-        dataset.add(new QuizStuff("Quiz 1","Who voted leave?"));
-        dataset.add(new QuizStuff("Quiz 2","Who voted remain?"));
-        dataset.add(new QuizStuff("Quiz 3","Who voted none?"));
+        names = new ArrayList<>();
+        dataset = input;
+
+        for (int i = 0;i<dataset.size();i++) {
+            if (!names.contains(dataset.get(i).getQuizName())) {
+                names.add(dataset.get(i).getQuizName());
+            }
+        }
+
 
     }
 
@@ -49,6 +63,8 @@ public class ActivityProfAdapter extends RecyclerView.Adapter<ActivityProfAdapte
 
         QuizViewHolder quizViewHolder = new QuizViewHolder(view);
         viewHolderCount++;
+
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(parent.getContext());
 
 
 
@@ -69,39 +85,62 @@ public class ActivityProfAdapter extends RecyclerView.Adapter<ActivityProfAdapte
         else return dataset.size();
     }
 
-    class QuizViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class QuizViewHolder extends RecyclerView.ViewHolder {
 
         public TextView mTextView;
         public TextView lunchPad;
+        public Switch switchUp;
 
         public QuizViewHolder(View v) {
             super(v);
             mTextView = (TextView)v.findViewById(R.id.quizname);
             lunchPad = (TextView) v.findViewById(R.id.moreinfobutton);
-            lunchPad.setOnClickListener(this);
+            switchUp = (Switch) v.findViewById(R.id.profquiztoggle) ;
+            lunchPad.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("currentquiz",mTextView.toString());
+                    editor.putString("currentSession",dataset.get(0).getSubjectCodeSessionCode());
+                    editor.commit();
+
+                    ActivityInfo adder = new ActivityInfo();
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("allthequestions",dataset);
+                    adder.setArguments(bundle);
+                    ProfSessionActivity myActivity = (ProfSessionActivity)context;
+                    myActivity.getSupportFragmentManager().beginTransaction().addToBackStack(null).setCustomAnimations(R.anim.slide_out_up,R.anim.slide_in_up).replace(R.id.profsessionhere,adder).addToBackStack(null).commit();
+                    Log.i("Donald","This ain't working");
+
+                }
+            });
+
+            switchUp.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    WebSocket websock = new WebSocket();
+                    if (isChecked) {
+
+                        websock.start();
+                    }
+
+                    else {
+                        websock.end();
+                    }
+                }
+            });
 
         }
 
         public void bind(int position) {
 
-            QuizStuff question = dataset.get(position);
-            mTextView.setText(question.getName());
+            QuizQuestions1DO question = dataset.get(position);
+            mTextView.setText(question.getQuizName());
 
         }
 
-        @Override
-        public void onClick(View v) {
 
-            if (v.getId() == lunchPad.getId()) {
-
-                ActivityInfo adder = new ActivityInfo();
-                ProfSessionActivity myActivity = (ProfSessionActivity)context;
-                myActivity.getSupportFragmentManager().beginTransaction().addToBackStack(null).setCustomAnimations(R.anim.slide_out_up,R.anim.slide_in_up).replace(R.id.profsessionhere,adder).addToBackStack(null).commit();
-                Log.i("Donald","This ain't working");
-
-            }
-
-        }
     }
 
 
