@@ -2,12 +2,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.cindy.esc_50005.UI.ProfSession.ProfProgressFrag">
+    tools:context="com.example.cindy.esc_50005.UI.ProfSession.SideScreens.GradesViewer">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Rent is one of the best shows ever." />
+        android:text="@string/hello_blank_fragment" />
 
 </FrameLayout>

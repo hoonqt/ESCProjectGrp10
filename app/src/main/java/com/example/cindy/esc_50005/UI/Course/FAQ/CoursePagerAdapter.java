@@ -1,7 +1,9 @@
 package com.example.cindy.esc_50005.UI.Course.FAQ;
 
+
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -24,7 +26,7 @@ public class CoursePagerAdapter extends FragmentStatePagerAdapter {
     private Context context;
     private SharedPreferences userInformation;
 
-    public CoursePagerAdapter(FragmentManager fm, int mNumOfTabs) {
+    public CoursePagerAdapter(FragmentManager fm, int mNumOfTabs, Context context) {
         super(fm);
         this.mNumOfTabs = mNumOfTabs;
         this.context=context;
@@ -33,18 +35,33 @@ public class CoursePagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
 
-//        userInformation = PreferenceManager.getDefaultSharedPreferences(context);
-        switch (position)
-        {
-            case 0:
-                return new SessionsFragment();
-            case 1:
-                return new FaqFragment();
-            case 2:
-                return new ProgressFragment();
-            default:
-                return null;
+        userInformation = PreferenceManager.getDefaultSharedPreferences(context);
+        if(userInformation.getString("UserType","").equals("student")){
+            switch (position)
+            {
+                case 0:
+                    return new SessionsFragment();
+                case 1:
+                    return new FaqFragment();
+                case 2:
+                    return new ProgressStudentFragment();
+                default:
+                    return null;
+            }
+        } else{
+            switch (position)
+            {
+                case 0:
+                    return new SessionsFragment();
+                case 1:
+                    return new FaqFragment();
+                case 2:
+                    return new ProgressStudentFragment();
+                default:
+                    return null;
+            }
         }
+
     }
 
     @Override

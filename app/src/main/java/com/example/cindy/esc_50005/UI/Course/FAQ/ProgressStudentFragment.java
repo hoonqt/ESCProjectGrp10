@@ -1,28 +1,17 @@
 package com.example.cindy.esc_50005.UI.Course.FAQ;
 
 
-import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
-import com.example.cindy.esc_50005.Database.Database.SessionQuestionsRemoteDataSource;
-import com.example.cindy.esc_50005.Database.FAQ.Faq;
 import com.example.cindy.esc_50005.R;
-import com.example.cindy.esc_50005.UI.Course.FAQ.addEditFaq.AddEditFaqActivity;
 import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
@@ -38,21 +27,21 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * A simple {@link Fragment} subclass.
  */
 
-public class ProgressFragment extends Fragment implements ProgressContract.View {
+public class ProgressStudentFragment extends Fragment implements ProgressContract.View {
 
     private enum LayoutManagerType {
         LINEAR_LAYOUT_MANAGER
     }
 
-    private final String TAG = "ProgressFragment";
+    private final String TAG = "ProgressStudentFragment";
     private ProgressContract.Presenter mPresenter = new ProgressPresenter(this);
     private BarChart mChart;
-    public ProgressFragment() {
+    public ProgressStudentFragment() {
         // Required empty public constructor
     }
 
-    public static ProgressFragment newInstance() {
-        return new ProgressFragment();
+    public static ProgressStudentFragment newInstance() {
+        return new ProgressStudentFragment();
     }
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -182,18 +171,18 @@ public class ProgressFragment extends Fragment implements ProgressContract.View 
 
     }
 }
-//public class ProgressFragment extends Fragment implements ProgressContract.View {
+//public class ProgressStudentFragment extends Fragment implements ProgressContract.View {
 //
 //    private SessionQuestionsRemoteDataSource progressRepository= new SessionQuestionsRemoteDataSource();
 //    private ProgressContract.Presenter mPresenter = new ProgressPresenter(progressRepository,this);
 //    private BarChart mChart;
 //
-//    public ProgressFragment() {
+//    public ProgressStudentFragment() {
 //        // Required empty public constructor
 //    }
 //
-//    public static ProgressFragment newInstance() {
-//        return new ProgressFragment();
+//    public static ProgressStudentFragment newInstance() {
+//        return new ProgressStudentFragment();
 //    }
 //    @Override
 //    public void onCreate(@Nullable Bundle savedInstanceState) {

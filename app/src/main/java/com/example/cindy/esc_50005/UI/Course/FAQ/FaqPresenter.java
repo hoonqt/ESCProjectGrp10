@@ -7,6 +7,7 @@ import com.example.cindy.esc_50005.Database.FAQ.Faq;
 import com.example.cindy.esc_50005.Database.FAQ.FaqRemoteDataSource;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -36,20 +37,42 @@ public class FaqPresenter implements FaqContract.Presenter {
     public void loadFaq() {
 
         faqJsonData = mFaqRepository.getFaqListByCourseId("50003");
-        processFaq(faqJsonData);
+
+        if (faqJsonData.size()==0) {
+            processEmptyFaq();
+        } else {
+            processFaq(faqJsonData);
+        }
 
         Log.i(TAG, "LoadFaq size is " + faqJsonData.size());
 
     }
 
     public void processEmptyFaq() {
-
+        mFaqView.showNoFaq();
     }
 
     public void upvoteFaq(Faq faq) {
-        faq.setUpvotes(faq.getUpvotes() + 1);
-        mFaqRepository.saveFaq(faq);
-        Log.i(TAG, "upvote Faq" + faq.getUpvotes());
+        List<String> usersVoted = faq.getUsersVoted();
+        if (!usersVoted.contains("1001688")) {
+            faq.setUpvotes(faq.getUpvotes() + 1);
+            usersVoted.add("1001688");
+            faq.setUsersVoted(usersVoted);
+            mFaqRepository.saveFaq(faq);
+            Log.i(TAG, "upvote Faq" + faq.getUpvotes());
+        }
+        loadFaq();
+    }
+
+    public void downvoteFaq(Faq faq) {
+        List<String> usersVoted = faq.getUsersVoted();
+        if (faq.getUsersVoted().contains("1001688")) {
+            faq.setUpvotes(faq.getUpvotes() - 1);
+            usersVoted.remove("1001688");
+            faq.setUsersVoted(usersVoted);
+            mFaqRepository.saveFaq(faq);
+            Log.i(TAG, "downvote Faq" + faq.getUpvotes());
+        }
         loadFaq();
     }
 

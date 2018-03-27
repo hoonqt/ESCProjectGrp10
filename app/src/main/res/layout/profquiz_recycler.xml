@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
-                android:padding="5dp"
+                android:padding="10dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textColor="#000000" />
 
@@ -36,15 +36,19 @@
                 android:id="@+id/profquiztoggle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="10dp"
+                android:paddingTop="13dp"
                 app:layout_constraintEnd_toStartOf="@id/moreinfobutton" />
 
-            <Button
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/vertical_ellipsis"
+                android:paddingLeft="8dp"
+                android:paddingRight="24dp"
+                android:paddingTop="6dp"
                 android:id="@+id/moreinfobutton"
                 android:background="@android:color/white"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 app:layout_constraintEnd_toEndOf="parent"/>
 
 

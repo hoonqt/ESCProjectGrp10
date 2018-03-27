@@ -1,40 +1,45 @@
-package com.example.cindy.esc_50005.UI.ProfSession;
+package com.example.cindy.esc_50005.UI.ProfSession.Adapters;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.cindy.esc_50005.R;
+import com.example.cindy.esc_50005.UI.ProfSession.ProfSessionActivity;
+import com.example.cindy.esc_50005.UI.ProfSession.QuizStuff;
+import com.example.cindy.esc_50005.UI.ProfSession.SideScreens.ActivityInfo;
 
 import java.util.ArrayList;
 
 /**
- * Created by hoonqt on 25/3/18.
+ * Created by hoonqt on 27/3/18.
  */
 
-public class ProfQuizAdapter extends RecyclerView.Adapter<ProfQuizAdapter.QuizViewHolder> {
-
-    private ArrayList<QuizStuff> dataset;
+public class QuizEditorAdapter extends RecyclerView.Adapter<QuizEditorAdapter.QuizViewHolder>{
     private static int viewHolderCount = 0;
+    private Context context;
+    private int noofentries = 1;
 
-    public ProfQuizAdapter() {
-
-        dataset = new ArrayList<>();
-        dataset.add(new QuizStuff("Quiz 1","Who voted leave?"));
-        dataset.add(new QuizStuff("Quiz 2","Who voted remain?"));
+    public QuizEditorAdapter() {
 
     }
 
 
     // Create new views (invoked by the layout manager)
-    @Override
-    public ProfQuizAdapter.QuizViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        int layoutIDForListItem = R.layout.profquiz_recycler;
+    @Override
+    public QuizViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
+        int layoutIDForListItem = R.layout.recycler_quizeditor;
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         boolean shouldAttachToParentImmediately = false;
+
+        context = parent.getContext();
 
         View view = inflater.inflate(layoutIDForListItem,parent,shouldAttachToParentImmediately);
 
@@ -42,36 +47,42 @@ public class ProfQuizAdapter extends RecyclerView.Adapter<ProfQuizAdapter.QuizVi
         viewHolderCount++;
 
 
+
         return quizViewHolder;
     }
 
+
     // Replace the contents of a view (invoked by the layout manager)
+
+
     @Override
-    public void onBindViewHolder(ProfQuizAdapter.QuizViewHolder holder, int position) {
+    public void onBindViewHolder(QuizViewHolder holder, int position) {
         holder.bind(position);
+
     }
 
     @Override
     public int getItemCount() {
-        if (dataset == null) {
-            return 0;
-        }
-        else return dataset.size();
+        return noofentries;
+    }
+
+    public void incEntries() {
+        noofentries++;
     }
 
     class QuizViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView mTextView;
+        public EditText mQuestion;
+
 
         public QuizViewHolder(View v) {
             super(v);
-            mTextView = (TextView)v.findViewById(R.id.quizname);
+            mQuestion = v.findViewById(R.id.question);
+
+
         }
 
         public void bind(int position) {
-
-            QuizStuff question = dataset.get(position);
-            mTextView.setText(question.getName());
 
         }
 
@@ -80,3 +91,4 @@ public class ProfQuizAdapter extends RecyclerView.Adapter<ProfQuizAdapter.QuizVi
 
 
 }
+

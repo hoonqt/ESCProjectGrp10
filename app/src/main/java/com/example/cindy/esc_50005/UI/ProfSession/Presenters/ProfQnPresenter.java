@@ -1,17 +1,18 @@
-package com.example.cindy.esc_50005.UI.ProfSession;
+package com.example.cindy.esc_50005.UI.ProfSession.Presenters;
 
 import android.support.annotation.NonNull;
 
 import com.example.cindy.esc_50005.Database.Database.SessionQuestionsDO;
+import com.example.cindy.esc_50005.UI.ProfSession.Contracts.QnProfContract;
 
 
 /**
  * Created by hoonqt on 25/3/18.
  */
 
-public class ProfQnPresenter implements ProfQnContract.Presenter {
+public class ProfQnPresenter implements QnProfContract.Presenter {
 
-    public ProfQnPresenter(@NonNull ProfQnContract.View sessionQuestionsView) {
+    public ProfQnPresenter(@NonNull QnProfContract.View sessionQuestionsView) {
 
     }
 
