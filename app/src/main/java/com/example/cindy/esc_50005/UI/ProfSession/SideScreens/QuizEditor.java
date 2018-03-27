@@ -1,7 +1,9 @@
 package com.example.cindy.esc_50005.UI.ProfSession.SideScreens;
 
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -27,6 +29,7 @@ public class QuizEditor extends Fragment {
     private QuizEditor.LayoutManagerType mCurrentLayoutManagerType;
     private RecyclerView.LayoutManager mLayoutManager;
     private QuizEditorAdapter mQuizAdapter;
+    SharedPreferences sharedPreferences;
 
     private enum LayoutManagerType {
         LINEAR_LAYOUT_MANAGER
@@ -50,6 +53,8 @@ public class QuizEditor extends Fragment {
 
         mQuizAdapter = new QuizEditorAdapter();
         quizRecycler.setAdapter(mQuizAdapter);
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        sharedPreferences.getString("50.004",null);
 
         ImageView adder = view.findViewById(R.id.addbutton);
         adder.setOnClickListener(btnListener);

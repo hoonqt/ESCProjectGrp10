@@ -25,6 +25,7 @@ public interface QuizProfContract {
         void loadQuizes(String subjectCode, String sessionCode);
         void addNewQuiz(String subjCode, String sessionCode, String quizName,String question, String correctAns, ArrayList<String> options);
         void processEmptyQuiz();
+        ArrayList<QuizQuestions1DO> getQuestionData(String subjectCode, String sessionCode);
 
     }
 

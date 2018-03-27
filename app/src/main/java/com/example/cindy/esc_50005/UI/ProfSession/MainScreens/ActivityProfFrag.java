@@ -17,7 +17,10 @@ import com.example.cindy.esc_50005.R;
 import com.example.cindy.esc_50005.UI.ProfSession.Adapters.ActivityProfAdapter;
 import com.example.cindy.esc_50005.UI.ProfSession.Contracts.QuizProfContract;
 import com.example.cindy.esc_50005.UI.ProfSession.Presenters.ActivityProfPresenter;
+import com.example.cindy.esc_50005.UI.ProfSession.SideScreens.ActivityInfo;
+import com.example.cindy.esc_50005.UI.ProfSession.SideScreens.EditQnListFrag;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -25,7 +28,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ActivityProfFrag extends Fragment implements QuizProfContract.View {
+public class ActivityProfFrag extends Fragment implements QuizProfContract.View, Serializable {
 
     private RecyclerView quizRecycler;
 
@@ -65,8 +68,10 @@ public class ActivityProfFrag extends Fragment implements QuizProfContract.View 
         mCurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
         quizRecycler.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
-        mQuizAdapter = new ActivityProfAdapter();
+        ArrayList<QuizQuestions1DO> allquestions = mPresenter.getQuestionData("50.004","session1");
+        mQuizAdapter = new ActivityProfAdapter(allquestions);
         quizRecycler.setAdapter(mQuizAdapter);
+
 
         return view;
     }
