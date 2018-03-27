@@ -9,6 +9,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.example.cindy.esc_50005.Database.CoursesInformation.CoursesInformationDO;
 import com.example.cindy.esc_50005.Database.CoursesInformation.CoursesInformationRemoteDataSource;
 import com.example.cindy.esc_50005.Database.UsersInformation.UsersInformation;
 import com.example.cindy.esc_50005.Database.UsersInformation.UsersInformationDO;
@@ -23,8 +24,10 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class DashboardPresenter implements DashboardContract.Presenter  {
 
     private final DashboardContract.View mDashboardView;
-    private final UsersInformationRemoteDataSource mCoursesRepository;
-    ArrayList<UsersInformationDO> courseInformationJsonData;
+    private final UsersInformationRemoteDataSource mUsersRepository;
+    private final CoursesInformationRemoteDataSource mCoursesRepository;
+    ArrayList<UsersInformationDO> usersCoursesInformationJsonData;
+    ArrayList<CoursesInformationDO> coursesInformationJsonData;
     private SharedPreferences userInformation;
     private static  ArrayList<String> listOfCourses=new ArrayList<>();
 
@@ -32,7 +35,8 @@ public class DashboardPresenter implements DashboardContract.Presenter  {
 
     public DashboardPresenter(@NonNull DashboardContract.View contractView) {
         Log.i("DashBoardPresenter","DashBoardPresenter");
-        mCoursesRepository=new UsersInformationRemoteDataSource();
+        mUsersRepository=new UsersInformationRemoteDataSource();
+        mCoursesRepository=new CoursesInformationRemoteDataSource();
         mDashboardView = checkNotNull(contractView, "dashboardView cannot be null!");
         mDashboardView.setPresenter(this);
     }
@@ -57,14 +61,13 @@ public class DashboardPresenter implements DashboardContract.Presenter  {
     @Override
     public void loadCoursesFromDatabase(Context context) {
         userInformation = PreferenceManager.getDefaultSharedPreferences(context);
-        courseInformationJsonData=mCoursesRepository.queryUser(userInformation.getString("Username",""),userInformation.getString("Password",""),userInformation.getString("UserType",""));
-        Log.i("user information",Integer.toString(courseInformationJsonData.get(0).getCourseIds().size()));
-        processCourses(courseInformationJsonData);
+        usersCoursesInformationJsonData=mUsersRepository.queryUser(userInformation.getString("Username",""),userInformation.getString("Password",""),userInformation.getString("UserType",""));
+        processCoursesForUsers(usersCoursesInformationJsonData);
     }
 
-    public void processCourses(ArrayList<UsersInformationDO> courseInformationJsonData)
+    public void processCoursesForUsers(ArrayList<UsersInformationDO> usersCoursesInformationJsonData)
     {
-        for(UsersInformationDO user: courseInformationJsonData)
+        for(UsersInformationDO user: usersCoursesInformationJsonData)
         {
             if(user.getPassword().equals(userInformation.getString("Password","")) && user.getUsername().equals(userInformation.getString("Username","")) && user.getUserType().equals(userInformation.getString("UserType",""))){
                 generateListOfCourses();
@@ -78,10 +81,38 @@ public class DashboardPresenter implements DashboardContract.Presenter  {
 
     public void generateListOfCourses()
     {
-        for(int i=0;i<courseInformationJsonData.get(0).getCourseIds().size();i++)
+        for(int i=0;i<usersCoursesInformationJsonData.get(0).getCourseIds().size();i++)
         {
-            String course=courseInformationJsonData.get(0).getCourseIds().get(i)+ " " + courseInformationJsonData.get(0).getCourseNames().get(i);
+            String course=usersCoursesInformationJsonData.get(0).getCourseIds().get(i)+ " " + usersCoursesInformationJsonData.get(0).getCourseNames().get(i);
             listOfCourses.add(course);
         }
+    }
+
+    public void addNewCourseProfessor(Double courseId,String courseName)
+    {
+        mCoursesRepository.addCourse(courseId,courseName);
+    }
+
+    public boolean queryCourseBeforeAdding(Double courseId,String courseName)
+    {
+        coursesInformationJsonData=mCoursesRepository.queryCourses(courseId,courseName);
+        boolean result=checkIfCourseIsValid(coursesInformationJsonData,courseId,courseName);
+
+        return result;
+    }
+
+    public boolean checkIfCourseIsValid(ArrayList<CoursesInformationDO> coursesInformationJsonData, Double courseId, String courseName)
+    {
+        for(CoursesInformationDO course: coursesInformationJsonData)
+        {
+            if(course.getCourseID().equals(courseId) && course.getCourseName().equals(courseName)){
+                return false;
+            }
+            else{
+                addNewCourseProfessor(courseId,courseName);
+                return true;
+            }
+        }
+        return false;
     }
 }

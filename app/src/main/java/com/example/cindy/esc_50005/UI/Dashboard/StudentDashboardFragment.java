@@ -19,25 +19,24 @@ import android.widget.LinearLayout;
 
 import com.example.cindy.esc_50005.R;
 import com.example.cindy.esc_50005.UI.Course.FAQ.CourseActivity;
-import com.example.cindy.esc_50005.UI.Session.Main.SessionActivity;
 
 import java.util.ArrayList;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
 
-public class DashboardFragment extends Fragment implements DashboardContract.View, View.OnClickListener {
+public class StudentDashboardFragment extends Fragment implements DashboardContract.View, View.OnClickListener {
 
     // UI references.
     SharedPreferences sharedPreferences;
     private DashboardContract.Presenter mPresenter= new DashboardPresenter(this);
     private CoursesAdapter mCoursesAdapter;
     private RecyclerView coursesListRecycler;
-    private DashboardFragment.LayoutManagerType mCurrentLayoutManagerType;
+    private StudentDashboardFragment.LayoutManagerType mCurrentLayoutManagerType;
     private RecyclerView.LayoutManager mLayoutManager;
     private Button button;
 
-    public DashboardFragment() {
+    public StudentDashboardFragment() {
         // Required empty public constructor
     }
 
@@ -51,15 +50,15 @@ public class DashboardFragment extends Fragment implements DashboardContract.Vie
         mPresenter = checkNotNull(presenter);
     }
 
-    @Override
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         View view=inflater.inflate(R.layout.dashboard_fragment, container, false);
         coursesListRecycler=view.findViewById(R.id.recyclerViewDashboardCourses);
         mLayoutManager= new LinearLayoutManager(getActivity());
-        mCurrentLayoutManagerType = DashboardFragment.LayoutManagerType.LINEAR_LAYOUT_MANAGER;
-        coursesListRecycler.setLayoutManager(new LinearLayoutManager(view.getContext(),LinearLayoutManager.HORIZONTAL,false));
+        mCurrentLayoutManagerType = StudentDashboardFragment.LayoutManagerType.LINEAR_LAYOUT_MANAGER;
+        coursesListRecycler.setLayoutManager(new LinearLayoutManager(view.getContext()));
         button=view.findViewById(R.id.addNewCourse);
         button.setOnClickListener(this);
 

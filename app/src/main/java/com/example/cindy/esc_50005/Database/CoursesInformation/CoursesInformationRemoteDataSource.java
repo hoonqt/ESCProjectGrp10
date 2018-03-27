@@ -15,11 +15,11 @@ import com.example.cindy.esc_50005.Database.UsersInformation.UsersInformationDat
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
-public class CoursesInformationRemoteDataSource implements UsersInformationDataSource {
+public class CoursesInformationRemoteDataSource implements CoursesInformationDataSource {
 
     DynamoDBMapper dynamoDBMapper;
-    ArrayList<UsersInformationDO> usersArrayList;
-    public static final String TAG = "UsersInformationRemote";
+    ArrayList<CoursesInformationDO> coursesArrayList;
+    public static final String TAG = "CoursesInformationRemote";
 
     public CoursesInformationRemoteDataSource() {
 
@@ -31,18 +31,21 @@ public class CoursesInformationRemoteDataSource implements UsersInformationDataS
     }
 
     @Override
-    public void addUser(final UsersInformation userInformation) {
+    public void addCourse(final Double courseId, final String courseName) {
+        final CoursesInformationDO newCourse=new CoursesInformationDO();
+        newCourse.setCourseID(courseId);
+        newCourse.setCourseName(courseName);
         new Thread(new Runnable() {
             @Override
             public void run() {
-                dynamoDBMapper.save(userInformation);
+                dynamoDBMapper.save(newCourse);
             }
         }).start();
 
     }
 
     @Override
-    public void removeUser(final UsersInformation userInformation) {
+    public void removeCourse(final CoursesInformationDO userInformation) {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -52,27 +55,26 @@ public class CoursesInformationRemoteDataSource implements UsersInformationDataS
 
     }
 
-    public ArrayList<UsersInformationDO> queryUser(final String username, String password, final String userType) {
+    public ArrayList<CoursesInformationDO> queryCourses(final Double courseId, final String courseName) {
 
-        Log.i("username",userType);
-        usersArrayList = new ArrayList<UsersInformationDO>();
+        coursesArrayList = new ArrayList<CoursesInformationDO>();
 
         new Thread(new Runnable() {
             @Override
             public void run() {
 
-                UsersInformationDO userSelected = new UsersInformationDO();
+                CoursesInformationDO courseSelected = new CoursesInformationDO();
 
-                userSelected.setUserType(userType);
-                userSelected.setUsername(username);
+                courseSelected.setCourseID(courseId);
+                courseSelected.setCourseName(courseName);
 
                 DynamoDBQueryExpression queryExpression = new DynamoDBQueryExpression()
-                        .withHashKeyValues(userSelected);
+                        .withHashKeyValues(courseSelected);
 
-                PaginatedList<UsersInformationDO> result = dynamoDBMapper.query(UsersInformationDO.class, queryExpression);
+                PaginatedList<CoursesInformationDO> result = dynamoDBMapper.query(CoursesInformationDO.class, queryExpression);
 
-                for (UsersInformationDO userInformation : result) {
-                    usersArrayList.add(userInformation);
+                for (CoursesInformationDO courseInformation : result) {
+                    coursesArrayList.add(courseInformation);
 
                     //You gonna have to change the way you retrive stuff here.
                 }
@@ -87,7 +89,7 @@ public class CoursesInformationRemoteDataSource implements UsersInformationDataS
             ex.printStackTrace();
         }
 
-        return usersArrayList;
+        return coursesArrayList;
     }
 
 

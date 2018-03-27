@@ -4,8 +4,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -16,12 +21,14 @@ import android.view.View;
 import android.widget.Button;
 
 import com.amazonaws.mobile.client.AWSMobileClient;
+import com.example.cindy.esc_50005.MainActivity;
 import com.example.cindy.esc_50005.R;
 import com.example.cindy.esc_50005.UI.Course.FAQ.CourseActivity;
 
 public class SessionActivity extends AppCompatActivity {
     private Button btn;
     private SharedPreferences sharedPreferences;
+
     private SharedPreferences userInformation;
 
     @Override
@@ -29,10 +36,13 @@ public class SessionActivity extends AppCompatActivity {
         AWSMobileClient.getInstance().initialize(this).execute();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.session_activity);
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
+        setTitle(sharedPreferences.getString("SessionSelected",""));
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-//        btn = findViewById(R.id.clickToGoToFAQ);
-//        btn.setOnClickListener(this);
+        ActionBar actionbar = getSupportActionBar();
+        actionbar.setDisplayHomeAsUpEnabled(true);
+        actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
         userInformation = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
@@ -74,26 +84,6 @@ public class SessionActivity extends AppCompatActivity {
 
         });
 
-
-    }
-//    @Override
-//    public void onClick(View v) {
-//        Intent intent = new Intent(SessionActivity.this, CourseActivity.class);
-//        startActivity(intent);
-//        finish();
-//
-//    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        if(sharedPreferences.getString("UserType","").equals("professor"))
-        {
-            MenuInflater inflater = getMenuInflater();
-            inflater.inflate(R.menu.menu_main, menu);
-            return true;
-        }
-        return false;
     }
 
     @Override
@@ -110,6 +100,18 @@ public class SessionActivity extends AppCompatActivity {
                 editor.commit();
                 return true;
             }
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        if(sharedPreferences.getString("UserType","").equals("professor"))
+        {
+            MenuInflater inflater = getMenuInflater();
+            inflater.inflate(R.menu.menu_main, menu);
             return true;
         }
         return false;
