@@ -35,8 +35,8 @@ public class CoursePagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
 
-        userInformation = PreferenceManager.getDefaultSharedPreferences(context);
-        if(userInformation.getString("UserType","").equals("student")){
+//        userInformation = PreferenceManager.getDefaultSharedPreferences(context);
+//        if(userInformation.getString("UserType","").equals("student")){
             switch (position)
             {
                 case 0:
@@ -48,19 +48,19 @@ public class CoursePagerAdapter extends FragmentStatePagerAdapter {
                 default:
                     return null;
             }
-        } else{
-            switch (position)
-            {
-                case 0:
-                    return new SessionsFragment();
-                case 1:
-                    return new FaqFragment();
-                case 2:
-                    return new ProgressStudentFragment();
-                default:
-                    return null;
-            }
-        }
+//        } else{
+//            switch (position)
+//            {
+//                case 0:
+//                    return new SessionsFragment();
+//                case 1:
+//                    return new FaqFragment();
+//                case 2:
+//                    return new ProgressStudentFragment();
+//                default:
+//                    return null;
+//            }
+//        }
 
     }
 

@@ -28,6 +28,7 @@ public class ProgressPresenter implements ProgressContract.Presenter {
     private final ProgressContract.View mProgressView;
     private ProgressRemoteDataSource mProgressRepository;
     ArrayList<NewQuizScoresDO> progressArrayList;
+    ArrayList<NewQuizScoresDO> nameList;
 
     public ProgressPresenter(@NonNull ProgressContract.View progressView) {
         mProgressRepository = new ProgressRemoteDataSource();
@@ -74,6 +75,35 @@ public class ProgressPresenter implements ProgressContract.Presenter {
 
     @Override
     public void processAverage() {
+
+    }
+
+    @Override
+    public void loadNames() {
+        nameList = mProgressRepository.getNames("1002210","50.001");// need to change it to base on the user login details
+        processNames(nameList);
+
+        Log.i(TAG, "LoadName size is " + nameList.size());
+    }
+
+    public void processNames(ArrayList<NewQuizScoresDO> nameList) {
+        ArrayList<String> names = new ArrayList<String>();
+        Log.i(TAG, "Length of nameList = " + nameList.size());
+
+        if (nameList.size() != 0) {
+
+            for(int i = 0; i<nameList.size();i++){
+                try{
+                    names.add(nameList.get(i).getNames());
+                } catch(Exception e){
+                    e.printStackTrace();
+                }
+
+            }
+        }
+
+        mProgressView.showNames(names);
+
 
     }
 }

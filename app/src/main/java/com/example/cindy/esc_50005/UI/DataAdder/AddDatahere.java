@@ -24,8 +24,12 @@ public class AddDatahere extends AppCompatActivity {
 
         QuizRemoteDataSource data = new QuizRemoteDataSource();
 
-        ArrayList<QuizQuestions1DO> questions = data.getQuestions("aabc","");
-        Log.i("Mcgahn",questions.get(0).getQuestion());
+        ArrayList<String> options1 = new ArrayList<>();
+        options1.add("Labour");
+        options1.add("SNP");
+        options1.add("DUP");
+        options1.add("Sinn Fein");
+        data.putQuestion("50.004","session1","Quiz1","In the 2010 General Election, which party did the Conservatives form a coalition with?","Lib Dem",options1);
 
     }
 }

@@ -14,10 +14,12 @@ public interface ProgressContract {
 //        <T> void showProgress(T data);
         void showProgress(ArrayList<Double> scoreList);
         void showAverage();
+        void showNames(ArrayList<String> nameList);
     }
 
     interface Presenter extends BasePresenter {
         void loadScores();
         void processAverage();
+        void loadNames();
     }
 }
