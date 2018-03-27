@@ -63,8 +63,8 @@ public class QuizEditor extends Fragment {
 
         public void onClick(View v) {
 
-            Log.i("Arnold","here");
             mQuizAdapter.incEntries();
+            quizRecycler.setAdapter(mQuizAdapter);
 
         }
 

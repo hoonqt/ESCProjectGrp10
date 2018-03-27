@@ -2,11 +2,16 @@ package com.example.cindy.esc_50005.UI.DataAdder;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.amazonaws.mobile.client.AWSMobileClient;
 import com.example.cindy.esc_50005.Database.Progress.NewQuizScoresDO;
 import com.example.cindy.esc_50005.Database.Progress.ProgressRemoteDataSource;
+import com.example.cindy.esc_50005.Database.Quizstuff.QuizQuestions1DO;
+import com.example.cindy.esc_50005.Database.Quizstuff.QuizRemoteDataSource;
 import com.example.cindy.esc_50005.R;
+
+import java.util.ArrayList;
 
 public class AddDatahere extends AppCompatActivity {
 
@@ -17,14 +22,10 @@ public class AddDatahere extends AppCompatActivity {
 
         AWSMobileClient.getInstance().initialize(this).execute();
 
-        ProgressRemoteDataSource scoreData = new ProgressRemoteDataSource();
+        QuizRemoteDataSource data = new QuizRemoteDataSource();
 
-        scoreData.putScores("1002210","50.001","Quiz 1",3.25);
-        scoreData.putScores("1002210","50.001","Quiz 2",4.25);
-        scoreData.putScores("1002210","50.001","Quiz 3",1.0);
-        scoreData.putScores("1002210","50.001","Quiz 4",5.0);
-        scoreData.putScores("1002210","50.001","Quiz 5",5.0);
-
+        ArrayList<QuizQuestions1DO> questions = data.getQuestions("aabc","");
+        Log.i("Mcgahn",questions.get(0).getQuestion());
 
     }
 }

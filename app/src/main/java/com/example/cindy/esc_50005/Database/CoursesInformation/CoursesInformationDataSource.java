@@ -11,8 +11,8 @@ import java.util.ArrayList;
 
 public interface CoursesInformationDataSource {
 
-    void removeUser(UsersInformation faq);
-    void addUser(UsersInformation faq);
-    ArrayList<UsersInformationDO> queryUser(String username, String password, String userType);
+    void removeCourse(CoursesInformationDO faq);
+    void addCourse(final Double courseId, final String courseName);
+    ArrayList<CoursesInformationDO> queryCourses(Double courseId, String courseName);
 
 }

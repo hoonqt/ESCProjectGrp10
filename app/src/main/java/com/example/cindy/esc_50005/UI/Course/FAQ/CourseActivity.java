@@ -50,15 +50,7 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
         AWSMobileClient.getInstance().initialize(this).execute();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        mDrawerList = (ListView)findViewById(R.id.navList);
-        addDrawerItems();
-        setupDrawer();
-
-
-
         setSupportActionBar(toolbar);
-//        btn = findViewById(R.id.clickToGoToPostQuestion);
-//        btn.setOnClickListener(this);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText(R.string.sessions));
@@ -69,7 +61,7 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
         tabLayout.setTabGravity(tabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-        final com.example.cindy.esc_50005.UI.Course.FAQ.CoursePagerAdapter coursePagerAdapter = new com.example.cindy.esc_50005.UI.Course.FAQ.CoursePagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+        final com.example.cindy.esc_50005.UI.Course.FAQ.CoursePagerAdapter coursePagerAdapter = new com.example.cindy.esc_50005.UI.Course.FAQ.CoursePagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount(),this.getApplicationContext());
 
         viewPager.setAdapter(coursePagerAdapter);
 
@@ -97,30 +89,6 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
 //
 //        GetQuestionTask task = new GetQuestionTask();
 //        task.execute();
-    }
-
-    private void setupDrawer() {
-
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
-                R.string.drawer_open, R.string.drawer_close) {
-
-            /** Called when a drawer has settled in a completely open state. */
-            public void onDrawerOpened(View drawerView) {
-
-
-            }
-
-            /** Called when a drawer has settled in a completely closed state. */
-            public void onDrawerClosed(View view) {
-            }
-        };
-    }
-
-    private void addDrawerItems() {
-        Log.i("adding","adding");
-        String[] osArray = { "Android", "iOS", "Windows", "OS X", "Linux" };
-        mAdapter = new ArrayAdapter<String>(this, R.layout.navigation_bar, osArray);
-        mDrawerList.setAdapter(mAdapter);
     }
 
     @Override

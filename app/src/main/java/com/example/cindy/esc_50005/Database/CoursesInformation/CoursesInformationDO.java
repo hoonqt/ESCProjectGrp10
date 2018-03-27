@@ -1,5 +1,7 @@
 package com.example.cindy.esc_50005.Database.CoursesInformation;
 
+import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBTable;
+
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBAttribute;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBHashKey;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBIndexHashKey;
@@ -16,6 +18,7 @@ import java.util.Set;
 public class CoursesInformationDO {
     private Double _courseID;
     private String _courseName;
+    private List<String> _sessionId;
 
     @DynamoDBHashKey(attributeName = "courseID")
     @DynamoDBAttribute(attributeName = "courseID")
@@ -34,6 +37,14 @@ public class CoursesInformationDO {
 
     public void setCourseName(final String _courseName) {
         this._courseName = _courseName;
+    }
+    @DynamoDBAttribute(attributeName = "sessionId")
+    public List<String> getSessionId() {
+        return _sessionId;
+    }
+
+    public void setSessionId(final List<String> _sessionId) {
+        this._sessionId = _sessionId;
     }
 
 }

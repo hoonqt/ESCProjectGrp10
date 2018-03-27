@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.util.Log;
 
+import com.example.cindy.esc_50005.UI.ProfSession.MainScreens.ActivityProfFrag;
 import com.example.cindy.esc_50005.UI.ProfSession.MainScreens.ProfQuestionFrag;
 import com.example.cindy.esc_50005.UI.Session.Student.QuestionsFragment;
 
@@ -41,12 +42,13 @@ public class SessionPagerAdapter extends FragmentStatePagerAdapter {
         }
 
         else{
-            Log.i("prof fragment","prof fragment");
             switch (position)
             {
                 case 0:
                     return new ProfQuestionFrag();
                 case 1:
+                    return new ActivityProfFrag();
+                case 2:
                     return new ProfQuestionFrag();
                 default:
                     return null;

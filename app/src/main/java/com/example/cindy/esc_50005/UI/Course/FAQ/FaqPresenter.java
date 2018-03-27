@@ -17,7 +17,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 public class FaqPresenter implements FaqContract.Presenter {
 
-    public static final String TAG = "FaqPresenter";
+    public static final String TAG = "SessionsPresenter";
 
     private final FaqContract.View mFaqView;
     private FaqRemoteDataSource mFaqRepository;
