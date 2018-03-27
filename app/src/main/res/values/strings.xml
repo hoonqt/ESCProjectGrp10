@@ -5,6 +5,8 @@
     <string name="sessions">Sessions</string>
     <string name="questions">Questions</string>
     <string name="activities">Activities</string>
+    <string name="rating_title">Feedback</string>
+    <string name="rating_message">How was the class today?</string>
     <string name="course_name">Elements of Software Construction</string>
     <string name="recyclerViewFaqs">Elements of Software Construction</string>
     <string name="title_activity_session">Elements of Software Construction</string>

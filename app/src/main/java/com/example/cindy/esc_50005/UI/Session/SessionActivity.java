@@ -33,6 +33,7 @@ public class SessionActivity extends AppCompatActivity implements View.OnClickLi
         TabLayout tabLayout=(TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText(R.string.questions));
         tabLayout.addTab(tabLayout.newTab().setText(R.string.activities));
+        tabLayout.addTab(tabLayout.newTab().setText("Feedback"));
 
         //fragment is reusable cuz you can use it in other activities
         tabLayout.setTabGravity(tabLayout.GRAVITY_FILL);
