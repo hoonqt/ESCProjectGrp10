@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.cindy.esc_50005.Database.Database.SessionQuestionsDO;
+import com.example.cindy.esc_50005.Database.Quizstuff.QuizQuestions1DO;
 import com.example.cindy.esc_50005.R;
 import com.example.cindy.esc_50005.UI.ProfSession.Adapters.ActivityProfAdapter;
 import com.example.cindy.esc_50005.UI.ProfSession.Contracts.QuizProfContract;
@@ -76,7 +77,7 @@ public class ActivityProfFrag extends Fragment implements QuizProfContract.View 
     }
 
     @Override
-    public void showAddedQuiz(ArrayList<SessionQuestionsDO> questionsList) {
+    public void showAddedQuiz(ArrayList<QuizQuestions1DO> questionsList) {
 
     }
 
