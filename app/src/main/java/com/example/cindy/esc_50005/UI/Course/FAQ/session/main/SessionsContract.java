@@ -16,11 +16,14 @@ public interface SessionsContract {
         void loadSessions();
         void processEmptySessions();
         void querySessions(Context context);
+        void addNewSession(String sessionId,String sessionName,String timeOfCreation, String courseId);
     }
 
     interface View extends BaseView<Presenter> {
         void showSessions(ArrayList<String> sessions);
         void showEmptySessions();
         void showLoadSessionsError();
+        void showSuccessfulAddNewSession();
+        void showUnsuccessfulAddNewSession();
     }
 }

@@ -83,6 +83,7 @@ public class LoginFragment extends Fragment implements LoginContract.View {
                 editor.putString("Username", username);
                 editor.putString("Password", password);
                 editor.putString("UserType", userType);
+                Log.i("answer",sharedPreferences.getString("Username",""));
                 editor.commit();
                 attemptLogin();
             }

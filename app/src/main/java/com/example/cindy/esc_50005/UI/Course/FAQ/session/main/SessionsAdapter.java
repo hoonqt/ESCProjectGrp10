@@ -97,7 +97,7 @@ public class SessionsAdapter extends RecyclerView.Adapter<SessionsAdapter.Sessio
 
         @Override
         public void onClick(View v) {
-            Log.i("clicked","clicked");
+            Log.i("clicked in pager","clicked in pager");
             int clickedPosition=getAdapterPosition();
             sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
             SharedPreferences.Editor editor = sharedPreferences.edit();
