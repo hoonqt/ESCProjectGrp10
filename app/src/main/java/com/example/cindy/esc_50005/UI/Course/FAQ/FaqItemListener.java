@@ -9,5 +9,7 @@ import com.example.cindy.esc_50005.Database.FAQ.Faq;
 public interface FaqItemListener {
 
     void onUpvoteClick(Faq clickedTask);
+    void onDownvoteClick(Faq clickedTask);
+    void onRetryClick();
 
 }

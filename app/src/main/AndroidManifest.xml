@@ -23,6 +23,7 @@
         <activity
             android:name=".UI.Course.FAQ.addEditFaq.AddEditFaqActivity"
             android:label="Add FAQ" />
+
         <activity
             android:name=".UI.Course.FAQ.CourseActivity"
             android:label="Add FAQ">
