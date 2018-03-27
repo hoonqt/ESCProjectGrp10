@@ -70,7 +70,7 @@ public class SessionsPresenter implements SessionsContract.Presenter {
     public void generateListOfSessions()
     {
 //        Log.i("user json data",Integer.toString(usersJsonData.size()));
-        for(int i=0;i<usersJsonData.get(0).getCourseIds().size();i++)
+        for(int i=0;i<usersJsonData.get(0).getSessionIds().size();i++)
         {
 //            Log.i("user stuff",usersJsonData.get(0).getSessionDate().get(0));
             String session=usersJsonData.get(0).getSessionDate().get(i)+ " -"  + usersJsonData.get(0).getSessionName().get(i);
