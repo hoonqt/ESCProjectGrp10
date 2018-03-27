@@ -1,28 +1,29 @@
 package com.example.cindy.esc_50005.UI.Course.FAQ;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.amazonaws.mobile.client.AWSMobileClient;
 import com.example.cindy.esc_50005.Database.activityQuestion.questionCreator;
 import com.example.cindy.esc_50005.R;
-import com.example.cindy.esc_50005.UI.Session.SessionActivity;
+import com.example.cindy.esc_50005.UI.Session.Main.SessionActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -33,6 +34,12 @@ import okhttp3.WebSocketListener;
 public class CourseActivity extends AppCompatActivity implements View.OnClickListener {
     private Button btn;
     private OkHttpClient client;
+    private SharedPreferences sharedPreferences;
+    private ListView mDrawerList;
+    private ArrayAdapter<String> mAdapter;
+    private ActionBarDrawerToggle mDrawerToggle;
+    private DrawerLayout mDrawerLayout;
+    private String mActivityTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +49,15 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
         AWSMobileClient.getInstance().initialize(this).execute();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-        btn = findViewById(R.id.clickToGoToPostQuestion);
-        btn.setOnClickListener(this);
+        mDrawerList = (ListView)findViewById(R.id.navList);
+        addDrawerItems();
+        setupDrawer();
+
+
+
+        setSupportActionBar(toolbar);
+//        btn = findViewById(R.id.clickToGoToPostQuestion);
+//        btn.setOnClickListener(this);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText(R.string.sessions));
@@ -78,14 +91,35 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
             }
         });
 
+//        FragmentManager fragmentManager = getSupportFragmentManager();
+//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//
+//        GetQuestionTask task = new GetQuestionTask();
+//        task.execute();
+    }
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+    private void setupDrawer() {
 
-        GetQuestionTask task = new GetQuestionTask();
-        task.execute();
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
+                R.string.drawer_open, R.string.drawer_close) {
+
+            /** Called when a drawer has settled in a completely open state. */
+            public void onDrawerOpened(View drawerView) {
 
 
+            }
+
+            /** Called when a drawer has settled in a completely closed state. */
+            public void onDrawerClosed(View view) {
+            }
+        };
+    }
+
+    private void addDrawerItems() {
+        Log.i("adding","adding");
+        String[] osArray = { "Android", "iOS", "Windows", "OS X", "Linux" };
+        mAdapter = new ArrayAdapter<String>(this, R.layout.navigation_bar, osArray);
+        mDrawerList.setAdapter(mAdapter);
     }
 
     @Override
@@ -96,7 +130,6 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
         finish();
 
     }
-
     public class GetQuestionTask extends AsyncTask<Void, Void,String> {
 
         String questiontext = "";
@@ -105,7 +138,7 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
         protected String doInBackground(Void... voids) {
 
             client = new OkHttpClient();
-            Request request = new Request.Builder().url("ws://10.12.42.198:8080").build();
+            Request request = new Request.Builder().url("ws://ec2-35-171-6-169.compute-1.amazonaws.com:3000").build();
             EchoWebSocketListener listener = new EchoWebSocketListener();
             WebSocket ws = client.newWebSocket(request, listener);
             client.dispatcher().executorService().shutdown();
@@ -163,7 +196,5 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
 
             return questiontext;
         }
-
-
     }
 }
