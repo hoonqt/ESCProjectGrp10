@@ -8,8 +8,7 @@ import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBRangeKey
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBTable;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
+
 
 @DynamoDBTable(tableName = "escproject-mobilehub-27166461-UsersInformation")
 
@@ -19,6 +18,9 @@ public class UsersInformationDO {
     private List<String> _courseIds;
     private List<String> _courseNames;
     private String _password;
+    private List<String> _sessionDate;
+    private List<String> _sessionIds;
+    private List<String> _sessionName;
     private String _username;
 
     @DynamoDBHashKey(attributeName = "userType")
@@ -63,6 +65,30 @@ public class UsersInformationDO {
     public void setPassword(final String _password) {
         this._password = _password;
     }
+    @DynamoDBAttribute(attributeName = "sessionDate")
+    public List<String> getSessionDate() {
+        return _sessionDate;
+    }
+
+    public void setSessionDate(final List<String> _sessionDate) {
+        this._sessionDate = _sessionDate;
+    }
+    @DynamoDBAttribute(attributeName = "sessionIds")
+    public List<String> getSessionIds() {
+        return _sessionIds;
+    }
+
+    public void setSessionIds(final List<String> _sessionIds) {
+        this._sessionIds = _sessionIds;
+    }
+    @DynamoDBAttribute(attributeName = "sessionName")
+    public List<String> getSessionName() {
+        return _sessionName;
+    }
+
+    public void setSessionName(final List<String> _sessionName) {
+        this._sessionName = _sessionName;
+    }
     @DynamoDBAttribute(attributeName = "username")
     public String getUsername() {
         return _username;
@@ -73,3 +99,4 @@ public class UsersInformationDO {
     }
 
 }
+

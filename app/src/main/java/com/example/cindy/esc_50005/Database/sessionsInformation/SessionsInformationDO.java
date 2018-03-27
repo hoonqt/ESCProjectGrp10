@@ -1,6 +1,4 @@
-package com.example.cindy.esc_50005.Database.CoursesInformation;
-
-import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBTable;
+package com.example.cindy.esc_50005.Database.sessionsInformation;
 
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBAttribute;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBHashKey;
@@ -13,23 +11,32 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-@DynamoDBTable(tableName = "escproject-mobilehub-27166461-CoursesInformation")
+@DynamoDBTable(tableName = "escproject-mobilehub-27166461-SessionsInformation")
 
-public class CoursesInformationDO {
-    private Double _courseID;
+public class SessionsInformationDO {
+    private String _sessionID;
+    private String _courseID;
     private String _courseName;
-    private List<String> _sessionId;
+    private List<String> _students;
 
-    @DynamoDBHashKey(attributeName = "courseID")
+    @DynamoDBHashKey(attributeName = "sessionID")
+    @DynamoDBAttribute(attributeName = "sessionID")
+    public String getSessionID() {
+        return _sessionID;
+    }
+
+    public void setSessionID(final String _sessionID) {
+        this._sessionID = _sessionID;
+    }
+    @DynamoDBRangeKey(attributeName = "courseID")
     @DynamoDBAttribute(attributeName = "courseID")
-    public Double getCourseID() {
+    public String getCourseID() {
         return _courseID;
     }
 
-    public void setCourseID(final Double _courseID) {
+    public void setCourseID(final String _courseID) {
         this._courseID = _courseID;
     }
-    @DynamoDBRangeKey(attributeName = "courseName")
     @DynamoDBAttribute(attributeName = "courseName")
     public String getCourseName() {
         return _courseName;
@@ -38,13 +45,13 @@ public class CoursesInformationDO {
     public void setCourseName(final String _courseName) {
         this._courseName = _courseName;
     }
-    @DynamoDBAttribute(attributeName = "sessionId")
-    public List<String> getSessionId() {
-        return _sessionId;
+    @DynamoDBAttribute(attributeName = "students")
+    public List<String> getStudents() {
+        return _students;
     }
 
-    public void setSessionId(final List<String> _sessionId) {
-        this._sessionId = _sessionId;
+    public void setStudents(final List<String> _students) {
+        this._students = _students;
     }
 
 }

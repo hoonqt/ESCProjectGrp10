@@ -1,8 +1,13 @@
 package com.example.cindy.esc_50005.UI.Course.FAQ;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+
+import com.example.cindy.esc_50005.UI.Course.FAQ.session.professor.SessionsFragment;
 
 /**
  * Created by YiLong on 30/11/17.
@@ -16,15 +21,19 @@ public class CoursePagerAdapter extends FragmentStatePagerAdapter {
     //Implement the PagerAdapter which then populates the ViewPager widget with the chosen fragment.
     //chosen Fragment means which fragment you swipe to
     int mNumOfTabs;
+    private Context context;
+    private SharedPreferences userInformation;
 
     public CoursePagerAdapter(FragmentManager fm, int mNumOfTabs) {
         super(fm);
         this.mNumOfTabs = mNumOfTabs;
+        this.context=context;
     }
 
     @Override
     public Fragment getItem(int position) {
 
+//        userInformation = PreferenceManager.getDefaultSharedPreferences(context);
         switch (position)
         {
             case 0:
@@ -43,9 +52,5 @@ public class CoursePagerAdapter extends FragmentStatePagerAdapter {
         return mNumOfTabs;
     }
 
-    //TODO 2.1  - implement the method skeleton by using Alt+Enter
-    //TODO 2.2  - getItem takes in a position and returns a fragment
-    //            depending on the position chosen
-    //TODO 2.3  - getCount returns the number of tabs
 
 }

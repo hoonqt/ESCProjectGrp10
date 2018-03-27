@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 
 import com.example.cindy.esc_50005.R;
+import com.example.cindy.esc_50005.UI.Course.FAQ.CourseActivity;
 import com.example.cindy.esc_50005.UI.Dashboard.DashboardActivity;
 
 import static com.google.common.base.Preconditions.*;
@@ -116,7 +117,7 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     public void showSuccessfulLogin()
     {
         Log.i("showSuccessfulLogin","showSuccessfulLogin");
-        Intent intent = new Intent(getActivity(), DashboardActivity.class);
+        Intent intent = new Intent(getActivity(), CourseActivity.class);
         startActivity(intent);
     }
 

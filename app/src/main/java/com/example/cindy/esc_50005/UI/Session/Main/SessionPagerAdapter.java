@@ -41,7 +41,6 @@ public class SessionPagerAdapter extends FragmentStatePagerAdapter {
         }
 
         else{
-            Log.i("prof fragment","prof fragment");
             switch (position)
             {
                 case 0:

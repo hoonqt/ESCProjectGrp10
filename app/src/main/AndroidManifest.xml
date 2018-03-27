@@ -6,32 +6,37 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
+        android:theme="@style/AppTheme"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity
-            android:name=".UI.Session.Main.SessionActivity"
-            android:label="@string/title_activity_session"
-            android:theme="@style/AppTheme.NoActionBar">
+       >
+        <!--<activity-->
+            <!--android:name=".UI.Session.Main.SessionActivity"-->
+            <!--android:label="@string/title_activity_session"-->
+            <!--android:theme="@style/AppTheme.NoActionBar">-->
 
-        </activity>
+        <!--</activity>-->
         <activity
             android:name=".UI.Course.FAQ.addEditFaq.AddEditFaqActivity"
             android:label="Add FAQ" />
         <activity
+            android:name=".UI.Session.Main.SessionActivity"
+             />
+        <activity
             android:name=".UI.Course.FAQ.CourseActivity"
-            android:label="Add FAQ" />
+            />
         <activity
             android:name=".UI.Dashboard.DashboardActivity"
-            android:label="Add FAQ" />
+            android:label="Dashboard" />
         <activity android:name=".UI.QuizSession.QuizActivity" />
+        <activity android:name=".MainActivity" />
 
         <activity
             android:name=".UI.Login.LoginActivity"
-            android:label="Add FAQ">
+            android:label="Login">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
