@@ -13,6 +13,7 @@ public interface FaqContract {
         void loadFaq();
         void processEmptyFaq();
         void upvoteFaq(Faq faq);
+        void downvoteFaq(Faq faq);
     }
 
     interface View extends BaseView<Presenter> {
