@@ -49,6 +49,8 @@ public class SessionPagerAdapter extends FragmentStatePagerAdapter {
                     return new ProfQuestionFrag();
                 case 1:
                     return new ActivityProfFrag();
+                case 2:
+                    return new ProfQuestionFrag();
                 default:
                     return null;
             }

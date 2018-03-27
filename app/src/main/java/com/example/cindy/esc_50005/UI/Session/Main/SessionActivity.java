@@ -22,6 +22,8 @@ import com.example.cindy.esc_50005.UI.Course.FAQ.CourseActivity;
 public class SessionActivity extends AppCompatActivity {
     private Button btn;
     private SharedPreferences sharedPreferences;
+    private SharedPreferences userInformation;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         AWSMobileClient.getInstance().initialize(this).execute();
@@ -32,11 +34,16 @@ public class SessionActivity extends AppCompatActivity {
 //        btn = findViewById(R.id.clickToGoToFAQ);
 //        btn.setOnClickListener(this);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
+        userInformation = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         TabLayout tabLayout=(TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText(R.string.questions));
         tabLayout.addTab(tabLayout.newTab().setText(R.string.activities));
-        tabLayout.addTab(tabLayout.newTab().setText(R.string.feedback));
+
+        if(!userInformation.getString("UserType","").equals("student")) {
+            tabLayout.addTab(tabLayout.newTab().setText(R.string.feedback));
+        }
+
 
         //fragment is reusable cuz you can use it in other activities
         tabLayout.setTabGravity(tabLayout.GRAVITY_FILL);
