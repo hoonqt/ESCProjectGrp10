@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,11 +37,6 @@ public class NameListFragment extends Fragment implements ProgressContract.View 
 
     @Override
     public void showAverage() {
-
-    }
-
-    @Override
-    public void showNames(ArrayList<String> nameList) {
 
     }
 
@@ -95,7 +91,7 @@ public class NameListFragment extends Fragment implements ProgressContract.View 
         swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mPresenter.loadScores(); // change it to load namelist
+                mPresenter.loadNames(); // change it to load namelist
             }
         });
 
@@ -111,10 +107,12 @@ public class NameListFragment extends Fragment implements ProgressContract.View 
         return view;
     }
 
-    public void showNameList(ArrayList<NewQuizScoresDO> nameList) {
+    public void showNames(ArrayList<String> nameList) {
 
+//        Log.i("NameListFragment", "showNames: " + nameList.get(0));
         mNameListAdapter = new NameListAdapter(nameList, mItemListener);
         nameListRecycler.setAdapter(mNameListAdapter);
+
     }
 
     public void showNoName() {
@@ -133,17 +131,17 @@ public class NameListFragment extends Fragment implements ProgressContract.View 
     NameListItemListener mItemListener = new NameListItemListener() {
         @Override
         public void onUpvoteClick(Faq clickedFaq) {
-            mPresenter.upvoteFaq(clickedFaq);
+//            mPresenter.upvoteFaq(clickedFaq);
         }
 
         @Override
         public void onDownvoteClick(Faq clickedFaq) {
-            mPresenter.downvoteFaq(clickedFaq);
+//            mPresenter.downvoteFaq(clickedFaq);
         }
 
         @Override
         public void onRetryClick() {
-            mPresenter.loadFaq();
+//            mPresenter.loadFaq();
         }
 
 
