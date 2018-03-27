@@ -11,7 +11,6 @@ import java.util.ArrayList;
 public interface ProgressContract {
 
     interface View extends BaseView<Presenter> {
-//        <T> void showProgress(T data);
         void showProgress(ArrayList<Double> scoreList);
         void showAverage();
         void showNames(ArrayList<String> nameList);

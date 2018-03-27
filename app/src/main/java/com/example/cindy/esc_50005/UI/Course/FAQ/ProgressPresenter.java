@@ -21,7 +21,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * Created by 1002215 on 12/3/18.
  */
 
-public class ProgressPresenter implements ProgressContract.Presenter {
+public class    ProgressPresenter implements ProgressContract.Presenter {
 
     public static final String TAG = "ProgressPresenter";
 
@@ -38,12 +38,12 @@ public class ProgressPresenter implements ProgressContract.Presenter {
 
     @Override
     public void start() {
-        loadScores();
+        loadNames();
     }
 
     @Override
     public void loadScores() {
-        progressArrayList = mProgressRepository.getScores("1002210","50.001");// need to change it to base on the user login details
+        progressArrayList = mProgressRepository.getScores("1002221","50.005");// need to change it to base on the user login details
         processScores(progressArrayList);
 
         Log.i(TAG, "LoadScores size is " + progressArrayList.size());
@@ -80,7 +80,7 @@ public class ProgressPresenter implements ProgressContract.Presenter {
 
     @Override
     public void loadNames() {
-        nameList = mProgressRepository.getNames("1002210","50.001");// need to change it to base on the user login details
+        nameList = mProgressRepository.getNames("1002221","50.005");// need to change it to base on the user login details
         processNames(nameList);
 
         Log.i(TAG, "LoadName size is " + nameList.size());
@@ -94,7 +94,7 @@ public class ProgressPresenter implements ProgressContract.Presenter {
 
             for(int i = 0; i<nameList.size();i++){
                 try{
-                    names.add(nameList.get(i).getNames());
+                    names.add(nameList.get(i).getName());
                 } catch(Exception e){
                     e.printStackTrace();
                 }
