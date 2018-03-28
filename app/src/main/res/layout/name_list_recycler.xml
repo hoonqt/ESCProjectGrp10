@@ -36,21 +36,21 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_chainStyle="packed" />
 
-            <TextView
-                android:id="@+id/name_list_tv_answer"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:lineSpacingExtra="8dp"
-                android:text="Here is for the answer to the question which may have several lines"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textColor="#111111"
-                app:layout_constraintBottom_toTopOf="@+id/faq_tv_time"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/faq_tv_question" />
+            <!--<TextView-->
+                <!--android:id="@+id/name_list_tv_answer"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginEnd="16dp"-->
+                <!--android:layout_marginStart="16dp"-->
+                <!--android:layout_marginTop="16dp"-->
+                <!--android:lineSpacingExtra="8dp"-->
+                <!--android:text="Here is for the answer to the question which may have several lines"-->
+                <!--android:textAppearance="@style/TextAppearance.AppCompat.Body1"-->
+                <!--android:textColor="#111111"-->
+                <!--app:layout_constraintBottom_toTopOf="@+id/faq_tv_time"-->
+                <!--app:layout_constraintEnd_toEndOf="parent"-->
+                <!--app:layout_constraintStart_toStartOf="parent"-->
+                <!--app:layout_constraintTop_toBottomOf="@+id/faq_tv_question" />-->
 
             <TextView
                 android:id="@+id/name_list_tv_time"
@@ -67,28 +67,27 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/faq_tv_answer" />
 
-            <TextView
-                android:id="@+id/name_list_tv_upvote"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:lineSpacingExtra="8dp"
-                android:text="01 March 2018"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textColor="#555555"
-                app:layout_constraintEnd_toStartOf="@id/faq_btn_upvote"
-                app:layout_constraintTop_toBottomOf="@+id/faq_tv_answer" />
+            <!--<TextView-->
+                <!--android:id="@+id/name_list_tv_upvote"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginEnd="16dp"-->
+                <!--android:layout_marginStart="16dp"-->
+                <!--android:layout_marginTop="16dp"-->
+                <!--android:lineSpacingExtra="8dp"-->
+                <!--android:text="01 March 2018"-->
+                <!--android:textAppearance="@style/TextAppearance.AppCompat.Body1"-->
+                <!--android:textColor="#555555"-->
+                <!--app:layout_constraintEnd_toStartOf="@id/faq_btn_upvote"-->
+                <!--app:layout_constraintTop_toBottomOf="@+id/faq_tv_answer" />-->
 
             <Button
-                android:id="@+id/name_list_btn_upvote"
+                android:id="@+id/name_list_progress_btn"
                 style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="Upvote"
-                android:textColor="#114488"
+                android:drawableRight="@drawable/ic_keyboard_arrow_right_black_24dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/faq_tv_answer"
                 android:layout_marginLeft="8dp" />

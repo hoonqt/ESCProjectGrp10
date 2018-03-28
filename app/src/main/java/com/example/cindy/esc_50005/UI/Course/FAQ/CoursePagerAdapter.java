@@ -34,7 +34,6 @@ public class CoursePagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-
         userInformation = PreferenceManager.getDefaultSharedPreferences(context);
         if(userInformation.getString("UserType","").equals("student")) {
             switch (position) {
@@ -49,6 +48,7 @@ public class CoursePagerAdapter extends FragmentStatePagerAdapter {
             }
         }
         else{
+
             switch (position)
             {
                 case 0:

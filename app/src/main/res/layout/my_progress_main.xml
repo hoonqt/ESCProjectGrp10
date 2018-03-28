@@ -13,7 +13,7 @@
             android:layout_height="30dp"
             android:gravity="center"
             android:layout_gravity="center"
-            android:text="My Progress"/>
+            android:text="Progress"/>
 
         <!--<View-->
             <!--android:layout_width="match_parent"-->

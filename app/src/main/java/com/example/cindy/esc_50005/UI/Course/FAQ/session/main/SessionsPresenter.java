@@ -51,7 +51,6 @@ public class SessionsPresenter implements SessionsContract.Presenter {
     }
 
     public void querySessions(Context context) {
-
         userInformation = PreferenceManager.getDefaultSharedPreferences(context);
         usersJsonData=mUserRepository.queryParticularUser(userInformation.getString("Username",""),userInformation.getString("Password",""),userInformation.getString("UserType",""));
         Log.i("size of json",Integer.toString(usersJsonData.size()));
@@ -72,17 +71,9 @@ public class SessionsPresenter implements SessionsContract.Presenter {
     {
         Log.i("user json data",Integer.toString(usersJsonData.size()));
         listOfSessions=new ArrayList<String>();
-//        try{
-//            TimeUnit.SECONDS.sleep(10);
-//        }
-//        catch (Exception ex)
-//        {
-//
-//        }
 
         for(int i=0;i<usersJsonData.get(0).getSessionIds().size();i++)
         {
-//           Log.i("user stuff",usersJsonData.get(0).getSessionDate().get(0));
             String session=usersJsonData.get(0).getSessionDate().get(i)+ " -"  + usersJsonData.get(0).getSessionName().get(i);
             listOfSessions.add(session);
         }

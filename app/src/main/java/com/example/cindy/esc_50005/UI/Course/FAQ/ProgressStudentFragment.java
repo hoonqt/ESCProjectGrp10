@@ -158,12 +158,12 @@ public class ProgressStudentFragment extends Fragment implements ProgressContrac
     }
 
     @Override
-    public void showAverage() {
+    public void showAverage(double avg) {
 
     }
 
     @Override
-    public void showNames(ArrayList<String> nameList) {
+    public void showNames(ArrayList<String> nameList, ArrayList<String> studentIds, double avg) {
 
     }
 

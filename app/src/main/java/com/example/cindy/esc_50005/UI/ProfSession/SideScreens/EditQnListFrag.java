@@ -46,6 +46,7 @@ public class EditQnListFrag extends Fragment implements Serializable {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        context = getContext();
         // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.fragment_qnlist_edit, container, false);
@@ -77,7 +78,7 @@ public class EditQnListFrag extends Fragment implements Serializable {
                 editor.setArguments(toEditor);
 
                 SessionActivity myActivity = (SessionActivity) context;
-                myActivity.getSupportFragmentManager().beginTransaction().addToBackStack(null).setCustomAnimations(R.anim.slide_out_up,R.anim.slide_in_up).replace(R.id.profsessionhere,editor).addToBackStack(null).commit();
+                myActivity.getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.profsessionhere,editor).addToBackStack(null).commit();
 
             }
         });

@@ -34,7 +34,6 @@ public class QuizEditor extends Fragment {
 
     private QuizEditor.LayoutManagerType mCurrentLayoutManagerType;
     private RecyclerView.LayoutManager mLayoutManager;
-    private QuizEditorAdapter mQuizAdapter;
     SharedPreferences sharedPreferences;
     private ArrayList<QuizQuestions1DO> dataset;
 
@@ -65,14 +64,11 @@ public class QuizEditor extends Fragment {
         View view = inflater.inflate(R.layout.fragment_quiz_editor, container, false);
         mLayoutManager = new LinearLayoutManager(getActivity());
         mCurrentLayoutManagerType = QuizEditor.LayoutManagerType.LINEAR_LAYOUT_MANAGER;
-        quizRecycler.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
-        mQuizAdapter = new QuizEditorAdapter();
-        quizRecycler.setAdapter(mQuizAdapter);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         sharedPreferences.getString("50.004", null);
 
-        question = (EditText) view.findViewById(R.id.question);
+        question = (EditText) view.findViewById(R.id.questionBox);
         option1 = (EditText) view.findViewById(R.id.option1ans);
         option2 = (EditText) view.findViewById(R.id.option2ans);
         option3 = (EditText) view.findViewById(R.id.option3ans);

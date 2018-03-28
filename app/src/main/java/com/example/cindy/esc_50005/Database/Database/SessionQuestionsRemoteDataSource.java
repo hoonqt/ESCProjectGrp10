@@ -88,7 +88,7 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
 
         questionsArrayList=new ArrayList<>();
         Log.i("sessionCode",sessionCode);
-        new Thread(new Runnable() {
+        Thread retriever = new Thread(new Runnable() {
             @Override
             public void run() {
 
@@ -106,10 +106,12 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
                 }
 
             }
-        }).start();
+        });
+
+        retriever.start();
 
         try {
-            TimeUnit.SECONDS.sleep(2);
+            retriever.join();
         } catch (InterruptedException ex) {
             ex.printStackTrace();
         }
