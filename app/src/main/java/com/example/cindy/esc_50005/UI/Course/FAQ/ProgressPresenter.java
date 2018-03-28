@@ -94,7 +94,7 @@ public class ProgressPresenter implements ProgressContract.Presenter {
 
             for(int i = 0; i<nameList.size();i++){
                 try{
-                    names.add(nameList.get(i).getNames());
+                    names.add(nameList.get(i).getName());
                 } catch(Exception e){
                     e.printStackTrace();
                 }

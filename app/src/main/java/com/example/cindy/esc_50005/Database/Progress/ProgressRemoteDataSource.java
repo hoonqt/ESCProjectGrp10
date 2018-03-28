@@ -93,7 +93,6 @@ public class ProgressRemoteDataSource implements ProgressDataSource {
 
     }
 
-<<<<<<< HEAD
     public ArrayList<NewQuizScoresDO> getNames(final String userId, final String subjectCode) {
 
 //        dataInJson = new ArrayList<>();
@@ -148,6 +147,4 @@ public class ProgressRemoteDataSource implements ProgressDataSource {
 //    }
 
 
-=======
->>>>>>> 163fb8b6167936199947d4d3ada013cc817a2540
 }
