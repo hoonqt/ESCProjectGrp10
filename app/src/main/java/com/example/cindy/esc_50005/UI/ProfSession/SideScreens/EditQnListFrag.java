@@ -6,14 +6,17 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.example.cindy.esc_50005.Database.Quizstuff.QuizQuestions1DO;
 import com.example.cindy.esc_50005.R;
 import com.example.cindy.esc_50005.UI.ProfSession.Adapters.QnListAdapter;
 import com.example.cindy.esc_50005.UI.ProfSession.MainScreens.ActivityProfFrag;
+import com.example.cindy.esc_50005.UI.Session.Main.SessionActivity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -51,15 +54,33 @@ public class EditQnListFrag extends Fragment implements Serializable {
         mCurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
         quizRecycler.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
-        Bundle bundle = this.getArguments();
+        final Bundle bundle = this.getArguments();
 
         if (bundle != null) {
             dataset = (ArrayList<QuizQuestions1DO>)bundle.getSerializable("allthequestions");
+            Log.i("Here",dataset.get(0).getQuestion());
         }
 
         mQnListAdapter = new QnListAdapter(dataset);
 
         quizRecycler.setAdapter(mQnListAdapter);
+
+        ImageView questionAdder = view.findViewById(R.id.addbutton);
+
+        questionAdder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                QuizEditor editor = new QuizEditor();
+                Bundle toEditor = new Bundle();
+                bundle.putSerializable("allthequestions",dataset);
+                editor.setArguments(toEditor);
+
+                SessionActivity myActivity = (SessionActivity) context;
+                myActivity.getSupportFragmentManager().beginTransaction().addToBackStack(null).setCustomAnimations(R.anim.slide_out_up,R.anim.slide_in_up).replace(R.id.profsessionhere,editor).addToBackStack(null).commit();
+
+            }
+        });
 
         return view;
     }

@@ -54,7 +54,7 @@ public class QuizRemoteDataSource {
         
         questionsArrayList = new ArrayList<QuizQuestions1DO>();
 
-        new Thread(new Runnable() {
+        Thread random = new Thread(new Runnable() {
             @Override
             public void run() {
 
@@ -71,13 +71,18 @@ public class QuizRemoteDataSource {
                 }
 
             }
-        }).start();
+        });
+
+        random.start();
 
         try {
-            TimeUnit.SECONDS.sleep(2);
-        } catch (InterruptedException ex) {
-            ex.printStackTrace();
+            random.join();
         }
+
+        catch (InterruptedException ex) {
+        }
+
+
 
         return questionsArrayList;
     }

@@ -2,16 +2,20 @@ package com.example.cindy.esc_50005.UI.ProfSession.Adapters;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.cindy.esc_50005.Database.Quizstuff.QuizQuestions1DO;
 import com.example.cindy.esc_50005.R;
+import com.example.cindy.esc_50005.UI.ProfSession.SideScreens.QuizEditor;
+import com.example.cindy.esc_50005.UI.Session.Main.SessionActivity;
 
 import java.util.ArrayList;
 
@@ -23,16 +27,12 @@ public class QnListAdapter extends RecyclerView.Adapter<QnListAdapter.QnViewHold
 
     private static int viewHolderCount = 0;
     private Context context;
-    private ArrayList<String> questions;
+    private ArrayList<QuizQuestions1DO> questions;
     SharedPreferences sharedPreferences;
 
     public QnListAdapter(ArrayList<QuizQuestions1DO> input) {
 
         questions = new ArrayList<>();
-        for (int i = 0;i<input.size();i++) {
-            questions.add(input.get(i).getQuestion());
-            Log.i("Question",input.get(i).getQuestion());
-        }
 
 
     }
@@ -73,19 +73,43 @@ public class QnListAdapter extends RecyclerView.Adapter<QnListAdapter.QnViewHold
     class QnViewHolder extends RecyclerView.ViewHolder {
 
         public TextView QuestionHere;
-        public TextView arrowHead;
+        public ImageView arrowHead;
+
+
+        int index;
 
 
         public QnViewHolder(View v) {
             super(v);
             QuestionHere = (TextView)v.findViewById(R.id.questionwho);
+            arrowHead = (ImageView)v.findViewById(R.id.arrowView2);
+
+            arrowHead.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    QuizEditor editor = new QuizEditor();
+                    Bundle bundler = new Bundle();
+
+                    ArrayList<QuizQuestions1DO> tobetransferred = new ArrayList<>(questions);
+
+                    bundler.putSerializable("allthequestions",tobetransferred);
+                    bundler.putInt("index",index);
+
+                    editor.setArguments(bundler);
+
+                    SessionActivity myActivity = (SessionActivity) context;
+                    myActivity.getSupportFragmentManager().beginTransaction().addToBackStack(null).setCustomAnimations(R.anim.slide_out_up,R.anim.slide_in_up).replace(R.id.profsessionhere,editor).addToBackStack(null).commit();
+
+                }
+            });
 
         }
 
         public void bind(int position) {
 
-            QuestionHere.setText(questions.get(position));
-
+            QuestionHere.setText(questions.get(position).getQuestion());
+            index = position;
 
         }
 
