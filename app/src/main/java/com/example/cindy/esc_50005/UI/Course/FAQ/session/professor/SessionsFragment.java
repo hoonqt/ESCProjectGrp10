@@ -1,6 +1,8 @@
 package com.example.cindy.esc_50005.UI.Course.FAQ.session.professor;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -17,6 +19,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 import com.example.cindy.esc_50005.Database.FAQ.Faq;
@@ -31,26 +36,30 @@ import com.example.cindy.esc_50005.UI.Course.FAQ.session.main.SessionsAdapter;
 import com.example.cindy.esc_50005.UI.Course.FAQ.session.main.SessionsContract;
 import com.example.cindy.esc_50005.UI.Course.FAQ.session.main.SessionsItemListener;
 import com.example.cindy.esc_50005.UI.Course.FAQ.session.main.SessionsPresenter;
+import com.example.cindy.esc_50005.UI.Session.Main.SessionActivity;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-public class SessionsFragment extends Fragment implements SessionsContract.View {
-
-
-    private enum LayoutManagerType {
-        LINEAR_LAYOUT_MANAGER
-    }
+public class SessionsFragment extends Fragment implements SessionsContract.View, View.OnClickListener {
     protected LayoutManagerType mCurrentLayoutManagerType;
     protected RecyclerView.LayoutManager mLayoutManager;
     private SessionsContract.Presenter mPresenter = new SessionsPresenter(this);
     private LinearLayout mSessionsView;
     private RecyclerView sessionsListRecycler;
     private SwipeRefreshLayout swipeLayout;
+    private ImageButton button;
 
     private SessionsAdapter mSessionsAdapter;
+
+    private enum LayoutManagerType {
+        LINEAR_LAYOUT_MANAGER
+    }
 
     public SessionsFragment() {
         // Required empty public constructor
@@ -81,6 +90,8 @@ public class SessionsFragment extends Fragment implements SessionsContract.View 
         mLayoutManager= new LinearLayoutManager(getActivity());
         mCurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
         sessionsListRecycler.setLayoutManager(new LinearLayoutManager(this.getActivity()));
+        button= view.findViewById(R.id.add_button);
+        button.setOnClickListener(this);
         attemptQuerySessions();
         return view;
     }
@@ -91,8 +102,6 @@ public class SessionsFragment extends Fragment implements SessionsContract.View 
     }
 
     public void showSessions(ArrayList<String> sessions) {
-        Log.i("showing","showing");
-        Log.i("sessions",Integer.toString(sessions.size()));
         mSessionsAdapter=new SessionsAdapter(sessions,this.getContext());
         sessionsListRecycler.setAdapter(mSessionsAdapter);
     }
@@ -112,6 +121,53 @@ public class SessionsFragment extends Fragment implements SessionsContract.View 
     {
 
     }
+
+    @Override
+    public void showSuccessfulAddNewSession() {
+        attemptQuerySessions();
+    }
+
+    @Override
+    public void showUnsuccessfulAddNewSession() {
+
+    }
+
+    @Override
+    public void onClick(View view) {
+        AlertDialog.Builder builder=new AlertDialog.Builder(this.getContext());
+        builder.setTitle("Add new session");
+        LinearLayout layout = new LinearLayout(this.getActivity());
+        layout.setOrientation(LinearLayout.VERTICAL);
+        final EditText sessionId = new EditText(getActivity().getApplicationContext());
+        sessionId.setHint("Session Id");
+        final EditText sessionName = new EditText(getActivity().getApplicationContext());
+        sessionName.setHint("Session Name");
+
+        builder.setNegativeButton("Submit",new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog,int id) {
+
+                String sessionIdToAdd=sessionId.getText().toString();
+                String sessionNameToAdd=sessionName.getText().toString();
+                String months[] = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep",
+                        "Oct", "Nov", "Dec"};
+                GregorianCalendar gcalendar = new GregorianCalendar();
+                String month=months[gcalendar.get(Calendar.MONTH)];
+                int day=gcalendar.get(Calendar.DAY_OF_MONTH);
+                StringBuilder timeOfCreation=new StringBuilder();
+                timeOfCreation.append(Integer.toString(day));
+                timeOfCreation.append(" ");
+                timeOfCreation.append(month);
+                mPresenter.addNewSession(sessionIdToAdd,sessionNameToAdd,timeOfCreation.toString(),"50.005");
+                dialog.cancel();
+            }
+        });
+        layout.addView(sessionId);
+        layout.addView(sessionName);
+        builder.setView(layout);
+        builder.create();
+        builder.show();
+    }
+
 
 
 }

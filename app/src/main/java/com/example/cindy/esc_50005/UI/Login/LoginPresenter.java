@@ -36,7 +36,7 @@ public class LoginPresenter implements LoginContract.Presenter  {
     public void loadUsersFromDatabase(Context context)
     {
         userInformation = PreferenceManager.getDefaultSharedPreferences(context);
-        userInformationJsonData=mLoginRepository.queryUser(userInformation.getString("Username",""),userInformation.getString("Password",""),userInformation.getString("UserType",""));
+        userInformationJsonData=mLoginRepository.queryParticularUser(userInformation.getString("Username",""),userInformation.getString("Password",""),userInformation.getString("UserType",""));
         checkIfLoginIsValid(userInformationJsonData);
     }
 
@@ -53,21 +53,28 @@ public class LoginPresenter implements LoginContract.Presenter  {
 
     public void checkIfLoginIsValid(ArrayList<UsersInformationDO> userInformationJsonData){
         Log.i("checkIfLoginIsValid","checkIfLoginIsValid");
-
-        for(UsersInformationDO user: userInformationJsonData)
+        if(userInformationJsonData.size()!=0)
         {
-            Log.i("user",user.getUsername());
-
-            if(user.getPassword().equals(userInformation.getString("Password","")) && user.getUsername().equals(userInformation.getString("Username","")) && user.getUserType().equals(userInformation.getString("UserType",""))){
-
-                Log.i("successful","successful");
-                loadSuccessfulLogin();
-            }
-            else{
-                Log.i("unsuccessful","unsuccessful");
-                loadUnsuccessfulLogin();
-            }
+            loadSuccessfulLogin();
         }
+        else{
+            loadUnsuccessfulLogin();
+        }
+
+//        for(UsersInformationDO user: userInformationJsonData)
+//        {
+//            Log.i("user",user.getUsername());
+//
+//            if(user.getPassword().equals(userInformation.getString("Password","")) && user.getUsername().equals(userInformation.getString("Username","")) && user.getUserType().equals(userInformation.getString("UserType",""))){
+//
+//                Log.i("successful","successful");
+//                loadSuccessfulLogin();
+//            }
+//            else{
+//                Log.i("unsuccessful","unsuccessful");
+//                loadUnsuccessfulLogin();
+//            }
+//        }
 
     }
 

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public interface SessionsInformationDataSource {
 
     void removeSession(SessionsInformationDO faq);
-    void addSession(final Double courseId, final String courseName);
-    ArrayList<SessionsInformationDO> querySessions(Double sessionId, Double courseId);
+    void addSession(final String sessionId, final String sessionName, final String courseId, final String dateOfCreation);
+    ArrayList<SessionsInformationDO> querySessions(String sessionId , String courseId);
 
 }
