@@ -40,7 +40,7 @@ public class CoursePagerAdapter extends FragmentStatePagerAdapter {
             switch (position)
             {
                 case 0:
-                    return new FaqFragment();
+                    return new SessionsFragment();
                 case 1:
                     return new FaqFragment();
                 case 2:
@@ -52,7 +52,7 @@ public class CoursePagerAdapter extends FragmentStatePagerAdapter {
             switch (position)
             {
                 case 0:
-                    return new FaqFragment();
+                    return new SessionsFragment();
                 case 1:
                     return new FaqFragment();
                 case 2:
