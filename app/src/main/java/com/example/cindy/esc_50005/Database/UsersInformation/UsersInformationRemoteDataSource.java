@@ -34,7 +34,19 @@ public class UsersInformationRemoteDataSource implements UsersInformationDataSou
     }
 
     @Override
-    public void addUser(final UsersInformation userInformation) {
+    public void removeUser(final UsersInformationDO usersInformation) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                dynamoDBMapper.delete(usersInformation);
+            }
+        }).start();
+
+
+    }
+
+    @Override
+    public void addUser(final UsersInformationDO userInformation) {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -44,23 +56,57 @@ public class UsersInformationRemoteDataSource implements UsersInformationDataSou
 
     }
 
-    @Override
-    public void removeUser(final UsersInformation userInformation) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                dynamoDBMapper.delete(userInformation);
-            }
-        }).start();
-
-    }
-
 
     public void editUser(String course) {
 
     }
+    public ArrayList<UsersInformationDO> queryParticularUser(final String username, final String password, final String userType) {
+        Log.i("username",userType);
+        usersArrayList = new ArrayList<UsersInformationDO>();
 
-    public ArrayList<UsersInformationDO> queryUser(final String username, String password, final String userType) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                UsersInformationDO userSelected = new UsersInformationDO();
+                Log.i("userType at db",userType);
+                Log.i("username at db",username);
+                userSelected.setUserType(userType);
+                userSelected.setUsername(username);
+                userSelected.setPassword(password);
+
+                DynamoDBQueryExpression queryExpression = new DynamoDBQueryExpression()
+                        .withHashKeyValues(userSelected);
+
+                PaginatedList<UsersInformationDO> result = dynamoDBMapper.query(UsersInformationDO.class, queryExpression);
+                for (UsersInformationDO userInformation : result) {
+                    if(userInformation.getUsername().equals(username))
+                    {
+                        usersArrayList.add(userInformation);
+                    }
+                    Log.i("gettingData","gettingData");
+                    //You gonna have to change the way you retrieve stuff here.
+                }
+
+
+
+            }
+        }).start();
+
+        try {
+            TimeUnit.SECONDS.sleep(5);
+        } catch (InterruptedException ex) {
+            ex.printStackTrace();
+        }
+
+        Log.i("size for particular ",Integer.toString(usersArrayList.size()));
+
+        return usersArrayList;
+
+    }
+
+
+    public ArrayList<UsersInformationDO> queryUser(final String username, final String password, final String userType) {
 
         Log.i("username",userType);
         usersArrayList = new ArrayList<UsersInformationDO>();
@@ -74,6 +120,7 @@ public class UsersInformationRemoteDataSource implements UsersInformationDataSou
                 Log.i("username at db",username);
                 userSelected.setUserType(userType);
                 userSelected.setUsername(username);
+                userSelected.setPassword(password);
 
                 DynamoDBQueryExpression queryExpression = new DynamoDBQueryExpression()
                         .withHashKeyValues(userSelected);

@@ -24,7 +24,7 @@ public class NameListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     public static final String TAG = "NameListAdapter";
 
-    private ArrayList<NewQuizScoresDO> mNameList;
+    private ArrayList<String> mNameList;
     private NameListItemListener mNameListItemListener;
 
     public static final int VIEW_TYPE_EMPTY = 0;
@@ -32,7 +32,7 @@ public class NameListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     private static int viewHolderCount = 0;
 
-    public NameListAdapter(ArrayList<NewQuizScoresDO> nameList, NameListItemListener itemListener){
+    public NameListAdapter(ArrayList<String> nameList, NameListItemListener itemListener){
         this.mNameList = nameList;
         this.mNameListItemListener = itemListener;
     }
@@ -105,35 +105,35 @@ public class NameListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
         public void bind(int position) {
 
-            Faq faq = mFaqList.get(position);
-            tv_question.setText(faq.getQuestion());
-            tv_answer.setText(faq.getAnswer());
-            tv_upvote.setText(String.valueOf(faq.getUpvotes()));
-            tv_time.setText(faq.getAuthor() + ", " + faq.getDate());
+            String name = mNameList.get(position);
+            tv_question.setText(name);
+            tv_answer.setText(name);
+//            tv_upvote.setText(String.valueOf(faq.getUpvotes()));
+//            tv_time.setText(faq.getAuthor() + ", " + faq.getDate());
 
-            upvoted = userUpvoted(faq);
-            if (upvoted) {
-                btn_upvote.setText("Downvote");
-            } else {
-                btn_upvote.setText("Upvote");
-            }
+//            upvoted = userUpvoted(faq);
+//            if (upvoted) {
+//                btn_upvote.setText("Downvote");
+//            } else {
+//                btn_upvote.setText("Upvote");
+//            }
         }
 
         @Override
         public void onClick(View v) {
 
-            if (v.getId() == btn_upvote.getId()) {
-                if (!upvoted) {
-                    Toast.makeText(v.getContext(), "False = " + String.valueOf(getAdapterPosition()), Toast.LENGTH_SHORT).show();
-                    Log.i(TAG,"upvote false");
-                    mFaqItemListener.onUpvoteClick(mFaqList.get(getAdapterPosition()));
-                } else {
-                    Toast.makeText(v.getContext(), "True = " + String.valueOf(getAdapterPosition()), Toast.LENGTH_SHORT).show();
-                    Log.i(TAG,"upvote true");
-                    mFaqItemListener.onDownvoteClick(mFaqList.get(getAdapterPosition()));
-
-                }
-            }
+//            if (v.getId() == btn_upvote.getId()) {
+//                if (!upvoted) {
+//                    Toast.makeText(v.getContext(), "False = " + String.valueOf(getAdapterPosition()), Toast.LENGTH_SHORT).show();
+//                    Log.i(TAG,"upvote false");
+//                    mFaqItemListener.onUpvoteClick(mFaqList.get(getAdapterPosition()));
+//                } else {
+//                    Toast.makeText(v.getContext(), "True = " + String.valueOf(getAdapterPosition()), Toast.LENGTH_SHORT).show();
+//                    Log.i(TAG,"upvote true");
+//                    mFaqItemListener.onDownvoteClick(mFaqList.get(getAdapterPosition()));
+//
+//                }
+//            }
 
         }
 
@@ -163,9 +163,9 @@ public class NameListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
         @Override
         public void onClick(View view) {
-            if (view.getId() == btn_retry.getId()) {
-                mFaqItemListener.onRetryClick();
-            }
+//            if (view.getId() == btn_retry.getId()) {
+//                mFaqItemListener.onRetryClick();
+//            }
         }
     }
 }

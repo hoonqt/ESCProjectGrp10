@@ -113,7 +113,7 @@ public class ProgressRemoteDataSource implements ProgressDataSource {
 
                 for (NewQuizScoresDO name : result) {
                     nameList.add(name);
-                    Log.i("scores in prds","scores: " + name.getName().toString());
+//                    Log.i("scores in prds","scores: " + name.getName().toString());
                 }
 
             }

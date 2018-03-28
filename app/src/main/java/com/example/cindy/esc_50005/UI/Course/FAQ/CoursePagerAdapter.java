@@ -44,7 +44,7 @@ public class CoursePagerAdapter extends FragmentStatePagerAdapter {
                 case 1:
                     return new FaqFragment();
                 case 2:
-                    return new ProgressStudentFragment();
+                    return new NameListFragment();
                 default:
                     return null;
             }

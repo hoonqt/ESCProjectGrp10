@@ -11,13 +11,27 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+
+import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBAttribute;
+import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBHashKey;
+import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBIndexHashKey;
+import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBIndexRangeKey;
+import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBRangeKey;
+import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBTable;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 @DynamoDBTable(tableName = "escproject-mobilehub-27166461-SessionsInformation")
 
 public class SessionsInformationDO {
     private String _sessionID;
     private String _courseID;
     private String _courseName;
-    private List<String> _students;
+    private String _dateOfCreation;
+    private List<String> _listOfStudents;
+    private String _sessionName;
 
     @DynamoDBHashKey(attributeName = "sessionID")
     @DynamoDBAttribute(attributeName = "sessionID")
@@ -45,13 +59,29 @@ public class SessionsInformationDO {
     public void setCourseName(final String _courseName) {
         this._courseName = _courseName;
     }
-    @DynamoDBAttribute(attributeName = "students")
-    public List<String> getStudents() {
-        return _students;
+    @DynamoDBAttribute(attributeName = "dateOfCreation")
+    public String getDateOfCreation() {
+        return _dateOfCreation;
     }
 
-    public void setStudents(final List<String> _students) {
-        this._students = _students;
+    public void setDateOfCreation(final String _dateOfCreation) {
+        this._dateOfCreation = _dateOfCreation;
+    }
+    @DynamoDBAttribute(attributeName = "listOfStudents")
+    public List<String> getListOfStudents() {
+        return _listOfStudents;
+    }
+
+    public void setListOfStudents(final List<String> _listOfStudents) {
+        this._listOfStudents = _listOfStudents;
+    }
+    @DynamoDBAttribute(attributeName = "sessionName")
+    public String getSessionName() {
+        return _sessionName;
+    }
+
+    public void setSessionName(final String _sessionName) {
+        this._sessionName = _sessionName;
     }
 
 }
