@@ -18,6 +18,7 @@ import com.example.cindy.esc_50005.UI.Course.FAQ.FaqContract;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -70,6 +71,14 @@ public class SessionsPresenter implements SessionsContract.Presenter {
     public void generateListOfSessions()
     {
         Log.i("user json data",Integer.toString(usersJsonData.size()));
+        listOfSessions=new ArrayList<String>();
+//        try{
+//            TimeUnit.SECONDS.sleep(10);
+//        }
+//        catch (Exception ex)
+//        {
+//
+//        }
         for(int i=0;i<usersJsonData.get(0).getSessionIds().size();i++)
         {
 //            Log.i("user stuff",usersJsonData.get(0).getSessionDate().get(0));
@@ -145,6 +154,7 @@ public class SessionsPresenter implements SessionsContract.Presenter {
         updatedUser.setSessionName(listOfSessionNames);
         updatedUser.setSessionDate(listOfTimeCreated);
         mUserRepository.addUser(updatedUser);
+
         mSessionsView.showSuccessfulAddNewSession();
 
     }

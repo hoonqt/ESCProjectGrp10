@@ -61,7 +61,7 @@ public class DashboardPresenter implements DashboardContract.Presenter  {
     @Override
     public void loadCoursesFromDatabase(Context context) {
         userInformation = PreferenceManager.getDefaultSharedPreferences(context);
-        usersCoursesInformationJsonData=mUsersRepository.queryUser(userInformation.getString("Username",""),userInformation.getString("Password",""),userInformation.getString("UserType",""));
+        usersCoursesInformationJsonData=mUsersRepository.queryParticularUser(userInformation.getString("Username",""),userInformation.getString("Password",""),userInformation.getString("UserType",""));
         processCoursesForUsers(usersCoursesInformationJsonData);
     }
 

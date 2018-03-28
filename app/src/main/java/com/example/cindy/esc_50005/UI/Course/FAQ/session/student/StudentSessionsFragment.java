@@ -1,55 +1,36 @@
-package com.example.cindy.esc_50005.UI.Course.FAQ.session.professor;
+package com.example.cindy.esc_50005.UI.Course.FAQ.session.student;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
-import com.example.cindy.esc_50005.Database.FAQ.Faq;
 import com.example.cindy.esc_50005.R;
-import com.example.cindy.esc_50005.UI.Course.FAQ.FaqAdapter;
-import com.example.cindy.esc_50005.UI.Course.FAQ.FaqContract;
-import com.example.cindy.esc_50005.UI.Course.FAQ.FaqFragment;
-import com.example.cindy.esc_50005.UI.Course.FAQ.FaqItemListener;
-import com.example.cindy.esc_50005.UI.Course.FAQ.FaqPresenter;
-import com.example.cindy.esc_50005.UI.Course.FAQ.addEditFaq.AddEditFaqActivity;
 import com.example.cindy.esc_50005.UI.Course.FAQ.session.main.SessionsAdapter;
 import com.example.cindy.esc_50005.UI.Course.FAQ.session.main.SessionsContract;
-import com.example.cindy.esc_50005.UI.Course.FAQ.session.main.SessionsItemListener;
 import com.example.cindy.esc_50005.UI.Course.FAQ.session.main.SessionsPresenter;
-import com.example.cindy.esc_50005.UI.Session.Main.SessionActivity;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.List;
 import java.util.Random;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-public class SessionsFragment extends Fragment implements SessionsContract.View, View.OnClickListener {
+public class StudentSessionsFragment extends Fragment implements SessionsContract.View, View.OnClickListener {
     protected LayoutManagerType mCurrentLayoutManagerType;
     protected RecyclerView.LayoutManager mLayoutManager;
     private SessionsContract.Presenter mPresenter = new SessionsPresenter(this);
@@ -65,7 +46,7 @@ public class SessionsFragment extends Fragment implements SessionsContract.View,
         LINEAR_LAYOUT_MANAGER
     }
 
-    public SessionsFragment() {
+    public StudentSessionsFragment() {
         // Required empty public constructor
     }
 
@@ -147,10 +128,8 @@ public class SessionsFragment extends Fragment implements SessionsContract.View,
         builder.setTitle("Add new session");
         LinearLayout layout = new LinearLayout(this.getActivity());
         layout.setOrientation(LinearLayout.VERTICAL);
-//        final EditText sessionId = new EditText(getActivity().getApplicationContext());
-//        sessionId.setHint("Session Id");
         final EditText sessionName = new EditText(getActivity().getApplicationContext());
-        sessionName.setHint("Session Name");
+        sessionName.setHint("Session Id");
 
         builder.setNegativeButton("Submit",new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog,int id) {
