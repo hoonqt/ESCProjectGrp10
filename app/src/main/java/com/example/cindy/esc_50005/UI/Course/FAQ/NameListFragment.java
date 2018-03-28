@@ -36,7 +36,8 @@ public class NameListFragment extends Fragment implements ProgressContract.View 
     }
 
     @Override
-    public void showAverage() {
+    public void showAverage(double avg) {
+
 
     }
 
@@ -46,7 +47,7 @@ public class NameListFragment extends Fragment implements ProgressContract.View 
 
     protected LayoutManagerType mCurrentLayoutManagerType;
     protected RecyclerView.LayoutManager mLayoutManager;
-    private ProgressContract.Presenter mPresenter = new ProgressPresenter(this);
+    private ProgressContract.Presenter mPresenter = new NameListPresenter(this);
     private LinearLayout mNameListView;
     private RecyclerView nameListRecycler;
     private SwipeRefreshLayout swipeLayout;
@@ -95,22 +96,13 @@ public class NameListFragment extends Fragment implements ProgressContract.View 
             }
         });
 
-        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.name_list_fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), AddEditFaqActivity.class);
-                startActivity(intent);
-            }
-        });
-
         return view;
     }
 
-    public void showNames(ArrayList<String> nameList) {
+    public void showNames(ArrayList<String> nameList, ArrayList<String> studentIdsList, double avg) {
 
-//        Log.i("NameListFragment", "showNames: " + nameList.get(0));
-        mNameListAdapter = new NameListAdapter(nameList, mItemListener);
+        Log.i("NameListFragment", "showNames: " + nameList.get(0));
+        mNameListAdapter = new NameListAdapter(nameList, studentIdsList, avg, mItemListener);
         nameListRecycler.setAdapter(mNameListAdapter);
 
     }
@@ -130,19 +122,12 @@ public class NameListFragment extends Fragment implements ProgressContract.View 
 
     NameListItemListener mItemListener = new NameListItemListener() {
         @Override
-        public void onUpvoteClick(Faq clickedFaq) {
-//            mPresenter.upvoteFaq(clickedFaq);
+        public void onArrowClick(String studentId) {
+            Intent intent = new Intent(getActivity(), ProfessorProgressActivity.class);
+            intent.putExtra("STUDENT_ID", studentId);
+            startActivity(intent);//need to switch that fragment here
         }
 
-        @Override
-        public void onDownvoteClick(Faq clickedFaq) {
-//            mPresenter.downvoteFaq(clickedFaq);
-        }
-
-        @Override
-        public void onRetryClick() {
-//            mPresenter.loadFaq();
-        }
 
 
     };

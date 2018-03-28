@@ -12,31 +12,34 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".UI.Session.Main.SessionActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+        <!-- <activity -->
+        <!-- android:name=".UI.Session.Main.SessionActivity" -->
+        <!-- android:theme="@style/AppTheme.NoActionBar"></activity> -->
         <activity
             android:name=".UI.Course.FAQ.addEditFaq.AddEditFaqActivity"
             android:label="Add FAQ" />
+        <!-- <activity -->
+        <!-- android:name=".UI.Course.FAQ.CourseActivity" -->
+        <!-- android:label="Add FAQ" /> -->
+        <!-- <activity -->
+        <!-- android:name=".UI.Dashboard.DashboardActivity" -->
+        <!-- android:label="Add FAQ" /> -->
+        <!-- <activity android:name=".UI.QuizSession.QuizActivity" /> -->
+
         <activity
             android:name=".UI.Course.FAQ.CourseActivity"
-            android:label="Add FAQ" />
-        <activity
-            android:name=".UI.Dashboard.DashboardActivity"
-            android:label="Add FAQ" />
-        <activity android:name=".UI.QuizSession.QuizActivity" />
-
-        <activity
-            android:name=".UI.Login.LoginActivity"
             android:label="Add FAQ">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-
         </activity>
+        <activity
+            android:name=".UI.Course.FAQ.ProfessorProgressActivity"
+            android:label="@string/title_activity_professor_progress_fragment"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

@@ -25,15 +25,19 @@ public class NameListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     public static final String TAG = "NameListAdapter";
 
     private ArrayList<String> mNameList;
+    private ArrayList<String> mStudentIdsList;
     private NameListItemListener mNameListItemListener;
+    private double avg;
 
     public static final int VIEW_TYPE_EMPTY = 0;
     public static final int VIEW_TYPE_NORMAL = 1;
 
     private static int viewHolderCount = 0;
 
-    public NameListAdapter(ArrayList<String> nameList, NameListItemListener itemListener){
+    public NameListAdapter(ArrayList<String> nameList, ArrayList<String> studentIdsList, double avg, NameListItemListener itemListener){
         this.mNameList = nameList;
+        this.avg = avg;
+        this.mStudentIdsList = studentIdsList;
         this.mNameListItemListener = itemListener;
     }
 
@@ -85,7 +89,7 @@ public class NameListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         TextView tv_answer;
         TextView tv_upvote;
         TextView tv_time;
-        Button btn_upvote;
+        Button arrow;
         boolean upvoted;
 
         NameListViewHolder(View v) {
@@ -93,13 +97,13 @@ public class NameListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             super(v);
             //we need the v object because the view contains the references to the widgets that we need
             tv_question = (TextView) v.findViewById(R.id.name_list_tv_question);
-            tv_answer = (TextView) v.findViewById(R.id.name_list_tv_answer);
-            tv_upvote = (TextView) v.findViewById(R.id.name_list_tv_upvote);
+//            tv_answer = (TextView) v.findViewById(R.id.name_list_tv_answer);
+//            tv_upvote = (TextView) v.findViewById(R.id.name_list_tv_upvote);
             tv_time = (TextView) v.findViewById(R.id.name_list_tv_time);
-            btn_upvote = (Button) v.findViewById(R.id.name_list_btn_upvote);
+            arrow = (Button) v.findViewById(R.id.name_list_progress_btn);
 
             v.setOnClickListener(this);
-            btn_upvote.setOnClickListener(this);
+            arrow.setOnClickListener(this);
 
         }
 
@@ -107,9 +111,9 @@ public class NameListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
             String name = mNameList.get(position);
             tv_question.setText(name);
-            tv_answer.setText(name);
+//            tv_answer.setText(name);
 //            tv_upvote.setText(String.valueOf(faq.getUpvotes()));
-//            tv_time.setText(faq.getAuthor() + ", " + faq.getDate());
+            tv_time.setText("Average Score: " + Double.toString(avg));
 
 //            upvoted = userUpvoted(faq);
 //            if (upvoted) {
@@ -122,18 +126,10 @@ public class NameListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         @Override
         public void onClick(View v) {
 
-//            if (v.getId() == btn_upvote.getId()) {
-//                if (!upvoted) {
-//                    Toast.makeText(v.getContext(), "False = " + String.valueOf(getAdapterPosition()), Toast.LENGTH_SHORT).show();
-//                    Log.i(TAG,"upvote false");
-//                    mFaqItemListener.onUpvoteClick(mFaqList.get(getAdapterPosition()));
-//                } else {
-//                    Toast.makeText(v.getContext(), "True = " + String.valueOf(getAdapterPosition()), Toast.LENGTH_SHORT).show();
-//                    Log.i(TAG,"upvote true");
-//                    mFaqItemListener.onDownvoteClick(mFaqList.get(getAdapterPosition()));
-//
-//                }
-//            }
+            if (v.getId() == arrow.getId()) {
+                    Toast.makeText(v.getContext(), "Id = " + mStudentIdsList.get(getAdapterPosition()), Toast.LENGTH_SHORT).show();
+                    mNameListItemListener.onArrowClick(mStudentIdsList.get(getAdapterPosition()));
+            }
 
         }
 
