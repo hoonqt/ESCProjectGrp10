@@ -1,6 +1,7 @@
-package com.example.cindy.esc_50005.UI.Dashboard;
+package com.example.cindy.esc_50005.UI.Dashboard.student;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -19,25 +20,28 @@ import android.widget.LinearLayout;
 
 import com.example.cindy.esc_50005.R;
 import com.example.cindy.esc_50005.UI.Course.FAQ.CourseActivity;
+import com.example.cindy.esc_50005.UI.Dashboard.main.CoursesAdapter;
+import com.example.cindy.esc_50005.UI.Dashboard.main.CoursesItemListener;
+import com.example.cindy.esc_50005.UI.Dashboard.main.DashboardContract;
+import com.example.cindy.esc_50005.UI.Dashboard.main.DashboardPresenter;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
 
-public class ProfessorDashboardFragment extends Fragment implements DashboardContract.View, View.OnClickListener {
+public class StudentDashboardFragment extends Fragment implements DashboardContract.View, View.OnClickListener {
 
     // UI references.
     SharedPreferences sharedPreferences;
     private DashboardContract.Presenter mPresenter= new DashboardPresenter(this);
     private CoursesAdapter mCoursesAdapter;
     private RecyclerView coursesListRecycler;
-    private ProfessorDashboardFragment.LayoutManagerType mCurrentLayoutManagerType;
+    private StudentDashboardFragment.LayoutManagerType mCurrentLayoutManagerType;
     private RecyclerView.LayoutManager mLayoutManager;
     private Button button;
 
-    public ProfessorDashboardFragment() {
+    public StudentDashboardFragment() {
         // Required empty public constructor
     }
 
@@ -58,18 +62,13 @@ public class ProfessorDashboardFragment extends Fragment implements DashboardCon
         View view=inflater.inflate(R.layout.dashboard_fragment, container, false);
         coursesListRecycler=view.findViewById(R.id.recyclerViewDashboardCourses);
         mLayoutManager= new LinearLayoutManager(getActivity());
-        mCurrentLayoutManagerType = ProfessorDashboardFragment.LayoutManagerType.LINEAR_LAYOUT_MANAGER;
+        mCurrentLayoutManagerType = StudentDashboardFragment.LayoutManagerType.LINEAR_LAYOUT_MANAGER;
         coursesListRecycler.setLayoutManager(new LinearLayoutManager(view.getContext()));
         button=view.findViewById(R.id.addNewCourse);
         button.setOnClickListener(this);
 
         attemptLoadCourses();
         return view;
-    }
-
-    public void placeholder()
-    {
-
     }
 
     public void attemptLoadCourses()
@@ -91,12 +90,20 @@ public class ProfessorDashboardFragment extends Fragment implements DashboardCon
         //haven't written code that opens the dashboard if login is successful
     }
 
-    public void addNewCourse(String course)
+    public void addValidNewCourse()
     {
-
-
+        attemptLoadCourses();
     }
 
+    @Override
+    public void showAddInvalidCourse() {
+
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this.getActivity());
+        alertDialog.setTitle("Course does not exist!");
+        alertDialog.create();
+        alertDialog.show();
+
+    }
 
 
     public void showLoadedCourses() {
@@ -118,31 +125,24 @@ public class ProfessorDashboardFragment extends Fragment implements DashboardCon
         alertDialog.setTitle("Add New Course");
         LinearLayout layout = new LinearLayout(this.getActivity());
         layout.setOrientation(LinearLayout.VERTICAL);
+
         final EditText courseId = new EditText(getActivity().getApplicationContext());
         courseId.setHint("Course Id");
         courseId.setId(0);
         final EditText courseName = new EditText(getActivity().getApplicationContext());
         courseName.setHint("Course Name");
-        final Button submit = new Button(getActivity().getApplicationContext());
-        submit.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Log.i("submit","submit");
-                String course=courseId.getText().toString() + " " + courseName.getText().toString();
-                addNewCourse(course);
-
+        alertDialog.setNegativeButton("Submit",new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog,int id) {
+                Log.i("start query","start query");
+                mPresenter.queryCourseBeforeAdding(Double.parseDouble(courseId.getText().toString()),courseName.getText().toString());
+                dialog.cancel();
             }
         });
-        submit.setText("Submit");
         layout.addView(courseId);
         layout.addView(courseName);
-        layout.addView(submit);
         alertDialog.setView(layout);
         alertDialog.create();
         alertDialog.show();
-
-        mPresenter.queryCourseBeforeAdding(Double.parseDouble(courseId.getText().toString()),courseName.getText().toString());
     }
 
 }

@@ -51,7 +51,7 @@ public class SessionsInformationRemoteDataSource implements SessionsInformationD
 
 
     @Override
-    public ArrayList<SessionsInformationDO> querySessions(final String sessionId, String courseId ) {
+    public ArrayList<SessionsInformationDO> querySessions(final String sessionId ) {
         sessionsArrayList=new ArrayList<>();
         new Thread(new Runnable() {
             @Override
@@ -63,7 +63,7 @@ public class SessionsInformationRemoteDataSource implements SessionsInformationD
                 DynamoDBQueryExpression queryExpression = new DynamoDBQueryExpression()
                         .withHashKeyValues(sessionSelected);
 
-                PaginatedList<SessionsInformationDO> result = dynamoDBMapper.query(SessionQuestionsDO.class,queryExpression);
+                PaginatedList<SessionsInformationDO> result = dynamoDBMapper.query(SessionsInformationDO.class,queryExpression);
 
                 for (SessionsInformationDO session : result) {
                     sessionsArrayList.add(session);

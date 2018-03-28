@@ -92,12 +92,6 @@ public class StudentSessionsFragment extends Fragment implements SessionsContrac
         sessionsListRecycler.setAdapter(mSessionsAdapter);
     }
 
-    public void showNoSessions()
-    {
-
-
-    }
-
     @Override
     public void showEmptySessions() {
 
@@ -119,7 +113,10 @@ public class StudentSessionsFragment extends Fragment implements SessionsContrac
 
     @Override
     public void showUnsuccessfulAddNewSession() {
-
+        AlertDialog.Builder builder=new AlertDialog.Builder(this.getContext());
+        builder.setTitle("Session does not exist!");
+        builder.create();
+        builder.show();
     }
 
     @Override
@@ -128,15 +125,12 @@ public class StudentSessionsFragment extends Fragment implements SessionsContrac
         builder.setTitle("Add new session");
         LinearLayout layout = new LinearLayout(this.getActivity());
         layout.setOrientation(LinearLayout.VERTICAL);
-        final EditText sessionName = new EditText(getActivity().getApplicationContext());
-        sessionName.setHint("Session Id");
+        final EditText sessionId = new EditText(getActivity().getApplicationContext());
+        sessionId.setHint("Session Id");
 
         builder.setNegativeButton("Submit",new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog,int id) {
 
-                Random randomGenerator=new Random();
-                int sessionId=100+ randomGenerator.nextInt(100);
-                String sessionNameToAdd=sessionName.getText().toString();
                 String months[] = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep",
                         "Oct", "Nov", "Dec"};
                 GregorianCalendar gcalendar = new GregorianCalendar();
@@ -147,19 +141,14 @@ public class StudentSessionsFragment extends Fragment implements SessionsContrac
                 timeOfCreation.append(" ");
                 timeOfCreation.append(month);
 
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString("AddedSessionId",  Integer.toString(sessionId));
-                editor.commit();
-                mPresenter.addNewSession(Integer.toString(sessionId),sessionNameToAdd,timeOfCreation.toString(),"50.005");
+                mPresenter.queryAddNewSessionStudent(sessionId.getText().toString());
                 dialog.cancel();
             }
         });
-        layout.addView(sessionName);
+        layout.addView(sessionId);
         builder.setView(layout);
         builder.create();
         builder.show();
     }
-
-
 
 }

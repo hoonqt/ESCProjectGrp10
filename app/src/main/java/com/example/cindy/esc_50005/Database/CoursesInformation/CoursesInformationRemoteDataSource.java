@@ -88,7 +88,7 @@ public class CoursesInformationRemoteDataSource implements CoursesInformationDat
         } catch (InterruptedException ex) {
             ex.printStackTrace();
         }
-
+        Log.i("size of query",Integer.toString(coursesArrayList.size()));
         return coursesArrayList;
     }
 

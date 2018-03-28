@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".UI.Dashboard.main.DashboardActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
             android:name=".UI.Session.Main.SessionActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
@@ -20,9 +23,6 @@
             android:label="Add FAQ" />
         <activity
             android:name=".UI.Course.FAQ.CourseActivity"
-            android:label="Add FAQ" />
-        <activity
-            android:name=".UI.Dashboard.DashboardActivity"
             android:label="Add FAQ" />
         <activity android:name=".UI.QuizSession.QuizActivity" />
 

@@ -49,7 +49,7 @@ import java.util.Random;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-public class SessionsFragment extends Fragment implements SessionsContract.View, View.OnClickListener {
+public class ProfessorSessionsFragment extends Fragment implements SessionsContract.View, View.OnClickListener {
     protected LayoutManagerType mCurrentLayoutManagerType;
     protected RecyclerView.LayoutManager mLayoutManager;
     private SessionsContract.Presenter mPresenter = new SessionsPresenter(this);
@@ -65,7 +65,7 @@ public class SessionsFragment extends Fragment implements SessionsContract.View,
         LINEAR_LAYOUT_MANAGER
     }
 
-    public SessionsFragment() {
+    public ProfessorSessionsFragment() {
         // Required empty public constructor
     }
 
@@ -147,8 +147,6 @@ public class SessionsFragment extends Fragment implements SessionsContract.View,
         builder.setTitle("Add new session");
         LinearLayout layout = new LinearLayout(this.getActivity());
         layout.setOrientation(LinearLayout.VERTICAL);
-//        final EditText sessionId = new EditText(getActivity().getApplicationContext());
-//        sessionId.setHint("Session Id");
         final EditText sessionName = new EditText(getActivity().getApplicationContext());
         sessionName.setHint("Session Name");
 
@@ -171,7 +169,7 @@ public class SessionsFragment extends Fragment implements SessionsContract.View,
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString("AddedSessionId",  Integer.toString(sessionId));
                 editor.commit();
-                mPresenter.addNewSession(Integer.toString(sessionId),sessionNameToAdd,timeOfCreation.toString(),"50.005");
+                mPresenter.queryAddNewSessionProfessor(Integer.toString(sessionId),sessionNameToAdd,timeOfCreation.toString(),"50.005");
                 dialog.cancel();
             }
         });

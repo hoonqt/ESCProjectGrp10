@@ -20,7 +20,7 @@
         android:id="@+id/dashboardFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        class="com.example.cindy.esc_50005.UI.Dashboard.ProfessorDashboardFragment"
+        class="com.example.cindy.esc_50005.UI.Dashboard.professor.ProfessorDashboardFragment"
         >
     </fragment>
 
