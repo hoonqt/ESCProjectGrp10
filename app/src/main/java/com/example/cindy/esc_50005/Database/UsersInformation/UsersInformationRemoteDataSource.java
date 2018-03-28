@@ -64,7 +64,7 @@ public class UsersInformationRemoteDataSource implements UsersInformationDataSou
         Log.i("username",userType);
         usersArrayList = new ArrayList<UsersInformationDO>();
 
-        new Thread(new Runnable() {
+        Thread random = new Thread(new Runnable() {
             @Override
             public void run() {
 
@@ -91,10 +91,12 @@ public class UsersInformationRemoteDataSource implements UsersInformationDataSou
 
 
             }
-        }).start();
+        });
+
+        random.start();
 
         try {
-            TimeUnit.SECONDS.sleep(5);
+            random.join();
         } catch (InterruptedException ex) {
             ex.printStackTrace();
         }
@@ -111,7 +113,7 @@ public class UsersInformationRemoteDataSource implements UsersInformationDataSou
         Log.i("username",userType);
         usersArrayList = new ArrayList<UsersInformationDO>();
 
-        new Thread(new Runnable() {
+        Thread retriever = new Thread(new Runnable() {
             @Override
             public void run() {
 
@@ -135,10 +137,12 @@ public class UsersInformationRemoteDataSource implements UsersInformationDataSou
 
 
             }
-        }).start();
+        });
+
+        retriever.start();
 
         try {
-            TimeUnit.SECONDS.sleep(5);
+            retriever.join();
         } catch (InterruptedException ex) {
             ex.printStackTrace();
         }

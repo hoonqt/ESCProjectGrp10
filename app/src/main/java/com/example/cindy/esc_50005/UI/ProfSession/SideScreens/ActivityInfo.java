@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.example.cindy.esc_50005.Database.Quizstuff.QuizQuestions1DO;
 import com.example.cindy.esc_50005.R;
 import com.example.cindy.esc_50005.UI.ProfSession.ProfSessionActivity;
+import com.example.cindy.esc_50005.UI.Session.Main.SessionActivity;
 
 import org.w3c.dom.Text;
 
@@ -69,7 +70,8 @@ public class ActivityInfo extends Fragment{
             Bundle bundle2 = new Bundle();
             bundle2.putSerializable("allthequestions",dataset);
             adder.setArguments(bundle2);
-            ProfSessionActivity myActivity = (ProfSessionActivity)context;
+            //ProfSessionActivity myActivity = (ProfSessionActivity)context;
+            SessionActivity myActivity = (SessionActivity) context;
             getActivity().getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.profsessionhere,adder).addToBackStack(null).commit();
         }
 

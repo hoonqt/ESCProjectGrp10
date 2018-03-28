@@ -59,7 +59,7 @@ public class CoursesInformationRemoteDataSource implements CoursesInformationDat
 
         coursesArrayList = new ArrayList<CoursesInformationDO>();
 
-        new Thread(new Runnable() {
+        Thread retriever = new Thread(new Runnable() {
             @Override
             public void run() {
 
@@ -81,10 +81,12 @@ public class CoursesInformationRemoteDataSource implements CoursesInformationDat
 
 
             }
-        }).start();
+        });
+
+        retriever.start();
 
         try {
-            TimeUnit.SECONDS.sleep(5);
+            retriever.join();
         } catch (InterruptedException ex) {
             ex.printStackTrace();
         }
