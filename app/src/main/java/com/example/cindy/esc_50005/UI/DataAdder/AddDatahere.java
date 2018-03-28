@@ -22,14 +22,13 @@ public class AddDatahere extends AppCompatActivity {
 
         AWSMobileClient.getInstance().initialize(this).execute();
 
-        QuizRemoteDataSource data = new QuizRemoteDataSource();
+        ProgressRemoteDataSource addhere = new ProgressRemoteDataSource();
 
-        ArrayList<String> options1 = new ArrayList<>();
-        options1.add("Labour");
-        options1.add("SNP");
-        options1.add("DUP");
-        options1.add("Sinn Fein");
-        data.putQuestion("50.004","session1","Quiz1","In the 2010 General Election, which party did the Conservatives form a coalition with?","Lib Dem",options1);
+        addhere.putScores("1002212","50.004","Quiz 1",3.0,"Brandon Lewis");
+        addhere.putScores("1002212","50.004","Quiz 2",4.0,"Brandon Lewis");
+        addhere.putScores("1002212","50.004","Quiz 3",3.0,"Brandon Lewis");
+        addhere.putScores("1002212","50.004","Quiz 4",5.0,"Brandon Lewis");
+        addhere.putScores("1002212","50.004","Quiz 5",2.0,"Brandon Lewis");
 
     }
 }

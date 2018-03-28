@@ -18,6 +18,7 @@ import com.example.cindy.esc_50005.R;
 import com.example.cindy.esc_50005.UI.ProfSession.ProfSessionActivity;
 import com.example.cindy.esc_50005.UI.ProfSession.QuizStuff;
 import com.example.cindy.esc_50005.UI.ProfSession.SideScreens.ActivityInfo;
+import com.example.cindy.esc_50005.UI.Session.Main.SessionActivity;
 import com.example.cindy.esc_50005.WebSocket.WebSocket;
 
 import java.util.ArrayList;
@@ -109,7 +110,8 @@ public class ActivityProfAdapter extends RecyclerView.Adapter<ActivityProfAdapte
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("allthequestions",dataset);
                     adder.setArguments(bundle);
-                    ProfSessionActivity myActivity = (ProfSessionActivity)context;
+                    //ProfSessionActivity myActivity = (ProfSessionActivity)context;
+                    SessionActivity myActivity = (SessionActivity) context;
                     myActivity.getSupportFragmentManager().beginTransaction().addToBackStack(null).setCustomAnimations(R.anim.slide_out_up,R.anim.slide_in_up).replace(R.id.profsessionhere,adder).addToBackStack(null).commit();
                     Log.i("Donald","This ain't working");
 
@@ -121,7 +123,6 @@ public class ActivityProfAdapter extends RecyclerView.Adapter<ActivityProfAdapte
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     WebSocket websock = new WebSocket();
                     if (isChecked) {
-
                         websock.start();
                     }
 
@@ -142,7 +143,5 @@ public class ActivityProfAdapter extends RecyclerView.Adapter<ActivityProfAdapte
 
 
     }
-
-
 
 }

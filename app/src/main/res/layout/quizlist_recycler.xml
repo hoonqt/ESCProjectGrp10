@@ -30,20 +30,18 @@ tools:context="com.example.cindy.esc_50005.UI.ProfSession.ProfSessionActivity">
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:padding="10dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="#000000" />
 
         <ImageView
+            android:id="@+id/arrowView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_toRightOf="@id/questionwho"
-            android:layout_marginTop="12dp"
-            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true"
             android:background="#fafafa"
-            android:src="@drawable/ic_keyboard_arrow_right_black_24dp"
-            android:id="@+id/imageView2"/>
+            android:src="@drawable/ic_keyboard_arrow_right_black_24dp" />
 
 
 
