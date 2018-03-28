@@ -61,7 +61,7 @@ public class FeedbackRemoteDataSource implements FeedbackDataSource {
 
         feedbackArrayList = new ArrayList<Feedback>();
 
-        new Thread(new Runnable() {
+        Thread retriever = new Thread(new Runnable() {
             @Override
             public void run() {
 
@@ -79,10 +79,12 @@ public class FeedbackRemoteDataSource implements FeedbackDataSource {
                 }
 
             }
-        }).start();
+        });
+
+        retriever.start();
 
         try {
-            TimeUnit.SECONDS.sleep(2);
+            retriever.join();
         } catch (InterruptedException ex) {
             ex.printStackTrace();
         }

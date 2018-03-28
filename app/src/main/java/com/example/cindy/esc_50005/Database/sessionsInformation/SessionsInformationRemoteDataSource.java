@@ -53,7 +53,7 @@ public class SessionsInformationRemoteDataSource implements SessionsInformationD
     @Override
     public ArrayList<SessionsInformationDO> querySessions(final String sessionId, String courseId ) {
         sessionsArrayList=new ArrayList<>();
-        new Thread(new Runnable() {
+        Thread retriever = new Thread(new Runnable() {
             @Override
             public void run() {
 
@@ -70,10 +70,12 @@ public class SessionsInformationRemoteDataSource implements SessionsInformationD
                 }
 
             }
-        }).start();
+        });
+
+        retriever.start();
 
         try {
-            TimeUnit.SECONDS.sleep(2);
+            retriever.join();
         } catch (InterruptedException ex) {
             ex.printStackTrace();
         }

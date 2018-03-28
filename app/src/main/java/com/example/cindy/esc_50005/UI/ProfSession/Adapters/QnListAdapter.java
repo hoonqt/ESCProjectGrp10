@@ -32,7 +32,7 @@ public class QnListAdapter extends RecyclerView.Adapter<QnListAdapter.QnViewHold
 
     public QnListAdapter(ArrayList<QuizQuestions1DO> input) {
 
-        questions = new ArrayList<>();
+        questions = input;
 
 
     }

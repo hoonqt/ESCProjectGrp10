@@ -68,7 +68,7 @@ public class FaqRemoteDataSource implements FaqDataSource {
 
         faqArrayList = new ArrayList<Faq>();
 
-        new Thread(new Runnable() {
+        Thread retriever = new Thread(new Runnable() {
             @Override
             public void run() {
 
@@ -105,10 +105,12 @@ public class FaqRemoteDataSource implements FaqDataSource {
 //                Log.i(TAG,stringBuilder.toString());
 
             }
-        }).start();
+        });
+
+        retriever.start();
 
         try {
-            TimeUnit.SECONDS.sleep(2);
+            retriever.join();
         } catch (InterruptedException ex) {
             ex.printStackTrace();
         }
