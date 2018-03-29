@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.cindy.esc_50005.UI.Course.FAQ.ProfessorProgressActivity"
+    tools:context="com.example.esc_50005.UI.Course.FAQ.ProfessorProgressActivity"
     tools:showIn="@layout/activity_professor_progress_fragment"
     android:id="@+id/prof_progress_activity">
 
@@ -24,7 +24,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="com.example.cindy.esc_50005.UI.Course.FAQ.ProgressStudentFragment"
+        android:name="com.example.esc_50005.UI.Course.FAQ.ProgressStudentFragment"
         android:id="@+id/fragment_holder"
         android:layout_below="@+id/toolbar"></ScrollView>
 
