@@ -50,7 +50,15 @@ public class questionCreator {
 
     public void getQuestions(final String courseID, final String sessionNO) {
 
-        new Thread(new Runnable() {
+
+
+    }
+
+    public JSONObject getDatainjson(final String courseID, final String sessionNO) {
+
+        getQuestions(courseID,sessionNO);
+
+        Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
                 ActivityQuestionsDO faq = new ActivityQuestionsDO();
@@ -60,7 +68,6 @@ public class questionCreator {
                 DynamoDBQueryExpression queryExpression = new DynamoDBQueryExpression()
                         .withHashKeyValues(faq);
 
-                long startTime = System.currentTimeMillis();
 
                 PaginatedList<ActivityQuestionsDO> result = dynamoDBMapper.query(ActivityQuestionsDO.class,queryExpression);
 
@@ -74,21 +81,15 @@ public class questionCreator {
                     System.out.println(ex);
                 }
 
-                long endTime = System.currentTimeMillis();
-
-                System.out.println(endTime-startTime);
 
             }
-        }).start();
+        });
 
-    }
+        thread.start();
 
-    public JSONObject getDatainjson(final String courseID, final String sessionNO) {
-
-        getQuestions(courseID,sessionNO);
 
         try {
-            TimeUnit.MILLISECONDS.sleep(4000);
+            thread.join();
         }
 
         catch (InterruptedException ex) {
