@@ -19,7 +19,7 @@ import android.widget.RadioGroup;
 
 import com.example.cindy.esc_50005.R;
 import com.example.cindy.esc_50005.UI.Course.FAQ.CourseActivity;
-import com.example.cindy.esc_50005.UI.Dashboard.DashboardActivity;
+import com.example.cindy.esc_50005.UI.Dashboard.main.DashboardActivity;
 
 import static com.google.common.base.Preconditions.*;
 
