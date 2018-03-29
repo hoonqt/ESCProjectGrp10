@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.cindy.esc_50005.UI.ProfSession.SideScreens.ActivityInfo"
+    tools:context="com.example.esc_50005.UI.ProfSession.SideScreens.ActivityInfo"
     android:background="#59000000"
     android:clickable="true">
 

@@ -1,0 +1,45 @@
+package com.example.esc_50005.Database.CoursesInformation;
+
+import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBTable;
+
+import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBAttribute;
+import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBHashKey;
+import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBRangeKey;
+
+import java.util.List;
+
+@DynamoDBTable(tableName = "escproject-mobilehub-27166461-CoursesInformation")
+
+public class CoursesInformationDO {
+    private Double _courseID;
+    private String _courseName;
+    private List<String> _sessionId;
+
+    @DynamoDBHashKey(attributeName = "courseID")
+    @DynamoDBAttribute(attributeName = "courseID")
+    public Double getCourseID() {
+        return _courseID;
+    }
+
+    public void setCourseID(final Double _courseID) {
+        this._courseID = _courseID;
+    }
+    @DynamoDBRangeKey(attributeName = "courseName")
+    @DynamoDBAttribute(attributeName = "courseName")
+    public String getCourseName() {
+        return _courseName;
+    }
+
+    public void setCourseName(final String _courseName) {
+        this._courseName = _courseName;
+    }
+    @DynamoDBAttribute(attributeName = "sessionId")
+    public List<String> getSessionId() {
+        return _sessionId;
+    }
+
+    public void setSessionId(final List<String> _sessionId) {
+        this._sessionId = _sessionId;
+    }
+
+}
