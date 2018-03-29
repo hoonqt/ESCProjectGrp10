@@ -10,6 +10,6 @@ public interface SessionsInformationDataSource {
 
     void removeSession(SessionsInformationDO faq);
     void addSession(final String sessionId, final String sessionName, final String courseId, final String dateOfCreation);
-    ArrayList<SessionsInformationDO> querySessions(String sessionId , String courseId);
+    ArrayList<SessionsInformationDO> querySessions(String sessionId);
 
 }

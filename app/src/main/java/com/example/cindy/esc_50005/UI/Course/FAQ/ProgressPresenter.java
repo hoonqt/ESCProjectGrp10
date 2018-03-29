@@ -21,7 +21,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * Created by 1002215 on 12/3/18.
  */
 
-public class    ProgressPresenter implements ProgressContract.Presenter {
+public class ProgressPresenter implements ProgressContract.Presenter {
 
     public static final String TAG = "ProgressPresenter";
 
@@ -38,15 +38,18 @@ public class    ProgressPresenter implements ProgressContract.Presenter {
 
     @Override
     public void start() {
-        loadNames();
+        loadScores();
+//        loadNames();
+//        processAverage(progressArrayList);
+        processScores(progressArrayList);
     }
 
     @Override
     public void loadScores() {
-        progressArrayList = mProgressRepository.getScores("1002221","50.005");// need to change it to base on the user login details
-        processScores(progressArrayList);
+        progressArrayList = mProgressRepository.getScores("1002212","50.004");// need to change it to base on the user login details
+//        processScores(progressArrayList);
 
-        Log.i(TAG, "LoadScores size is " + progressArrayList.size());
+        Log.i(TAG, "LoadScores size is " + progressArrayList.size() + progressArrayList.get(0).getScore());
     }
 
 
@@ -74,35 +77,79 @@ public class    ProgressPresenter implements ProgressContract.Presenter {
 
 
     @Override
-    public void processAverage() {
+    public double processAverage(ArrayList<NewQuizScoresDO> progressArrayList) {
+        ArrayList<Double> scoreList = new ArrayList<Double>();
+        double total=0;
+        double avg = 0;
+        String student;
 
-    }
 
-    @Override
-    public void loadNames() {
-        nameList = mProgressRepository.getNames("1002221","50.005");// need to change it to base on the user login details
-        processNames(nameList);
-
-        Log.i(TAG, "LoadName size is " + nameList.size());
-    }
-
-    public void processNames(ArrayList<NewQuizScoresDO> nameList) {
-        ArrayList<String> names = new ArrayList<String>();
-        Log.i(TAG, "Length of nameList = " + nameList.size());
-
-        if (nameList.size() != 0) {
-
-            for(int i = 0; i<nameList.size();i++){
+        if (progressArrayList.size() != 0) {
+            Log.i(TAG, "Length of progressArrayList = " + progressArrayList.size());
+            student = progressArrayList.get(0).getStudentIDsubjectID();//might need to change in the future
+            for(int i = 0; i<progressArrayList.size();i++){
                 try{
-                    names.add(nameList.get(i).getName());
+                    total += progressArrayList.get(i).getScore();
                 } catch(Exception e){
                     e.printStackTrace();
                 }
 
             }
+            avg = total/progressArrayList.size();
         }
 
-        mProgressView.showNames(names);
+       return avg;
+
+    }
+
+    @Override
+    public void loadNames() {
+        nameList = mProgressRepository.getNames("1002212","50.004");// need to change it to base on the user login details
+        processNames(nameList);
+
+        Log.i(TAG, "LoadName size is " + nameList.size() + nameList.get(0).getName());
+    }
+
+    public void processNames(ArrayList<NewQuizScoresDO> nameList) {
+        ArrayList<String> names = new ArrayList<String>();
+        ArrayList<String> studentIds = new ArrayList<String>();
+        Log.i(TAG, "Length of nameList = " + nameList.size());
+
+
+        if (nameList.size() != 0) {
+
+            for(int i = 0; i<nameList.size();i++){
+                if(names.size()==0){
+                    try{
+                        names.add(nameList.get(i).getName());
+                        studentIds.add(nameList.get(i).getStudentIDsubjectID());
+                        Log.i(TAG, "firstname = " + nameList.get(i).getName());
+                    } catch(Exception e){
+                        e.printStackTrace();
+                    }
+                } else{
+                    boolean exist = false;
+                    for(int j = 0; j<names.size();j++){
+                        if(names.get(j).equals(nameList.get(i).getName())){
+                            exist = true;
+                        }
+                    }
+                    if(!exist){
+                        try{
+                            names.add(nameList.get(i).getName());
+                            Log.i(TAG, "non-existent name = " + nameList.get(i).getName());
+                        } catch(Exception e){
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
+
+
+            }
+        }
+
+        mProgressView.showNames(names, studentIds, processAverage(progressArrayList));
 
 
     }

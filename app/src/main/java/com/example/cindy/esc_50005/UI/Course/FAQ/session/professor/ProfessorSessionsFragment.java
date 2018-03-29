@@ -4,8 +4,10 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
@@ -43,10 +45,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Random;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-public class SessionsFragment extends Fragment implements SessionsContract.View, View.OnClickListener {
+public class ProfessorSessionsFragment extends Fragment implements SessionsContract.View, View.OnClickListener {
     protected LayoutManagerType mCurrentLayoutManagerType;
     protected RecyclerView.LayoutManager mLayoutManager;
     private SessionsContract.Presenter mPresenter = new SessionsPresenter(this);
@@ -54,6 +57,7 @@ public class SessionsFragment extends Fragment implements SessionsContract.View,
     private RecyclerView sessionsListRecycler;
     private SwipeRefreshLayout swipeLayout;
     private ImageButton button;
+    private SharedPreferences sharedPreferences;
 
     private SessionsAdapter mSessionsAdapter;
 
@@ -61,7 +65,7 @@ public class SessionsFragment extends Fragment implements SessionsContract.View,
         LINEAR_LAYOUT_MANAGER
     }
 
-    public SessionsFragment() {
+    public ProfessorSessionsFragment() {
         // Required empty public constructor
     }
 
@@ -85,6 +89,7 @@ public class SessionsFragment extends Fragment implements SessionsContract.View,
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getContext());
         View view=inflater.inflate(R.layout.course_session_fragment, container, false);
         sessionsListRecycler=(RecyclerView) view.findViewById(R.id.sessions_recycler);
         mLayoutManager= new LinearLayoutManager(getActivity());
@@ -124,7 +129,11 @@ public class SessionsFragment extends Fragment implements SessionsContract.View,
 
     @Override
     public void showSuccessfulAddNewSession() {
+        AlertDialog.Builder builder=new AlertDialog.Builder(this.getContext());
+        builder.setTitle("Session added, new session id is "+ sharedPreferences.getString("AddedSessionId",""));
         attemptQuerySessions();
+        builder.create();
+        builder.show();
     }
 
     @Override
@@ -138,15 +147,14 @@ public class SessionsFragment extends Fragment implements SessionsContract.View,
         builder.setTitle("Add new session");
         LinearLayout layout = new LinearLayout(this.getActivity());
         layout.setOrientation(LinearLayout.VERTICAL);
-        final EditText sessionId = new EditText(getActivity().getApplicationContext());
-        sessionId.setHint("Session Id");
         final EditText sessionName = new EditText(getActivity().getApplicationContext());
         sessionName.setHint("Session Name");
 
         builder.setNegativeButton("Submit",new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog,int id) {
 
-                String sessionIdToAdd=sessionId.getText().toString();
+                Random randomGenerator=new Random();
+                int sessionId=100+ randomGenerator.nextInt(100);
                 String sessionNameToAdd=sessionName.getText().toString();
                 String months[] = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep",
                         "Oct", "Nov", "Dec"};
@@ -157,11 +165,14 @@ public class SessionsFragment extends Fragment implements SessionsContract.View,
                 timeOfCreation.append(Integer.toString(day));
                 timeOfCreation.append(" ");
                 timeOfCreation.append(month);
-                mPresenter.addNewSession(sessionIdToAdd,sessionNameToAdd,timeOfCreation.toString(),"50.005");
+
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("AddedSessionId",  Integer.toString(sessionId));
+                editor.commit();
+                mPresenter.queryAddNewSessionProfessor(Integer.toString(sessionId),sessionNameToAdd,timeOfCreation.toString(),"50.005");
                 dialog.cancel();
             }
         });
-        layout.addView(sessionId);
         layout.addView(sessionName);
         builder.setView(layout);
         builder.create();

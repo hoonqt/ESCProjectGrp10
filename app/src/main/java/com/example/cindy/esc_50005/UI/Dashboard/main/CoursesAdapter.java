@@ -1,15 +1,12 @@
-package com.example.cindy.esc_50005.UI.Dashboard;
+package com.example.cindy.esc_50005.UI.Dashboard.main;
 
-import android.content.SharedPreferences;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.cindy.esc_50005.Database.UsersInformation.UsersInformationDO;
 import com.example.cindy.esc_50005.R;
 
 import java.util.ArrayList;
