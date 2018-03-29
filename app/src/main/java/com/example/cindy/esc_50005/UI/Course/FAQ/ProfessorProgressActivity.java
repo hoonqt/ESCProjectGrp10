@@ -17,11 +17,14 @@ public class ProfessorProgressActivity extends AppCompatActivity {
         ProgressStudentFragment progressStudentFragment = new ProgressStudentFragment();
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        ft.add(R.id.prof_progress_activity,progressStudentFragment);
+        ft.add(R.id.fragment_holder,progressStudentFragment);
         ft.commit();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);//addd back button later
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
     }
 
