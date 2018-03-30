@@ -40,7 +40,6 @@ public class ActivityInfo extends Fragment{
         TextView editbtn = view.findViewById(R.id.editbutton);
         editbtn.setOnClickListener(btnListener);
         TextView gradesbtn = view.findViewById(R.id.gradesbutton);
-        gradesbtn.setOnClickListener(btnListener);
         ImageView edit1 = view.findViewById(R.id.imageView1);
         ImageView edit2 = view.findViewById(R.id.imageView2);
         edit1.setOnClickListener(btnListener);
