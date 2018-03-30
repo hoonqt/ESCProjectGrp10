@@ -120,6 +120,7 @@ public class LoginFragment extends Fragment implements LoginContract.View {
         Log.i("showSuccessfulLogin","showSuccessfulLogin");
         Intent intent = new Intent(getActivity(), CourseActivity.class);
         startActivity(intent);
+        getActivity().finish();
     }
 
     public void showUnsuccessfulLogin()

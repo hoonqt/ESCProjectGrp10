@@ -1,11 +1,10 @@
-package com.example.esc_50005.UI.StudentActivity.MainScreen;
+package com.example.esc_50005.UI.Session.Student.StudentActivity.MainScreen;
 
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,12 +12,9 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import com.example.esc_50005.Database.Quizstuff.QuizQuestions1DO;
 import com.example.esc_50005.R;
-import com.example.esc_50005.UI.ProfSession.Adapters.ActivityProfAdapter;
-import com.example.esc_50005.UI.ProfSession.Contracts.QuizProfContract;
-import com.example.esc_50005.UI.ProfSession.Presenters.ActivityProfPresenter;
-import com.example.esc_50005.UI.StudentActivity.Adapters.ActivityStudentAdapter;
-import com.example.esc_50005.UI.StudentActivity.Contracts.QuizStudentContract;
-import com.example.esc_50005.UI.StudentActivity.Presenters.ActivityStudentPresenter;
+import com.example.esc_50005.UI.Session.Student.StudentActivity.Adapters.ActivityStudentAdapter;
+import com.example.esc_50005.UI.Session.Student.StudentActivity.Contracts.QuizStudentContract;
+import com.example.esc_50005.UI.Session.Student.StudentActivity.Presenters.ActivityStudentPresenter;
 
 import java.util.ArrayList;
 

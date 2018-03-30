@@ -1,5 +1,7 @@
 package com.example.esc_50005.WebSocket;
 
+import android.app.Application;
+
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -13,12 +15,38 @@ import okio.ByteString;
 public class WebSocket {
 
     OkHttpClient client;
+    private static okhttp3.WebSocket ws;
 
-    public WebSocket() {
+    private static WebSocket instance;
+
+    private WebSocket() {
 
         client = new OkHttpClient();
+        Request request = new Request.Builder().url("ws://ec2-54-175-239-77.compute-1.amazonaws.com:3000").build();
+        EchoWebSocketListener listener = new EchoWebSocketListener();
+        ws = client.newWebSocket(request, listener);
 
     }
+
+    public static void sendMsg(String input) {
+
+        ws.send(input);
+
+    }
+
+    public synchronized WebSocket getInstance() {
+        if (instance == null) {
+            instance = new WebSocket();
+        }
+
+        return instance;
+    }
+
+    private void processMsg(String input) {
+
+    }
+
+
 
     private final class EchoWebSocketListener extends WebSocketListener {
         private static final int NORMAL_CLOSURE_STATUS = 1000;
@@ -28,7 +56,7 @@ public class WebSocket {
         }
         @Override
         public void onMessage(okhttp3.WebSocket webSocket, String text) {
-
+            processMsg(text);
         }
         @Override
         public void onMessage(okhttp3.WebSocket webSocket, ByteString bytes) {
@@ -43,11 +71,7 @@ public class WebSocket {
     }
 
     public void start() {
-        Request request = new Request.Builder().url("ws://ec2-54-175-239-77.compute-1.amazonaws.com:3000").build();
-        EchoWebSocketListener listener = new EchoWebSocketListener();
-        okhttp3.WebSocket ws = client.newWebSocket(request, listener);
-        ws.send("pinita113");
-        ws.send("psenda113");
+        
 
     }
 
