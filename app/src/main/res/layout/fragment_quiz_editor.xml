@@ -7,18 +7,18 @@
     android:background="#59000000"
     android:clickable="true">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginTop="70dp"
         android:orientation="vertical"
 
         android:background="#eeeeee">
 
         <EditText
+            android:id="@+id/questionBox"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/questionBox" />
+            android:layout_height="wrap_content" />
 
         <RadioGroup
             android:layout_width="match_parent"
@@ -26,60 +26,77 @@
             android:layout_below="@id/questionBox"
             android:id="@+id/radiobuttons">
 
-            <TableRow>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
                 <RadioButton
                     android:id="@+id/option1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
+
                 <EditText
                     android:id="@+id/option1ans"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-            </TableRow>
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/option1"
+                    />
 
-            <TableRow>
                 <RadioButton
+                    android:id="@+id/option2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/option2"/>
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/option1ans" />
+
                 <EditText
                     android:id="@+id/option2ans"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/option2"
+                    android:layout_below="@id/option1ans"/>
 
-            </TableRow>
-
-            <TableRow>
                 <RadioButton
+                    android:id="@+id/option3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/option3"/>
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/option2ans" />
+
                 <EditText
                     android:id="@+id/option3ans"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/option3"
+                    android:layout_below="@id/option2ans"
                     />
-            </TableRow>
 
-            <TableRow>
                 <RadioButton
+                    android:id="@+id/option4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/option4"/>
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignTop="@+id/option4ans" />
+
 
                 <EditText
                     android:id="@+id/option4ans"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    />
-            </TableRow>
+                    android:layout_toRightOf="@id/option4"
+                    android:layout_below="@id/option3ans" />
+
+
+            </RelativeLayout>
 
         </RadioGroup>
 
+    </RelativeLayout>
 
-    </LinearLayout>
-
-    <TextView
+    <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Submit"
@@ -88,7 +105,6 @@
         android:gravity="center_horizontal"
         android:padding="10dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:background="#ffffff"
         />
 
 

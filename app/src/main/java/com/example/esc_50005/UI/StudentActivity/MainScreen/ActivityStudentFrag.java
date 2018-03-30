@@ -1,8 +1,7 @@
-package com.example.esc_50005.UI.ProfSession.MainScreens;
+package com.example.esc_50005.UI.StudentActivity.MainScreen;
 
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,61 +9,58 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import static com.google.common.base.Preconditions.checkNotNull;
 
 import com.example.esc_50005.Database.Quizstuff.QuizQuestions1DO;
 import com.example.esc_50005.R;
 import com.example.esc_50005.UI.ProfSession.Adapters.ActivityProfAdapter;
 import com.example.esc_50005.UI.ProfSession.Contracts.QuizProfContract;
 import com.example.esc_50005.UI.ProfSession.Presenters.ActivityProfPresenter;
+import com.example.esc_50005.UI.StudentActivity.Adapters.ActivityStudentAdapter;
+import com.example.esc_50005.UI.StudentActivity.Contracts.QuizStudentContract;
+import com.example.esc_50005.UI.StudentActivity.Presenters.ActivityStudentPresenter;
 
-import java.io.Serializable;
 import java.util.ArrayList;
-
-import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ActivityProfFrag extends Fragment implements QuizProfContract.View, Serializable {
+public class ActivityStudentFrag extends Fragment implements QuizStudentContract.View {
 
     private RecyclerView quizRecycler;
 
-    private ActivityProfFrag.LayoutManagerType mCurrentLayoutManagerType;
+    private ActivityStudentFrag.LayoutManagerType mCurrentLayoutManagerType;
     private RecyclerView.LayoutManager mLayoutManager;
-    private QuizProfContract.Presenter mPresenter = new ActivityProfPresenter(this);
-    private ActivityProfAdapter mQuizAdapter;
+    private QuizStudentContract.Presenter mPresenter = new ActivityStudentPresenter(this);
+    private ActivityStudentAdapter mQuizAdapter;
 
     private enum LayoutManagerType {
         LINEAR_LAYOUT_MANAGER
     }
 
-    public ActivityProfFrag() {
+    public ActivityStudentFrag() {
         // Required empty public constructor
     }
 
+    @Override
     public void onResume() {
         super.onResume();
         mPresenter.start();
     }
 
     @Override
-    public void setPresenter(@NonNull QuizProfContract.Presenter presenter) {
-        Log.i("set presenter","set presenter");
+    public void setPresenter(QuizStudentContract.Presenter presenter) {
         mPresenter = checkNotNull(presenter);
     }
 
-    
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-
-        View view = inflater.inflate(R.layout.fragment_prof_quiz, container, false);
-        quizRecycler = view.findViewById(R.id.recyclerViewProfQuiz);
+        View view = inflater.inflate(R.layout.student_activity_frag, container, false);
+        quizRecycler = view.findViewById(R.id.recyclerViewStudentQuiz);
         mLayoutManager = new LinearLayoutManager(getActivity());
         mCurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
         quizRecycler.setLayoutManager(new LinearLayoutManager(view.getContext()));
-
 
         return view;
     }
@@ -72,13 +68,8 @@ public class ActivityProfFrag extends Fragment implements QuizProfContract.View,
     @Override
     public void showQuizes(ArrayList<QuizQuestions1DO> allthequestions) {
 
-        mQuizAdapter = new ActivityProfAdapter(allthequestions);
+        mQuizAdapter = new ActivityStudentAdapter(allthequestions);
         quizRecycler.setAdapter(mQuizAdapter);
-
-    }
-
-    @Override
-    public void showAddedQuiz(ArrayList<QuizQuestions1DO> questionsList) {
 
     }
 

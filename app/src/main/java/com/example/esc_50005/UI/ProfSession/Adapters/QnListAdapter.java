@@ -98,7 +98,7 @@ public class QnListAdapter extends RecyclerView.Adapter<QnListAdapter.QnViewHold
                     editor.setArguments(bundler);
 
                     SessionActivity myActivity = (SessionActivity) context;
-                    myActivity.getSupportFragmentManager().beginTransaction().addToBackStack(null).setCustomAnimations(R.anim.slide_out_up,R.anim.slide_in_up).replace(R.id.profsessionhere,editor).addToBackStack(null).commit();
+                    myActivity.getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.profsessionhere,editor).addToBackStack(null).commit();
 
                 }
             });

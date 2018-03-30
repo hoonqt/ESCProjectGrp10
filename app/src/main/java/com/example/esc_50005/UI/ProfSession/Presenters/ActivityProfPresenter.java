@@ -31,7 +31,7 @@ public class ActivityProfPresenter implements QuizProfContract.Presenter{
     @Override
     public void start() {
 
-        loadQuizes("50.004","session1");
+        loadQuizes("50.004","Session1");
 
     }
 
@@ -39,6 +39,7 @@ public class ActivityProfPresenter implements QuizProfContract.Presenter{
     public void loadQuizes(String subjectCode, String sessionCode) {
 
         questionData = mQuizQuestionsRepository.getQuestions(subjectCode, sessionCode);
+        mQuizProfView.showQuizes(questionData);
 
     }
 

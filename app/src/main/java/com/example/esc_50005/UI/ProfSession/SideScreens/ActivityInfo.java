@@ -40,7 +40,6 @@ public class ActivityInfo extends Fragment{
         TextView editbtn = view.findViewById(R.id.editbutton);
         editbtn.setOnClickListener(btnListener);
         TextView gradesbtn = view.findViewById(R.id.gradesbutton);
-        gradesbtn.setOnClickListener(btnListener);
         ImageView edit1 = view.findViewById(R.id.imageView1);
         ImageView edit2 = view.findViewById(R.id.imageView2);
         edit1.setOnClickListener(btnListener);
@@ -66,7 +65,6 @@ public class ActivityInfo extends Fragment{
             Bundle bundle2 = new Bundle();
             bundle2.putSerializable("allthequestions",dataset);
             adder.setArguments(bundle2);
-            //ProfSessionActivity myActivity = (ProfSessionActivity)context;
             SessionActivity myActivity = (SessionActivity) context;
             getActivity().getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.profsessionhere,adder).addToBackStack(null).commit();
         }

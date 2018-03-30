@@ -102,7 +102,7 @@ public class QuizEditor extends Fragment {
                 tobeadded.setOptions(options);
                 tobeadded.setQuizName("Quiz 1");
                 tobeadded.setSubjectCodeSessionCode("a113");
-                tobeadded.setCorrectans("a113");
+                tobeadded.setCorrectans(1.0);
 
 
                 QuizRemoteDataSource adder = new QuizRemoteDataSource();

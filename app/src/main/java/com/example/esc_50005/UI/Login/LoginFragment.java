@@ -19,6 +19,7 @@ import android.widget.RadioGroup;
 
 import com.example.esc_50005.R;
 import com.example.esc_50005.UI.Course.FAQ.CourseActivity;
+import com.example.esc_50005.UI.Session.Main.SessionActivity;
 
 import static com.google.common.base.Preconditions.*;
 

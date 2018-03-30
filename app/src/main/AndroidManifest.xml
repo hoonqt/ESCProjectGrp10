@@ -22,7 +22,7 @@
             android:name=".UI.Course.FAQ.CourseActivity"
             android:label="Add FAQ" />
         <activity
-            android:name=".UI.Dashboard.DashboardActivity"
+            android:name=".UI.Dashboard.main.DashboardActivity"
             android:label="Add FAQ" />
         <activity android:name=".UI.QuizSession.QuizActivity" />
 
@@ -34,11 +34,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
-
         </activity>
         <activity android:name=".UI.DataAdder.AddDatahere">
-
         </activity>
+
+        <activity android:name=".UI.Course.FAQ.ProfessorProgressActivity"></activity>
     </application>
 
 </manifest>
