@@ -1,4 +1,4 @@
-package com.example.esc_50005.UI.Session.Professor;
+package com.example.esc_50005.UI.StudentActivity.MainScreen;
 
 
 import android.os.Bundle;
@@ -12,10 +12,10 @@ import com.example.esc_50005.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ProfessionQuestionFragment extends Fragment {
+public class ActivityStudentFrag extends Fragment {
 
 
-    public ProfessionQuestionFragment() {
+    public ActivityStudentFrag() {
         // Required empty public constructor
     }
 
@@ -24,8 +24,7 @@ public class ProfessionQuestionFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
-        return inflater.inflate(R.layout.fragment_prof_question, container, false);
+        return inflater.inflate(R.layout.student_activity_frag, container, false);
     }
 
 }

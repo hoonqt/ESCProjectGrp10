@@ -108,7 +108,6 @@ public class ActivityProfAdapter extends RecyclerView.Adapter<ActivityProfAdapte
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("allthequestions",dataset);
                     adder.setArguments(bundle);
-                    //ProfSessionActivity myActivity = (ProfSessionActivity)context;
                     SessionActivity myActivity = (SessionActivity) context;
                     myActivity.getSupportFragmentManager().beginTransaction().addToBackStack(null).setCustomAnimations(R.anim.slide_out_up,R.anim.slide_in_up).replace(R.id.profsessionhere,adder).addToBackStack(null).commit();
                     Log.i("Donald","This ain't working");

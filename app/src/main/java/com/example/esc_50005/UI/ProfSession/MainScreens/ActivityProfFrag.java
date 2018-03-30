@@ -65,7 +65,7 @@ public class ActivityProfFrag extends Fragment implements QuizProfContract.View,
         mCurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
         quizRecycler.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
-        ArrayList<QuizQuestions1DO> allquestions = mPresenter.getQuestionData("50.004","session1");
+        ArrayList<QuizQuestions1DO> allquestions = mPresenter.getQuestionData("50.004","Session1");
         mQuizAdapter = new ActivityProfAdapter(allquestions);
         quizRecycler.setAdapter(mQuizAdapter);
 

@@ -8,8 +8,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.example.esc_50005.UI.ProfSession.MainScreens.ActivityProfFrag;
-import com.example.esc_50005.UI.ProfSession.MainScreens.ProfQuestionFrag;
 import com.example.esc_50005.UI.Session.Student.QuestionsFragment;
+import com.example.esc_50005.UI.StudentActivity.MainScreen.ActivityStudentFrag;
 
 public class SessionPagerAdapter extends FragmentStatePagerAdapter {
 
@@ -34,7 +34,7 @@ public class SessionPagerAdapter extends FragmentStatePagerAdapter {
                 case 0:
                     return new QuestionsFragment();
                 case 1:
-                    return new QuestionsFragment();
+                    return new ActivityStudentFrag();
                 default:
                     return null;
             }
@@ -44,11 +44,11 @@ public class SessionPagerAdapter extends FragmentStatePagerAdapter {
             switch (position)
             {
                 case 0:
-                    return new ProfQuestionFrag();
+                    return new QuestionsFragment();
                 case 1:
                     return new ActivityProfFrag();
                 case 2:
-                    return new ProfQuestionFrag();
+                    return new QuestionsFragment();
                 default:
                     return null;
             }

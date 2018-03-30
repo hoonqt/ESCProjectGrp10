@@ -2,20 +2,23 @@ package com.example.esc_50005.Database.Quizstuff;
 
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBAttribute;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBHashKey;
+import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBIndexHashKey;
+import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBIndexRangeKey;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBRangeKey;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBTable;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @DynamoDBTable(tableName = "escproject-mobilehub-27166461-QuizQuestions1")
 
 public class QuizQuestions1DO {
     private String _subjectCodeSessionCode;
     private String _quizName;
-    private String _correctans;
+    private Double _correctans;
     private List<String> _options;
     private String _question;
-    private List<String> _results;
 
     @DynamoDBHashKey(attributeName = "SubjectCodeSessionCode")
     @DynamoDBAttribute(attributeName = "SubjectCodeSessionCode")
@@ -36,11 +39,11 @@ public class QuizQuestions1DO {
         this._quizName = _quizName;
     }
     @DynamoDBAttribute(attributeName = "Correctans")
-    public String getCorrectans() {
+    public Double getCorrectans() {
         return _correctans;
     }
 
-    public void setCorrectans(final String _correctans) {
+    public void setCorrectans(final Double _correctans) {
         this._correctans = _correctans;
     }
     @DynamoDBAttribute(attributeName = "Options")
@@ -58,14 +61,6 @@ public class QuizQuestions1DO {
 
     public void setQuestion(final String _question) {
         this._question = _question;
-    }
-    @DynamoDBAttribute(attributeName = "Results")
-    public List<String> getResults() {
-        return _results;
-    }
-
-    public void setResults(final List<String> _results) {
-        this._results = _results;
     }
 
 }

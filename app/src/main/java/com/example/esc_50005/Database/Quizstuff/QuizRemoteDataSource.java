@@ -26,7 +26,7 @@ public class QuizRemoteDataSource {
 
     }
 
-    public void putQuestion(String subjCode, String sessionCode, String quizName,String question, String correctAns, ArrayList<String> options) {
+    public void putQuestion(String subjCode, String sessionCode, String quizName,String question, Double correctAns, ArrayList<String> options) {
 
         final QuizQuestions1DO adder = new QuizQuestions1DO();
 
@@ -34,7 +34,6 @@ public class QuizRemoteDataSource {
         adder.setQuizName(quizName);
         adder.setCorrectans(correctAns);
         adder.setOptions(options);
-        adder.setResults(new ArrayList<String>());
         adder.setQuestion(question);
 
         new Thread(new Runnable() {
