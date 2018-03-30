@@ -94,7 +94,7 @@ public class ProgressRemoteDataSource implements ProgressDataSource {
 
         nameList = new ArrayList<NewQuizScoresDO>();
 
-        new Thread(new Runnable() {
+        Thread retriever = new Thread(new Runnable() {
             @Override
             public void run() {
 
@@ -112,10 +112,12 @@ public class ProgressRemoteDataSource implements ProgressDataSource {
                 }
 
             }
-        }).start();
+        });
+
+        retriever.start();
 
         try {
-            TimeUnit.SECONDS.sleep(2);
+            retriever.join();
         } catch (InterruptedException ex) {
             ex.printStackTrace();
         }
