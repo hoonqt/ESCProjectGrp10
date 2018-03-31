@@ -1,13 +1,10 @@
-package com.example.esc_50005.UI.StudentActivity.Presenters;
+package com.example.esc_50005.UI.Session.Student.StudentActivity.Presenters;
 
-import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.example.esc_50005.Database.Quizstuff.QuizQuestions1DO;
 import com.example.esc_50005.Database.Quizstuff.QuizRemoteDataSource;
-import com.example.esc_50005.UI.ProfSession.Contracts.QuizProfContract;
-import com.example.esc_50005.UI.StudentActivity.Adapters.ActivityStudentAdapter;
-import com.example.esc_50005.UI.StudentActivity.Contracts.QuizStudentContract;
+import com.example.esc_50005.UI.Session.Student.StudentActivity.Contracts.QuizStudentContract;
 
 import java.util.ArrayList;
 

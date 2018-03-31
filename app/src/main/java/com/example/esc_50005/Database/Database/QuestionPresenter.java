@@ -2,7 +2,7 @@ package com.example.esc_50005.Database.Database;
 
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
 
-public class QuestionPresenter implements QuestionContract {
+public class QuestionPresenter {
 
     DynamoDBMapper dynamoDBMapper;
 

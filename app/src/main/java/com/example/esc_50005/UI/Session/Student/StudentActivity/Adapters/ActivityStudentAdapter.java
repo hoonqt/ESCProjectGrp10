@@ -1,7 +1,8 @@
-package com.example.esc_50005.UI.StudentActivity.Adapters;
+package com.example.esc_50005.UI.Session.Student.StudentActivity.Adapters;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +14,8 @@ import android.widget.TextView;
 
 import com.example.esc_50005.Database.Quizstuff.QuizQuestions1DO;
 import com.example.esc_50005.R;
+import com.example.esc_50005.UI.Session.Main.SessionActivity;
+import com.example.esc_50005.UI.Session.Student.StudentActivity.SideScreens.AnsweringZoneFrag;
 
 import java.util.ArrayList;
 
@@ -76,7 +79,7 @@ public class ActivityStudentAdapter extends RecyclerView.Adapter<ActivityStudent
         else return dataset.size();
     }
 
-    class QuizViewHolder extends RecyclerView.ViewHolder {
+    class QuizViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private TextView quizName;
         private ImageView goBox;
@@ -86,6 +89,8 @@ public class ActivityStudentAdapter extends RecyclerView.Adapter<ActivityStudent
             quizName = v.findViewById(R.id.quizname);
             goBox = v.findViewById(R.id.nxtpgarrow);
 
+            quizName.setOnClickListener(this);
+
         }
 
         public void bind(int position) {
@@ -93,6 +98,20 @@ public class ActivityStudentAdapter extends RecyclerView.Adapter<ActivityStudent
 
         }
 
+        @Override
+        public void onClick(View view) {
 
+            AnsweringZoneFrag editor = new AnsweringZoneFrag();
+            Bundle bundler = new Bundle();
+
+            ArrayList<QuizQuestions1DO> tobetransferred = new ArrayList<>(dataset);
+
+            bundler.putSerializable("allthequestions",tobetransferred);
+            editor.setArguments(bundler);
+
+            SessionActivity myActivity = (SessionActivity) context;
+            myActivity.getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.profsessionhere,editor).addToBackStack(null).commit();
+
+        }
     }
 }
