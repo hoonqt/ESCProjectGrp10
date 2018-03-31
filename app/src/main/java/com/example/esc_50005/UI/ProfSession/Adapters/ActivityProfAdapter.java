@@ -114,19 +114,19 @@ public class ActivityProfAdapter extends RecyclerView.Adapter<ActivityProfAdapte
                 }
             });
 
-            switchUp.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    WebSocket websock = new WebSocket();
-                    if (isChecked) {
-                        websock.start();
-                    }
-
-                    else {
-                        websock.end();
-                    }
-                }
-            });
+//            switchUp.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//                @Override
+//                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                    WebSocket websock = new WebSocket();
+//                    if (isChecked) {
+//                        websock.start();
+//                    }
+//
+//                    else {
+//                        websock.end();
+//                    }
+//                }
+//            });
 
         }
 
