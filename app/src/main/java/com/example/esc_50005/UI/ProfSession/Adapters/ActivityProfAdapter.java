@@ -17,7 +17,7 @@ import com.example.esc_50005.Database.Quizstuff.QuizQuestions1DO;
 import com.example.esc_50005.R;
 import com.example.esc_50005.UI.ProfSession.SideScreens.ActivityInfo;
 import com.example.esc_50005.UI.Session.Main.SessionActivity;
-import com.example.esc_50005.WebSocket.WebSocket;
+import com.example.esc_50005.WebSocket.ProfWebSocket;
 
 import java.util.ArrayList;
 
@@ -114,19 +114,21 @@ public class ActivityProfAdapter extends RecyclerView.Adapter<ActivityProfAdapte
                 }
             });
 
-//            switchUp.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//                @Override
-//                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                    WebSocket websock = new WebSocket();
-//                    if (isChecked) {
-//                        websock.start();
-//                    }
-//
-//                    else {
-//                        websock.end();
-//                    }
-//                }
-//            });
+
+            switchUp.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    ProfWebSocket websock = ProfWebSocket.getInstance();
+                    if (isChecked) {
+                        websock.sendMsg("psenda113");
+                    }
+
+                    else {
+                        websock.end();
+                    }
+                }
+            });
+
 
         }
 

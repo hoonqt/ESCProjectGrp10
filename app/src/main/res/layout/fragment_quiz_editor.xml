@@ -33,7 +33,8 @@
                 <RadioButton
                     android:id="@+id/option1"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    />
 
                 <EditText
                     android:id="@+id/option1ans"
@@ -94,7 +95,21 @@
 
         </RadioGroup>
 
+
     </RelativeLayout>
+
+    <Button
+        android:id="@+id/addbtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="44dp"
+        android:gravity="center_horizontal"
+        android:padding="10dp"
+        android:text="Add another question"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
     <Button
         android:layout_width="match_parent"

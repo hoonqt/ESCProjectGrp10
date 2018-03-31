@@ -26,6 +26,17 @@ public class QuizRemoteDataSource {
 
     }
 
+    public void putQuestion(final QuizQuestions1DO input) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                dynamoDBMapper.save(input);
+                // Item saved
+            }
+        }).start();
+
+    }
+
     public void putQuestion(String subjCode, String sessionCode, String quizName,String question, Double correctAns, ArrayList<String> options) {
 
         final QuizQuestions1DO adder = new QuizQuestions1DO();
