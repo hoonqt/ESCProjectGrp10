@@ -45,6 +45,19 @@ public class ActivityStudentAdapter extends RecyclerView.Adapter<ActivityStudent
 
     }
 
+    public void setData(ArrayList<QuizQuestions1DO> input) {
+        this.dataset.clear();
+        dataset.addAll(input);
+        names.clear();
+        for (int i = 0;i<dataset.size();i++) {
+            if (!names.contains(dataset.get(i).getQuizName())) {
+                names.add(dataset.get(i).getQuizName());
+            }
+        }
+
+    }
+
+
     @NonNull
     @Override
     public ActivityStudentAdapter.QuizViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

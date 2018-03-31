@@ -2,9 +2,12 @@ package com.example.esc_50005.WebSocket;
 
 import android.app.Application;
 
+import com.example.esc_50005.UI.Session.Student.StudentActivity.Presenters.ActivityStudentPresenter;
+
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.WebSocket;
 import okhttp3.WebSocketListener;
 import okio.ByteString;
 
@@ -12,40 +15,44 @@ import okio.ByteString;
  * Created by hoonqt on 27/3/18.
  */
 
-public class WebSocket {
+public class ProfWebSocket {
 
     OkHttpClient client;
     private static okhttp3.WebSocket ws;
+    private static ProfWebSocket instance;
+    private EchoWebSocketListener listener;
 
-    private static WebSocket instance;
-
-    private WebSocket() {
+    private ProfWebSocket() {
 
         client = new OkHttpClient();
         Request request = new Request.Builder().url("ws://ec2-54-175-239-77.compute-1.amazonaws.com:3000").build();
-        EchoWebSocketListener listener = new EchoWebSocketListener();
+        this.listener = new EchoWebSocketListener();
         ws = client.newWebSocket(request, listener);
 
     }
 
-    public static void sendMsg(String input) {
+    public static synchronized ProfWebSocket getInstance() {
+
+        if (instance == null) {
+            instance = new ProfWebSocket();
+
+        }
+
+        return instance;
+
+    }
+
+    public void sendMsg(String input) {
 
         ws.send(input);
 
     }
 
-    public synchronized WebSocket getInstance() {
-        if (instance == null) {
-            instance = new WebSocket();
-        }
-
-        return instance;
-    }
 
     private void processMsg(String input) {
 
-    }
 
+    }
 
 
     private final class EchoWebSocketListener extends WebSocketListener {
@@ -71,8 +78,7 @@ public class WebSocket {
     }
 
     public void start() {
-        
-
+        ws.send("pinita113");
     }
 
     public void end() {
