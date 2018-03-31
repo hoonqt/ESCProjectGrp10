@@ -12,6 +12,10 @@ import com.example.esc_50005.Database.UsersInformation.UsersInformationDO;
 import com.example.esc_50005.Database.UsersInformation.UsersInformationRemoteDataSource;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -25,8 +29,6 @@ public class DashboardPresenter implements DashboardContract.Presenter  {
     ArrayList<CoursesInformationDO> coursesInformationJsonData;
     private SharedPreferences userInformation;
     private static  ArrayList<String> listOfCourses=new ArrayList<>();
-
-
 
     public DashboardPresenter(@NonNull DashboardContract.View contractView) {
         Log.i("DashBoardPresenter","DashBoardPresenter");
@@ -84,28 +86,16 @@ public class DashboardPresenter implements DashboardContract.Presenter  {
         }
     }
 
-    public void addValidCourseProfessor(Double courseId,String courseName)
+    public void queryCourseBeforeAddingProfessor(Double courseId, String courseName)
     {
-        mCoursesRepository.addCourse(courseId,courseName);
-        CoursesInformationDO newCourse= new CoursesInformationDO();
-        UsersInformationDO updateUser=userCoursesInformationJsonData.get(0);
-        updateUser.getCourseIds().add(Double.toString(courseId));
-        updateUser.getCourseNames().add(courseName);
-        try{
-            Thread.sleep(3000);
-        }
-        catch (Exception ex)
-        {
-
-        }
-        mUsersRepository.addUser(updateUser);
-        mDashboardView.addValidNewCourse();
+        coursesInformationJsonData=mCoursesRepository.queryCourses(courseId);
+        checkIfCourseIsValid(coursesInformationJsonData,courseId,courseName);
     }
 
-    public void queryCourseBeforeAdding(Double courseId,String courseName)
+    public void queryCourseBeforeAddingStudent(Double courseId)
     {
-        coursesInformationJsonData=mCoursesRepository.queryCourses(courseId,courseName);
-        checkIfCourseIsValid(coursesInformationJsonData,courseId,courseName);
+        coursesInformationJsonData=mCoursesRepository.queryCourses(courseId);
+        checkIfCourseIsValid(coursesInformationJsonData,courseId, "" );
     }
 
     public void checkIfCourseIsValid(ArrayList<CoursesInformationDO> coursesInformationJsonData, Double courseId, String courseName)
@@ -124,7 +114,7 @@ public class DashboardPresenter implements DashboardContract.Presenter  {
             case "student":
                 if(coursesInformationJsonData.size()!=0)
                 {
-                    addValidCourseStudent(courseId,courseName);
+                    addValidCourseStudent(courseId,coursesInformationJsonData.get(0).getCourseName());
                 }
                 else{
                     addInvalidCourseStudent();
@@ -141,19 +131,70 @@ public class DashboardPresenter implements DashboardContract.Presenter  {
     {
         mDashboardView.showAddInvalidCourse();
     }
+
+    public void addValidCourseProfessor(Double courseId,String courseName)
+    {
+        mCoursesRepository.addCourse(courseId,courseName,null);
+        CoursesInformationDO newCourse= new CoursesInformationDO();
+        UsersInformationDO updateUser=userCoursesInformationJsonData.get(0);
+
+        if(updateUser.getCourseIds()!=null && updateUser.getCourseNames()!=null)
+        {
+            updateUser.getCourseIds().add(Double.toString(courseId));
+            updateUser.getCourseNames().add(courseName);
+        }
+        else{
+            List<String> listOfCourseIds=new ArrayList<>();
+            listOfCourseIds.add(Double.toString(courseId));
+            List<String> listOfCourseNames=new ArrayList<>();
+            listOfCourseNames.add(courseName);
+
+            updateUser.setCourseIds(listOfCourseIds);
+            updateUser.setCourseNames(listOfCourseNames);
+        }
+
+        mUsersRepository.addUser(updateUser);
+        mDashboardView.showAddInvalidCourse();
+    }
+
     public void addValidCourseStudent(Double courseId, String courseName)
     {
         UsersInformationDO updateUser=userCoursesInformationJsonData.get(0);
-        updateUser.getCourseIds().add(Double.toString(courseId));
-        updateUser.getCourseNames().add(courseName);
-        try{
-            Thread.sleep(3000);
-        }
-        catch (Exception ex)
+        if(updateUser.getCourseIds().contains(Double.toString(courseId)))
         {
-
+            Log.i("invalid","invalid");
+            mDashboardView.showAddInvalidCourse();
         }
-        mUsersRepository.addUser(updateUser);
-        mDashboardView.addValidNewCourse();
+        else{
+            if(updateUser.getCourseIds()!=null && updateUser.getCourseNames()!=null)
+            {
+                updateUser.getCourseIds().add(Double.toString(courseId));
+                updateUser.getCourseNames().add(courseName);
+            }
+            else{
+                List<String> listOfCourseIds=new ArrayList<>();
+                listOfCourseIds.add(Double.toString(courseId));
+                List<String> listOfCourseNames=new ArrayList<>();
+                listOfCourseNames.add(courseName);
+
+                updateUser.setCourseIds(listOfCourseIds);
+                updateUser.setCourseNames(listOfCourseNames);
+            }
+
+            mUsersRepository.addUser(updateUser);
+            if(coursesInformationJsonData.get(0).getListOfStudents()==null)
+            {
+                List<String> listOfStudentIds=new ArrayList<>();
+                listOfStudentIds.add(Double.toString(updateUser.getUserId()));
+                mCoursesRepository.addCourse(courseId,courseName,listOfStudentIds);
+
+            }
+            else{
+                coursesInformationJsonData.get(0).getListOfStudents().add(Double.toString(updateUser.getUserId()));
+                mCoursesRepository.addCourse(courseId,courseName,coursesInformationJsonData.get(0).getListOfStudents());
+            }
+            mDashboardView.showAddValidNewCourse();
+        }
+
     }
 }

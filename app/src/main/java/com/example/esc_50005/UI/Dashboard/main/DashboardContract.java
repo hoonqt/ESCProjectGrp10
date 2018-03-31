@@ -12,12 +12,13 @@ public interface DashboardContract {
     interface Presenter extends BasePresenter {
         void loadCoursesFromDatabase(Context context);
         void addValidCourseProfessor(Double courseId, String courseName);
-        void queryCourseBeforeAdding(Double courseId, String courseName);
+        void queryCourseBeforeAddingProfessor(Double courseId, String courseName);
+        void queryCourseBeforeAddingStudent(Double courseId);
     }
     interface View extends BaseView <Presenter> {
         void showSuccessfullyLoadedCourses(ArrayList<String> courseInformationJsonData);
         void attemptLoadCourses();
-        void addValidNewCourse();
+        void showAddValidNewCourse();
         void showAddInvalidCourse();
 
     }

@@ -153,7 +153,10 @@ public class ProfessorSessionsFragment extends Fragment implements SessionsContr
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString("AddedSessionId",  Integer.toString(sessionId));
                 editor.commit();
-                mPresenter.queryAddNewSessionProfessor(Integer.toString(sessionId),sessionNameToAdd,timeOfCreation.toString(),"50.005");
+                String currentCourse=sharedPreferences.getString("Current Course Activity","");
+                String[] retrieveCourseId = currentCourse.split("\\s+");
+                String courseId=retrieveCourseId[0];
+                mPresenter.queryAddNewSessionProfessor(Integer.toString(sessionId),sessionNameToAdd,timeOfCreation.toString(),courseId);
                 dialog.cancel();
             }
         });

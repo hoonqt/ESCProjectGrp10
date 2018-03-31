@@ -89,7 +89,7 @@ public class ProfessorDashboardFragment extends Fragment implements DashboardCon
         //haven't written code that opens the dashboard if login is successful
     }
 
-    public void addValidNewCourse()
+    public void showAddValidNewCourse()
     {
         Log.i("going to load it again","going to load it again");
         attemptLoadCourses();
@@ -102,7 +102,7 @@ public class ProfessorDashboardFragment extends Fragment implements DashboardCon
         @Override
         public void moveToCourseScreen(String clickedCourse) {
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("Course Activity", clickedCourse);
+            editor.putString("Current Course Activity", clickedCourse);
             editor.commit();
             Intent intent = new Intent(getActivity(), CourseActivity.class);
             startActivity(intent);
@@ -110,6 +110,7 @@ public class ProfessorDashboardFragment extends Fragment implements DashboardCon
     };
 
     public void onClick(View view) {
+        Log.i("professor","professor");
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this.getActivity());
         alertDialog.setTitle("Add New Course");
         LinearLayout layout = new LinearLayout(this.getActivity());
@@ -122,7 +123,7 @@ public class ProfessorDashboardFragment extends Fragment implements DashboardCon
         alertDialog.setNegativeButton("Submit",new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog,int id) {
                 Log.i("start query","start query");
-                mPresenter.queryCourseBeforeAdding(Double.parseDouble(courseId.getText().toString()),courseName.getText().toString());
+                mPresenter.queryCourseBeforeAddingProfessor(Double.parseDouble(courseId.getText().toString()),courseName.getText().toString());
                 dialog.cancel();
             }
         });

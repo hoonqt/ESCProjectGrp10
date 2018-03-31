@@ -105,6 +105,7 @@ public class StudentSessionsFragment extends Fragment implements SessionsContrac
     public void showSuccessfulAddNewSession() {
         AlertDialog.Builder builder=new AlertDialog.Builder(this.getContext());
         builder.setTitle("Session added, new session id is "+ sharedPreferences.getString("AddedSessionId",""));
+        mSessionsAdapter.notifyDataSetChanged();
         attemptQuerySessions();
         builder.create();
         builder.show();
@@ -129,23 +130,13 @@ public class StudentSessionsFragment extends Fragment implements SessionsContrac
 
         builder.setNegativeButton("Submit",new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog,int id) {
-
-                String months[] = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep",
-                        "Oct", "Nov", "Dec"};
-                GregorianCalendar gcalendar = new GregorianCalendar();
-                String month=months[gcalendar.get(Calendar.MONTH)];
-                int day=gcalendar.get(Calendar.DAY_OF_MONTH);
-                StringBuilder timeOfCreation=new StringBuilder();
-                timeOfCreation.append(Integer.toString(day));
-                timeOfCreation.append(" ");
-                timeOfCreation.append(month);
-
                 mPresenter.queryAddNewSessionStudent(sessionId.getText().toString());
                 dialog.cancel();
             }
         });
         layout.addView(sessionId);
         builder.setView(layout);
+        layout.setId(R.id.layout_add_session);
         builder.create();
         builder.show();
     }
