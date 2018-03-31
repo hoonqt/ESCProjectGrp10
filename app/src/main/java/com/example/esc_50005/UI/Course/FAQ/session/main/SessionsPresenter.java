@@ -6,6 +6,8 @@ import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.example.esc_50005.Database.CoursesInformation.CoursesInformationDO;
+import com.example.esc_50005.Database.CoursesInformation.CoursesInformationRemoteDataSource;
 import com.example.esc_50005.Database.UsersInformation.UsersInformationDO;
 import com.example.esc_50005.Database.UsersInformation.UsersInformationRemoteDataSource;
 import com.example.esc_50005.Database.sessionsInformation.SessionsInformationDO;
@@ -23,14 +25,18 @@ public class SessionsPresenter implements SessionsContract.Presenter {
     private final SessionsContract.View mSessionsView;
     private UsersInformationRemoteDataSource mUserRepository;
     private SessionsInformationRemoteDataSource mSessionsRepository;
+    private final CoursesInformationRemoteDataSource mCoursesRepository;
     ArrayList<UsersInformationDO> usersJsonData;
     private SharedPreferences userInformation;
     private ArrayList<String> listOfSessions=new ArrayList<String>();
     private ArrayList<SessionsInformationDO> sessionsJsonData;
+    private ArrayList<SessionsInformationDO> queriedSessionsJsonData;
+    private ArrayList<CoursesInformationDO> courseJsonData;
 
     public SessionsPresenter(@NonNull SessionsContract.View sessionsView) {
         mUserRepository = new UsersInformationRemoteDataSource();
         mSessionsRepository=new SessionsInformationRemoteDataSource();
+        mCoursesRepository=new CoursesInformationRemoteDataSource();
         mSessionsView = checkNotNull(sessionsView, "faqView cannot be null!");
         mSessionsView.setPresenter(this);
     }
@@ -47,7 +53,6 @@ public class SessionsPresenter implements SessionsContract.Presenter {
     public void querySessions(Context context) {
         userInformation = PreferenceManager.getDefaultSharedPreferences(context);
         usersJsonData=mUserRepository.queryParticularUser(userInformation.getString("Username",""),userInformation.getString("Password",""),userInformation.getString("UserType",""));
-        Log.i("size of json",Integer.toString(usersJsonData.size()));
         processSessions(usersJsonData);
 
     }
@@ -63,15 +68,40 @@ public class SessionsPresenter implements SessionsContract.Presenter {
 
     public void generateListOfSessions()
     {
-        Log.i("user json data",Integer.toString(usersJsonData.size()));
         listOfSessions=new ArrayList<String>();
 
-        for(int i=0;i<usersJsonData.get(0).getSessionIds().size();i++)
+        String currentCourse=userInformation.getString("Current Course Activity","");
+        String[] retrieveCourseId = currentCourse.split("\\s+");
+        String courseId=retrieveCourseId[0];
+        courseJsonData=mCoursesRepository.queryCourses(Double.parseDouble(retrieveCourseId[0]));
+        ArrayList<UsersInformationDO> newUserJsonData;
+
+        newUserJsonData=mUserRepository.queryParticularUser(usersJsonData.get(0).getUsername(),usersJsonData.get(0).getPassword(),usersJsonData.get(0).getUserType());
+        Log.i("session size",Integer.toString(usersJsonData.get(0).getSessionIds().size()));
+
+
+        for(int i=0;i<newUserJsonData.get(0).getSessionIds().size();i++)
         {
-            String session=usersJsonData.get(0).getSessionDate().get(i)+ " -"  + usersJsonData.get(0).getSessionName().get(i);
-            listOfSessions.add(session);
+//            String courseId=sessionsJsonData.get(0).getCourseID();
+            queriedSessionsJsonData=mSessionsRepository.querySessions(newUserJsonData.get(0).getSessionIds().get(0));
+            Log.i("queried",queriedSessionsJsonData.get(0).getCourseID());
+            if(queriedSessionsJsonData.get(0).getCourseID().equals(courseId))
+            {
+                String session=newUserJsonData.get(0).getSessionDate().get(i)+ " -"  + newUserJsonData.get(0).getSessionName().get(i);
+                listOfSessions.add(session);
+            }
         }
-        loadSessions();
+        if(listOfSessions.size()==0)
+        {
+            loadEmptySessions();
+        }
+        else{
+            for(String session : listOfSessions)
+            {
+                Log.i("session name",session);
+            }
+            loadSessions();
+        }
 
     }
 
@@ -136,14 +166,7 @@ public class SessionsPresenter implements SessionsContract.Presenter {
         else{
             updateUser.getSessionIds().add(sessionId);
             updateUser.getSessionName().add(sessionName);
-        }
-
-        try{
-            Thread.sleep(3000);
-        }
-        catch (Exception ex)
-        {
-
+            updateUser.getSessionDate().add(timeOfCreation);
         }
 
         mUserRepository.addUser(updateUser);
@@ -151,30 +174,25 @@ public class SessionsPresenter implements SessionsContract.Presenter {
 
     @Override
     public void addNewSessionProfessor(String sessionId, String sessionName, String timeOfCreation, String courseId) {
-//        Log.i("user type listed",userInformation.getString("UserType",""));
-//        mSessionsRepository.addSession(sessionId,sessionName,timeOfCreation,courseId);
-//        UsersInformationDO updatedUser=new UsersInformationDO();
-//        updatedUser=usersJsonData.get(0);
-//        List<String> listOfSessionIdsForUser;
-//        listOfSessionIdsForUser=usersJsonData.get(0).getSessionIds();
-//        listOfSessionIdsForUser.add(sessionId);
-//        List<String> listOfSessionNames;
-//        listOfSessionNames=usersJsonData.get(0).getSessionName();
-//        listOfSessionNames.add(sessionName);
-//        List<String> listOfCourseIds;
-//        listOfCourseIds=usersJsonData.get(0).getCourseIds();
-//        listOfCourseIds.add(courseId);
-//        List<String> listOfTimeCreated;
-//        listOfTimeCreated=usersJsonData.get(0).getSessionDate();
-//        listOfTimeCreated.add(timeOfCreation);
-//
-//        updatedUser.setSessionIds(listOfSessionIdsForUser);
-//        updatedUser.setCourseIds(listOfCourseIds);
-//        updatedUser.setSessionName(listOfSessionNames);
-//        updatedUser.setSessionDate(listOfTimeCreated);
-//        mUserRepository.addUser(updatedUser);
-//
-//        mSessionsView.showSuccessfulAddNewSession();
+        mSessionsRepository.addSession(sessionId,sessionName,timeOfCreation,courseId);
+        UsersInformationDO updatedUser=new UsersInformationDO();
+        updatedUser=usersJsonData.get(0);
+        List<String> listOfSessionIdsForUser;
+        listOfSessionIdsForUser=usersJsonData.get(0).getSessionIds();
+        listOfSessionIdsForUser.add(sessionId);
+        List<String> listOfSessionNames;
+        listOfSessionNames=usersJsonData.get(0).getSessionName();
+        listOfSessionNames.add(sessionName);
+        List<String> listOfTimeCreated;
+        listOfTimeCreated=usersJsonData.get(0).getSessionDate();
+        listOfTimeCreated.add(timeOfCreation);
+
+        updatedUser.setSessionIds(listOfSessionIdsForUser);
+        updatedUser.setSessionName(listOfSessionNames);
+        updatedUser.setSessionDate(listOfTimeCreated);
+        mUserRepository.addUser(updatedUser);
+
+        mSessionsView.showSuccessfulAddNewSession();
 
     }
 

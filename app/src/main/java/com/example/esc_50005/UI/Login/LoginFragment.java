@@ -19,6 +19,7 @@ import android.widget.RadioGroup;
 
 import com.example.esc_50005.R;
 import com.example.esc_50005.UI.Course.FAQ.CourseActivity;
+import com.example.esc_50005.UI.Dashboard.main.DashboardActivity;
 import com.example.esc_50005.UI.Session.Main.SessionActivity;
 
 import static com.google.common.base.Preconditions.*;
@@ -102,6 +103,7 @@ public class LoginFragment extends Fragment implements LoginContract.View {
                         userType="professor";
                         break;
                     case R.id.student:
+                        Log.i("clicked","clickedstudent");
                         userType="student";
                         break;
 
@@ -118,7 +120,7 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     public void showSuccessfulLogin()
     {
         Log.i("showSuccessfulLogin","showSuccessfulLogin");
-        Intent intent = new Intent(getActivity(), CourseActivity.class);
+        Intent intent = new Intent(getActivity(), DashboardActivity.class);
         startActivity(intent);
         getActivity().finish();
     }

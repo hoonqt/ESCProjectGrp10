@@ -10,6 +10,7 @@ import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.PaginatedList;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CoursesInformationRemoteDataSource implements CoursesInformationDataSource {
 
@@ -27,10 +28,14 @@ public class CoursesInformationRemoteDataSource implements CoursesInformationDat
     }
 
     @Override
-    public void addCourse(final Double courseId, final String courseName) {
+    public void addCourse(final Double courseId, final String courseName, final List<String> studentIds) {
         final CoursesInformationDO newCourse=new CoursesInformationDO();
         newCourse.setCourseID(courseId);
         newCourse.setCourseName(courseName);
+        if(studentIds!=null)
+        {
+            newCourse.setListOfStudents(studentIds);
+        }
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -51,7 +56,7 @@ public class CoursesInformationRemoteDataSource implements CoursesInformationDat
 
     }
 
-    public ArrayList<CoursesInformationDO> queryCourses(final Double courseId, final String courseName) {
+    public ArrayList<CoursesInformationDO> queryCourses(final Double courseId) {
 
         coursesArrayList = new ArrayList<CoursesInformationDO>();
 
@@ -62,7 +67,6 @@ public class CoursesInformationRemoteDataSource implements CoursesInformationDat
                 CoursesInformationDO courseSelected = new CoursesInformationDO();
 
                 courseSelected.setCourseID(courseId);
-                courseSelected.setCourseName(courseName);
 
                 DynamoDBQueryExpression queryExpression = new DynamoDBQueryExpression()
                         .withHashKeyValues(courseSelected);

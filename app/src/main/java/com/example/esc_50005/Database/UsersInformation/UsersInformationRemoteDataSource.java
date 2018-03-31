@@ -18,7 +18,6 @@ public class UsersInformationRemoteDataSource implements UsersInformationDataSou
     public static final String TAG = "UsersInformationRemote";
 
     public UsersInformationRemoteDataSource() {
-
         AmazonDynamoDBClient dynamoDBClient = new AmazonDynamoDBClient(AWSMobileClient.getInstance().getCredentialsProvider());
         this.dynamoDBMapper = DynamoDBMapper.builder()
                 .dynamoDBClient(dynamoDBClient)
@@ -62,8 +61,6 @@ public class UsersInformationRemoteDataSource implements UsersInformationDataSou
             public void run() {
 
                 UsersInformationDO userSelected = new UsersInformationDO();
-                Log.i("userType at db",userType);
-                Log.i("username at db",username);
                 userSelected.setUserType(userType);
                 userSelected.setUsername(username);
                 userSelected.setPassword(password);
@@ -94,7 +91,7 @@ public class UsersInformationRemoteDataSource implements UsersInformationDataSou
             ex.printStackTrace();
         }
 
-        Log.i("size for particular ",Integer.toString(usersArrayList.size()));
+        Log.i("size for particular ",Integer.toString(usersArrayList.get(0).getSessionIds().size()));
 
         return usersArrayList;
 
