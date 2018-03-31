@@ -23,6 +23,7 @@ public class LoginPresenter implements LoginContract.Presenter  {
     private SharedPreferences userInformation;
 
     public LoginPresenter(@NonNull LoginContract.View contractView) {
+        Log.i("loginnnn","@@@@@@@");
         mLoginRepository=new UsersInformationRemoteDataSource();
         mLoginView = checkNotNull(contractView, "loginView cannot be null!");
         mLoginView.setPresenter(this);

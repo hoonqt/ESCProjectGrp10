@@ -64,6 +64,7 @@ public class StudentDashboardFragment extends Fragment implements DashboardContr
         mLayoutManager= new LinearLayoutManager(getActivity());
         mCurrentLayoutManagerType = StudentDashboardFragment.LayoutManagerType.LINEAR_LAYOUT_MANAGER;
         coursesListRecycler.setLayoutManager(new LinearLayoutManager(view.getContext()));
+
         button=view.findViewById(R.id.addNewCourse);
         button.setOnClickListener(this);
 
@@ -90,7 +91,7 @@ public class StudentDashboardFragment extends Fragment implements DashboardContr
         //haven't written code that opens the dashboard if login is successful
     }
 
-    public void addValidNewCourse()
+    public void showAddValidNewCourse()
     {
         attemptLoadCourses();
     }
@@ -99,10 +100,9 @@ public class StudentDashboardFragment extends Fragment implements DashboardContr
     public void showAddInvalidCourse() {
 
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this.getActivity());
-        alertDialog.setTitle("Course does not exist!");
+        alertDialog.setTitle("Course has not been created by professor or already exists on your dashboard!");
         alertDialog.create();
         alertDialog.show();
-
     }
 
 
@@ -113,14 +113,15 @@ public class StudentDashboardFragment extends Fragment implements DashboardContr
         @Override
         public void moveToCourseScreen(String clickedCourse) {
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("Course Activity", clickedCourse);
+            editor.putString("Current Course Activity", clickedCourse);
             editor.commit();
             Intent intent = new Intent(getActivity(), CourseActivity.class);
             startActivity(intent);
         }
     };
-
+    @Override
     public void onClick(View view) {
+        Log.i("student","student");
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this.getActivity());
         alertDialog.setTitle("Add New Course");
         LinearLayout layout = new LinearLayout(this.getActivity());
@@ -128,18 +129,14 @@ public class StudentDashboardFragment extends Fragment implements DashboardContr
 
         final EditText courseId = new EditText(getActivity().getApplicationContext());
         courseId.setHint("Course Id");
-        courseId.setId(0);
-        final EditText courseName = new EditText(getActivity().getApplicationContext());
-        courseName.setHint("Course Name");
         alertDialog.setNegativeButton("Submit",new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog,int id) {
                 Log.i("start query","start query");
-                mPresenter.queryCourseBeforeAdding(Double.parseDouble(courseId.getText().toString()),courseName.getText().toString());
+                mPresenter.queryCourseBeforeAddingStudent(Double.parseDouble(courseId.getText().toString()));
                 dialog.cancel();
             }
         });
         layout.addView(courseId);
-        layout.addView(courseName);
         alertDialog.setView(layout);
         alertDialog.create();
         alertDialog.show();
