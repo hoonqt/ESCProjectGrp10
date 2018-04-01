@@ -1,6 +1,7 @@
 package com.example.esc_50005.UI.Course.FAQ;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -8,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import com.example.esc_50005.R;
 import com.example.esc_50005.UI.Course.FAQ.session.professor.ProfessorSessionsFragment;
 import com.example.esc_50005.UI.Course.FAQ.session.student.StudentSessionsFragment;
 
@@ -42,7 +44,7 @@ public class CoursePagerAdapter extends FragmentStatePagerAdapter {
                 case 1:
                     return new FaqFragment();
                 case 2:
-                    return new NameListFragment();
+                    return new ProgressStudentFragment();
                 default:
                     return null;
             }
@@ -56,7 +58,7 @@ public class CoursePagerAdapter extends FragmentStatePagerAdapter {
                 case 1:
                     return new FaqFragment();
                 case 2:
-                    return new ProgressStudentFragment();
+                    return new NameListFragment();
                 default:
                     return null;
             }

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,14 +59,17 @@ public class ActivityStudentFrag extends Fragment implements QuizStudentContract
         mCurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
         quizRecycler.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
+        mQuizAdapter = new ActivityStudentAdapter(new ArrayList<QuizQuestions1DO>());
+        quizRecycler.setAdapter(mQuizAdapter);
+
         return view;
     }
 
     @Override
     public void showQuizes(ArrayList<QuizQuestions1DO> allthequestions) {
-
-        mQuizAdapter = new ActivityStudentAdapter(allthequestions);
-        quizRecycler.setAdapter(mQuizAdapter);
+        mQuizAdapter.setData(allthequestions);
+        mQuizAdapter.notifyDataSetChanged();
+        Log.i("set here","setter");
 
     }
 

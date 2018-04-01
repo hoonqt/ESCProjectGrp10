@@ -16,6 +16,7 @@ import com.example.esc_50005.R;
 import com.example.esc_50005.UI.ProfSession.Adapters.ActivityProfAdapter;
 import com.example.esc_50005.UI.ProfSession.Contracts.QuizProfContract;
 import com.example.esc_50005.UI.ProfSession.Presenters.ActivityProfPresenter;
+import com.example.esc_50005.WebSocket.ProfWebSocket;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -64,6 +65,9 @@ public class ActivityProfFrag extends Fragment implements QuizProfContract.View,
         mLayoutManager = new LinearLayoutManager(getActivity());
         mCurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
         quizRecycler.setLayoutManager(new LinearLayoutManager(view.getContext()));
+
+        ProfWebSocket socket = ProfWebSocket.getInstance();
+        socket.start();
 
 
         return view;
