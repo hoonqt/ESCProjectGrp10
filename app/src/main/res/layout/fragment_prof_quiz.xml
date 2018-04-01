@@ -12,7 +12,7 @@
         android:id="@+id/recyclerViewProfQuiz"></android.support.v7.widget.RecyclerView>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/fabbtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center"
