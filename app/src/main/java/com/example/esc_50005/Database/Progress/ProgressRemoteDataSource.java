@@ -18,8 +18,8 @@ public class ProgressRemoteDataSource implements ProgressDataSource {
 
     DynamoDBMapper dynamoDBMapper;
     ArrayList<JSONObject> datainjson;
-    ArrayList<NewQuizScoresDO> progressArrayList;
-    ArrayList<NewQuizScoresDO> nameList;
+    ArrayList<QuizScores2DO> progressArrayList;
+    ArrayList<QuizScores2DO> nameList;
 
     public ProgressRemoteDataSource() {
 
@@ -32,11 +32,12 @@ public class ProgressRemoteDataSource implements ProgressDataSource {
 
     }
 
-    public void putScores(String userid, String subjectcode, String quizname, Double score, String name) {
+    public void putScores(String userid, String subjectcode,String sessionID,  String quizname, Double score, String name) {
 
-        final NewQuizScoresDO quizscore = new NewQuizScoresDO();
-        quizscore.setStudentIDsubjectID(userid+subjectcode);
-        quizscore.setQuizID(quizname);
+        final QuizScores2DO quizscore = new QuizScores2DO();
+        quizscore.setSubjectCodeSessionID(subjectcode+sessionID);
+        quizscore.setStudentID(userid);
+        quizscore.setQuizName(quizname);
         quizscore.setScore(score);
         quizscore.setName(name);
 
@@ -52,32 +53,34 @@ public class ProgressRemoteDataSource implements ProgressDataSource {
     }
 
 
-    public ArrayList<NewQuizScoresDO> getScores(final String userId, final String subjectCode) {
+    public ArrayList<QuizScores2DO> getScores(final String subjectCode, final String sessionID) {
 
-        progressArrayList = new ArrayList<NewQuizScoresDO>();
+        progressArrayList = new ArrayList<QuizScores2DO>();
 
-        new Thread(new Runnable() {
+        Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
 
-                NewQuizScoresDO scores = new NewQuizScoresDO();
-                scores.setStudentIDsubjectID(userId+subjectCode);
+                QuizScores2DO scores = new QuizScores2DO();
+                scores.setSubjectCodeSessionID(subjectCode+sessionID);
 
                 DynamoDBQueryExpression queryExpression = new DynamoDBQueryExpression()
                         .withHashKeyValues(scores);
 
-                PaginatedList<NewQuizScoresDO> result = dynamoDBMapper.query(NewQuizScoresDO.class, queryExpression);
+                PaginatedList<QuizScores2DO> result = dynamoDBMapper.query(QuizScores2DO.class, queryExpression);
 
-                for (NewQuizScoresDO score : result) {
+                for (QuizScores2DO score : result) {
                     progressArrayList.add(score);
                     Log.i("scores in prds","scores: " + score.getScore().toString());
                 }
 
             }
-        }).start();
+        });
+
+        thread.start();
 
         try {
-            TimeUnit.SECONDS.sleep(2);
+            thread.join();
         } catch (InterruptedException ex) {
             ex.printStackTrace();
         }
@@ -88,25 +91,25 @@ public class ProgressRemoteDataSource implements ProgressDataSource {
 
     }
 
-    public ArrayList<NewQuizScoresDO> getNames(final String userId, final String subjectCode) {
+    public ArrayList<QuizScores2DO> getNames(final String userId, final String subjectCode) {
 
 //        dataInJson = new ArrayList<>();
 
-        nameList = new ArrayList<NewQuizScoresDO>();
+        nameList = new ArrayList<QuizScores2DO>();
 
         Thread retriever = new Thread(new Runnable() {
             @Override
             public void run() {
 
-                NewQuizScoresDO names = new NewQuizScoresDO();
-                names.setStudentIDsubjectID(userId+subjectCode);
+                QuizScores2DO names = new QuizScores2DO();
+
 
                 DynamoDBQueryExpression queryExpression = new DynamoDBQueryExpression()
                         .withHashKeyValues(names);
 
-                PaginatedList<NewQuizScoresDO> result = dynamoDBMapper.query(NewQuizScoresDO.class, queryExpression);
+                PaginatedList<QuizScores2DO> result = dynamoDBMapper.query(NewQuizScoresDO.class, queryExpression);
 
-                for (NewQuizScoresDO name : result) {
+                for (QuizScores2DO name : result) {
                     nameList.add(name);
 //                    Log.i("scores in prds","scores: " + name.getName().toString());
                 }

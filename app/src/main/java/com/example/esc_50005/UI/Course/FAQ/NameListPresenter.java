@@ -39,7 +39,7 @@ public class NameListPresenter implements ProgressContract.Presenter {
 
     @Override
     public void loadScores() {
-        progressArrayList = mProgressRepository.getScores("1002212","50.004");// need to change it to base on the user login details
+        //progressArrayList = mProgressRepository.getScores("1002212","50.004");// need to change it to base on the user login details
 //        processScores(progressArrayList);
 
         Log.i(TAG, "LoadScores size is " + progressArrayList.size() + progressArrayList.get(0).getScore());
@@ -97,7 +97,7 @@ public class NameListPresenter implements ProgressContract.Presenter {
 
     @Override
     public void loadNames() {
-        nameList = mProgressRepository.getNames("1002212","50.004");// need to change it to base on the user login details
+        //nameList = mProgressRepository.getNames("1002212","50.004");// need to change it to base on the user login details
         processNames(nameList);
 
         Log.i(TAG, "LoadName size is " + nameList.size() + nameList.get(0).getName());
