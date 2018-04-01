@@ -47,7 +47,7 @@ public class LoginTest {
 //    @Before
 //    public void runBeforeEachTest()
 //    {
-//        loginFragment = new LoginFragment();
+//        loginFragment = new SignupFragment();
 //        loginFragment.attemptLogin();
 //    }
 //

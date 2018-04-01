@@ -17,7 +17,6 @@ public interface FaqContract {
     }
 
     interface View extends BaseView<Presenter> {
-//        <T> void showFaq(T data);
         void showFaq(ArrayList<Faq> data);
         void showNoFaq();
         void showLoadFaqError();

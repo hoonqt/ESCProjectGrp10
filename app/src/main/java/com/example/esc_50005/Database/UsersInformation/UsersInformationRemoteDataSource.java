@@ -39,6 +39,7 @@ public class UsersInformationRemoteDataSource implements UsersInformationDataSou
 
     @Override
     public void addUser(final UsersInformationDO userInformation) {
+        Log.i("username keyed",userInformation.getUsername());
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -90,8 +91,6 @@ public class UsersInformationRemoteDataSource implements UsersInformationDataSou
         } catch (InterruptedException ex) {
             ex.printStackTrace();
         }
-
-        Log.i("size for particular ",Integer.toString(usersArrayList.get(0).getSessionIds().size()));
 
         return usersArrayList;
 

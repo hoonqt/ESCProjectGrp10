@@ -17,9 +17,9 @@ public class WebSocket {
     OkHttpClient client;
     private static okhttp3.WebSocket ws;
 
-    private static WebSocket instance;
+    public static WebSocket instance;
 
-    private WebSocket() {
+    public WebSocket() {
 
         client = new OkHttpClient();
         Request request = new Request.Builder().url("ws://ec2-54-175-239-77.compute-1.amazonaws.com:3000").build();
