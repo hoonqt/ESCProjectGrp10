@@ -114,6 +114,7 @@ public class ActivityProfAdapter extends RecyclerView.Adapter<ActivityProfAdapte
                 }
             });
 
+
             switchUp.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -127,6 +128,7 @@ public class ActivityProfAdapter extends RecyclerView.Adapter<ActivityProfAdapte
                     }
                 }
             });
+
 
         }
 
