@@ -1,4 +1,4 @@
-package com.example.esc_50005.UI.Login;
+package com.example.esc_50005.UI.SignUp;
 
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -18,46 +18,34 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 
 import com.example.esc_50005.R;
-import com.example.esc_50005.UI.Course.FAQ.CourseActivity;
 import com.example.esc_50005.UI.Dashboard.main.DashboardActivity;
-import com.example.esc_50005.UI.Session.Main.SessionActivity;
-import com.nexmo.client.NexmoClient;
-import com.nexmo.client.NexmoClientException;
-import com.nexmo.client.auth.AuthMethod;
-import com.nexmo.client.auth.TokenAuthMethod;
-import com.nexmo.client.sms.SmsSubmissionResult;
-import com.nexmo.client.sms.messages.TextMessage;
 
-import java.io.IOException;
-
-import static com.google.common.base.Preconditions.*;
-
+import static com.google.common.base.Preconditions.checkNotNull;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class LoginFragment extends Fragment implements LoginContract.View {
+public class SignupFragment extends Fragment implements SignupContract.View {
 
 
     // UI references.
-    private AutoCompleteTextView mEmailView;
+    private EditText mUsernameView;
     private EditText mPasswordView;
-    private View mProgressView;
-    private View mLoginFormView;
     public static String username;
     public static String password;
     public static String userType;
+    public static String securityAnswer;
     SharedPreferences sharedPreferences;
-    private LoginContract.Presenter mPresenter= new LoginPresenter(this);
+    private SignupContract.Presenter mPresenter= new SignupPresenter(this);
 
 
-    public LoginFragment() {
+    public SignupFragment() {
         // Required empty public constructor
     }
 
     @Override
-    public void setPresenter(@NonNull LoginContract.Presenter presenter) {
+    public void setPresenter(@NonNull SignupContract.Presenter presenter) {
         Log.i("checkIfNull","checkIfNull");
         mPresenter = checkNotNull(presenter);
     }
@@ -66,23 +54,23 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-        View view=inflater.inflate(R.layout.login_fragment, container, false);
-        setUpLogin(view);
+        View view=inflater.inflate(R.layout.signup_fragment, container, false);
+        setUpSignup(view);
         return view;
     }
 
 
-    public void setUpLogin(View view)
+    public void setUpSignup(View view)
     {
-        mEmailView = (AutoCompleteTextView) view.findViewById(R.id.email);
+        mUsernameView = (EditText) view.findViewById(R.id.username);
         mPasswordView = (EditText) view.findViewById(R.id.password);
         RadioGroup selectProfessorOrStudentButton = (RadioGroup) view.findViewById(R.id.professorOrStudent);
 
-        Button mEmailSignInButton = (Button) view.findViewById(R.id.email_sign_in_button);
-        mEmailSignInButton.setOnClickListener(new View.OnClickListener() {
+        Button mSignUpButton = (Button) view.findViewById(R.id.submit_signup);
+        mSignUpButton.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
-                username=mEmailView.getText().toString();
+                username=mUsernameView.getText().toString();
                 password=mPasswordView.getText().toString();
                 if(userType==null)
                 {
@@ -92,13 +80,13 @@ public class LoginFragment extends Fragment implements LoginContract.View {
                 editor.putString("Username", username);
                 editor.putString("Password", password);
                 editor.putString("UserType", userType);
+                editor.putString("SecurityAnswer", securityAnswer);
                 Log.i("answer",sharedPreferences.getString("Username",""));
                 editor.commit();
-                attemptLogin();
+                attemptSignup();
             }
         });
 
-        mLoginFormView = view.findViewById(R.id.login_form);
 
         selectProfessorOrStudentButton.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -120,37 +108,33 @@ public class LoginFragment extends Fragment implements LoginContract.View {
         });
     }
 
-    public void attemptLogin()
+    public void attemptSignup()
     {
-        mPresenter.loadUsersFromDatabase(getActivity().getApplicationContext());
+        String username=sharedPreferences.getString("Username","");
+        String password=sharedPreferences.getString("Password","");
+        String userType=sharedPreferences.getString("UserType","");
+        String securityAnswer=sharedPreferences.getString("SecurityAnswer","");
+        mPresenter.loadUsersFromDatabase(username, password, userType, securityAnswer);
     }
 
-    public void showSuccessfulLogin() {
-//        AuthMethod auth = new TokenAuthMethod("bfd3eff5", "WqokuOueAG9v9ODV");
-//        NexmoClient client = new NexmoClient(auth);
-//        SmsSubmissionResult[] responses = client.getSmsClient().submitMessage(new TextMessage(
-//                "Acme Inc",
-//                "6596669129",
-//                "A text message sent using the Nexmo SMS API"));
-//        for (SmsSubmissionResult response : responses) {
-//            System.out.println(response);
-//        }
-//        Log.i("showSuccessfulLogin","showSuccessfulLogin");
+    @Override
+    public void showUnsuccessfulSignup() {
+        mUsernameView.clearComposingText();
+        mPasswordView.clearComposingText();
+        AlertDialog.Builder builder=new AlertDialog.Builder(getContext());
+        builder.setMessage("Username already exists! " );
+        AlertDialog alertDialog=builder.create();
+        alertDialog.show();
+
+    }
+
+    @Override
+    public void showSuccessfulSignup() {
+
         Intent intent = new Intent(getActivity(), DashboardActivity.class);
         startActivity(intent);
         getActivity().finish();
     }
-
-    public void showUnsuccessfulLogin()
-    {
-        mEmailView.clearListSelection();
-        mPasswordView.clearComposingText();
-        AlertDialog.Builder builder=new AlertDialog.Builder(getContext());
-        builder.setMessage("Wrong username or password sorry! " );
-        AlertDialog alertDialog=builder.create();
-        alertDialog.show();
-    }
-
 }
 
 

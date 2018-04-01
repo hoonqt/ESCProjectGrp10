@@ -23,7 +23,6 @@ public class LoginPresenter implements LoginContract.Presenter  {
     private SharedPreferences userInformation;
 
     public LoginPresenter(@NonNull LoginContract.View contractView) {
-        Log.i("loginnnn","@@@@@@@");
         mLoginRepository=new UsersInformationRemoteDataSource();
         mLoginView = checkNotNull(contractView, "loginView cannot be null!");
         mLoginView.setPresenter(this);
@@ -44,12 +43,24 @@ public class LoginPresenter implements LoginContract.Presenter  {
     @Override
     public void loadSuccessfulLogin() {
         Log.i("loadSuccessfulLogin","loadSuccessfulLogin");
-        mLoginView.showSuccessfulLogin();
+        try{
+            mLoginView.showSuccessfulLogin();
+        }
+        catch(Exception ex)
+        {
+
+        }
     }
 
     public void showSuccessfulLogin()
     {
-        mLoginView.showSuccessfulLogin();
+        try{
+            mLoginView.showSuccessfulLogin();
+        }
+        catch(Exception ex)
+        {
+
+        }
     }
 
     public void checkIfLoginIsValid(ArrayList<UsersInformationDO> userInformationJsonData){
