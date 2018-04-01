@@ -57,7 +57,7 @@ public class SessionScreenTest {
      */
     @Rule
     public ActivityTestRule<SessionActivity> mActivityRule = new ActivityTestRule<>(
-            SessionActivity.class, false, false);
+            SessionActivity.class);
 
     @Before
     public void init(){

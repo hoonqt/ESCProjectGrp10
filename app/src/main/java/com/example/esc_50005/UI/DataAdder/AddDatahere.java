@@ -20,7 +20,11 @@ public class AddDatahere extends AppCompatActivity {
 
         AWSMobileClient.getInstance().initialize(this).execute();
 
-        ;
+        ProgressRemoteDataSource data = new ProgressRemoteDataSource();
+
+        data.putScores("1002212","50.004","Session1","Quiz 1",3.0,"Alvin Chang");
+        data.putScores("1002212","50.004","Session2","Quiz 1",4.0,"Alvin Chang");
+        data.putScores("1002212","50.004","Session3","Quiz 1",5.0,"Alvin Chang");
 
     }
 }
