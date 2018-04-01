@@ -15,18 +15,20 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="onClick"
-        android:id="@+id/clickToGoSessionActivity"/>
-
     <fragment
         android:layout_marginTop="60dp"
-        android:id="@+id/dashboardFragment"
+        android:id="@+id/professorDashboardFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        class="com.example.cindy.esc_50005.UI.Dashboard.DashboardFragment"
+        class="com.example.esc_50005.UI.Dashboard.professor.ProfessorDashboardFragment"
+        >
+    </fragment>
+    <fragment
+        android:layout_marginTop="60dp"
+        android:id="@+id/studentDashboardFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        class="com.example.esc_50005.UI.Dashboard.student.StudentDashboardFragment"
         >
     </fragment>
 
