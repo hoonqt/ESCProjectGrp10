@@ -8,7 +8,8 @@ import java.util.ArrayList;
 
 public interface FaqDataSource {
 
-    public void removeFaq(Faq faq);
+    public void deleteFaq(Faq faq);
+//    public void deleteAllFaqs();
     public void saveFaq(Faq faq);
     public ArrayList<Faq> getFaqListByCourseId(String courseId);
 }

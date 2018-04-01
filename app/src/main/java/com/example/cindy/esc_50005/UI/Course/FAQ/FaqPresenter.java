@@ -20,7 +20,7 @@ public class FaqPresenter implements FaqContract.Presenter {
     public static final String TAG = "FaqPresenter";
 
     private final FaqContract.View mFaqView;
-    private FaqRemoteDataSource mFaqRepository;
+    public FaqRemoteDataSource mFaqRepository;
     ArrayList<Faq> faqJsonData;
 
     public FaqPresenter(@NonNull FaqContract.View faqView) {
@@ -53,7 +53,7 @@ public class FaqPresenter implements FaqContract.Presenter {
     }
 
     public void upvoteFaq(Faq faq) {
-        List<String> usersVoted = faq.getUsersVoted();
+        ArrayList<String> usersVoted = faq.getUsersVoted();
         if (!usersVoted.contains("1001688")) {
             faq.setUpvotes(faq.getUpvotes() + 1);
             usersVoted.add("1001688");
@@ -65,7 +65,7 @@ public class FaqPresenter implements FaqContract.Presenter {
     }
 
     public void downvoteFaq(Faq faq) {
-        List<String> usersVoted = faq.getUsersVoted();
+        ArrayList<String> usersVoted = faq.getUsersVoted();
         if (faq.getUsersVoted().contains("1001688")) {
             faq.setUpvotes(faq.getUpvotes() - 1);
             usersVoted.remove("1001688");

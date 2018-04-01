@@ -1,23 +1,33 @@
 package com.example.cindy.esc_50005.Database.FAQ;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+import android.arch.persistence.room.TypeConverters;
+import android.support.annotation.NonNull;
+
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBAttribute;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBHashKey;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBRangeKey;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBTable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @DynamoDBTable(tableName = "escproject-mobilehub-27166461-Faq")
 
+@Entity (tableName = "faq")
 public class Faq {
-    public String questionId;
+    @PrimaryKey
+    @NonNull
     public String courseId;
+    public String questionId;
     public String question;
     public String answer;
     public String date;
     public int upvotes;
     public String author;
-    public List<String> usersVoted;
+    @TypeConverters(Converters.class)
+    private ArrayList<String> usersVoted;
 
     @DynamoDBHashKey(attributeName = "courseId")
     @DynamoDBAttribute(attributeName = "courseId")
@@ -70,10 +80,10 @@ public class Faq {
     }
 
     @DynamoDBAttribute(attributeName = "usersVoted")
-    public List<String> getUsersVoted() {
+    public ArrayList<String> getUsersVoted() {
         return usersVoted;
     }
-    public void setUsersVoted(final List<String> usersVoted) {
+    public void setUsersVoted(final ArrayList<String> usersVoted) {
         this.usersVoted = usersVoted;
     }
 

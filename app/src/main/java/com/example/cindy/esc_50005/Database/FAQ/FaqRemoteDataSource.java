@@ -40,7 +40,7 @@ public class FaqRemoteDataSource implements FaqDataSource {
     }
 
     @Override
-    public void removeFaq(final Faq faq) {
+    public void deleteFaq(final Faq faq) {
 
         new Thread(new Runnable() {
             @Override
@@ -50,6 +50,11 @@ public class FaqRemoteDataSource implements FaqDataSource {
         }).start();
 
     }
+
+    // Not allowed
+//    @Override
+//    public void deleteAllFaqs() {
+//    }
 
     @Override
     public void saveFaq(final Faq faq) {
