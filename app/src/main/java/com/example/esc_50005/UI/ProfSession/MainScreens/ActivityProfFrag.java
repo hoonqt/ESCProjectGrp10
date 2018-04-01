@@ -3,6 +3,7 @@ package com.example.esc_50005.UI.ProfSession.MainScreens;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -69,6 +70,14 @@ public class ActivityProfFrag extends Fragment implements QuizProfContract.View,
         ProfWebSocket socket = ProfWebSocket.getInstance();
         socket.start();
 
+        FloatingActionButton fab = view.findViewById(R.id.fabbtn);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
 
         return view;
     }
@@ -95,4 +104,6 @@ public class ActivityProfFrag extends Fragment implements QuizProfContract.View,
     public void showLoadQuizError() {
 
     }
+
+
 }
