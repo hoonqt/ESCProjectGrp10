@@ -10,7 +10,8 @@ public interface UsersInformationDataSource {
 
     void removeUser(UsersInformationDO faq);
     void addUser(UsersInformationDO faq);
-    ArrayList<UsersInformationDO> queryUser(String username, String password, String userType);
+    ArrayList<UsersInformationDO> queryUser(final String username, final String password, final String userType);
+    ArrayList<UsersInformationDO> queryParticularUser(final String username, final String userType);
 
 
 }

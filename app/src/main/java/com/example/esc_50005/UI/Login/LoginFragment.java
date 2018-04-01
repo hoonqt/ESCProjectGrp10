@@ -1,6 +1,7 @@
 package com.example.esc_50005.UI.Login;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 
 import com.example.esc_50005.R;
@@ -126,19 +128,39 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     }
 
     public void showSuccessfulLogin() {
-//        AuthMethod auth = new TokenAuthMethod("bfd3eff5", "WqokuOueAG9v9ODV");
-//        NexmoClient client = new NexmoClient(auth);
-//        SmsSubmissionResult[] responses = client.getSmsClient().submitMessage(new TextMessage(
-//                "Acme Inc",
-//                "6596669129",
-//                "A text message sent using the Nexmo SMS API"));
-//        for (SmsSubmissionResult response : responses) {
-//            System.out.println(response);
-//        }
-//        Log.i("showSuccessfulLogin","showSuccessfulLogin");
         Intent intent = new Intent(getActivity(), DashboardActivity.class);
         startActivity(intent);
         getActivity().finish();
+    }
+
+    @Override
+    public void showSecurityQuestion() {
+        AlertDialog.Builder builder=new AlertDialog.Builder(this.getContext());
+        builder.setTitle("You seem to have forgotten your password..");
+        LinearLayout layout = new LinearLayout(this.getActivity());
+        layout.setOrientation(LinearLayout.VERTICAL);
+        final EditText question = new EditText(getActivity().getApplicationContext());
+        question.setHint("What is your favorite color?");
+
+        builder.setNegativeButton("Submit",new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog,int id) {
+                mPresenter.verifySecurityAnswer(question.getText().toString(),userType,username);
+                dialog.cancel();
+            }
+        });
+        layout.addView(question);
+        builder.setView(layout);
+        builder.create();
+        builder.show();
+    }
+
+    @Override
+    public void showAccountLockedOut() {
+        AlertDialog.Builder builder=new AlertDialog.Builder(this.getContext());
+        builder.setTitle("Your account has been locked out, kindly contact your adminstrator.");
+        builder.create();
+        builder.show();
+
     }
 
     public void showUnsuccessfulLogin()
@@ -149,6 +171,8 @@ public class LoginFragment extends Fragment implements LoginContract.View {
         builder.setMessage("Wrong username or password sorry! " );
         AlertDialog alertDialog=builder.create();
         alertDialog.show();
+
+        mPresenter.addBruteForceCount(username,userType);
     }
 
 }

@@ -16,10 +16,16 @@ public interface LoginContract {
         void loadUnsuccessfulLogin();
         void loadSuccessfulLogin();
         void loadUsersFromDatabase(Context context);
-        void checkIfLoginIsValid(ArrayList<UsersInformationDO> userInformationJsonData);
+        void checkIfLoginIsValid(ArrayList<UsersInformationDO> userInformationJsonData, String password);
+        void addBruteForceCount(String username, String userType);
+        void verifySecurityAnswer(String answer, String userType, String username);
+        void disableAccount();
+        void loadAccountLockedOut();
     }
     interface View extends BaseView <Presenter> {
         void showUnsuccessfulLogin();
         void showSuccessfulLogin();
+        void showSecurityQuestion();
+        void showAccountLockedOut();
     }
 }
