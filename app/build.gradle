@@ -31,6 +31,8 @@ configurations.all {
     resolutionStrategy.force 'com.android.support:support-annotations:23.1.0'
 }
 
+repositories {jcenter()}
+
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
@@ -59,4 +61,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test:rules:0.4.1'
 
     androidTestImplementation 'com.google.code.findbugs:jsr305:3.0.1'
+    // Required -- JUnit 4 framework
+
+    androidTestImplementation 'org.mockito:mockito-core:1.10.19'
 }
