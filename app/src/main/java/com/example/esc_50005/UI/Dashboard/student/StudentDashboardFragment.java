@@ -118,7 +118,7 @@ public class StudentDashboardFragment extends Fragment implements DashboardContr
         @Override
         public void moveToCourseScreen(String clickedCourse) {
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("Current Course Activity", clickedCourse);
+            editor.putString("CurrentCourseActivity", clickedCourse);
             editor.commit();
             Intent intent = new Intent(getActivity(), CourseActivity.class);
             startActivity(intent);
@@ -137,7 +137,7 @@ public class StudentDashboardFragment extends Fragment implements DashboardContr
         alertDialog.setNegativeButton("Submit",new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog,int id) {
                 Log.i("start query","start query");
-                mPresenter.queryCourseBeforeAddingStudent(Double.parseDouble(courseId.getText().toString()));
+                mPresenter.queryCourseBeforeAdding(sharedPreferences.getString("UserType",""),Double.parseDouble(courseId.getText().toString()),"");
                 dialog.cancel();
             }
         });

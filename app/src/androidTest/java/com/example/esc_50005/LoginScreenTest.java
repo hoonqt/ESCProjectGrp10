@@ -68,7 +68,7 @@ public class LoginScreenTest {
 
         onView(withId(R.id.student))
                 .check(matches(isChecked()));
-        onView(withId(R.id.email_sign_in_button)).perform(click());
+        onView(withId(R.id.login_button)).perform(click());
 
         String testUsername="cindy";
         String username=preferencesEditor.getString("Username","");
@@ -86,7 +86,7 @@ public class LoginScreenTest {
 
         onView(withId(R.id.student))
                 .check(matches(isChecked()));
-        onView(withId(R.id.email_sign_in_button)).perform(click());
+        onView(withId(R.id.login_button)).perform(click());
 
         String testUsername="cindy";
         String username=preferencesEditor.getString("Username","");

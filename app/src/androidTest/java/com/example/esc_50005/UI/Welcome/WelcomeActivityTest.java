@@ -69,7 +69,7 @@ public class WelcomeActivityTest {
         appCompatEditText.perform(scrollTo(), replaceText("corgihello"), closeSoftKeyboard());
 
         ViewInteraction appCompatButton2 = onView(
-                allOf(withId(R.id.email_sign_in_button), withText("Sign in or register"),
+                allOf(withId(R.id.login_button), withText("Sign in or register"),
                         childAtPosition(
                                 allOf(withId(R.id.email_login_form),
                                         childAtPosition(

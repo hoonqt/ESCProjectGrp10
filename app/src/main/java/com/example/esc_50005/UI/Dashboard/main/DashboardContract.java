@@ -12,8 +12,7 @@ public interface DashboardContract {
     interface Presenter extends BasePresenter {
         void loadCoursesFromDatabase(String username, String userType);
         void addValidCourseProfessor(Double courseId, String courseName);
-        void queryCourseBeforeAddingProfessor(Double courseId, String courseName);
-        void queryCourseBeforeAddingStudent(Double courseId);
+        void queryCourseBeforeAdding(String userType, Double courseId, String courseName);
     }
     interface View extends BaseView <Presenter> {
         void showSuccessfullyLoadedCourses(ArrayList<String> courseInformationJsonData);
