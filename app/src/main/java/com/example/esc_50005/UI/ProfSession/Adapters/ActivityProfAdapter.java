@@ -13,7 +13,7 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import com.example.esc_50005.Database.Quizstuff.QuizQuestions1DO;
+import com.example.esc_50005.Database.Quizstuff.QuizQuestions2DO;
 import com.example.esc_50005.R;
 import com.example.esc_50005.UI.ProfSession.SideScreens.ActivityInfo;
 import com.example.esc_50005.UI.Session.Main.SessionActivity;
@@ -27,20 +27,20 @@ import java.util.ArrayList;
 
 public class ActivityProfAdapter extends RecyclerView.Adapter<ActivityProfAdapter.QuizViewHolder> {
 
-    private ArrayList<QuizQuestions1DO> dataset;
+    private ArrayList<QuizQuestions2DO> dataset;
     private ArrayList<String> names;
     private static int viewHolderCount = 0;
     private Context context;
     SharedPreferences sharedPreferences;
 
-    public ActivityProfAdapter(ArrayList<QuizQuestions1DO> input) {
+    public ActivityProfAdapter(ArrayList<QuizQuestions2DO> input) {
 
         names = new ArrayList<>();
         dataset = input;
 
         for (int i = 0;i<dataset.size();i++) {
-            if (!names.contains(dataset.get(i).getQuizName())) {
-                names.add(dataset.get(i).getQuizName());
+            if (!(names.contains(dataset.get(i).getQuizNameQnID().split(" ")[0]+ " " +dataset.get(i).getQuizNameQnID().split(" ")[1]))) {
+                names.add(dataset.get(i).getQuizNameQnID().split(" ")[0]+ " " +dataset.get(i).getQuizNameQnID().split(" ")[1]);
             }
         }
 
@@ -78,10 +78,10 @@ public class ActivityProfAdapter extends RecyclerView.Adapter<ActivityProfAdapte
 
     @Override
     public int getItemCount() {
-        if (dataset == null) {
+        if (names == null) {
             return 0;
         }
-        else return dataset.size();
+        else return names.size();
     }
 
     class QuizViewHolder extends RecyclerView.ViewHolder {
@@ -134,8 +134,7 @@ public class ActivityProfAdapter extends RecyclerView.Adapter<ActivityProfAdapte
 
         public void bind(int position) {
 
-            QuizQuestions1DO question = dataset.get(position);
-            mTextView.setText(question.getQuizName());
+            mTextView.setText(names.get(position));
 
         }
 

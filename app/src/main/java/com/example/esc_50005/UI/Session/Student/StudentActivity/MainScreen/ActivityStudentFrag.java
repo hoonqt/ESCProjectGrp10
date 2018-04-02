@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import com.example.esc_50005.Database.Quizstuff.QuizQuestions1DO;
+import com.example.esc_50005.Database.Quizstuff.QuizQuestions2DO;
 import com.example.esc_50005.R;
 import com.example.esc_50005.UI.Session.Student.StudentActivity.Adapters.ActivityStudentAdapter;
 import com.example.esc_50005.UI.Session.Student.StudentActivity.Contracts.QuizStudentContract;
@@ -59,14 +60,14 @@ public class ActivityStudentFrag extends Fragment implements QuizStudentContract
         mCurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
         quizRecycler.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
-        mQuizAdapter = new ActivityStudentAdapter(new ArrayList<QuizQuestions1DO>());
+        mQuizAdapter = new ActivityStudentAdapter(new ArrayList<QuizQuestions2DO>());
         quizRecycler.setAdapter(mQuizAdapter);
 
         return view;
     }
 
     @Override
-    public void showQuizes(ArrayList<QuizQuestions1DO> allthequestions) {
+    public void showQuizes(ArrayList<QuizQuestions2DO> allthequestions) {
         mQuizAdapter.setData(allthequestions);
         mQuizAdapter.notifyDataSetChanged();
         Log.i("set here","setter");
