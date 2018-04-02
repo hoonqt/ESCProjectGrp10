@@ -98,7 +98,7 @@ public class NameListPresenter implements ProgressContract.Presenter {
 
     @Override
     public void loadNames() {
-        nameList = mProgressRepository.getNames("1002212","50.004");// need to change it to base on the user login details
+        nameList = mProgressRepository.getNames("50.004","Session1");// need to change it to base on the user login details
         processNames(nameList);
 
         Log.i(TAG, "LoadName size is " + nameList.size() + nameList.get(0).getName());
