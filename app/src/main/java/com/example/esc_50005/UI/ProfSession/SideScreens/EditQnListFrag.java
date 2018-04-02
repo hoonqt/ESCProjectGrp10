@@ -58,7 +58,7 @@ public class EditQnListFrag extends Fragment implements Serializable {
 
         if (bundle != null) {
             dataset = (ArrayList<QuizQuestions1DO>)bundle.getSerializable("allthequestions");
-            Log.i("Here",dataset.get(0).getQuestion());
+            Log.i("Over at editqnlistfrag",dataset.get(0).getQuestion());
         }
 
         mQnListAdapter = new QnListAdapter(dataset);

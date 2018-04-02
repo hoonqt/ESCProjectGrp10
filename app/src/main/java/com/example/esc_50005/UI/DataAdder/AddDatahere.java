@@ -18,13 +18,11 @@ public class AddDatahere extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_datahere);
-
         AWSMobileClient.getInstance().initialize(this).execute();
 
         ProgressRemoteDataSource data = new ProgressRemoteDataSource();
 
-
-        Log.i("Size of array",Integer.toString(data.getNames("50.004").size()));
+        Log.i("Hello world",Integer.toString(data.getScores("50.004","1002212").size()));
 
     }
 }
