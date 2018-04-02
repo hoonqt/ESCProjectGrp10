@@ -7,6 +7,7 @@ import android.util.Log;
 import com.example.esc_50005.Database.Progress.NewQuizScoresDO;
 import com.example.esc_50005.Database.Progress.ProgressRemoteDataSource;
 import com.example.esc_50005.Database.Progress.QuizScores2DO;
+import com.example.esc_50005.Database.Progress.QuizScores4DO;
 
 
 import java.util.ArrayList;
@@ -23,8 +24,8 @@ public class ProgressPresenter implements ProgressContract.Presenter {
 
     private final ProgressContract.View mProgressView;
     private ProgressRemoteDataSource mProgressRepository;
-    ArrayList<QuizScores2DO> progressArrayList;
-    ArrayList<QuizScores2DO> nameList;
+    ArrayList<QuizScores4DO> progressArrayList;
+    ArrayList<QuizScores4DO> nameList;
 
     public ProgressPresenter(@NonNull ProgressContract.View progressView) {
         mProgressRepository = new ProgressRemoteDataSource();
@@ -42,14 +43,14 @@ public class ProgressPresenter implements ProgressContract.Presenter {
 
     @Override
     public void loadScores() {
-        //progressArrayList = mProgressRepository.getScores("50.004","Session1");// need to change it to base on the user login details
-//        processScores(progressArrayList);
+        progressArrayList = mProgressRepository.getScores("50.004","1002212");// need to change it to base on the user login details
+        processScores(progressArrayList);
 
         Log.i(TAG, "LoadScores size is " + progressArrayList.size());
     }
 
 
-    public void processScores(ArrayList<QuizScores2DO> progressArrayList) {
+    public void processScores(ArrayList<QuizScores4DO> progressArrayList) {
         ArrayList<Double> scoreList = new ArrayList<Double>();
         Log.i(TAG, "Length of progressArrayList = " + progressArrayList.size());
 
@@ -73,7 +74,7 @@ public class ProgressPresenter implements ProgressContract.Presenter {
 
 
     @Override
-    public double processAverage(ArrayList<QuizScores2DO> progressArrayList) {
+    public double processAverage(ArrayList<QuizScores4DO> progressArrayList) {
         ArrayList<Double> scoreList = new ArrayList<Double>();
         double total=0;
         double avg = 0;
@@ -82,7 +83,7 @@ public class ProgressPresenter implements ProgressContract.Presenter {
 
         if (progressArrayList.size() != 0) {
             Log.i(TAG, "Length of progressArrayList = " + progressArrayList.size());
-            student = progressArrayList.get(0).getStudentID();//might need to change in the future
+            student = progressArrayList.get(0).getStudentIDSessionID();//might need to change in the future
             for(int i = 0; i<progressArrayList.size();i++){
                 try{
                     total += progressArrayList.get(i).getScore();
@@ -100,13 +101,13 @@ public class ProgressPresenter implements ProgressContract.Presenter {
 
     @Override
     public void loadNames() {
-        //nameList = mProgressRepository.getNames("1002212","50.004");// need to change it to base on the user login details
+        nameList = mProgressRepository.getScores("50.004","1002212");// need to change it to base on the user login details
         processNames(nameList);
 
         Log.i(TAG, "LoadName size is " + nameList.size() + nameList.get(0).getName());
     }
 
-    public void processNames(ArrayList<QuizScores2DO> nameList) {
+    public void processNames(ArrayList<QuizScores4DO> nameList) {
         ArrayList<String> names = new ArrayList<String>();
         ArrayList<String> studentIds = new ArrayList<String>();
         Log.i(TAG, "Length of nameList = " + nameList.size());
@@ -118,7 +119,7 @@ public class ProgressPresenter implements ProgressContract.Presenter {
                 if(names.size()==0){
                     try{
                         names.add(nameList.get(i).getName());
-                        studentIds.add(nameList.get(i).getStudentID());
+                        studentIds.add(nameList.get(i).getStudentIDSessionID());
                         Log.i(TAG, "firstname = " + nameList.get(i).getName());
                     } catch(Exception e){
                         e.printStackTrace();
