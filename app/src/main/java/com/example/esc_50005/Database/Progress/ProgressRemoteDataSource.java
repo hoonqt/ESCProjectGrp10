@@ -148,5 +148,48 @@ public class ProgressRemoteDataSource implements ProgressDataSource {
 
     }
 
+    public ArrayList<String> getNames(final String subjectCode, final String sessionID) {
+        final ArrayList<String> output = new ArrayList<>();
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                QuizScores4DO scores = new QuizScores4DO();
+                scores.setCourseID(subjectCode);
+
+                Condition rangeKeyCondition = new Condition()
+                        .withComparisonOperator(ComparisonOperator.CONTAINS)
+                        .withAttributeValueList(new AttributeValue().withS(sessionID));
+
+
+                DynamoDBQueryExpression queryExpression = new DynamoDBQueryExpression()
+                        .withHashKeyValues(scores)
+                        .withRangeKeyCondition("StudentIDSessionID",rangeKeyCondition)
+                        .withConsistentRead(false);
+
+                PaginatedList<QuizScores4DO> result = dynamoDBMapper.query(QuizScores4DO.class, queryExpression);
+
+                for (QuizScores4DO score : result) {
+                    output.add(score.getName());
+                    Log.i("scores in prds","scores: " + score.getScore().toString());
+                }
+
+            }
+        });
+
+        thread.start();
+
+        try {
+            thread.join();
+        } catch (InterruptedException ex) {
+            ex.printStackTrace();
+        }
+
+        Log.i("Progresslist in prds", "progressList" + progressArrayList.toString());
+
+        return output;
+    }
+
 
 }
