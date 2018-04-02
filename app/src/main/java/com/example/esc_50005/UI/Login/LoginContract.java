@@ -15,7 +15,7 @@ public interface LoginContract {
     interface Presenter extends BasePresenter {
         void loadUnsuccessfulLogin();
         void loadSuccessfulLogin();
-        void loadUsersFromDatabase(Context context);
+        void loadUsersFromDatabase(String username, String userType, String password);
         void checkIfLoginIsValid(ArrayList<UsersInformationDO> userInformationJsonData, String password);
         void addBruteForceCount(String username, String userType);
         void verifySecurityAnswer(String answer, String userType, String username);

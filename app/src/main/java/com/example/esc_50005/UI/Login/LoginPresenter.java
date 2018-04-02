@@ -1,8 +1,5 @@
 package com.example.esc_50005.UI.Login;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
@@ -19,9 +16,7 @@ public class LoginPresenter implements LoginContract.Presenter  {
     private final LoginContract.View mLoginView;
     private final UsersInformationRemoteDataSource mLoginRepository;
     ArrayList<UsersInformationDO> userInformationJsonData;
-    private Context context;
-    ArrayList<UsersInformationDO> bruteForceJsonData;
-    private SharedPreferences userInformation;
+    ArrayList<UsersInformationDO> userBruteForceJsonData;
 
     public LoginPresenter(@NonNull LoginContract.View contractView) {
         mLoginRepository=new UsersInformationRemoteDataSource();
@@ -36,29 +31,30 @@ public class LoginPresenter implements LoginContract.Presenter  {
 
     public void addBruteForceCount(String username, String userType)
     {
-        bruteForceJsonData=mLoginRepository.queryParticularUser(username,userType);
-        int count=Integer.parseInt(bruteForceJsonData.get(0).getBruteForceCount());
-        if(count>=1)
+        userBruteForceJsonData=mLoginRepository.queryParticularUser(username,userType);
+        int count=Integer.parseInt(userBruteForceJsonData.get(0).getBruteForceCount());
+
+        if(count>2)
         {
             mLoginView.showSecurityQuestion();
         }
         else{
-            UsersInformationDO editedUser=new UsersInformationDO();
-            editedUser.setUserId(bruteForceJsonData.get(0).getUserId());
-            editedUser.setPassword(bruteForceJsonData.get(0).getPassword());
-            editedUser.setUserType(userType);
-            editedUser.setUsername(username);
+            UsersInformationDO editedUser;
+            editedUser=userBruteForceJsonData.get(0);
             count++;
             editedUser.setBruteForceCount(Integer.toString(count));
             mLoginRepository.addUser(editedUser);
+            loadUnsuccessfulLogin();
         }
     }
 
     @Override
     public void verifySecurityAnswer(String answer, String userType, String username) {
-        bruteForceJsonData=mLoginRepository.queryParticularUser(username,userType);
-        String answerFromDB=bruteForceJsonData.get(0).getSecurityAnswer();
-        if(!answerFromDB.equals(answer))
+
+        userBruteForceJsonData=mLoginRepository.queryParticularUser(username,userType);
+        String correctSecurityAnswer=userBruteForceJsonData.get(0).getSecurityAnswer();
+
+        if(!correctSecurityAnswer.equals(answer))
         {
             disableAccount();
         }
@@ -70,59 +66,44 @@ public class LoginPresenter implements LoginContract.Presenter  {
     @Override
     public void disableAccount() {
 
-        Log.i("disabling","disabling");
-
-        String username=bruteForceJsonData.get(0).getUsername();
-        String userType=bruteForceJsonData.get(0).getUserType();
-        String password=bruteForceJsonData.get(0).getUsername();
-
-        String securityAnswer=bruteForceJsonData.get(0).getUsername();
-        Double userId=bruteForceJsonData.get(0).getUserId();
-        UsersInformationDO editedUser=new UsersInformationDO();
-        editedUser.setUsername(username);
-        editedUser.setUserType(userType);
-        editedUser.setPassword(password);
-        editedUser.setSecurityAnswer(securityAnswer);
+        UsersInformationDO editedUser;
+        editedUser=userBruteForceJsonData.get(0);
         editedUser.setDisabled(true);
-        editedUser.setUserId(userId);
-        Log.i("username 111",username);
+        
         mLoginRepository.addUser(editedUser);
         mLoginView.showAccountLockedOut();
     }
 
-    public void loadUsersFromDatabase(Context context)
+    public void loadUsersFromDatabase(String username, String userType, String password)
     {
-        userInformation = PreferenceManager.getDefaultSharedPreferences(context);
-        userInformationJsonData=mLoginRepository.queryParticularUser(userInformation.getString("Username",""),userInformation.getString("UserType",""));
-        checkIfLoginIsValid(userInformationJsonData,userInformation.getString("Password",""));
+        userInformationJsonData=mLoginRepository.queryParticularUser(username,userType);
+        checkIfLoginIsValid(userInformationJsonData, password);
     }
 
     @Override
     public void loadSuccessfulLogin() {
-        Log.i("loadSuccessfulLogin","loadSuccessfulLogin");
-        try{
-            mLoginView.showSuccessfulLogin();
-        }
-        catch(Exception ex)
-        {
-
-        }
+        mLoginView.showSuccessfulLogin();
     }
 
 
     public void checkIfLoginIsValid(ArrayList<UsersInformationDO> userInformationJsonData, String password){
 
-        if(userInformationJsonData.get(0).getDisabled().toString().equals("true"))
+        if(userInformationJsonData.size()==0)
+        {
+            loadUnsuccessfulLogin();
+        }
+        else if(userInformationJsonData.get(0).getDisabled().toString().equals("true"))
         {
             loadAccountLockedOut();
         }
-        else if(userInformationJsonData.size()!=0 && userInformationJsonData.get(0).getPassword().equals(password))
+        else if(userInformationJsonData.get(0).getPassword().equals(password))
         {
+            Log.i("password type",password);
+            Log.i("password real",userInformationJsonData.get(0).getPassword());
             loadSuccessfulLogin();
         }
         else{
             addBruteForceCount(userInformationJsonData.get(0).getUsername(),userInformationJsonData.get(0).getUserType());
-            loadUnsuccessfulLogin();
         }
 
     }

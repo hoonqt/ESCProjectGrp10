@@ -80,7 +80,7 @@ public class LoginFragment extends Fragment implements LoginContract.View {
         mPasswordView = (EditText) view.findViewById(R.id.password);
         RadioGroup selectProfessorOrStudentButton = (RadioGroup) view.findViewById(R.id.professorOrStudent);
 
-        Button mEmailSignInButton = (Button) view.findViewById(R.id.email_sign_in_button);
+        Button mEmailSignInButton = (Button) view.findViewById(R.id.login_button);
         mEmailSignInButton.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
@@ -124,7 +124,7 @@ public class LoginFragment extends Fragment implements LoginContract.View {
 
     public void attemptLogin()
     {
-        mPresenter.loadUsersFromDatabase(getActivity().getApplicationContext());
+        mPresenter.loadUsersFromDatabase(sharedPreferences.getString("Username",""),sharedPreferences.getString("UserType",""),sharedPreferences.getString("Password",""));
     }
 
     public void showSuccessfulLogin() {

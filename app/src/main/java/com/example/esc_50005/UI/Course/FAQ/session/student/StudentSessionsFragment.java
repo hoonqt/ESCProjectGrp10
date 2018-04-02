@@ -33,9 +33,7 @@ public class StudentSessionsFragment extends Fragment implements SessionsContrac
     protected LayoutManagerType mCurrentLayoutManagerType;
     protected RecyclerView.LayoutManager mLayoutManager;
     private SessionsContract.Presenter mPresenter = new SessionsPresenter(this);
-    private LinearLayout mSessionsView;
     private RecyclerView sessionsListRecycler;
-    private SwipeRefreshLayout swipeLayout;
     private ImageButton button;
     private SharedPreferences sharedPreferences;
 
@@ -83,7 +81,7 @@ public class StudentSessionsFragment extends Fragment implements SessionsContrac
 
     public void attemptQuerySessions()
     {
-        mPresenter.querySessions(getActivity().getApplicationContext());
+        mPresenter.querySessions(sharedPreferences.getString("Username",""),sharedPreferences.getString("UserType",""),sharedPreferences.getString("CurrentCourseActivity",""));
     }
 
     public void showSessions(ArrayList<String> sessions) {
@@ -130,7 +128,7 @@ public class StudentSessionsFragment extends Fragment implements SessionsContrac
 
         builder.setNegativeButton("Submit",new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog,int id) {
-                mPresenter.queryAddNewSessionStudent(sessionId.getText().toString());
+                mPresenter.queryAddNewSession(sharedPreferences.getString("UserType",""),sessionId.getText().toString(),"","","");
                 dialog.cancel();
             }
         });
