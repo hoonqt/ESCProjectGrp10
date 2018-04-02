@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import com.example.esc_50005.UI.ProfSession.MainScreens.ActivityProfFrag;
 import com.example.esc_50005.UI.Session.Student.QuestionsFragment;
 import com.example.esc_50005.UI.Session.Student.StudentActivity.MainScreen.ActivityStudentFrag;
+import com.example.esc_50005.UI.Session.feedback.FeedbackFragment;
 
 public class SessionPagerAdapter extends FragmentStatePagerAdapter {
 
@@ -48,7 +49,7 @@ public class SessionPagerAdapter extends FragmentStatePagerAdapter {
                 case 1:
                     return new ActivityProfFrag();
                 case 2:
-                    return new QuestionsFragment();
+                    return new FeedbackFragment();
                 default:
                     return null;
             }

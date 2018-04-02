@@ -73,7 +73,7 @@ public class ProfessorDashboardFragment extends Fragment implements DashboardCon
     public void attemptLoadCourses()
     {
         Log.i("attemptLoad","attemptLoad");
-        mPresenter.loadCoursesFromDatabase(getActivity().getApplicationContext());
+        mPresenter.loadCoursesFromDatabase(sharedPreferences.getString("Username",""),sharedPreferences.getString("UserType",""));
     }
 
 
@@ -140,6 +140,11 @@ public class ProfessorDashboardFragment extends Fragment implements DashboardCon
         alertDialog.setTitle("Course already exists in the database!");
         alertDialog.create();
         alertDialog.show();
+    }
+
+    @Override
+    public void showEmptyCourses() {
+
     }
 
 }
