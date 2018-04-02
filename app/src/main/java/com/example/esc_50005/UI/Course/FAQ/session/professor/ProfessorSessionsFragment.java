@@ -87,7 +87,7 @@ public class ProfessorSessionsFragment extends Fragment implements SessionsContr
 
     public void attemptQuerySessions()
     {
-        mPresenter.querySessions(getActivity().getApplicationContext());
+        mPresenter.querySessions(sharedPreferences.getString("Username",""),sharedPreferences.getString("UserType",""),sharedPreferences.getString("CurrentCourseActivity",""));
     }
 
     public void showSessions(ArrayList<String> sessions) {
@@ -153,10 +153,10 @@ public class ProfessorSessionsFragment extends Fragment implements SessionsContr
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString("AddedSessionId",  Integer.toString(sessionId));
                 editor.commit();
-                String currentCourse=sharedPreferences.getString("Current Course Activity","");
+                String currentCourse=sharedPreferences.getString("CurrentCourseActivity","");
                 String[] retrieveCourseId = currentCourse.split("\\s+");
                 String courseId=retrieveCourseId[0];
-                mPresenter.queryAddNewSessionProfessor(Integer.toString(sessionId),sessionNameToAdd,timeOfCreation.toString(),courseId);
+                mPresenter.queryAddNewSession(sharedPreferences.getString("UserType",""),Integer.toString(sessionId),sessionNameToAdd,timeOfCreation.toString(),courseId);
                 dialog.cancel();
             }
         });

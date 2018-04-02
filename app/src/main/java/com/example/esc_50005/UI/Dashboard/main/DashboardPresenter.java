@@ -27,11 +27,9 @@ public class DashboardPresenter implements DashboardContract.Presenter  {
     private final CoursesInformationRemoteDataSource mCoursesRepository;
     ArrayList<UsersInformationDO> userCoursesInformationJsonData;
     ArrayList<CoursesInformationDO> coursesInformationJsonData;
-    private SharedPreferences userInformation;
     private static  ArrayList<String> listOfCourses=new ArrayList<>();
 
     public DashboardPresenter(@NonNull DashboardContract.View contractView) {
-        Log.i("DashBoardPresenter","DashBoardPresenter");
         mUsersRepository=new UsersInformationRemoteDataSource();
         mCoursesRepository=new CoursesInformationRemoteDataSource();
         mDashboardView = checkNotNull(contractView, "dashboardView cannot be null!");
@@ -89,21 +87,24 @@ public class DashboardPresenter implements DashboardContract.Presenter  {
         }
     }
 
-    public void queryCourseBeforeAddingProfessor(Double courseId, String courseName)
+    public void queryCourseBeforeAdding(String userType,Double courseId, String courseName)
     {
-        coursesInformationJsonData=mCoursesRepository.queryCourses(courseId);
-        checkIfCourseIsValid(coursesInformationJsonData,courseId,courseName);
+        switch(userType)
+        {
+            case "student":
+                coursesInformationJsonData=mCoursesRepository.queryCourses(courseId);
+                checkIfCourseIsValid(userType,coursesInformationJsonData,courseId, "" );
+                break;
+            case "professor":
+                coursesInformationJsonData=mCoursesRepository.queryCourses(courseId);
+                checkIfCourseIsValid(userType,coursesInformationJsonData,courseId,courseName);
+        }
+
     }
 
-    public void queryCourseBeforeAddingStudent(Double courseId)
+    public void checkIfCourseIsValid(String userType, ArrayList<CoursesInformationDO> coursesInformationJsonData, Double courseId, String courseName)
     {
-        coursesInformationJsonData=mCoursesRepository.queryCourses(courseId);
-        checkIfCourseIsValid(coursesInformationJsonData,courseId, "" );
-    }
-
-    public void checkIfCourseIsValid(ArrayList<CoursesInformationDO> coursesInformationJsonData, Double courseId, String courseName)
-    {
-        switch (userInformation.getString("UserType",""))
+        switch (userType)
         {
             case "professor":
                 if(coursesInformationJsonData.size()==0)
@@ -111,7 +112,7 @@ public class DashboardPresenter implements DashboardContract.Presenter  {
                     addValidCourseProfessor(courseId,courseName);
                 }
                 else{
-                    addInvalidCourseProfessor();
+                    addInvalidCourse();
                 }
                 break;
             case "student":
@@ -120,20 +121,17 @@ public class DashboardPresenter implements DashboardContract.Presenter  {
                     addValidCourseStudent(courseId,coursesInformationJsonData.get(0).getCourseName());
                 }
                 else{
-                    addInvalidCourseStudent();
+                    addInvalidCourse();
                 }
                 break;
         }
     }
 
-    public void addInvalidCourseProfessor()
+    public void addInvalidCourse()
     {
         mDashboardView.showAddInvalidCourse();
     }
-    public void addInvalidCourseStudent()
-    {
-        mDashboardView.showAddInvalidCourse();
-    }
+
 
     public void addValidCourseProfessor(Double courseId,String courseName)
     {
@@ -165,7 +163,6 @@ public class DashboardPresenter implements DashboardContract.Presenter  {
         UsersInformationDO updateUser=userCoursesInformationJsonData.get(0);
         if(updateUser.getCourseIds().contains(Double.toString(courseId)))
         {
-            Log.i("invalid","invalid");
             mDashboardView.showAddInvalidCourse();
         }
         else{
