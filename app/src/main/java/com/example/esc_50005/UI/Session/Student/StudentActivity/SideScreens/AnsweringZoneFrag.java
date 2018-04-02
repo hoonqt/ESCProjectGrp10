@@ -8,8 +8,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.esc_50005.Database.Quizstuff.QuizQuestions1DO;
+import com.example.esc_50005.Database.Quizstuff.QuizQuestions2DO;
 import com.example.esc_50005.R;
 import com.example.esc_50005.UI.Session.Student.StudentActivity.Adapters.StudentAnswerAdapter;
 
@@ -25,6 +27,7 @@ public class AnsweringZoneFrag extends Fragment {
     private AnsweringZoneFrag.LayoutManagerType CurrentLayoutManagerType;
     private RecyclerView.LayoutManager LayoutManager;
     private StudentAnswerAdapter qnAdapter;
+    Button submitbtn;
 
     private enum LayoutManagerType {
         LINEAR_LAYOUT_MANAGER
@@ -45,11 +48,13 @@ public class AnsweringZoneFrag extends Fragment {
         CurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
         qnRecycler.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
+        submitbtn = view.findViewById(R.id.submitbutton);
+
         Bundle bundle = this.getArguments();
 
         if (bundle != null) {
 
-            ArrayList<QuizQuestions1DO> allthequestions = (ArrayList<QuizQuestions1DO>)bundle.getSerializable("allthequestions");
+            ArrayList<QuizQuestions2DO> allthequestions = (ArrayList<QuizQuestions2DO>)bundle.getSerializable("allthequestions");
             qnAdapter = new StudentAnswerAdapter(allthequestions);
             qnRecycler.setAdapter(qnAdapter);
 

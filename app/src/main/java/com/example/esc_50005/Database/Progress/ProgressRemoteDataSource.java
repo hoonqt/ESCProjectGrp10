@@ -148,7 +148,7 @@ public class ProgressRemoteDataSource implements ProgressDataSource {
 
     }
 
-    public ArrayList<String> getNames(final String subjectCode, final String sessionID) {
+    public ArrayList<String> getNames(final String subjectCode) {
         final ArrayList<String> output = new ArrayList<>();
 
         Thread thread = new Thread(new Runnable() {
@@ -158,20 +158,17 @@ public class ProgressRemoteDataSource implements ProgressDataSource {
                 QuizScores4DO scores = new QuizScores4DO();
                 scores.setCourseID(subjectCode);
 
-                Condition rangeKeyCondition = new Condition()
-                        .withComparisonOperator(ComparisonOperator.CONTAINS)
-                        .withAttributeValueList(new AttributeValue().withS(sessionID));
-
 
                 DynamoDBQueryExpression queryExpression = new DynamoDBQueryExpression()
-                        .withHashKeyValues(scores)
-                        .withRangeKeyCondition("StudentIDSessionID",rangeKeyCondition)
-                        .withConsistentRead(false);
+                        .withHashKeyValues(scores);
+
 
                 PaginatedList<QuizScores4DO> result = dynamoDBMapper.query(QuizScores4DO.class, queryExpression);
 
                 for (QuizScores4DO score : result) {
-                    output.add(score.getName());
+                    if (!output.contains(output.add(score.getName()))) {
+                        output.add(score.getName());
+                    }
                     Log.i("scores in prds","scores: " + score.getScore().toString());
                 }
 

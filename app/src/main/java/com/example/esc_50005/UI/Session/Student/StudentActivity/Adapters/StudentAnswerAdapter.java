@@ -11,6 +11,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.example.esc_50005.Database.Quizstuff.QuizQuestions1DO;
+import com.example.esc_50005.Database.Quizstuff.QuizQuestions2DO;
 import com.example.esc_50005.R;
 
 import java.util.ArrayList;
@@ -21,12 +22,12 @@ import java.util.ArrayList;
 
 public class StudentAnswerAdapter extends RecyclerView.Adapter<StudentAnswerAdapter.QnViewHolder> {
 
-    private ArrayList<QuizQuestions1DO> dataset;
+    private ArrayList<QuizQuestions2DO> dataset;
     private static int viewHolderCount = 0;
     private Context context;
     SharedPreferences sharedPreferences;
 
-    public StudentAnswerAdapter(ArrayList<QuizQuestions1DO> input) {
+    public StudentAnswerAdapter(ArrayList<QuizQuestions2DO> input) {
 
         dataset = input;
 
@@ -85,7 +86,7 @@ public class StudentAnswerAdapter extends RecyclerView.Adapter<StudentAnswerAdap
 
         public void bind(int position) {
 
-            QuizQuestions1DO question = dataset.get(position);
+            QuizQuestions2DO question = dataset.get(position);
             questionbox.setText(question.getQuestion());
             option1.setText(question.getOptions().get(0));
             option2.setText(question.getOptions().get(1));
