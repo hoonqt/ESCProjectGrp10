@@ -1,4 +1,4 @@
-package com.example.cindy.esc_50005.Database.FAQ;
+package com.example.esc_50005.Database.FAQ;
 
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;

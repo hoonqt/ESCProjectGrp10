@@ -1,11 +1,9 @@
-package com.example.cindy.esc_50005.Database.FAQ;
+package com.example.esc_50005.Database.FAQ;
 
 import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import static com.google.gson.internal.$Gson$Preconditions.checkNotNull;
 

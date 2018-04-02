@@ -1,13 +1,12 @@
 package com.example.esc_50005.UI.Course.FAQ;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.example.esc_50005.Database.FAQ.Faq;
 import com.example.esc_50005.Database.FAQ.FaqRemoteDataSource;
+import com.example.esc_50005.Log;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -23,14 +22,16 @@ public class FaqPresenter implements FaqContract.Presenter {
     public FaqRemoteDataSource mFaqRepository;
     ArrayList<Faq> faqJsonData;
 
-    public FaqPresenter(@NonNull FaqContract.View faqView) {
-        mFaqRepository = new FaqRemoteDataSource();
+    public FaqPresenter(@NonNull FaqRemoteDataSource faqRepository, @NonNull FaqContract.View faqView) {
+        mFaqRepository = faqRepository;
+//        mFaqRepository = new FaqRemoteDataSource();
         mFaqView = checkNotNull(faqView, "faqView cannot be null!");
         mFaqView.setPresenter(this);
     }
 
     @Override
     public void start() {
+
         loadFaq();
     }
 

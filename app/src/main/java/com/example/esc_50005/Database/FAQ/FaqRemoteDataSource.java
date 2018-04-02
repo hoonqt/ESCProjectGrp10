@@ -18,7 +18,16 @@ public class FaqRemoteDataSource implements FaqDataSource {
 
     ArrayList<Faq> faqArrayList;
 
+    private static FaqRemoteDataSource INSTANCE;
+
 //    private ArrayList<JSONObject> dataInJson;
+
+    public static FaqRemoteDataSource getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new FaqRemoteDataSource();
+        }
+        return INSTANCE;
+    }
 
     public FaqRemoteDataSource() {
         AmazonDynamoDBClient dynamoDBClient = new AmazonDynamoDBClient(AWSMobileClient.getInstance().getCredentialsProvider());

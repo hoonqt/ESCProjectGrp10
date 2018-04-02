@@ -11,7 +11,6 @@ import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBRangeKey
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBTable;
 
 import java.util.ArrayList;
-import java.util.List;
 
 @DynamoDBTable(tableName = "escproject-mobilehub-27166461-Faq")
 

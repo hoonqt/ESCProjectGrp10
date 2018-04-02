@@ -84,7 +84,10 @@ public class SessionsPresenter implements SessionsContract.Presenter {
         {
 //            String courseId=sessionsJsonData.get(0).getCourseID();
             queriedSessionsJsonData=mSessionsRepository.querySessions(newUserJsonData.get(0).getSessionIds().get(0));
-            Log.i("queried",queriedSessionsJsonData.get(0).getCourseID());
+            if (queriedSessionsJsonData.size() == 0) {
+                break;
+            }
+//            Log.i("queried",queriedSessionsJsonData.get(0).getCourseID());
             if(queriedSessionsJsonData.get(0).getCourseID().equals(courseId))
             {
                 String session=newUserJsonData.get(0).getSessionDate().get(i)+ " -"  + newUserJsonData.get(0).getSessionName().get(i);
