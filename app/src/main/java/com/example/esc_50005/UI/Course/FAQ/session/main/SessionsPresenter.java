@@ -86,6 +86,7 @@ public class SessionsPresenter implements SessionsContract.Presenter {
 
         for(int i=0;i<usersJsonData.get(0).getSessionIds().size();i++)
         {
+
             queriedSessionsJsonData=mSessionsRepository.querySessions(usersJsonData.get(0).getSessionIds().get(0));
 
             if(queriedSessionsJsonData.get(0).getCourseID().equals(courseId))
@@ -99,10 +100,6 @@ public class SessionsPresenter implements SessionsContract.Presenter {
             loadEmptySessions();
         }
         else{
-//            for(String session : listOfSessions)
-//            {
-//                Log.i("session name",session);
-//            }
             loadSessions();
         }
 

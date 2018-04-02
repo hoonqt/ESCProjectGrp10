@@ -58,4 +58,8 @@ public class ActivityProfPresenter implements QuizProfContract.Presenter{
         loadQuizes(subjectCode, sessionCode);
         return questionData;
     }
+
+    public ArrayList<QuizQuestions1DO> getStoredData() {
+        return questionData;
+    }
 }

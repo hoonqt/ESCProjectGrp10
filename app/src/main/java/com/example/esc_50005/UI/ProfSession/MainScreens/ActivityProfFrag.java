@@ -1,6 +1,10 @@
 package com.example.esc_50005.UI.ProfSession.MainScreens;
 
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.media.MediaCas;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -11,12 +15,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import com.example.esc_50005.Database.Quizstuff.QuizQuestions1DO;
 import com.example.esc_50005.R;
 import com.example.esc_50005.UI.ProfSession.Adapters.ActivityProfAdapter;
 import com.example.esc_50005.UI.ProfSession.Contracts.QuizProfContract;
 import com.example.esc_50005.UI.ProfSession.Presenters.ActivityProfPresenter;
+import com.example.esc_50005.UI.ProfSession.SideScreens.ActivityInfo;
+import com.example.esc_50005.UI.Session.Main.SessionActivity;
 import com.example.esc_50005.WebSocket.ProfWebSocket;
 
 import java.io.Serializable;
@@ -35,6 +42,7 @@ public class ActivityProfFrag extends Fragment implements QuizProfContract.View,
     private RecyclerView.LayoutManager mLayoutManager;
     private QuizProfContract.Presenter mPresenter = new ActivityProfPresenter(this);
     private ActivityProfAdapter mQuizAdapter;
+    private Context context;
 
     private enum LayoutManagerType {
         LINEAR_LAYOUT_MANAGER
@@ -70,10 +78,32 @@ public class ActivityProfFrag extends Fragment implements QuizProfContract.View,
         ProfWebSocket socket = ProfWebSocket.getInstance();
         socket.start();
 
+        context = getContext();
+
         FloatingActionButton fab = view.findViewById(R.id.fabbtn);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+                alert.setMessage("Enter quiz name");
+                alert.setTitle("Create new activity");
+                final EditText input = new EditText(getContext());
+                alert.setView(input);
+                alert.setNegativeButton("Submit",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                String quizname = input.getText().toString();
+                                ActivityInfo adder = new ActivityInfo();
+                                Bundle bundle = new Bundle();
+                                //bundle.putSerializable("allthequestions",mPresenter);
+                                adder.setArguments(bundle);
+                                SessionActivity myActivity = (SessionActivity)context;
+                                myActivity.getSupportFragmentManager().beginTransaction().addToBackStack(null).setCustomAnimations(R.anim.slide_out_up,R.anim.slide_in_up).replace(R.id.profsessionhere,adder).addToBackStack(null).commit();
+                            }
+                        });
+                alert.show();
 
             }
         });

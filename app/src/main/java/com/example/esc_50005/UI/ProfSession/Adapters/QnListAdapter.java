@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +31,6 @@ public class QnListAdapter extends RecyclerView.Adapter<QnListAdapter.QnViewHold
     SharedPreferences sharedPreferences;
 
     public QnListAdapter(ArrayList<QuizQuestions1DO> input) {
-
         questions = input;
 
 
@@ -92,7 +92,11 @@ public class QnListAdapter extends RecyclerView.Adapter<QnListAdapter.QnViewHold
 
                     ArrayList<QuizQuestions1DO> tobetransferred = new ArrayList<>(questions);
 
+                    Log.i("All the things",questions.toString());
+
                     bundler.putSerializable("allthequestions",tobetransferred);
+
+
                     bundler.putInt("index",index);
 
                     editor.setArguments(bundler);

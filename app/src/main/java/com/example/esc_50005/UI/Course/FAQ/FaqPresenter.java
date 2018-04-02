@@ -1,13 +1,12 @@
 package com.example.esc_50005.UI.Course.FAQ;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.example.esc_50005.Database.FAQ.Faq;
 import com.example.esc_50005.Database.FAQ.FaqRemoteDataSource;
+import com.example.esc_50005.Log;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -20,17 +19,19 @@ public class FaqPresenter implements FaqContract.Presenter {
     public static final String TAG = "SessionsPresenter";
 
     private final FaqContract.View mFaqView;
-    private FaqRemoteDataSource mFaqRepository;
+    public FaqRemoteDataSource mFaqRepository;
     ArrayList<Faq> faqJsonData;
 
-    public FaqPresenter(@NonNull FaqContract.View faqView) {
-        mFaqRepository = new FaqRemoteDataSource();
+    public FaqPresenter(@NonNull FaqRemoteDataSource faqRepository, @NonNull FaqContract.View faqView) {
+        mFaqRepository = faqRepository;
+//        mFaqRepository = new FaqRemoteDataSource();
         mFaqView = checkNotNull(faqView, "faqView cannot be null!");
         mFaqView.setPresenter(this);
     }
 
     @Override
     public void start() {
+
         loadFaq();
     }
 
@@ -53,7 +54,7 @@ public class FaqPresenter implements FaqContract.Presenter {
     }
 
     public void upvoteFaq(Faq faq) {
-        List<String> usersVoted = faq.getUsersVoted();
+        ArrayList<String> usersVoted = faq.getUsersVoted();
         if (!usersVoted.contains("1001688")) {
             faq.setUpvotes(faq.getUpvotes() + 1);
             usersVoted.add("1001688");
@@ -65,7 +66,7 @@ public class FaqPresenter implements FaqContract.Presenter {
     }
 
     public void downvoteFaq(Faq faq) {
-        List<String> usersVoted = faq.getUsersVoted();
+        ArrayList<String> usersVoted = faq.getUsersVoted();
         if (faq.getUsersVoted().contains("1001688")) {
             faq.setUpvotes(faq.getUpvotes() - 1);
             usersVoted.remove("1001688");

@@ -11,32 +11,32 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-@DynamoDBTable(tableName = "escproject-mobilehub-27166461-QuizScores2")
+@DynamoDBTable(tableName = "escproject-mobilehub-27166461-QuizScores4")
 
-public class QuizScores2DO {
-    private String _subjectCodeSessionID;
-    private String _studentID;
+public class QuizScores4DO {
+    private String _courseID;
+    private String _studentIDSessionID;
     private String _name;
     private String _quizName;
     private Double _score;
 
-    @DynamoDBHashKey(attributeName = "SubjectCodeSessionID")
-    @DynamoDBIndexRangeKey(attributeName = "SubjectCodeSessionID", globalSecondaryIndexName = "studentID")
-    public String getSubjectCodeSessionID() {
-        return _subjectCodeSessionID;
+    @DynamoDBHashKey(attributeName = "CourseID")
+    @DynamoDBIndexHashKey(attributeName = "CourseID", globalSecondaryIndexName = "SessionIDonly")
+    public String getCourseID() {
+        return _courseID;
     }
 
-    public void setSubjectCodeSessionID(final String _subjectCodeSessionID) {
-        this._subjectCodeSessionID = _subjectCodeSessionID;
+    public void setCourseID(final String _courseID) {
+        this._courseID = _courseID;
     }
-    @DynamoDBRangeKey(attributeName = "StudentID")
-    @DynamoDBIndexHashKey(attributeName = "StudentID", globalSecondaryIndexName = "studentID")
-    public String getStudentID() {
-        return _studentID;
+    @DynamoDBRangeKey(attributeName = "StudentIDSessionID")
+    @DynamoDBIndexRangeKey(attributeName = "StudentIDSessionID", globalSecondaryIndexName = "SessionIDonly")
+    public String getStudentIDSessionID() {
+        return _studentIDSessionID;
     }
 
-    public void setStudentID(final String _studentID) {
-        this._studentID = _studentID;
+    public void setStudentIDSessionID(final String _studentIDSessionID) {
+        this._studentIDSessionID = _studentIDSessionID;
     }
     @DynamoDBAttribute(attributeName = "Name")
     public String getName() {
