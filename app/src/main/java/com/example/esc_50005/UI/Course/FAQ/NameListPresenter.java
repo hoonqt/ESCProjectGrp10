@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.example.esc_50005.Database.Progress.NewQuizScoresDO;
 import com.example.esc_50005.Database.Progress.ProgressRemoteDataSource;
+import com.example.esc_50005.Database.Progress.QuizScores2DO;
 
 import java.util.ArrayList;
 
@@ -20,8 +21,8 @@ public class NameListPresenter implements ProgressContract.Presenter {
 
     private final ProgressContract.View mNameListView;
     private ProgressRemoteDataSource mProgressRepository;
-    ArrayList<NewQuizScoresDO> progressArrayList;
-    ArrayList<NewQuizScoresDO> nameList;
+    ArrayList<QuizScores2DO> progressArrayList;
+    ArrayList<QuizScores2DO> nameList;
 
     public NameListPresenter(@NonNull ProgressContract.View nameListView) {
         mProgressRepository = new ProgressRemoteDataSource();
@@ -39,14 +40,14 @@ public class NameListPresenter implements ProgressContract.Presenter {
 
     @Override
     public void loadScores() {
-        //progressArrayList = mProgressRepository.getScores("1002212","50.004");// need to change it to base on the user login details
-//        processScores(progressArrayList);
+        progressArrayList = mProgressRepository.getScores("50.004","Session1");// need to change it to base on the user login details
+        processScores(progressArrayList);
 
         Log.i(TAG, "LoadScores size is " + progressArrayList.size() + progressArrayList.get(0).getScore());
     }
 
 
-    public void processScores(ArrayList<NewQuizScoresDO> progressArrayList) {
+    public void processScores(ArrayList<QuizScores2DO> progressArrayList) {
         ArrayList<Double> scoreList = new ArrayList<Double>();
         Log.i(TAG, "Length of progressArrayList = " + progressArrayList.size());
 
@@ -70,7 +71,7 @@ public class NameListPresenter implements ProgressContract.Presenter {
 
 
     @Override
-    public double processAverage(ArrayList<NewQuizScoresDO> progressArrayList) {
+    public double processAverage(ArrayList<QuizScores2DO> progressArrayList) {
         ArrayList<Double> scoreList = new ArrayList<Double>();
         double total=0;
         double avg = 0;
@@ -79,7 +80,7 @@ public class NameListPresenter implements ProgressContract.Presenter {
 
         if (progressArrayList.size() != 0) {
             Log.i(TAG, "Length of progressArrayList = " + progressArrayList.size());
-            student = progressArrayList.get(0).getStudentIDsubjectID();//might need to change in the future
+            student = progressArrayList.get(0).getName();//might need to change in the future
             for(int i = 0; i<progressArrayList.size();i++){
                 try{
                     total += progressArrayList.get(i).getScore();
@@ -97,13 +98,13 @@ public class NameListPresenter implements ProgressContract.Presenter {
 
     @Override
     public void loadNames() {
-        //nameList = mProgressRepository.getNames("1002212","50.004");// need to change it to base on the user login details
+        nameList = mProgressRepository.getNames("1002212","50.004");// need to change it to base on the user login details
         processNames(nameList);
 
         Log.i(TAG, "LoadName size is " + nameList.size() + nameList.get(0).getName());
     }
 
-    public void processNames(ArrayList<NewQuizScoresDO> nameList) {
+    public void processNames(ArrayList<QuizScores2DO> nameList) {
         ArrayList<String> names = new ArrayList<String>();
         ArrayList<String> studentIds = new ArrayList<String>();
         Log.i(TAG, "Length of nameList = " + nameList.size());
@@ -115,7 +116,7 @@ public class NameListPresenter implements ProgressContract.Presenter {
                 if(names.size()==0){
                     try{
                         names.add(nameList.get(i).getName());
-                        studentIds.add(nameList.get(i).getStudentIDsubjectID());
+                        studentIds.add(nameList.get(i).getStudentID());
                         Log.i(TAG, "firstname = " + nameList.get(i).getName());
                     } catch(Exception e){
                         e.printStackTrace();
