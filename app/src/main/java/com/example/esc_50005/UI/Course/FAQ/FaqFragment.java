@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.example.esc_50005.Database.FAQ.Faq;
+import com.example.esc_50005.Database.FAQ.Injection;
 import com.example.esc_50005.R;
 import com.example.esc_50005.UI.Course.FAQ.addEditFaq.AddEditFaqActivity;
 
@@ -33,7 +34,8 @@ public class FaqFragment extends Fragment implements FaqContract.View {
 
     protected LayoutManagerType mCurrentLayoutManagerType;
     protected RecyclerView.LayoutManager mLayoutManager;
-    private FaqContract.Presenter mPresenter = new FaqPresenter(this);
+    private FaqContract.Presenter mPresenter;
+//    private FaqContract.Presenter mPresenter = new FaqPresenter(this);
     private LinearLayout mFaqView;
     private RecyclerView faqListRecycler;
     private SwipeRefreshLayout swipeLayout;
@@ -51,6 +53,8 @@ public class FaqFragment extends Fragment implements FaqContract.View {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mPresenter = new FaqPresenter(
+                Injection.provideFaqRepository(getActivity().getApplicationContext()), this);
     }
 
     @Override
