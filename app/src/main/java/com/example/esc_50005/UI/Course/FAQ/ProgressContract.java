@@ -2,6 +2,7 @@ package com.example.esc_50005.UI.Course.FAQ;
 
 import com.example.esc_50005.Database.Progress.NewQuizScoresDO;
 import com.example.esc_50005.Database.Progress.QuizScores2DO;
+import com.example.esc_50005.Database.Progress.QuizScores4DO;
 import com.example.esc_50005.UI.Base.BasePresenter;
 import com.example.esc_50005.UI.Base.BaseView;
 
@@ -20,7 +21,7 @@ public interface ProgressContract {
 
     interface Presenter extends BasePresenter {
         void loadScores();
-        double processAverage(ArrayList<QuizScores2DO> progressArrayList);
+        double processAverage(ArrayList<QuizScores4DO> progressArrayList);
         void loadNames();
     }
 }
