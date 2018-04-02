@@ -107,7 +107,7 @@ public class ProgressRemoteDataSource implements ProgressDataSource {
                 DynamoDBQueryExpression queryExpression = new DynamoDBQueryExpression()
                         .withHashKeyValues(names);
 
-                PaginatedList<QuizScores2DO> result = dynamoDBMapper.query(NewQuizScoresDO.class, queryExpression);
+                PaginatedList<QuizScores2DO> result = dynamoDBMapper.query(QuizScores2DO.class, queryExpression);
 
                 for (QuizScores2DO name : result) {
                     nameList.add(name);
