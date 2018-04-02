@@ -36,7 +36,6 @@ public class LoginPresenter implements LoginContract.Presenter  {
 
     public void addBruteForceCount(String username, String userType)
     {
-
         bruteForceJsonData=mLoginRepository.queryParticularUser(username,userType);
         int count=Integer.parseInt(bruteForceJsonData.get(0).getBruteForceCount());
         if(count>=1)
@@ -71,17 +70,24 @@ public class LoginPresenter implements LoginContract.Presenter  {
     @Override
     public void disableAccount() {
 
+        Log.i("disabling","disabling");
+
         String username=bruteForceJsonData.get(0).getUsername();
-        String userType=bruteForceJsonData.get(0).getUsername();
+        String userType=bruteForceJsonData.get(0).getUserType();
         String password=bruteForceJsonData.get(0).getUsername();
+
         String securityAnswer=bruteForceJsonData.get(0).getUsername();
+        Double userId=bruteForceJsonData.get(0).getUserId();
         UsersInformationDO editedUser=new UsersInformationDO();
         editedUser.setUsername(username);
         editedUser.setUserType(userType);
         editedUser.setPassword(password);
         editedUser.setSecurityAnswer(securityAnswer);
         editedUser.setDisabled(true);
+        editedUser.setUserId(userId);
+        Log.i("username 111",username);
         mLoginRepository.addUser(editedUser);
+        mLoginView.showAccountLockedOut();
     }
 
     public void loadUsersFromDatabase(Context context)
@@ -103,24 +109,14 @@ public class LoginPresenter implements LoginContract.Presenter  {
         }
     }
 
-    public void showSuccessfulLogin()
-    {
-        try{
-            mLoginView.showSuccessfulLogin();
-        }
-        catch(Exception ex)
-        {
-
-        }
-    }
 
     public void checkIfLoginIsValid(ArrayList<UsersInformationDO> userInformationJsonData, String password){
-        Log.i("checkIfLoginIsValid","checkIfLoginIsValid");
-        if(userInformationJsonData.get(0).getDisabled())
+
+        if(userInformationJsonData.get(0).getDisabled().toString().equals("true"))
         {
             loadAccountLockedOut();
         }
-        if(userInformationJsonData.size()!=0 && userInformationJsonData.get(0).getPassword().equals(password))
+        else if(userInformationJsonData.size()!=0 && userInformationJsonData.get(0).getPassword().equals(password))
         {
             loadSuccessfulLogin();
         }

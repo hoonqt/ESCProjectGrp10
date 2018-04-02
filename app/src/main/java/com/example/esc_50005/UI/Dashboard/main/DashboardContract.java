@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public interface DashboardContract {
 
     interface Presenter extends BasePresenter {
-        void loadCoursesFromDatabase(Context context);
+        void loadCoursesFromDatabase(String username, String userType);
         void addValidCourseProfessor(Double courseId, String courseName);
         void queryCourseBeforeAddingProfessor(Double courseId, String courseName);
         void queryCourseBeforeAddingStudent(Double courseId);
@@ -20,6 +20,7 @@ public interface DashboardContract {
         void attemptLoadCourses();
         void showAddValidNewCourse();
         void showAddInvalidCourse();
+        void showEmptyCourses();
 
     }
 }

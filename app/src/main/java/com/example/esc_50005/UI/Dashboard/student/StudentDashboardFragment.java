@@ -75,7 +75,7 @@ public class StudentDashboardFragment extends Fragment implements DashboardContr
     public void attemptLoadCourses()
     {
         Log.i("attemptLoad","attemptLoad");
-        mPresenter.loadCoursesFromDatabase(getActivity().getApplicationContext());
+        mPresenter.loadCoursesFromDatabase(sharedPreferences.getString("Username",""),sharedPreferences.getString("UserType",""));
     }
 
 
@@ -103,6 +103,11 @@ public class StudentDashboardFragment extends Fragment implements DashboardContr
         alertDialog.setTitle("Course has not been created by professor or already exists on your dashboard!");
         alertDialog.create();
         alertDialog.show();
+    }
+
+    @Override
+    public void showEmptyCourses() {
+
     }
 
 
