@@ -39,6 +39,7 @@ public class UsersInformationRemoteDataSource implements UsersInformationDataSou
 
     @Override
     public void addUser(final UsersInformationDO userInformation) {
+        Log.i("getting it",userInformation.getDisabled().toString());
         Log.i("username keyed",userInformation.getUsername());
         new Thread(new Runnable() {
             @Override

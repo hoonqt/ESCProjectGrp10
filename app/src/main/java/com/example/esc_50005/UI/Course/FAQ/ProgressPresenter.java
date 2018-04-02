@@ -42,10 +42,10 @@ public class ProgressPresenter implements ProgressContract.Presenter {
 
     @Override
     public void loadScores() {
-        //progressArrayList = mProgressRepository.getScores("1002212","50.004");// need to change it to base on the user login details
+        progressArrayList = mProgressRepository.getScores("50.004","Session1");// need to change it to base on the user login details
 //        processScores(progressArrayList);
 
-        Log.i(TAG, "LoadScores size is " + progressArrayList.size() + progressArrayList.get(0).getScore());
+        Log.i(TAG, "LoadScores size is " + progressArrayList.size());
     }
 
 
