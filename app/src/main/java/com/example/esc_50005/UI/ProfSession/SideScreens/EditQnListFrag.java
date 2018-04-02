@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.example.esc_50005.Database.Quizstuff.QuizQuestions1DO;
+import com.example.esc_50005.Database.Quizstuff.QuizQuestions2DO;
 import com.example.esc_50005.R;
 import com.example.esc_50005.UI.ProfSession.Adapters.QnListAdapter;
 import com.example.esc_50005.UI.Session.Main.SessionActivity;
@@ -30,7 +30,7 @@ public class EditQnListFrag extends Fragment implements Serializable {
     private QnListAdapter mQnListAdapter;
     private EditQnListFrag.LayoutManagerType mCurrentLayoutManagerType;
     private RecyclerView.LayoutManager mLayoutManager;
-    private ArrayList<QuizQuestions1DO> dataset;
+    private ArrayList<QuizQuestions2DO> dataset;
 
     private enum LayoutManagerType {
         LINEAR_LAYOUT_MANAGER
@@ -56,9 +56,11 @@ public class EditQnListFrag extends Fragment implements Serializable {
 
         final Bundle bundle = this.getArguments();
 
+        Log.i("Over at editqnlistfrag",bundle.toString());
+
         if (bundle != null) {
-            dataset = (ArrayList<QuizQuestions1DO>)bundle.getSerializable("allthequestions");
-            Log.i("Over at editqnlistfrag",dataset.get(0).getQuestion());
+            dataset = (ArrayList<QuizQuestions2DO>)bundle.getSerializable("allthequestions");
+
         }
 
         mQnListAdapter = new QnListAdapter(dataset);
@@ -73,7 +75,10 @@ public class EditQnListFrag extends Fragment implements Serializable {
 
                 QuizEditor editor = new QuizEditor();
                 Bundle toEditor = new Bundle();
-                bundle.putSerializable("allthequestions",dataset);
+                if (dataset == null) {
+                    dataset = new ArrayList<>();
+                }
+                toEditor.putSerializable("alltheqns",dataset);
                 editor.setArguments(toEditor);
 
                 SessionActivity myActivity = (SessionActivity) context;

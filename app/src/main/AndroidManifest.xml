@@ -30,15 +30,14 @@
 
 
         <activity
-            android:name=".UI.Welcome.WelcomeActivity"
-            >
-
-        </activity>
-        <activity android:name=".UI.DataAdder.AddDatahere">
+            android:name=".UI.Welcome.WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+        </activity>
+        <activity android:name=".UI.DataAdder.AddDatahere">
 
         </activity>
 
