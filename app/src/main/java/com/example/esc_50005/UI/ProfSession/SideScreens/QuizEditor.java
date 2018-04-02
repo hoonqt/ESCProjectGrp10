@@ -106,6 +106,7 @@ public class QuizEditor extends Fragment {
                 Bundle bundler = new Bundle();
 
                 ArrayList<QuizQuestions1DO> tobetransferred = dataset;
+                Log.i("Hello world",dataset.toString());
                 bundler.putSerializable("allthequestions",tobetransferred);
 
                 adder.setArguments(bundler);
