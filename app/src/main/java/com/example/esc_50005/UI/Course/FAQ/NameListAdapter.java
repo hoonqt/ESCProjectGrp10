@@ -1,5 +1,6 @@
 package com.example.esc_50005.UI.Course.FAQ;
 
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -108,10 +109,17 @@ public class NameListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         public void bind(int position) {
 
             String name = mNameList.get(position);
-            tv_question.setText(name);
+            if(avg < 4){
+                tv_question.setText(name);
 //            tv_answer.setText(name);
 //            tv_upvote.setText(String.valueOf(faq.getUpvotes()));
-            tv_time.setText("Average Score: " + Double.toString(avg));
+                tv_time.setText("Average Score: " + Double.toString(avg));
+                tv_time.setTextColor(Color.parseColor("#FF0000"));
+            } else{
+                tv_question.setText(name);
+                tv_time.setText("Average Score: " + Double.toString(avg));
+            }
+
 
 //            upvoted = userUpvoted(faq);
 //            if (upvoted) {
