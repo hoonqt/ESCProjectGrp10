@@ -86,11 +86,11 @@ public class ActivityStudentAdapter extends RecyclerView.Adapter<ActivityStudent
 
     @Override
     public int getItemCount() {
-        if (dataset == null) {
+        if (names == null) {
             return 0;
         }
 
-        else return dataset.size();
+        else return names.size();
     }
 
     class QuizViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
