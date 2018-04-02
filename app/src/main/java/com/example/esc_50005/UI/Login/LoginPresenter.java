@@ -20,6 +20,7 @@ public class LoginPresenter implements LoginContract.Presenter  {
     private final UsersInformationRemoteDataSource mLoginRepository;
     ArrayList<UsersInformationDO> userInformationJsonData;
     private Context context;
+    ArrayList<UsersInformationDO> bruteForceJsonData;
     private SharedPreferences userInformation;
 
     public LoginPresenter(@NonNull LoginContract.View contractView) {
@@ -33,11 +34,61 @@ public class LoginPresenter implements LoginContract.Presenter  {
 //        mLoginView.setUpLogin();
     }
 
+    public void addBruteForceCount(String username, String userType)
+    {
+
+        bruteForceJsonData=mLoginRepository.queryParticularUser(username,userType);
+        int count=Integer.parseInt(bruteForceJsonData.get(0).getBruteForceCount());
+        if(count>=1)
+        {
+            mLoginView.showSecurityQuestion();
+        }
+        else{
+            UsersInformationDO editedUser=new UsersInformationDO();
+            editedUser.setUserId(bruteForceJsonData.get(0).getUserId());
+            editedUser.setPassword(bruteForceJsonData.get(0).getPassword());
+            editedUser.setUserType(userType);
+            editedUser.setUsername(username);
+            count++;
+            editedUser.setBruteForceCount(Integer.toString(count));
+            mLoginRepository.addUser(editedUser);
+        }
+    }
+
+    @Override
+    public void verifySecurityAnswer(String answer, String userType, String username) {
+        bruteForceJsonData=mLoginRepository.queryParticularUser(username,userType);
+        String answerFromDB=bruteForceJsonData.get(0).getSecurityAnswer();
+        if(!answerFromDB.equals(answer))
+        {
+            disableAccount();
+        }
+        else{
+            mLoginView.showSuccessfulLogin();
+        }
+    }
+
+    @Override
+    public void disableAccount() {
+
+        String username=bruteForceJsonData.get(0).getUsername();
+        String userType=bruteForceJsonData.get(0).getUsername();
+        String password=bruteForceJsonData.get(0).getUsername();
+        String securityAnswer=bruteForceJsonData.get(0).getUsername();
+        UsersInformationDO editedUser=new UsersInformationDO();
+        editedUser.setUsername(username);
+        editedUser.setUserType(userType);
+        editedUser.setPassword(password);
+        editedUser.setSecurityAnswer(securityAnswer);
+        editedUser.setDisabled(true);
+        mLoginRepository.addUser(editedUser);
+    }
+
     public void loadUsersFromDatabase(Context context)
     {
         userInformation = PreferenceManager.getDefaultSharedPreferences(context);
-        userInformationJsonData=mLoginRepository.queryParticularUser(userInformation.getString("Username",""),userInformation.getString("Password",""),userInformation.getString("UserType",""));
-        checkIfLoginIsValid(userInformationJsonData);
+        userInformationJsonData=mLoginRepository.queryParticularUser(userInformation.getString("Username",""),userInformation.getString("UserType",""));
+        checkIfLoginIsValid(userInformationJsonData,userInformation.getString("Password",""));
     }
 
     @Override
@@ -63,36 +114,31 @@ public class LoginPresenter implements LoginContract.Presenter  {
         }
     }
 
-    public void checkIfLoginIsValid(ArrayList<UsersInformationDO> userInformationJsonData){
+    public void checkIfLoginIsValid(ArrayList<UsersInformationDO> userInformationJsonData, String password){
         Log.i("checkIfLoginIsValid","checkIfLoginIsValid");
-        if(userInformationJsonData.size()!=0)
+        if(userInformationJsonData.get(0).getDisabled())
+        {
+            loadAccountLockedOut();
+        }
+        if(userInformationJsonData.size()!=0 && userInformationJsonData.get(0).getPassword().equals(password))
         {
             loadSuccessfulLogin();
         }
         else{
+            addBruteForceCount(userInformationJsonData.get(0).getUsername(),userInformationJsonData.get(0).getUserType());
             loadUnsuccessfulLogin();
         }
-
-//        for(UsersInformationDO user: userInformationJsonData)
-//        {
-//            Log.i("user",user.getUsername());
-//
-//            if(user.getPassword().equals(userInformation.getString("Password","")) && user.getUsername().equals(userInformation.getString("Username","")) && user.getUserType().equals(userInformation.getString("UserType",""))){
-//
-//                Log.i("successful","successful");
-//                loadSuccessfulLogin();
-//            }
-//            else{
-//                Log.i("unsuccessful","unsuccessful");
-//                loadUnsuccessfulLogin();
-//            }
-//        }
 
     }
 
     public void loadUnsuccessfulLogin()
     {
         mLoginView.showUnsuccessfulLogin();
+    }
+
+    public void loadAccountLockedOut()
+    {
+        mLoginView.showAccountLockedOut();
     }
 
 }

@@ -54,6 +54,8 @@ public class SignupPresenter implements SignupContract.Presenter  {
         newUser.setUserType(userType);
         newUser.setSecurityAnswer(securityAnswer);
         newUser.setUserId(userId);
+        newUser.setDisabled(false);
+        newUser.setBruteForceCount(Integer.toString(0));
         mLoginRepository.addUser(newUser);
 
 //        try{
@@ -70,7 +72,7 @@ public class SignupPresenter implements SignupContract.Presenter  {
     public void loadUsersFromDatabase(String username, String password, String userType, String securityAnswer)
     {
 
-        userInformationJsonData=mLoginRepository.queryParticularUser(username,password,userType);
+        userInformationJsonData=mLoginRepository.queryParticularUser(username,userType);
         checkIfSignupIsValid(userInformationJsonData,username,password,userType,securityAnswer);
     }
 
