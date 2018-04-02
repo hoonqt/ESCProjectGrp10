@@ -39,6 +39,7 @@ public class UsersInformationRemoteDataSource implements UsersInformationDataSou
 
     @Override
     public void addUser(final UsersInformationDO userInformation) {
+        Log.i("username keyed",userInformation.getUsername());
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -49,10 +50,11 @@ public class UsersInformationRemoteDataSource implements UsersInformationDataSou
     }
 
 
+
     public void editUser(String course) {
 
     }
-    public ArrayList<UsersInformationDO> queryParticularUser(final String username, final String password, final String userType) {
+    public ArrayList<UsersInformationDO> queryParticularUser(final String username, final String userType) {
         Log.i("username",userType);
         usersArrayList = new ArrayList<UsersInformationDO>();
 
@@ -63,7 +65,6 @@ public class UsersInformationRemoteDataSource implements UsersInformationDataSou
                 UsersInformationDO userSelected = new UsersInformationDO();
                 userSelected.setUserType(userType);
                 userSelected.setUsername(username);
-                userSelected.setPassword(password);
 
                 DynamoDBQueryExpression queryExpression = new DynamoDBQueryExpression()
                         .withHashKeyValues(userSelected);
@@ -91,14 +92,12 @@ public class UsersInformationRemoteDataSource implements UsersInformationDataSou
             ex.printStackTrace();
         }
 
-        Log.i("size for particular ",Integer.toString(usersArrayList.get(0).getSessionIds().size()));
-
         return usersArrayList;
 
     }
 
 
-    public ArrayList<UsersInformationDO> queryUser(final String username, final String password, final String userType) {
+    public ArrayList<UsersInformationDO> queryUser(final String username, final String userType, final String password) {
 
         Log.i("username",userType);
         usersArrayList = new ArrayList<UsersInformationDO>();
@@ -136,8 +135,6 @@ public class UsersInformationRemoteDataSource implements UsersInformationDataSou
         } catch (InterruptedException ex) {
             ex.printStackTrace();
         }
-
-        Log.i("size",Integer.toString(usersArrayList.size()));
 
         return usersArrayList;
     }

@@ -135,7 +135,6 @@ public class FaqFragment extends Fragment implements FaqContract.View {
 
 
     };
-
     // TO BE REMOVED (cant remove yet due to QuestionsFragment using it)
     public class FaqJsonData {
 

@@ -58,7 +58,7 @@ public class DashboardPresenter implements DashboardContract.Presenter  {
     @Override
     public void loadCoursesFromDatabase(Context context) {
         userInformation = PreferenceManager.getDefaultSharedPreferences(context);
-        userCoursesInformationJsonData=mUsersRepository.queryParticularUser(userInformation.getString("Username",""),userInformation.getString("Password",""),userInformation.getString("UserType",""));
+        userCoursesInformationJsonData=mUsersRepository.queryParticularUser(userInformation.getString("Username",""),userInformation.getString("UserType",""));
         processCoursesForUsers(userCoursesInformationJsonData);
     }
 
@@ -67,8 +67,14 @@ public class DashboardPresenter implements DashboardContract.Presenter  {
         for(UsersInformationDO user: usersCoursesInformationJsonData)
         {
             if(user.getPassword().equals(userInformation.getString("Password","")) && user.getUsername().equals(userInformation.getString("Username","")) && user.getUserType().equals(userInformation.getString("UserType",""))){
-                generateListOfCourses();
-                showSuccessfullyLoadedCourses();
+                if(user.getCourseIds()==null)
+                {
+                    loadUnsuccessfully();
+                }
+                else{
+                    generateListOfCourses();
+                    showSuccessfullyLoadedCourses();
+                }
             }
             else{
                 loadUnsuccessfully();
@@ -154,7 +160,7 @@ public class DashboardPresenter implements DashboardContract.Presenter  {
         }
 
         mUsersRepository.addUser(updateUser);
-        mDashboardView.showAddInvalidCourse();
+        mDashboardView.showAddValidNewCourse();
     }
 
     public void addValidCourseStudent(Double courseId, String courseName)

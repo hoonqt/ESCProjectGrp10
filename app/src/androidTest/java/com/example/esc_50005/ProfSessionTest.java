@@ -2,6 +2,9 @@ package com.example.esc_50005;
 
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
@@ -28,25 +31,42 @@ import static org.hamcrest.core.AllOf.allOf;
 @LargeTest
 public class ProfSessionTest {
 
+    Intent intent;
+    SharedPreferences.Editor preferencesEditor;
+
     @Rule
     public ActivityTestRule<SessionActivity> mActivitytestRule =
-            new ActivityTestRule<SessionActivity>(SessionActivity.class);
+            new ActivityTestRule<SessionActivity>(SessionActivity.class,true,false);
+
+    @Before
+    public void setUp() {
+        intent = new Intent();
+        Context context = getInstrumentation().getTargetContext();
+
+        preferencesEditor = PreferenceManager.getDefaultSharedPreferences(context).edit();
+        String userType = "professor";
+        preferencesEditor.putString("UserType",userType);
+        preferencesEditor.commit();
+        mActivitytestRule.launchActivity(intent);
+    }
 
 
     @Test
     public void clickHereandThere() {
 
-        onView(withId(R.id.tab_layout)).perform(swipeLeft());
-        onView(allOf(
-                withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE),
-                withId(R.id.pager)))
-                .check(matches(isDisplayed()));
+        onView(withId(R.id.pager)).perform(swipeLeft());
+        try {
+            Thread.sleep(1000);
+        }
 
-        onView(withId(R.id.tab_layout)).perform(swipeRight());
-        onView(allOf(
-                withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE),
-                withId(R.id.pager)))
-                .check(matches(isDisplayed()));
+        catch (InterruptedException ex) {
+
+        }
+
+    }
+
+    @Test
+    public void clickFab() {
 
     }
 

@@ -9,14 +9,18 @@ import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBTable;
 
 import java.util.List;
 
+
 @DynamoDBTable(tableName = "escproject-mobilehub-27166461-UsersInformation")
 
 public class UsersInformationDO {
     private String _userType;
     private Double _userId;
+    private String _bruteForceCount;
     private List<String> _courseIds;
     private List<String> _courseNames;
+    private Boolean _disabled;
     private String _password;
+    private String _securityAnswer;
     private List<String> _sessionDate;
     private List<String> _sessionIds;
     private List<String> _sessionName;
@@ -40,6 +44,14 @@ public class UsersInformationDO {
     public void setUserId(final Double _userId) {
         this._userId = _userId;
     }
+    @DynamoDBAttribute(attributeName = "bruteForceCount")
+    public String getBruteForceCount() {
+        return _bruteForceCount;
+    }
+
+    public void setBruteForceCount(final String _bruteForceCount) {
+        this._bruteForceCount = _bruteForceCount;
+    }
     @DynamoDBAttribute(attributeName = "courseIds")
     public List<String> getCourseIds() {
         return _courseIds;
@@ -56,6 +68,14 @@ public class UsersInformationDO {
     public void setCourseNames(final List<String> _courseNames) {
         this._courseNames = _courseNames;
     }
+    @DynamoDBAttribute(attributeName = "disabled")
+    public Boolean getDisabled() {
+        return _disabled;
+    }
+
+    public void setDisabled(final Boolean _disabled) {
+        this._disabled = _disabled;
+    }
     @DynamoDBAttribute(attributeName = "password")
     public String getPassword() {
         return _password;
@@ -63,6 +83,14 @@ public class UsersInformationDO {
 
     public void setPassword(final String _password) {
         this._password = _password;
+    }
+    @DynamoDBAttribute(attributeName = "securityAnswer")
+    public String getSecurityAnswer() {
+        return _securityAnswer;
+    }
+
+    public void setSecurityAnswer(final String _securityAnswer) {
+        this._securityAnswer = _securityAnswer;
     }
     @DynamoDBAttribute(attributeName = "sessionDate")
     public List<String> getSessionDate() {

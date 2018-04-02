@@ -15,6 +15,21 @@ import okio.ByteString;
  * Created by hoonqt on 27/3/18.
  */
 
+import android.app.Application;
+
+import com.example.esc_50005.UI.Session.Student.StudentActivity.Presenters.ActivityStudentPresenter;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import okhttp3.WebSocket;
+import okhttp3.WebSocketListener;
+import okio.ByteString;
+
+/**
+ * Created by hoonqt on 27/3/18.
+ */
+
 public class ProfWebSocket {
 
     OkHttpClient client;
