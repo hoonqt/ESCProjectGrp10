@@ -41,8 +41,6 @@ public class DashboardPresenter implements DashboardContract.Presenter  {
     @Override
     public void start()
     {
-//        Log.i("start","start");
-//        mDashboardView.attemptLoadCourses();
     }
 
     public void showSuccessfullyLoadedCourses()
@@ -53,33 +51,32 @@ public class DashboardPresenter implements DashboardContract.Presenter  {
 
     public void loadUnsuccessfully()    {
 
+
+
+    }
+
+    public void loadEmptyView()    {
+
+        mDashboardView.showEmptyCourses();
     }
 
     @Override
-    public void loadCoursesFromDatabase(Context context) {
-        userInformation = PreferenceManager.getDefaultSharedPreferences(context);
-        userCoursesInformationJsonData=mUsersRepository.queryParticularUser(userInformation.getString("Username",""),userInformation.getString("UserType",""));
-        processCoursesForUsers(userCoursesInformationJsonData);
+    public void loadCoursesFromDatabase(String username, String userType) {
+        userCoursesInformationJsonData=mUsersRepository.queryParticularUser(username,userType);
+        processCoursesForUsers(userCoursesInformationJsonData, username, userType);
     }
 
-    public void processCoursesForUsers(ArrayList<UsersInformationDO> usersCoursesInformationJsonData)
+    public void processCoursesForUsers(ArrayList<UsersInformationDO> usersCoursesInformationJsonData, String username, String userType)
     {
-        for(UsersInformationDO user: usersCoursesInformationJsonData)
-        {
-            if(user.getPassword().equals(userInformation.getString("Password","")) && user.getUsername().equals(userInformation.getString("Username","")) && user.getUserType().equals(userInformation.getString("UserType",""))){
-                if(user.getCourseIds()==null)
+            if(userCoursesInformationJsonData.get(0).getCourseIds()==null)
                 {
-                    loadUnsuccessfully();
+                    loadEmptyView();
                 }
-                else{
+
+            else {
                     generateListOfCourses();
                     showSuccessfullyLoadedCourses();
                 }
-            }
-            else{
-                loadUnsuccessfully();
-            }
-        }
     }
 
     public void generateListOfCourses()
