@@ -2,6 +2,7 @@ package com.example.esc_50005.UI.DataAdder;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.amazonaws.mobile.client.AWSMobileClient;
 import com.example.esc_50005.Database.Progress.ProgressRemoteDataSource;
@@ -22,9 +23,8 @@ public class AddDatahere extends AppCompatActivity {
 
         ProgressRemoteDataSource data = new ProgressRemoteDataSource();
 
-        data.putScores("1002212","50.004","Session1","Quiz 1",3.0,"Alvin Chang");
-        data.putScores("1002212","50.004","Session2","Quiz 1",4.0,"Alvin Chang");
-        data.putScores("1002212","50.004","Session3","Quiz 1",5.0,"Alvin Chang");
+
+        Log.i("Size of array",Integer.toString(data.getNames("50.004").size()));
 
     }
 }

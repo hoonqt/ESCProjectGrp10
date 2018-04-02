@@ -32,13 +32,13 @@
         <activity
             android:name=".UI.Welcome.WelcomeActivity"
             >
+
+        </activity>
+        <activity android:name=".UI.DataAdder.AddDatahere">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-        </activity>
-        <activity android:name=".UI.DataAdder.AddDatahere">
         </activity>
 
         <activity android:name=".UI.Course.FAQ.ProfessorProgressActivity"></activity>

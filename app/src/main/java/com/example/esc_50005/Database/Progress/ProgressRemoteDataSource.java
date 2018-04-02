@@ -8,6 +8,9 @@ import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBQueryExpression;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.PaginatedList;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
+import com.amazonaws.services.dynamodbv2.model.AttributeValue;
+import com.amazonaws.services.dynamodbv2.model.ComparisonOperator;
+import com.amazonaws.services.dynamodbv2.model.Condition;
 
 import org.json.JSONObject;
 
@@ -32,14 +35,18 @@ public class ProgressRemoteDataSource implements ProgressDataSource {
 
     }
 
-    public void putScores(String userid, String subjectcode,String sessionID,  String quizname, Double score, String name) {
+    public void putScores(String studentID, String subjectcode,String sessionID,  String quizname, Double score, String name) {
 
-        final QuizScores2DO quizscore = new QuizScores2DO();
-        quizscore.setSubjectCodeSessionID(subjectcode+sessionID);
-        quizscore.setStudentID(userid);
+        final QuizScores3DO quizscore = new QuizScores3DO();
+
+        quizscore.setStudentID(studentID);
+        quizscore.setName(name);
+        quizscore.setSubjectCode(subjectcode);
         quizscore.setQuizName(quizname);
         quizscore.setScore(score);
-        quizscore.setName(name);
+        quizscore.setSessionID(sessionID);
+
+
 
         new Thread(new Runnable() {
             @Override
@@ -91,7 +98,7 @@ public class ProgressRemoteDataSource implements ProgressDataSource {
 
     }
 
-    public ArrayList<String> getNames(final String subjectCode, final String sessionID) {
+    public ArrayList<String> getNames(final String subjectCode) {
 
 //        dataInJson = new ArrayList<>();
 
@@ -103,11 +110,16 @@ public class ProgressRemoteDataSource implements ProgressDataSource {
 
                 QuizScores2DO names = new QuizScores2DO();
 
-                names.setSubjectCodeSessionID(subjectCode+sessionID);
+                names.setSubjectCodeSessionID(subjectCode);
+
+                Condition rangeKeyCondition = new Condition()
+                        .withComparisonOperator(ComparisonOperator.BEGINS_WITH)
+                        .withAttributeValueList(new AttributeValue().withS(subjectCode));
 
 
-                DynamoDBQueryExpression queryExpression = new DynamoDBQueryExpression()
-                        .withHashKeyValues(names);
+                DynamoDBQueryExpression queryExpression =
+                        new DynamoDBQueryExpression()
+                                .withRangeKeyCondition("SubjectCodeSessionID",rangeKeyCondition);
 
                 PaginatedList<QuizScores2DO> result = dynamoDBMapper.query(QuizScores2DO.class, queryExpression);
 
@@ -130,6 +142,44 @@ public class ProgressRemoteDataSource implements ProgressDataSource {
         Log.i("NameList in prds", "progressList" + nameList.toString());
 
         return nameList;
+
+    }
+
+    public ArrayList<QuizScores2DO> getAllStudent(final String studentID) {
+
+        progressArrayList = new ArrayList<QuizScores2DO>();
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                QuizScores2DO scores = new QuizScores2DO();
+                scores.setStudentID(studentID);
+
+                DynamoDBQueryExpression queryExpression = new DynamoDBQueryExpression()
+                        .withHashKeyValues(scores).withConsistentRead(false);
+
+                PaginatedList<QuizScores2DO> result = dynamoDBMapper.query(QuizScores2DO.class, queryExpression);
+
+                for (QuizScores2DO score : result) {
+                    progressArrayList.add(score);
+                    Log.i("scores in prds","scores: " + score.getScore().toString());
+                }
+
+            }
+        });
+
+        thread.start();
+
+        try {
+            thread.join();
+        } catch (InterruptedException ex) {
+            ex.printStackTrace();
+        }
+
+        Log.i("Progresslist in prds", "progressList" + progressArrayList.toString());
+
+        return progressArrayList;
 
     }
 
