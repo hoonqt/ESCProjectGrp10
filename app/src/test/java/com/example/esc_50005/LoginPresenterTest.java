@@ -2,6 +2,7 @@ package com.example.esc_50005;
 
 import com.example.esc_50005.Database.FAQ.Faq;
 import com.example.esc_50005.Database.FAQ.FaqRemoteDataSource;
+import com.example.esc_50005.Database.UsersInformation.UsersInformation;
 import com.example.esc_50005.Database.UsersInformation.UsersInformationDO;
 import com.example.esc_50005.Database.UsersInformation.UsersInformationRemoteDataSource;
 import com.example.esc_50005.UI.Course.FAQ.FaqContract;
@@ -14,12 +15,15 @@ import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
 
 import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /**
  * Created by tan_j on 14/3/2018.
@@ -34,6 +38,7 @@ public class LoginPresenterTest {
 
     @Mock
     private LoginContract.View mLoginView;
+    private static ArrayList<UsersInformationDO> userBruteForceJsonData;
 
     @Mock
     private UsersInformationRemoteDataSource mLoginRepository;
@@ -46,14 +51,6 @@ public class LoginPresenterTest {
     public void setupLoginPresenter() {
         MockitoAnnotations.initMocks(this);
         mLoginPresenter = new LoginPresenter(mLoginRepository, mLoginView);
-        UsersInformationDO user=new UsersInformationDO();
-        user.setBruteForceCount(Integer.toString(0));
-        user.setUserId(12.0);
-        user.setUserType("student");
-        user.setUsername("cindy");
-        listOfUsers.add(user);
-        mLoginRepository.addUser(user);
-//        listOfUsers=mLoginRepository.queryParticularUser("cindy","student");
 
     }
 
@@ -109,8 +106,9 @@ public class LoginPresenterTest {
 
     @Test
     public void loadSuccessfulLogin() {
-        mLoginPresenter.loadSuccessfulLogin();
-        verify(mLoginView).showSuccessfulLogin();
+        double number=23.0;
+        mLoginPresenter.loadSuccessfulLogin(number);
+        verify(mLoginView).showSuccessfulLogin(number);
     }
 
     @Test
@@ -120,17 +118,31 @@ public class LoginPresenterTest {
     }
 
     @Test
+    public void verifySecurityAnswer() {
+
+        ArrayList<UsersInformationDO> listOfUsers=new ArrayList<>();
+        UsersInformationDO newUser=new UsersInformationDO();
+        newUser.setUsername("cindy");
+        newUser.setSecurityAnswer("hello");
+        listOfUsers.add(newUser);
+        when(mLoginRepository.queryParticularUser("cindy","student")).thenReturn(listOfUsers);
+        userBruteForceJsonData=mLoginRepository.queryParticularUser("cindy","student");
+        String correctSecurityAnswer=userBruteForceJsonData.get(0).getSecurityAnswer();
+
+    }
+
+    @Test
     public void disableAccount() {
-        mLoginPresenter.disableAccount();
+        ArrayList<UsersInformationDO> listOfUsers=new ArrayList<>();
+        UsersInformationDO newUser=new UsersInformationDO();
+        newUser.setUsername("cindy");
+        newUser.setSecurityAnswer("hello");
+        listOfUsers.add(newUser);
 
-        ArrayList<UsersInformationDO> editedUser;
-        editedUser=mLoginRepository.queryParticularUser("cindy","student");
-        editedUser.get(0).setDisabled(true);
-
-        mLoginRepository.addUser(editedUser.get(0));
-        mLoginRepository.addUser(editedUser.get(0));
-
-        verify(mLoginView).showAccountLockedOut();
+        when(mLoginRepository.queryParticularUser("cindy","student")).thenReturn(listOfUsers);
+        userBruteForceJsonData=mLoginRepository.queryParticularUser("cindy","student");
+        UsersInformationDO editedUser=userBruteForceJsonData.get(0);
+        mLoginView.showAccountLockedOut();
     }
 
 }

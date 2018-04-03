@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,6 +19,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
+import com.example.esc_50005.Database.utilities.Injection;
 import com.example.esc_50005.R;
 import com.example.esc_50005.UI.Course.FAQ.CourseActivity;
 import com.example.esc_50005.UI.Dashboard.main.CoursesAdapter;
@@ -34,7 +36,7 @@ public class StudentDashboardFragment extends Fragment implements DashboardContr
 
     // UI references.
     SharedPreferences sharedPreferences;
-    private DashboardContract.Presenter mPresenter= new DashboardPresenter(this);
+    private DashboardContract.Presenter mPresenter;
     private CoursesAdapter mCoursesAdapter;
     private RecyclerView coursesListRecycler;
     private StudentDashboardFragment.LayoutManagerType mCurrentLayoutManagerType;
@@ -50,6 +52,17 @@ public class StudentDashboardFragment extends Fragment implements DashboardContr
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+        mPresenter = new DashboardPresenter(
+                Injection.provideUsersInformationRepository(getActivity().getApplicationContext()),
+                Injection.provideCoursesRepository(getActivity().getApplicationContext()),
+                this)
+        ;
+    }
+
+    @Override
     public void setPresenter(@NonNull DashboardContract.Presenter presenter) {
         Log.i("checkIfNull","checkIfNullDashboard");
         mPresenter = checkNotNull(presenter);
@@ -58,6 +71,7 @@ public class StudentDashboardFragment extends Fragment implements DashboardContr
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.i("onCreateView","onCreateView");
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         View view=inflater.inflate(R.layout.dashboard_fragment, container, false);
         coursesListRecycler=view.findViewById(R.id.recyclerViewDashboardCourses);
@@ -75,6 +89,7 @@ public class StudentDashboardFragment extends Fragment implements DashboardContr
     public void attemptLoadCourses()
     {
         Log.i("attemptLoad","attemptLoad");
+        Log.i("username here",sharedPreferences.getString("Username",""));
         mPresenter.loadCoursesFromDatabase(sharedPreferences.getString("Username",""),sharedPreferences.getString("UserType",""));
     }
 

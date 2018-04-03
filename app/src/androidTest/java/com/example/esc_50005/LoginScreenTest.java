@@ -88,8 +88,10 @@ public class LoginScreenTest {
                 .check(matches(isChecked()));
         onView(withId(R.id.login_button)).perform(click());
 
+
         String testUsername="cindy";
         String username=preferencesEditor.getString("Username","");
+        Log.i("username",username);
 
         assertEquals(username, testUsername);
     }

@@ -61,7 +61,7 @@ public class BruteForceLoginTest {
         for (int i = 0; i < passwords.size(); i++) {
             onView(withId(R.id.email)).perform(typeText("corgi101"));
             onView(withId(R.id.password)).perform(typeText(passwords.get(i)));
-            onView(withId(R.id.email_sign_in_button)).perform(click());
+            onView(withId(R.id.login_button)).perform(click());
         }
     }
 }

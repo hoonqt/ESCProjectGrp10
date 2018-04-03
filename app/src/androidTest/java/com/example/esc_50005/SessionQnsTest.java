@@ -44,12 +44,12 @@ public class SessionQnsTest {
 
     }
 
-    @Test
-    public void createPresenter() {
-        mProfPresenter = new ActivityProfPresenter(mQuizView);
-        verify(mQuizView).setPresenter(mProfPresenter);
-
-    }
+//    @Test
+//    public void createPresenter() {
+//        mProfPresenter = new ActivityProfPresenter(mQuizView);
+//        verify(mQuizView).setPresenter(mProfPresenter);
+//
+//    }
 
 
 }
