@@ -12,15 +12,8 @@ import static com.google.gson.internal.$Gson$Preconditions.checkNotNull;
  */
 
 public class Injection {
-//    public static FaqRepository provideFaqRepository(@NonNull Context context) {
-//        checkNotNull(context);
-//        ToDoDatabase database = ToDoDatabase.getInstance(context);
-//        return FaqRepository.getInstance(FakeFaqRemoteDataSource.getInstance(),
-//                FaqLocalDataSource.getInstance(new AppExecutors(),
-//                        database.taskDao()));
-//    }
 
-    public static QuizRemoteDataSource provideFaqRepository(@NonNull Context context) {
+    public static QuizRemoteDataSource provideQuizRepository(@NonNull Context context) {
         checkNotNull(context);
 //        FaqRoomDatabase database = FaqRoomDatabase.getInstance(context);
         return QuizRemoteDataSource.getInstance();

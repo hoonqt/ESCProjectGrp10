@@ -1,6 +1,9 @@
 package com.example.esc_50005.UI.Session.Student.StudentActivity.SideScreens;
 
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -19,7 +22,9 @@ import com.example.esc_50005.Database.Progress.ProgressRemoteDataSource;
 import com.example.esc_50005.Database.Quizstuff.QuizQuestions1DO;
 import com.example.esc_50005.Database.Quizstuff.QuizQuestions2DO;
 import com.example.esc_50005.R;
+import com.example.esc_50005.UI.Session.Main.SessionActivity;
 import com.example.esc_50005.UI.Session.Student.StudentActivity.Adapters.StudentAnswerAdapter;
+import com.example.esc_50005.UI.Session.Student.StudentActivity.MainScreen.ActivityStudentFrag;
 
 import java.util.ArrayList;
 
@@ -36,6 +41,7 @@ public class AnsweringZoneFrag extends Fragment {
     ArrayList<QuizQuestions2DO> allthequestions;
     Button submitbtn;
     SharedPreferences sharedPreferences;
+    Context context;
 
     private enum LayoutManagerType {
         LINEAR_LAYOUT_MANAGER
@@ -55,6 +61,8 @@ public class AnsweringZoneFrag extends Fragment {
         LayoutManager = new LinearLayoutManager(getActivity());
         CurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
         qnRecycler.setLayoutManager(new LinearLayoutManager(view.getContext()));
+
+        context = getContext();
 
         submitbtn = view.findViewById(R.id.submitbutton);
         submitbtn.setOnClickListener(submitclick);
@@ -114,6 +122,21 @@ public class AnsweringZoneFrag extends Fragment {
             String courseCode = sharedPreferences.getString("CurrentCourseActivity", null).split(" ")[0];
 
             data.putScores(userID,courseCode,"111",quizName,(double)score,"John Chang");
+
+            AlertDialog.Builder builder=new AlertDialog.Builder(getContext());
+            builder.setMessage("Your score is:" + score + "/" + qnRecycler.getChildCount() );
+            builder.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    ActivityStudentFrag tobestarted = new ActivityStudentFrag();
+                    SessionActivity myActivity = (SessionActivity) context;
+                    myActivity.getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.profsessionhere,tobestarted).commit();
+                }
+            });
+            AlertDialog alertDialog=builder.create();
+            alertDialog.show();
+
+
         }
     };
 
