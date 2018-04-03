@@ -41,7 +41,7 @@ public class ActivityStudentPresenter implements QuizStudentContract.Presenter {
 
         WebSocket socket = new WebSocket();
         socket.send("sinita113");
-        loadQuizes("none","here");
+        loadQuizes("50.005","101");
 
 
     }

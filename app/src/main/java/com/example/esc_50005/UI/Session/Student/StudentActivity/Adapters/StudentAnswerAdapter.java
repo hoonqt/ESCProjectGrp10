@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -65,20 +66,21 @@ public class StudentAnswerAdapter extends RecyclerView.Adapter<StudentAnswerAdap
 
         RadioGroup group;
         TextView questionbox;
-        TextView option1;
-        TextView option2;
-        TextView option3;
-        TextView option4;
+        RadioButton option1;
+        RadioButton option2;
+        RadioButton option3;
+        RadioButton option4;
 
 
         public QnViewHolder(View v) {
             super(v);
 
+            group = v.findViewById(R.id.radiobuttons);
             questionbox = v.findViewById(R.id.questionBox);
-            option1 = v.findViewById(R.id.option1ans);
-            option2 = v.findViewById(R.id.option2ans);
-            option3 = v.findViewById(R.id.option3ans);
-            option4 = v.findViewById(R.id.option4ans);
+            option1 = v.findViewById(R.id.option1);
+            option2 = v.findViewById(R.id.option2);
+            option3 = v.findViewById(R.id.option3);
+            option4 = v.findViewById(R.id.option4);
 
 
 

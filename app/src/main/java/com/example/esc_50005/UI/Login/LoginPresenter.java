@@ -3,6 +3,7 @@ package com.example.esc_50005.UI.Login;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.example.esc_50005.Database.FAQ.FaqRemoteDataSource;
 import com.example.esc_50005.Database.UsersInformation.UsersInformationDO;
 import com.example.esc_50005.Database.UsersInformation.UsersInformationRemoteDataSource;
 
@@ -14,12 +15,13 @@ import static com.google.common.base.Preconditions.*;
 public class LoginPresenter implements LoginContract.Presenter  {
 
     private final LoginContract.View mLoginView;
-    private final UsersInformationRemoteDataSource mLoginRepository;
+    public UsersInformationRemoteDataSource mLoginRepository;
+
     ArrayList<UsersInformationDO> userInformationJsonData;
     ArrayList<UsersInformationDO> userBruteForceJsonData;
 
-    public LoginPresenter(@NonNull LoginContract.View contractView) {
-        mLoginRepository=new UsersInformationRemoteDataSource();
+    public LoginPresenter(@NonNull UsersInformationRemoteDataSource usersInformationRepository, @NonNull LoginContract.View contractView) {
+        mLoginRepository=usersInformationRepository;
         mLoginView = checkNotNull(contractView, "loginView cannot be null!");
         mLoginView.setPresenter(this);
     }
@@ -59,7 +61,7 @@ public class LoginPresenter implements LoginContract.Presenter  {
             disableAccount();
         }
         else{
-            mLoginView.showSuccessfulLogin();
+            mLoginView.showSuccessfulLogin(userBruteForceJsonData.get(0).getUserId());
         }
     }
 
@@ -81,8 +83,9 @@ public class LoginPresenter implements LoginContract.Presenter  {
     }
 
     @Override
-    public void loadSuccessfulLogin() {
-        mLoginView.showSuccessfulLogin();
+    public void loadSuccessfulLogin(Double userId) {
+
+        mLoginView.showSuccessfulLogin(userId);
     }
 
 
@@ -100,7 +103,7 @@ public class LoginPresenter implements LoginContract.Presenter  {
         {
             Log.i("password type",password);
             Log.i("password real",userInformationJsonData.get(0).getPassword());
-            loadSuccessfulLogin();
+            loadSuccessfulLogin(userInformationJsonData.get(0).getUserId());
         }
         else{
             addBruteForceCount(userInformationJsonData.get(0).getUsername(),userInformationJsonData.get(0).getUserType());
