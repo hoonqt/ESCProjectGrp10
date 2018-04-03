@@ -80,6 +80,15 @@ public class StudentSessionsFragment extends Fragment implements SessionsContrac
         mLayoutManager= new LinearLayoutManager(getActivity());
         mCurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
         sessionsListRecycler.setLayoutManager(new LinearLayoutManager(this.getActivity()));
+
+        swipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.sessions_swipe);
+        swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                attemptQuerySessions();
+            }
+        });
+
         button= view.findViewById(R.id.add_button);
         button.setOnClickListener(this);
         attemptQuerySessions();
@@ -146,4 +155,9 @@ public class StudentSessionsFragment extends Fragment implements SessionsContrac
         builder.show();
     }
 
+    public void sessionsLoaded() {
+        if (swipeLayout.isRefreshing()) {
+            swipeLayout.setRefreshing(false);
+        }
+    }
 }

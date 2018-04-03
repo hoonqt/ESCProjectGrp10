@@ -3,6 +3,7 @@ package com.example.esc_50005;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.support.test.espresso.Espresso;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
@@ -19,12 +20,15 @@ import java.util.ArrayList;
 
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.action.ViewActions.clearText;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.RootMatchers.isDialog;
 import static android.support.test.espresso.matcher.ViewMatchers.isChecked;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.junit.Assert.assertEquals;
 
 
@@ -62,6 +66,17 @@ public class BruteForceLoginTest {
             onView(withId(R.id.email)).perform(typeText("corgi101"));
             onView(withId(R.id.password)).perform(typeText(passwords.get(i)));
             onView(withId(R.id.email_sign_in_button)).perform(click());
+            onView(withText("Your account has been locked out, kindly contact your adminstrator."))
+                    .inRoot(isDialog())
+                    .check(matches(isDisplayed()));
+            Espresso.pressBack();
+            try {
+                Thread.sleep(1000);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            onView(withId(R.id.email)).perform(clearText());
+            onView(withId(R.id.password)).perform(clearText());
         }
     }
 }

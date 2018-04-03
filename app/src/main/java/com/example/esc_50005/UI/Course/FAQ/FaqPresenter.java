@@ -20,11 +20,13 @@ public class FaqPresenter implements FaqContract.Presenter {
 
     private final FaqContract.View mFaqView;
     public FaqRemoteDataSource mFaqRepository;
-    ArrayList<Faq> faqJsonData;
+    ArrayList<Faq> mFaqList;
+
+    String userId;
+    String courseId;
 
     public FaqPresenter(@NonNull FaqRemoteDataSource faqRepository, @NonNull FaqContract.View faqView) {
         mFaqRepository = faqRepository;
-//        mFaqRepository = new FaqRemoteDataSource();
         mFaqView = checkNotNull(faqView, "faqView cannot be null!");
         mFaqView.setPresenter(this);
     }
@@ -37,15 +39,15 @@ public class FaqPresenter implements FaqContract.Presenter {
 
     public void loadFaq() {
 
-        faqJsonData = mFaqRepository.getFaqListByCourseId("50003");
+        mFaqList = mFaqRepository.getFaqListByCourseId(courseId);
 
-        if (faqJsonData.size()==0) {
+        if (mFaqList.size()==0) {
             processEmptyFaq();
         } else {
-            processFaq(faqJsonData);
+            processFaq(mFaqList);
         }
-
-        Log.i(TAG, "LoadFaq size is " + faqJsonData.size());
+        mFaqView.showLoadFaqError();
+        Log.i(TAG, "LoadFaq size is " + mFaqList.size());
 
     }
 
@@ -55,9 +57,9 @@ public class FaqPresenter implements FaqContract.Presenter {
 
     public void upvoteFaq(Faq faq) {
         ArrayList<String> usersVoted = faq.getUsersVoted();
-        if (!usersVoted.contains("1001688")) {
+        if (!usersVoted.contains(userId)) {
             faq.setUpvotes(faq.getUpvotes() + 1);
-            usersVoted.add("1001688");
+            usersVoted.add(userId);
             faq.setUsersVoted(usersVoted);
             mFaqRepository.saveFaq(faq);
             Log.i(TAG, "upvote Faq" + faq.getUpvotes());
@@ -67,9 +69,9 @@ public class FaqPresenter implements FaqContract.Presenter {
 
     public void downvoteFaq(Faq faq) {
         ArrayList<String> usersVoted = faq.getUsersVoted();
-        if (faq.getUsersVoted().contains("1001688")) {
+        if (faq.getUsersVoted().contains(userId)) {
             faq.setUpvotes(faq.getUpvotes() - 1);
-            usersVoted.remove("1001688");
+            usersVoted.remove(userId);
             faq.setUsersVoted(usersVoted);
             mFaqRepository.saveFaq(faq);
             Log.i(TAG, "downvote Faq" + faq.getUpvotes());
@@ -79,7 +81,7 @@ public class FaqPresenter implements FaqContract.Presenter {
 
     public void processFaq(ArrayList<Faq> faqJsonData) {
 
-        Log.i(TAG, "Length of faqJsonData = " + faqJsonData.size());
+        Log.i(TAG, "Length of mFaqList = " + faqJsonData.size());
 
         if (faqJsonData.size() != 0) {
             mFaqView.showFaq(faqJsonData);
@@ -88,4 +90,13 @@ public class FaqPresenter implements FaqContract.Presenter {
 
     }
 
+    @Override
+    public void setUserId(String studentId) {
+        this.userId = studentId;
+    }
+
+    @Override
+    public void setCourseId(String courseId) {
+        this.courseId = courseId;
+    }
 }
