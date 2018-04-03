@@ -48,6 +48,7 @@ public class SessionsPresenter implements SessionsContract.Presenter {
     public void loadSessions()
     {
         mSessionsView.showSessions(listOfSessions);
+        mSessionsView.sessionsLoaded();
     }
 
     public void querySessions(Context context) {
