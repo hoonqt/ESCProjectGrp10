@@ -16,7 +16,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 public class FaqPresenter implements FaqContract.Presenter {
 
-    public static final String TAG = "SessionsPresenter";
+    public static final String TAG = "FaqPresenter";
 
     private final FaqContract.View mFaqView;
     public FaqRemoteDataSource mFaqRepository;
@@ -40,14 +40,16 @@ public class FaqPresenter implements FaqContract.Presenter {
     public void loadFaq() {
 
         mFaqList = mFaqRepository.getFaqListByCourseId(courseId);
-
+        Log.i(TAG,"Getting mFaqList from courseId: " + courseId);
         if (mFaqList.size()==0) {
-            processEmptyFaq();
+
+            processFaq(mFaqList);
+//            processEmptyFaq();
         } else {
             processFaq(mFaqList);
         }
         mFaqView.showLoadFaqError();
-        Log.i(TAG, "LoadFaq size is " + mFaqList.size());
+        Log.i(TAG, "mFaqList size is " + mFaqList.size());
 
     }
 
@@ -83,10 +85,10 @@ public class FaqPresenter implements FaqContract.Presenter {
 
         Log.i(TAG, "Length of mFaqList = " + faqJsonData.size());
 
-        if (faqJsonData.size() != 0) {
+//        if (faqJsonData.size() != 0) {
             mFaqView.showFaq(faqJsonData);
             mFaqView.faqLoaded();
-        }
+//        }
 
     }
 

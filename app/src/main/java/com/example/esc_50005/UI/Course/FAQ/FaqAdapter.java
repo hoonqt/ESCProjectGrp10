@@ -44,10 +44,10 @@ public class FaqAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     //indicates how many list objects it has
 
     public int getItemCount() {
-        if (mFaqList == null) {
-            return 0;
-        } else {
+        if (mFaqList != null && mFaqList.size()>0) {
             return mFaqList.size();
+        } else {
+            return 1;
         }
     }
 
@@ -71,6 +71,9 @@ public class FaqAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     @Override
     public int getItemViewType(int position) {
+        Log.i(TAG,"mFaqList is null: " + Boolean.toString(mFaqList==null));
+        Log.i(TAG,"mFaqList size is: " + mFaqList.size());
+
         if (mFaqList != null && mFaqList.size() > 0) {
             return VIEW_TYPE_NORMAL;
         } else {

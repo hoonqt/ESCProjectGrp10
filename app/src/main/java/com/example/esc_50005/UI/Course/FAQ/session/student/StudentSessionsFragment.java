@@ -37,6 +37,7 @@ public class StudentSessionsFragment extends Fragment implements SessionsContrac
     private RecyclerView sessionsListRecycler;
     private ImageButton button;
     private SharedPreferences sharedPreferences;
+    private SwipeRefreshLayout swipeLayout;
 
     private SessionsAdapter mSessionsAdapter;
 
