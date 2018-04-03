@@ -7,6 +7,7 @@ import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBQueryExpression;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.PaginatedList;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
+import com.example.esc_50005.Database.FAQ.FaqRemoteDataSource;
 
 import java.util.ArrayList;
 
@@ -15,6 +16,18 @@ public class SessionsInformationRemoteDataSource implements SessionsInformationD
     DynamoDBMapper dynamoDBMapper;
     ArrayList<SessionsInformationDO> sessionsArrayList;
     public static final String TAG = "QuestionsRemote";
+
+    private static SessionsInformationRemoteDataSource INSTANCE;
+
+//    private ArrayList<JSONObject> dataInJson;
+
+    public static SessionsInformationRemoteDataSource getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new SessionsInformationRemoteDataSource();
+        }
+        return INSTANCE;
+    }
+
 
     public SessionsInformationRemoteDataSource() {
 

@@ -13,6 +13,7 @@ import com.example.esc_50005.R;
 import com.example.esc_50005.UI.Course.FAQ.session.professor.ProfessorSessionsFragment;
 import com.example.esc_50005.UI.Course.FAQ.session.student.StudentSessionsFragment;
 
+
 /**
  * Created by YiLong on 30/11/17.
  */
@@ -40,9 +41,9 @@ public class CoursePagerAdapter extends FragmentStatePagerAdapter {
         if(userInformation.getString("UserType","").equals("student")) {
             switch (position) {
                 case 0:
-                    return new StudentSessionsFragment();
-                case 1:
                     return new FaqFragment();
+                case 1:
+                    return new StudentSessionsFragment();
                 case 2:
                     return new ProgressStudentFragment();
                 default:
@@ -54,9 +55,9 @@ public class CoursePagerAdapter extends FragmentStatePagerAdapter {
             switch (position)
             {
                 case 0:
-                    return new ProfessorSessionsFragment();
-                case 1:
                     return new FaqFragment();
+                case 1:
+                    return new ProfessorSessionsFragment();
                 case 2:
                     return new NameListFragment();
                 default:
