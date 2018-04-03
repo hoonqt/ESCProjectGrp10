@@ -104,7 +104,7 @@ public class ActivityProfFrag extends Fragment implements QuizProfContract.View,
                                 //bundle.putSerializable("allthequestions",mPresenter);
                                 adder.setArguments(bundle);
                                 SessionActivity myActivity = (SessionActivity)context;
-                                myActivity.getSupportFragmentManager().beginTransaction().addToBackStack(null).setCustomAnimations(R.anim.slide_out_up,R.anim.slide_in_up).replace(R.id.profsessionhere,adder).addToBackStack(null).commit();
+                                myActivity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_out_up,R.anim.slide_in_up).replace(R.id.profsessionhere,adder).addToBackStack(null).commit();
                             }
                         });
                 alert.show();

@@ -112,6 +112,18 @@ public class QuizEditor extends Fragment {
                 option2.setText(qntobeedited.getOptions().get(1));
                 option3.setText(qntobeedited.getOptions().get(2));
                 option4.setText(qntobeedited.getOptions().get(3));
+                if (qntobeedited.getCorrectans() == 0) {
+                    button1.setChecked(true);
+                }
+                else if (qntobeedited.getCorrectans() == 0) {
+                    button2.setChecked(true);
+                }
+                else if (qntobeedited.getCorrectans() == 0) {
+                    button3.setChecked(true);
+                }
+                else if (qntobeedited.getCorrectans() == 0) {
+                    button4.setChecked(true);
+                }
             }
 
         }
@@ -154,7 +166,6 @@ public class QuizEditor extends Fragment {
                     option2.setText("");
                     option3.setText("");
                     option4.setText("");
-                    RadioGrp.clearCheck();
                 }
             }
         });
