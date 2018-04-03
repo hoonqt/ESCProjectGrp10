@@ -5,11 +5,17 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
+import com.example.esc_50005.Database.Progress.ProgressRemoteDataSource;
 import com.example.esc_50005.Database.Quizstuff.QuizQuestions1DO;
+import com.example.esc_50005.Database.Quizstuff.QuizQuestions2DO;
 import com.example.esc_50005.R;
 import com.example.esc_50005.UI.Session.Student.StudentActivity.Adapters.StudentAnswerAdapter;
 
@@ -25,6 +31,8 @@ public class AnsweringZoneFrag extends Fragment {
     private AnsweringZoneFrag.LayoutManagerType CurrentLayoutManagerType;
     private RecyclerView.LayoutManager LayoutManager;
     private StudentAnswerAdapter qnAdapter;
+    ArrayList<QuizQuestions2DO> allthequestions;
+    Button submitbtn;
 
     private enum LayoutManagerType {
         LINEAR_LAYOUT_MANAGER
@@ -45,11 +53,14 @@ public class AnsweringZoneFrag extends Fragment {
         CurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
         qnRecycler.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
+        submitbtn = view.findViewById(R.id.submitbutton);
+        submitbtn.setOnClickListener(submitclick);
+
         Bundle bundle = this.getArguments();
 
         if (bundle != null) {
 
-            ArrayList<QuizQuestions1DO> allthequestions = (ArrayList<QuizQuestions1DO>)bundle.getSerializable("allthequestions");
+            allthequestions = (ArrayList<QuizQuestions2DO>)bundle.getSerializable("allthequestions");
             qnAdapter = new StudentAnswerAdapter(allthequestions);
             qnRecycler.setAdapter(qnAdapter);
 
@@ -57,5 +68,43 @@ public class AnsweringZoneFrag extends Fragment {
 
         return view;
     }
+
+    private View.OnClickListener submitclick = new View.OnClickListener() {
+
+        RadioGroup group;
+        int score = 0;
+
+        @Override
+        public void onClick(View view) {
+            for (int childCount = qnRecycler.getChildCount(), i = 0; i < childCount; ++i) {
+                final RecyclerView.ViewHolder holder = qnRecycler.getChildViewHolder(qnRecycler.getChildAt(i));
+                group = holder.itemView.findViewById(R.id.radiobuttons);
+
+                Log.i("Selected answer",Integer.toString(group.getCheckedRadioButtonId()));
+                Log.i("Correct answer",Double.toString(allthequestions.get(i).getCorrectans()));
+
+
+
+                if (group.getCheckedRadioButtonId() == R.id.option1 && allthequestions.get(i).getCorrectans() == 0) {
+                    score++;
+                }
+
+                else if (group.getCheckedRadioButtonId() == R.id.option2 && allthequestions.get(i).getCorrectans() == 1) {
+                    score++;
+                }
+
+                else if (group.getCheckedRadioButtonId() == R.id.option3 && allthequestions.get(i).getCorrectans() == 2) {
+                    score++;
+                }
+
+                else if (group.getCheckedRadioButtonId() == R.id.option4 && allthequestions.get(i).getCorrectans() == 3) {
+                    score++;
+                }
+            }
+
+            ProgressRemoteDataSource data = new ProgressRemoteDataSource();
+            data.putScores("1002212","50.004","111","Quiz 1",(double)score,"John Chang");
+        }
+    };
 
 }

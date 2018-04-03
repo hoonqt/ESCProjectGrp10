@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.esc_50005.Database.Quizstuff.QuizQuestions1DO;
+import com.example.esc_50005.Database.Quizstuff.QuizQuestions2DO;
 import com.example.esc_50005.R;
 import com.example.esc_50005.UI.Session.Main.SessionActivity;
 import com.example.esc_50005.UI.Session.Student.StudentActivity.SideScreens.AnsweringZoneFrag;
@@ -26,32 +27,32 @@ import java.util.ArrayList;
 
 public class ActivityStudentAdapter extends RecyclerView.Adapter<ActivityStudentAdapter.QuizViewHolder> {
 
-    private ArrayList<QuizQuestions1DO> dataset;
+    private ArrayList<QuizQuestions2DO> dataset;
     private ArrayList<String> names;
     private static int viewHolderCount = 0;
     private Context context;
     SharedPreferences sharedPreferences;
 
-    public ActivityStudentAdapter(ArrayList<QuizQuestions1DO> input) {
+    public ActivityStudentAdapter(ArrayList<QuizQuestions2DO> input) {
 
         names = new ArrayList<>();
         dataset = input;
 
         for (int i = 0;i<dataset.size();i++) {
-            if (!names.contains(dataset.get(i).getQuizName())) {
-                names.add(dataset.get(i).getQuizName());
+            if (!names.contains(dataset.get(i).getQuizNameQnID().split(" ")[0])) {
+                names.add(dataset.get(i).getQuizNameQnID().split(" ")[0]);
             }
         }
 
     }
 
-    public void setData(ArrayList<QuizQuestions1DO> input) {
+    public void setData(ArrayList<QuizQuestions2DO> input) {
         this.dataset.clear();
         dataset.addAll(input);
         names.clear();
         for (int i = 0;i<dataset.size();i++) {
-            if (!names.contains(dataset.get(i).getQuizName())) {
-                names.add(dataset.get(i).getQuizName());
+            if (!names.contains(dataset.get(i).getQuizNameQnID().split(" ")[0])) {
+                names.add(dataset.get(i).getQuizNameQnID().split(" ")[0]);
             }
         }
 
@@ -85,11 +86,11 @@ public class ActivityStudentAdapter extends RecyclerView.Adapter<ActivityStudent
 
     @Override
     public int getItemCount() {
-        if (dataset == null) {
+        if (names == null) {
             return 0;
         }
 
-        else return dataset.size();
+        else return names.size();
     }
 
     class QuizViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -117,7 +118,7 @@ public class ActivityStudentAdapter extends RecyclerView.Adapter<ActivityStudent
             AnsweringZoneFrag editor = new AnsweringZoneFrag();
             Bundle bundler = new Bundle();
 
-            ArrayList<QuizQuestions1DO> tobetransferred = new ArrayList<>(dataset);
+            ArrayList<QuizQuestions2DO> tobetransferred = new ArrayList<>(dataset);
 
             bundler.putSerializable("allthequestions",tobetransferred);
             editor.setArguments(bundler);

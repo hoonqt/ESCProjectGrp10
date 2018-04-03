@@ -7,6 +7,7 @@ import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.PaginatedList;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Created by hoonqt on 27/3/18.
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 
 public class QuizRemoteDataSource {
     DynamoDBMapper dynamoDBMapper;
-    ArrayList<QuizQuestions1DO> questionsArrayList;
+    ArrayList<QuizQuestions2DO> questionsArrayList;
 
     public QuizRemoteDataSource() {
 
@@ -26,7 +27,7 @@ public class QuizRemoteDataSource {
 
     }
 
-    public void putQuestion(final QuizQuestions1DO input) {
+    public void putQuestion(final QuizQuestions2DO input) {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -39,10 +40,10 @@ public class QuizRemoteDataSource {
 
     public void putQuestion(String subjCode, String sessionCode, String quizName,String question, Double correctAns, ArrayList<String> options) {
 
-        final QuizQuestions1DO adder = new QuizQuestions1DO();
+        final QuizQuestions2DO adder = new QuizQuestions2DO();
 
         adder.setSubjectCodeSessionCode(subjCode+sessionCode);
-        adder.setQuizName(quizName);
+        adder.setQuizNameQnID(quizName + " " + getSaltString());
         adder.setCorrectans(correctAns);
         adder.setOptions(options);
         adder.setQuestion(question);
@@ -57,23 +58,23 @@ public class QuizRemoteDataSource {
 
     }
     
-    public ArrayList<QuizQuestions1DO> getQuestions(final String subjCode, final String sessionCode) {
+    public ArrayList<QuizQuestions2DO> getQuestions(final String subjCode, final String sessionCode) {
         
-        questionsArrayList = new ArrayList<QuizQuestions1DO>();
+        questionsArrayList = new ArrayList<QuizQuestions2DO>();
 
         Thread random = new Thread(new Runnable() {
             @Override
             public void run() {
 
-                final QuizQuestions1DO adder = new QuizQuestions1DO();
+                final QuizQuestions2DO adder = new QuizQuestions2DO();
                 adder.setSubjectCodeSessionCode(subjCode+sessionCode);
 
                 DynamoDBQueryExpression queryExpression = new DynamoDBQueryExpression()
                         .withHashKeyValues(adder);
 
-                PaginatedList<QuizQuestions1DO> result = dynamoDBMapper.query(QuizQuestions1DO.class, queryExpression);
+                PaginatedList<QuizQuestions2DO> result = dynamoDBMapper.query(QuizQuestions2DO.class, queryExpression);
 
-                for (QuizQuestions1DO score : result) {
+                for (QuizQuestions2DO score : result) {
                     questionsArrayList.add(score);
                 }
 
@@ -92,6 +93,19 @@ public class QuizRemoteDataSource {
 
 
         return questionsArrayList;
+    }
+
+    protected String getSaltString() {
+        String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        StringBuilder salt = new StringBuilder();
+        Random rnd = new Random();
+        while (salt.length() < 6) { // length of the random string.
+            int index = (int) (rnd.nextFloat() * SALTCHARS.length());
+            salt.append(SALTCHARS.charAt(index));
+        }
+        String saltStr = salt.toString();
+        return saltStr;
+
     }
 
 

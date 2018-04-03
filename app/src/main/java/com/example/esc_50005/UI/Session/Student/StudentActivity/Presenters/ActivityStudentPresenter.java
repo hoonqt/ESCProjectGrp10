@@ -3,6 +3,7 @@ package com.example.esc_50005.UI.Session.Student.StudentActivity.Presenters;
 import android.util.Log;
 
 import com.example.esc_50005.Database.Quizstuff.QuizQuestions1DO;
+import com.example.esc_50005.Database.Quizstuff.QuizQuestions2DO;
 import com.example.esc_50005.Database.Quizstuff.QuizRemoteDataSource;
 import com.example.esc_50005.UI.Session.Student.StudentActivity.Contracts.QuizStudentContract;
 
@@ -24,7 +25,7 @@ public class ActivityStudentPresenter implements QuizStudentContract.Presenter {
 
     private final QuizStudentContract.View mQuizStudentView;
     private QuizRemoteDataSource mQuizQuestionsRepository;
-    private ArrayList<QuizQuestions1DO> questionData;
+    private ArrayList<QuizQuestions2DO> questionData;
 
     public ActivityStudentPresenter(QuizStudentContract.View fragment) {
 
@@ -40,7 +41,7 @@ public class ActivityStudentPresenter implements QuizStudentContract.Presenter {
 
         WebSocket socket = new WebSocket();
         socket.send("sinita113");
-        loadQuizes("none","here");
+        loadQuizes("50.005","101");
 
 
     }
@@ -68,7 +69,7 @@ public class ActivityStudentPresenter implements QuizStudentContract.Presenter {
     }
 
     @Override
-    public ArrayList<QuizQuestions1DO> getQuestionData(String subjectCode, String sessionCode) {
+    public ArrayList<QuizQuestions2DO> getQuestionData(String subjectCode, String sessionCode) {
         return null;
     }
 
