@@ -95,7 +95,7 @@ public class NameListFragment extends Fragment implements ProgressContract.View 
         return view;
     }
 
-    public void showNames(ArrayList<String> nameList, ArrayList<String> studentIdsList, double avg) {
+    public void showNames(ArrayList<String> nameList, ArrayList<String> studentIdsList, ArrayList<Double> avg) {
 
         Log.i("NameListFragment", "showNames: " + nameList.get(0));
         mNameListAdapter = new NameListAdapter(nameList, studentIdsList, avg, mItemListener);

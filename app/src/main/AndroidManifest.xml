@@ -37,9 +37,9 @@
             </intent-filter>
 
         </activity>
-        <activity android:name=".UI.DataAdder.AddDatahere">
+        <!--<activity android:name=".UI.DataAdder.AddDatahere">-->
 
-        </activity>
+        <!--</activity>-->
 
         <activity android:name=".UI.Course.FAQ.ProfessorProgressActivity"></activity>
     </application>
