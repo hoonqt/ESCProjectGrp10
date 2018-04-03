@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.esc_50005.Database.utilities.Injection;
 import com.example.esc_50005.R;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -37,9 +38,10 @@ public class ProgressStudentFragment extends Fragment implements ProgressContrac
 
     private final String TAG = "ProgressStudentFragment";
     private String courseId;
-    private ProgressContract.Presenter mPresenter = new ProgressPresenter(this);
+//    private ProgressContract.Presenter mPresenter = new ProgressPresenter(this);
     private BarChart mChart;
     private SharedPreferences userInformation;
+    private ProgressContract.Presenter mPresenter;
     public ProgressStudentFragment() {
         // Required empty public constructor
     }
@@ -50,6 +52,9 @@ public class ProgressStudentFragment extends Fragment implements ProgressContrac
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mPresenter = new ProgressPresenter(
+                Injection.provideProgressRepository(getActivity().getApplicationContext()), this);
+
     }
 
     @Override
