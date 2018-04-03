@@ -8,6 +8,9 @@ import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBQueryExpression;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.PaginatedList;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
+import com.amazonaws.services.dynamodbv2.model.AttributeValue;
+import com.amazonaws.services.dynamodbv2.model.ComparisonOperator;
+import com.amazonaws.services.dynamodbv2.model.Condition;
 
 import org.json.JSONObject;
 
@@ -18,8 +21,8 @@ public class ProgressRemoteDataSource implements ProgressDataSource {
 
     DynamoDBMapper dynamoDBMapper;
     ArrayList<JSONObject> datainjson;
-    ArrayList<QuizScores2DO> progressArrayList;
-    ArrayList<QuizScores2DO> nameList;
+    ArrayList<QuizScores4DO> progressArrayList;
+    ArrayList<QuizScores4DO> nameList;
 
     public ProgressRemoteDataSource() {
 
@@ -32,14 +35,16 @@ public class ProgressRemoteDataSource implements ProgressDataSource {
 
     }
 
-    public void putScores(String userid, String subjectcode,String sessionID,  String quizname, Double score, String name) {
+    public void putScores(String studentID, String subjectcode,String sessionID,  String quizname, Double score, String name) {
 
-        final QuizScores2DO quizscore = new QuizScores2DO();
-        quizscore.setSubjectCodeSessionID(subjectcode+sessionID);
-        quizscore.setStudentID(userid);
+        final QuizScores4DO quizscore = new QuizScores4DO();
+
+        quizscore.setCourseID(subjectcode);
+        quizscore.setStudentIDSessionID(studentID+sessionID);
         quizscore.setQuizName(quizname);
         quizscore.setScore(score);
         quizscore.setName(name);
+
 
         new Thread(new Runnable() {
             @Override
@@ -52,24 +57,30 @@ public class ProgressRemoteDataSource implements ProgressDataSource {
 
     }
 
+    public ArrayList<QuizScores4DO> getScoresallStudents(final String subjectCode, final String sessionID) {
 
-    public ArrayList<QuizScores2DO> getScores(final String subjectCode, final String sessionID) {
-
-        progressArrayList = new ArrayList<QuizScores2DO>();
+        progressArrayList = new ArrayList<QuizScores4DO>();
 
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
 
-                QuizScores2DO scores = new QuizScores2DO();
-                scores.setSubjectCodeSessionID(subjectCode+sessionID);
+                QuizScores4DO scores = new QuizScores4DO();
+                scores.setCourseID(subjectCode);
+
+                Condition rangeKeyCondition = new Condition()
+                        .withComparisonOperator(ComparisonOperator.CONTAINS)
+                        .withAttributeValueList(new AttributeValue().withS(sessionID));
+
 
                 DynamoDBQueryExpression queryExpression = new DynamoDBQueryExpression()
-                        .withHashKeyValues(scores);
+                        .withHashKeyValues(scores)
+                        .withRangeKeyCondition("StudentIDSessionID",rangeKeyCondition)
+                        .withConsistentRead(false);
 
-                PaginatedList<QuizScores2DO> result = dynamoDBMapper.query(QuizScores2DO.class, queryExpression);
+                PaginatedList<QuizScores4DO> result = dynamoDBMapper.query(QuizScores4DO.class, queryExpression);
 
-                for (QuizScores2DO score : result) {
+                for (QuizScores4DO score : result) {
                     progressArrayList.add(score);
                     Log.i("scores in prds","scores: " + score.getScore().toString());
                 }
@@ -91,62 +102,95 @@ public class ProgressRemoteDataSource implements ProgressDataSource {
 
     }
 
-public ArrayList<QuizScores2DO> getNames(final String subjectCode, final String sessionID) {
 
-//        dataInJson = new ArrayList<>();
+    public ArrayList<QuizScores4DO> getScores(final String subjectCode, final String studentID) {
 
-        nameList = new ArrayList<QuizScores2DO>();
+        progressArrayList = new ArrayList<QuizScores4DO>();
 
-        Thread retriever = new Thread(new Runnable() {
+        Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
 
-                QuizScores2DO names = new QuizScores2DO();
+                QuizScores4DO scores = new QuizScores4DO();
+                scores.setCourseID(subjectCode);
 
-                names.setSubjectCodeSessionID(subjectCode+sessionID);
+                Condition rangeKeyCondition = new Condition()
+                        .withComparisonOperator(ComparisonOperator.BEGINS_WITH)
+                        .withAttributeValueList(new AttributeValue().withS(studentID));
 
 
                 DynamoDBQueryExpression queryExpression = new DynamoDBQueryExpression()
-                        .withHashKeyValues(names);
+                        .withHashKeyValues(scores)
+                        .withRangeKeyCondition("StudentIDSessionID",rangeKeyCondition)
+                        .withConsistentRead(false);
 
-                PaginatedList<QuizScores2DO> result = dynamoDBMapper.query(QuizScores2DO.class, queryExpression);
-                Log.i("size",Integer.toString(result.size()));
-                for (QuizScores2DO name : result) {
-                    nameList.add(name);
-//                    Log.i("scores in prds","scores: " + name.getName().toString());
+                PaginatedList<QuizScores4DO> result = dynamoDBMapper.query(QuizScores4DO.class, queryExpression);
+
+                for (QuizScores4DO score : result) {
+                    progressArrayList.add(score);
+                    Log.i("scores in prds","scores: " + score.getScore().toString());
                 }
 
             }
         });
 
-        retriever.start();
+        thread.start();
 
         try {
-            retriever.join();
+            thread.join();
         } catch (InterruptedException ex) {
             ex.printStackTrace();
         }
 
-        Log.i("NameList in prds", "progressList" + nameList.toString());
+        Log.i("Progresslist in prds", "progressList" + progressArrayList.toString());
 
-        return nameList;
+        return progressArrayList;
 
     }
 
-//    public ArrayList<JSONObject> getScores(final String userid,final String subjectcode) {
-//
-//        getFromDatabase(userid, subjectcode);
-//
-//        try {
-//            TimeUnit.SECONDS.sleep(2);
-//        }
-//
-//        catch (InterruptedException ex) {
-//
-//        }
-//
-//        return datainjson;
-//    }
+    public ArrayList<QuizScores4DO> getNames(final String subjectCode) {
+        final ArrayList<QuizScores4DO> output = new ArrayList<>();
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                QuizScores4DO names = new QuizScores4DO();
+                names.setCourseID(subjectCode);
+
+
+                DynamoDBQueryExpression queryExpression = new DynamoDBQueryExpression()
+                        .withHashKeyValues(names);
+
+
+                PaginatedList<QuizScores4DO> result = dynamoDBMapper.query(QuizScores4DO.class, queryExpression);
+
+                for (QuizScores4DO name : result) {
+                    if (!output.contains(output.add(name))) {
+                        output.add(name);
+                    }
+                    Log.i("Names in prds","names: " + name.getName().toString());
+                }
+                for (QuizScores4DO out: output){
+                    Log.i("Names in prds","out: " + out.getName().toString());
+
+                }
+
+            }
+        });
+
+        thread.start();
+
+        try {
+            thread.join();
+        } catch (InterruptedException ex) {
+            ex.printStackTrace();
+        }
+
+        Log.i("Progresslist in prds", "progressList" + progressArrayList.toString());
+
+        return output;
+    }
 
 
 }

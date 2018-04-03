@@ -6,6 +6,7 @@ import android.util.Log;
 import com.example.esc_50005.Database.Progress.NewQuizScoresDO;
 import com.example.esc_50005.Database.Progress.ProgressRemoteDataSource;
 import com.example.esc_50005.Database.Progress.QuizScores2DO;
+import com.example.esc_50005.Database.Progress.QuizScores4DO;
 
 import java.util.ArrayList;
 
@@ -17,12 +18,14 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 public class NameListPresenter implements ProgressContract.Presenter {
 
-    public static final String TAG = "ProgressPresenter";
+    public static final String TAG = "NameList Presenter";
 
     private final ProgressContract.View mNameListView;
     private ProgressRemoteDataSource mProgressRepository;
-    ArrayList<QuizScores2DO> progressArrayList;
-    ArrayList<QuizScores2DO> nameList;
+    ArrayList<QuizScores4DO> progressArrayList;
+    ArrayList<QuizScores4DO> nameList;
+    ArrayList<String> studIdArrayList;
+    ArrayList<Double> avgList;
 
     public NameListPresenter(@NonNull ProgressContract.View nameListView) {
         mProgressRepository = new ProgressRemoteDataSource();
@@ -35,19 +38,25 @@ public class NameListPresenter implements ProgressContract.Presenter {
         loadScores();
         loadNames();
         processAverage(progressArrayList);
-//        processScores(progressArrayList);
+    }
+
+    @Override
+    public void setStudentId(String studentId) {
+
     }
 
     @Override
     public void loadScores() {
-        progressArrayList = mProgressRepository.getScores("50.004","Session1");// need to change it to base on the user login details
-        processScores(progressArrayList);
+        progressArrayList = mProgressRepository.getScores("50.004","1002212");// need to change it to base on the user login details
+//        processScores(progressArrayList);
 
-        Log.i(TAG, "LoadScores size is " + progressArrayList.size() + progressArrayList.get(0).getScore());
+        Log.i(TAG, "LoadScores size is " + progressArrayList.size());
     }
 
 
-    public void processScores(ArrayList<QuizScores2DO> progressArrayList) {
+
+
+    public void processScores(ArrayList<QuizScores4DO> progressArrayList) {
         ArrayList<Double> scoreList = new ArrayList<Double>();
         Log.i(TAG, "Length of progressArrayList = " + progressArrayList.size());
 
@@ -71,40 +80,77 @@ public class NameListPresenter implements ProgressContract.Presenter {
 
 
     @Override
-    public double processAverage(ArrayList<QuizScores2DO> progressArrayList) {
+    public ArrayList<Double> processAverage(ArrayList<QuizScores4DO> progressArrayList) {
         ArrayList<Double> scoreList = new ArrayList<Double>();
-        double total=0;
-        double avg = 0;
+
+        Double avg = 0.0;
+
         String student;
 
 
-        if (progressArrayList.size() != 0) {
-            Log.i(TAG, "Length of progressArrayList = " + progressArrayList.size());
-            student = progressArrayList.get(0).getName();//might need to change in the future
-            for(int i = 0; i<progressArrayList.size();i++){
-                try{
-                    total += progressArrayList.get(i).getScore();
-                } catch(Exception e){
-                    e.printStackTrace();
+//        if (progressArrayList.size() != 0) {
+//            Log.i(TAG, "Length of progressArrayList = " + progressArrayList.size());
+//            student = progressArrayList.get(0).getName();//might need to change in the future
+//            for(int i = 0; i<progressArrayList.size();i++){
+//                try{
+//                    total += progressArrayList.get(i).getScore();
+//                } catch(Exception e){
+//                    e.printStackTrace();
+//                }
+//
+//            }
+//            avg = total/progressArrayList.size();
+//        }
+//        if(avgList==null){
+//            scoreList.add(avg);
+//            avgList=scoreList;
+//        } else{
+//            avgList.add(avg);
+//        }
+//
+//
+//        return avgList;
+        if (studIdArrayList.size()!=0){
+            Log.i(TAG, "Process AVG studIdArrayList size: " + studIdArrayList.size());
+            for(int i=0; i<studIdArrayList.size();i++){
+                ArrayList<QuizScores4DO> temp = new ArrayList<>();
+                Log.i(TAG, "Process AVG studId: " + studIdArrayList.get(i).substring(0,7));
+                temp = mProgressRepository.getScores("50.004",studIdArrayList.get(i).substring(0,7));
+//                Log.i(TAG, "Name: " + temp.get(i).getName());
+                Log.i(TAG, "Process AVG temp size:  " + temp.size());
+                Double total=0.0;
+                for(int j=0;j<temp.size();j++){
+
+                    total+=temp.get(j).getScore();
+                    Log.i(TAG, "Process AVG total: " + total);
                 }
-
+                avg = total/temp.size();
+                if(avgList==null){
+                    scoreList.add(avg);
+                    avgList=scoreList;
+                } else{
+                    avgList.add(avg);
+                }
             }
-            avg = total/progressArrayList.size();
-        }
 
-        return avg;
+        }
+        return avgList;
 
     }
 
     @Override
     public void loadNames() {
-        nameList = mProgressRepository.getNames("50.004","Session1");// need to change it to base on the user login details
+        nameList = mProgressRepository.getNames("50.004");// need to change it to base on the user login details
+        Log.i(TAG, "LoadName size is " + nameList.size() + nameList.get(0).getName());
+//        for(int i=0; i<nameList.size();i++){
+//            Log.i(TAG, "LoadName size is " + nameList.size() + nameList.get(i).getName());
+//        }
+
         processNames(nameList);
 
-        Log.i(TAG, "LoadName size is " + nameList.size() + nameList.get(0).getName());
     }
 
-    public void processNames(ArrayList<QuizScores2DO> nameList) {
+    public void processNames(ArrayList<QuizScores4DO> nameList) {
         ArrayList<String> names = new ArrayList<String>();
         ArrayList<String> studentIds = new ArrayList<String>();
         Log.i(TAG, "Length of nameList = " + nameList.size());
@@ -116,7 +162,7 @@ public class NameListPresenter implements ProgressContract.Presenter {
                 if(names.size()==0){
                     try{
                         names.add(nameList.get(i).getName());
-                        studentIds.add(nameList.get(i).getStudentID());
+                        studentIds.add(nameList.get(i).getStudentIDSessionID());
                         Log.i(TAG, "firstname = " + nameList.get(i).getName());
                     } catch(Exception e){
                         e.printStackTrace();
@@ -131,6 +177,7 @@ public class NameListPresenter implements ProgressContract.Presenter {
                     if(!exist){
                         try{
                             names.add(nameList.get(i).getName());
+                            studentIds.add(nameList.get(i).getStudentIDSessionID());
                             Log.i(TAG, "non-existent name = " + nameList.get(i).getName());
                         } catch(Exception e){
                             e.printStackTrace();
@@ -142,6 +189,7 @@ public class NameListPresenter implements ProgressContract.Presenter {
 
             }
         }
+        studIdArrayList=studentIds;
 
         mNameListView.showNames(names,studentIds, processAverage(progressArrayList));
 

@@ -14,16 +14,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.esc_50005.Database.Quizstuff.QuizQuestions1DO;
+import com.example.esc_50005.Database.Quizstuff.QuizQuestions2DO;
 import com.example.esc_50005.Database.Quizstuff.QuizRemoteDataSource;
 import com.example.esc_50005.R;
 import com.example.esc_50005.UI.Session.Main.SessionActivity;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -35,7 +37,8 @@ public class QuizEditor extends Fragment {
     private QuizEditor.LayoutManagerType mCurrentLayoutManagerType;
     private RecyclerView.LayoutManager mLayoutManager;
     SharedPreferences sharedPreferences;
-    private ArrayList<QuizQuestions1DO> dataset;
+    private ArrayList<QuizQuestions2DO> dataset;
+    private QuizRemoteDataSource dataSource;
 
     EditText question;
     EditText option1;
@@ -43,7 +46,15 @@ public class QuizEditor extends Fragment {
     EditText option3;
     EditText option4;
 
+    RadioButton button1;
+    RadioButton button2;
+    RadioButton button3;
+    RadioButton button4;
+
     RadioGroup RadioGrp;
+
+    String courseCode;
+    String sessionID;
 
     TextView submit;
 
@@ -68,7 +79,10 @@ public class QuizEditor extends Fragment {
         mCurrentLayoutManagerType = QuizEditor.LayoutManagerType.LINEAR_LAYOUT_MANAGER;
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-        sharedPreferences.getString("50.004", null);
+        courseCode = sharedPreferences.getString("CurrentCourseActivity", null).split(" ")[0];
+        sessionID = sharedPreferences.getString("SessionSelected",null).split("-")[1].trim();
+
+        dataSource = new QuizRemoteDataSource();
 
         question = (EditText) view.findViewById(R.id.questionBox);
         option1 = (EditText) view.findViewById(R.id.option1ans);
@@ -76,16 +90,23 @@ public class QuizEditor extends Fragment {
         option3 = (EditText) view.findViewById(R.id.option3ans);
         option4 = (EditText) view.findViewById(R.id.option4ans);
 
+
+
         RadioGrp = (RadioGroup) view.findViewById(R.id.radiobuttons);
 
-        final Bundle bundle = this.getArguments();
+        button1 = (RadioButton)view.findViewById(R.id.option1);
+        button2 = (RadioButton)view.findViewById(R.id.option2);
+        button3 = (RadioButton)view.findViewById(R.id.option3);
+        button4 = (RadioButton)view.findViewById(R.id.option4);
+
+        Bundle bundle = this.getArguments();
 
         if (bundle != null) {
-            dataset = (ArrayList<QuizQuestions1DO>)bundle.getSerializable("allthequestions");
+            dataset = (ArrayList<QuizQuestions2DO>)bundle.getSerializable("alltheqns");
 
             if (bundle.containsKey("index")) {
                 index = bundle.getInt("index");
-                QuizQuestions1DO qntobeedited = dataset.get(index);
+                QuizQuestions2DO qntobeedited = dataset.get(index);
                 question.setText(qntobeedited.getQuestion());
                 option1.setText(qntobeedited.getOptions().get(0));
                 option2.setText(qntobeedited.getOptions().get(1));
@@ -100,18 +121,22 @@ public class QuizEditor extends Fragment {
             @Override
             public void onClick(View view) {
 
-                questionAdder();
+                boolean state = questionAdder();
 
-                EditQnListFrag adder = new EditQnListFrag();
-                Bundle bundler = new Bundle();
+                if (state) {
+                    EditQnListFrag adder = new EditQnListFrag();
+                    Bundle bundler = new Bundle();
 
-                ArrayList<QuizQuestions1DO> tobetransferred = dataset;
-                bundler.putSerializable("allthequestions",tobetransferred);
+                    ArrayList<QuizQuestions2DO> tobetransferred = dataset;
+                    Log.i("Hello world",dataset.toString());
+                    bundler.putSerializable("allthequestions",tobetransferred);
 
-                adder.setArguments(bundler);
+                    adder.setArguments(bundler);
 
-                SessionActivity myActivity = (SessionActivity) getContext();
-                myActivity.getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.profsessionhere,adder).addToBackStack(null).commit();
+                    SessionActivity myActivity = (SessionActivity) getContext();
+                    myActivity.getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.profsessionhere,adder).addToBackStack(null).commit();
+                }
+
 
 
             }
@@ -122,20 +147,22 @@ public class QuizEditor extends Fragment {
             @Override
             public void onClick(View view) {
 
-                questionAdder();
-                question.setText("");
-                option1.setText("");
-                option2.setText("");
-                option3.setText("");
-                option4.setText("");
-                RadioGrp.clearCheck();
+                boolean state = questionAdder();
+                if (state) {
+                    question.setText("");
+                    option1.setText("");
+                    option2.setText("");
+                    option3.setText("");
+                    option4.setText("");
+                    RadioGrp.clearCheck();
+                }
             }
         });
 
         return view;
     }
 
-    public void questionAdder() {
+    public boolean questionAdder() {
 
         ArrayList<String> options = new ArrayList<>();
         options.add(option1.getText().toString());
@@ -143,12 +170,14 @@ public class QuizEditor extends Fragment {
         options.add(option3.getText().toString());
         options.add(option4.getText().toString());
 
-        QuizQuestions1DO tobeadded = new QuizQuestions1DO();
+        QuizQuestions2DO tobeadded = new QuizQuestions2DO();
 
         tobeadded.setQuestion(question.getText().toString());
         tobeadded.setOptions(options);
-        tobeadded.setQuizName("Quiz 1");
-        tobeadded.setSubjectCodeSessionCode("50.004Session2");
+        tobeadded.setQuizNameQnID("Quiz 1" + " " + getSaltString());
+
+
+        tobeadded.setSubjectCodeSessionCode(courseCode+sessionID);
 
         QuizRemoteDataSource adder = new QuizRemoteDataSource();
 
@@ -156,49 +185,70 @@ public class QuizEditor extends Fragment {
 
         Log.i("Selected input",Integer.toString(selectedID));
 
-        if (selectedID == R.id.option1) {
+        if (button1.isChecked()) {
 
             tobeadded.setCorrectans(0.0);
             adder.putQuestion(tobeadded);
             Toast toast = Toast.makeText(getContext(),"Question added",Toast.LENGTH_SHORT);
             toast.show();
             dataset.add(tobeadded);
+            dataSource.putQuestion(tobeadded);
+            return true;
 
         }
 
-        else if (selectedID == R.id.option2) {
+        else if (button2.isChecked()) {
             tobeadded.setCorrectans(1.0);
             adder.putQuestion(tobeadded);
             Toast toast = Toast.makeText(getContext(),"Question added",Toast.LENGTH_SHORT);
             toast.show();
             dataset.add(tobeadded);
+            dataSource.putQuestion(tobeadded);
+            return true;
         }
 
-        else if (selectedID == R.id.option3) {
+        else if (button3.isChecked()) {
             tobeadded.setCorrectans(2.0);
             adder.putQuestion(tobeadded);
             Toast toast = Toast.makeText(getContext(),"Question added",Toast.LENGTH_SHORT);
             toast.show();
             dataset.add(tobeadded);
+            dataSource.putQuestion(tobeadded);
+            return true;
         }
 
-        else if (selectedID == R.id.option4) {
+        else if (button4.isChecked()) {
             tobeadded.setCorrectans(3.0);
             adder.putQuestion(tobeadded);
             Toast toast = Toast.makeText(getContext(),"Question added",Toast.LENGTH_SHORT);
             toast.show();
             dataset.add(tobeadded);
+            dataSource.putQuestion(tobeadded);
+            return true;
         }
 
         else {
 
             AlertDialog.Builder builder=new AlertDialog.Builder(getContext());
-            builder.setMessage("Wrong username or password sorry! " );
+            builder.setMessage("Multiple options selected." );
             AlertDialog alertDialog=builder.create();
             alertDialog.show();
+            return false;
 
         }
 
+    }
+
+    protected String getSaltString() {
+        String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        StringBuilder salt = new StringBuilder();
+        Random rnd = new Random();
+        while (salt.length() < 6) { // length of the random string.
+            int index = (int) (rnd.nextFloat() * SALTCHARS.length());
+            salt.append(SALTCHARS.charAt(index));
+        }
+        String saltStr = salt.toString();
+        return saltStr;
 
     }
 

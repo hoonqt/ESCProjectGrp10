@@ -2,6 +2,7 @@ package com.example.esc_50005.UI.Course.FAQ;
 
 import com.example.esc_50005.Database.Progress.NewQuizScoresDO;
 import com.example.esc_50005.Database.Progress.QuizScores2DO;
+import com.example.esc_50005.Database.Progress.QuizScores4DO;
 import com.example.esc_50005.UI.Base.BasePresenter;
 import com.example.esc_50005.UI.Base.BaseView;
 
@@ -15,12 +16,13 @@ public interface ProgressContract {
     interface View extends BaseView<Presenter> {
         void showProgress(ArrayList<Double> scoreList);
         void showAverage(double avg);
-        void showNames(ArrayList<String> nameList, ArrayList<String> studentIds, double avg);
+        void showNames(ArrayList<String> nameList, ArrayList<String> studentIds, ArrayList<Double> avg);
     }
 
     interface Presenter extends BasePresenter {
+        void setStudentId(String studentId);
         void loadScores();
-        double processAverage(ArrayList<QuizScores2DO> progressArrayList);
+        ArrayList<Double> processAverage(ArrayList<QuizScores4DO> progressArrayList);
         void loadNames();
     }
 }

@@ -25,7 +25,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.example.esc_50005.Database.FAQ.Faq;
-import com.example.esc_50005.Database.FAQ.Injection;
+import com.example.esc_50005.Database.utilities.Injection;
 import com.example.esc_50005.R;
 import com.example.esc_50005.UI.Course.FAQ.addEditFaq.AddEditFaqActivity;
 

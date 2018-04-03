@@ -11,26 +11,27 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-@DynamoDBTable(tableName = "escproject-mobilehub-27166461-QuizScores2")
+@DynamoDBTable(tableName = "escproject-mobilehub-27166461-QuizScores3")
 
-public class QuizScores2DO {
-    private String _subjectCodeSessionID;
+public class QuizScores3DO {
+    private String _subjectCode;
     private String _studentID;
     private String _name;
     private String _quizName;
     private Double _score;
+    private String _sessionID;
 
-    @DynamoDBHashKey(attributeName = "SubjectCodeSessionID")
-    @DynamoDBIndexRangeKey(attributeName = "SubjectCodeSessionID", globalSecondaryIndexName = "studentID")
-    public String getSubjectCodeSessionID() {
-        return _subjectCodeSessionID;
+    @DynamoDBHashKey(attributeName = "SubjectCode")
+    @DynamoDBAttribute(attributeName = "SubjectCode")
+    public String getSubjectCode() {
+        return _subjectCode;
     }
 
-    public void setSubjectCodeSessionID(final String _subjectCodeSessionID) {
-        this._subjectCodeSessionID = _subjectCodeSessionID;
+    public void setSubjectCode(final String _subjectCode) {
+        this._subjectCode = _subjectCode;
     }
     @DynamoDBRangeKey(attributeName = "StudentID")
-    @DynamoDBIndexHashKey(attributeName = "StudentID", globalSecondaryIndexName = "studentID")
+    @DynamoDBAttribute(attributeName = "StudentID")
     public String getStudentID() {
         return _studentID;
     }
@@ -61,6 +62,14 @@ public class QuizScores2DO {
 
     public void setScore(final Double _score) {
         this._score = _score;
+    }
+    @DynamoDBAttribute(attributeName = "SessionID")
+    public String getSessionID() {
+        return _sessionID;
+    }
+
+    public void setSessionID(final String _sessionID) {
+        this._sessionID = _sessionID;
     }
 
 }

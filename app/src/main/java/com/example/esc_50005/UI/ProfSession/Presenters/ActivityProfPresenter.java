@@ -1,8 +1,11 @@
 package com.example.esc_50005.UI.ProfSession.Presenters;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 
-import com.example.esc_50005.Database.Quizstuff.QuizQuestions1DO;
+import com.example.esc_50005.Database.Quizstuff.QuizQuestions2DO;
 import com.example.esc_50005.Database.Quizstuff.QuizRemoteDataSource;
 import com.example.esc_50005.UI.ProfSession.Contracts.QuizProfContract;
 
@@ -18,20 +21,28 @@ public class ActivityProfPresenter implements QuizProfContract.Presenter{
 
     private final QuizProfContract.View mQuizProfView;
     private QuizRemoteDataSource mQuizQuestionsRepository;
-    private ArrayList<QuizQuestions1DO> questionData;
+    private ArrayList<QuizQuestions2DO> questionData;
 
-    public ActivityProfPresenter(@NonNull QuizProfContract.View quizProfView) {
+    SharedPreferences sharedPreferences;
+
+    String courseCode;
+    String sessionID;
+
+    public ActivityProfPresenter(@NonNull QuizProfContract.View quizProfView,Context context) {
 
         mQuizQuestionsRepository = new QuizRemoteDataSource();
         mQuizProfView = checkNotNull(quizProfView,"Quiz not null");
         mQuizProfView.setPresenter(this);
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        courseCode = sharedPreferences.getString("CurrentCourseActivity", null).split(" ")[0];
+        sessionID = sharedPreferences.getString("SessionSelected",null).split("-")[1].trim();
 
     }
 
     @Override
     public void start() {
 
-        loadQuizes("50.004","Session1");
+        loadQuizes(courseCode,sessionID);
 
     }
 
@@ -41,6 +52,11 @@ public class ActivityProfPresenter implements QuizProfContract.Presenter{
         questionData = mQuizQuestionsRepository.getQuestions(subjectCode, sessionCode);
         mQuizProfView.showQuizes(questionData);
 
+    }
+
+    @Override
+    public void addNewQuiz(QuizQuestions2DO input) {
+        mQuizQuestionsRepository.putQuestion(input);
     }
 
     @Override
@@ -54,8 +70,12 @@ public class ActivityProfPresenter implements QuizProfContract.Presenter{
 
     }
 
-    public ArrayList<QuizQuestions1DO> getQuestionData(String subjectCode, String sessionCode) {
+    public ArrayList<QuizQuestions2DO> getQuestionData(String subjectCode, String sessionCode) {
         loadQuizes(subjectCode, sessionCode);
+        return questionData;
+    }
+
+    public ArrayList<QuizQuestions2DO> getStoredData() {
         return questionData;
     }
 }

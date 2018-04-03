@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
+import com.example.esc_50005.Database.utilities.Injection;
 import com.example.esc_50005.R;
 import com.example.esc_50005.UI.Course.FAQ.session.main.SessionsAdapter;
 import com.example.esc_50005.UI.Course.FAQ.session.main.SessionsContract;
@@ -32,10 +33,8 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class StudentSessionsFragment extends Fragment implements SessionsContract.View, View.OnClickListener {
     protected LayoutManagerType mCurrentLayoutManagerType;
     protected RecyclerView.LayoutManager mLayoutManager;
-    private SessionsContract.Presenter mPresenter = new SessionsPresenter(this);
-    private LinearLayout mSessionsView;
+    private SessionsContract.Presenter mPresenter;
     private RecyclerView sessionsListRecycler;
-    private SwipeRefreshLayout swipeLayout;
     private ImageButton button;
     private SharedPreferences sharedPreferences;
 
@@ -52,7 +51,13 @@ public class StudentSessionsFragment extends Fragment implements SessionsContrac
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mPresenter = new SessionsPresenter(
+                Injection.provideSessionsRepository(getActivity().getApplicationContext()),
+                Injection.provideCoursesRepository(getActivity().getApplicationContext()),
+                Injection.provideUsersInformationRepository(getActivity().getApplicationContext()),
+                this);
     }
+
 
     @Override
     public void onResume() {
@@ -92,7 +97,7 @@ public class StudentSessionsFragment extends Fragment implements SessionsContrac
 
     public void attemptQuerySessions()
     {
-        mPresenter.querySessions(getActivity().getApplicationContext());
+        mPresenter.querySessions(sharedPreferences.getString("Username",""),sharedPreferences.getString("UserType",""),sharedPreferences.getString("CurrentCourseActivity",""));
     }
 
     public void showSessions(ArrayList<String> sessions) {
@@ -139,7 +144,7 @@ public class StudentSessionsFragment extends Fragment implements SessionsContrac
 
         builder.setNegativeButton("Submit",new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog,int id) {
-                mPresenter.queryAddNewSessionStudent(sessionId.getText().toString());
+                mPresenter.queryAddNewSession(sharedPreferences.getString("UserType",""),sessionId.getText().toString(),"","","");
                 dialog.cancel();
             }
         });

@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.esc_50005.Database.Quizstuff.QuizQuestions1DO;
+import com.example.esc_50005.Database.Quizstuff.QuizQuestions2DO;
 import com.example.esc_50005.R;
 import com.example.esc_50005.UI.Session.Main.SessionActivity;
 
@@ -21,7 +21,7 @@ import java.util.ArrayList;
  */
 public class ActivityInfo extends Fragment{
     private Context context;
-    private ArrayList<QuizQuestions1DO> dataset;
+    private ArrayList<QuizQuestions2DO> dataset;
 
 
     public ActivityInfo() {
@@ -47,7 +47,7 @@ public class ActivityInfo extends Fragment{
         Bundle bundle = this.getArguments();
 
         if (bundle != null) {
-            dataset = (ArrayList<QuizQuestions1DO>)bundle.getSerializable("allthequestions");
+            dataset = (ArrayList<QuizQuestions2DO>)bundle.getSerializable("allthequestions");
         }
 
 

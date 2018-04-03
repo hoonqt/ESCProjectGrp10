@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.esc_50005.Database.Quizstuff.QuizQuestions1DO;
+import com.example.esc_50005.Database.Quizstuff.QuizQuestions2DO;
 import com.example.esc_50005.R;
 import com.example.esc_50005.UI.ProfSession.SideScreens.QuizEditor;
 import com.example.esc_50005.UI.Session.Main.SessionActivity;
@@ -26,11 +28,10 @@ public class QnListAdapter extends RecyclerView.Adapter<QnListAdapter.QnViewHold
 
     private static int viewHolderCount = 0;
     private Context context;
-    private ArrayList<QuizQuestions1DO> questions;
+    private ArrayList<QuizQuestions2DO> questions;
     SharedPreferences sharedPreferences;
 
-    public QnListAdapter(ArrayList<QuizQuestions1DO> input) {
-
+    public QnListAdapter(ArrayList<QuizQuestions2DO> input) {
         questions = input;
 
 
@@ -90,9 +91,13 @@ public class QnListAdapter extends RecyclerView.Adapter<QnListAdapter.QnViewHold
                     QuizEditor editor = new QuizEditor();
                     Bundle bundler = new Bundle();
 
-                    ArrayList<QuizQuestions1DO> tobetransferred = new ArrayList<>(questions);
+                    ArrayList<QuizQuestions2DO> tobetransferred = new ArrayList<>(questions);
 
-                    bundler.putSerializable("allthequestions",tobetransferred);
+                    Log.i("All the things",questions.toString());
+
+                    bundler.putSerializable("alltheqns",tobetransferred);
+
+
                     bundler.putInt("index",index);
 
                     editor.setArguments(bundler);

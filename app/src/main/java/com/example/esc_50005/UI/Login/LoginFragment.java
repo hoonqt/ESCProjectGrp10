@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,18 +20,9 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 
+import com.example.esc_50005.Database.utilities.Injection;
 import com.example.esc_50005.R;
-import com.example.esc_50005.UI.Course.FAQ.CourseActivity;
 import com.example.esc_50005.UI.Dashboard.main.DashboardActivity;
-import com.example.esc_50005.UI.Session.Main.SessionActivity;
-import com.nexmo.client.NexmoClient;
-import com.nexmo.client.NexmoClientException;
-import com.nexmo.client.auth.AuthMethod;
-import com.nexmo.client.auth.TokenAuthMethod;
-import com.nexmo.client.sms.SmsSubmissionResult;
-import com.nexmo.client.sms.messages.TextMessage;
-
-import java.io.IOException;
 
 import static com.google.common.base.Preconditions.*;
 
@@ -51,11 +43,19 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     public static String password;
     public static String userType;
     SharedPreferences sharedPreferences;
-    private LoginContract.Presenter mPresenter= new LoginPresenter(this);
+    private LoginContract.Presenter mPresenter;
 
 
     public LoginFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+        mPresenter = new LoginPresenter(
+                Injection.provideUsersInformationRepository(getActivity().getApplicationContext()), this);
     }
 
     @Override
@@ -69,6 +69,7 @@ public class LoginFragment extends Fragment implements LoginContract.View {
                              Bundle savedInstanceState) {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         View view=inflater.inflate(R.layout.login_fragment, container, false);
+
         setUpLogin(view);
         return view;
     }
@@ -80,7 +81,7 @@ public class LoginFragment extends Fragment implements LoginContract.View {
         mPasswordView = (EditText) view.findViewById(R.id.password);
         RadioGroup selectProfessorOrStudentButton = (RadioGroup) view.findViewById(R.id.professorOrStudent);
 
-        Button mEmailSignInButton = (Button) view.findViewById(R.id.email_sign_in_button);
+        Button mEmailSignInButton = (Button) view.findViewById(R.id.login_button);
         mEmailSignInButton.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
@@ -124,10 +125,13 @@ public class LoginFragment extends Fragment implements LoginContract.View {
 
     public void attemptLogin()
     {
-        mPresenter.loadUsersFromDatabase(getActivity().getApplicationContext());
+        mPresenter.loadUsersFromDatabase(sharedPreferences.getString("Username",""),sharedPreferences.getString("UserType",""),sharedPreferences.getString("Password",""));
     }
 
-    public void showSuccessfulLogin() {
+    public void showSuccessfulLogin(Double userId) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("UserId", Integer.toString(userId.intValue()));
+        editor.commit();
         Intent intent = new Intent(getActivity(), DashboardActivity.class);
         startActivity(intent);
         getActivity().finish();
