@@ -41,9 +41,9 @@ public class CoursePagerAdapter extends FragmentStatePagerAdapter {
         if(userInformation.getString("UserType","").equals("student")) {
             switch (position) {
                 case 0:
-                    return new FaqFragment();
-                case 1:
                     return new StudentSessionsFragment();
+                case 1:
+                    return new FaqFragment();
                 case 2:
                     return new ProgressStudentFragment();
                 default:
@@ -55,9 +55,9 @@ public class CoursePagerAdapter extends FragmentStatePagerAdapter {
             switch (position)
             {
                 case 0:
-                    return new FaqFragment();
-                case 1:
                     return new ProfessorSessionsFragment();
+                case 1:
+                    return new FaqFragment();
                 case 2:
                     return new NameListFragment();
                 default:

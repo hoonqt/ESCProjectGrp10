@@ -16,12 +16,14 @@ public interface ProgressContract {
     interface View extends BaseView<Presenter> {
         void showProgress(ArrayList<Double> scoreList);
         void showAverage(double avg);
-        void showNames(ArrayList<String> nameList, ArrayList<String> studentIds, double avg);
+        void showNames(ArrayList<String> nameList, ArrayList<String> studentIds, ArrayList<Double> avg);
     }
 
     interface Presenter extends BasePresenter {
+        void setStudentId(String studentId);
+        void setCourseId(String courseId);
         void loadScores();
-        double processAverage(ArrayList<QuizScores4DO> progressArrayList);
+        ArrayList<Double> processAverage(ArrayList<QuizScores4DO> progressArrayList);
         void loadNames();
     }
 }

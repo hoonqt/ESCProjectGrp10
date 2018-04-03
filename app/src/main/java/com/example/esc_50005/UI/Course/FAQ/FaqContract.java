@@ -14,6 +14,8 @@ public interface FaqContract {
         void processEmptyFaq();
         void upvoteFaq(Faq faq);
         void downvoteFaq(Faq faq);
+        void setUserId(String userId);
+        void setCourseId(String courseId);
     }
 
     interface View extends BaseView<Presenter> {

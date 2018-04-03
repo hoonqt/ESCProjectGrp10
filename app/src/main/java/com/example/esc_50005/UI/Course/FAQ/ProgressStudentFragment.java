@@ -1,7 +1,9 @@
 package com.example.esc_50005.UI.Course.FAQ;
 
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -34,8 +36,10 @@ public class ProgressStudentFragment extends Fragment implements ProgressContrac
     }
 
     private final String TAG = "ProgressStudentFragment";
+    private String courseId;
     private ProgressContract.Presenter mPresenter = new ProgressPresenter(this);
     private BarChart mChart;
+    private SharedPreferences userInformation;
     public ProgressStudentFragment() {
         // Required empty public constructor
     }
@@ -67,6 +71,24 @@ public class ProgressStudentFragment extends Fragment implements ProgressContrac
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.my_progress_main, container, false);
+        String studentId;
+        userInformation = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
+        if(userInformation.getString("UserType","").equals("professor")) {
+            if (savedInstanceState == null) {
+                Bundle extras = getActivity().getIntent().getExtras();
+                if(extras == null) {
+                    studentId= null;
+                } else {
+                    studentId= extras.getString("STUDENT_ID");
+                }
+            } else {
+                studentId= (String) savedInstanceState.getSerializable("STUDENT_ID");
+            }
+        } else{
+            studentId = userInformation.getString("UserId", "");
+        }
+        courseId = userInformation.getString("CurrentCourseActivity","");
+        Log.i(TAG, "STUDENT_ID: " + studentId);
         mChart = (BarChart)view.findViewById(R.id.chart1);
 //        swipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.faq_swipe);
 //        swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -76,6 +98,9 @@ public class ProgressStudentFragment extends Fragment implements ProgressContrac
 //            }
 //        });
         Log.i(TAG, "onCreateView");
+        mPresenter.setStudentId(studentId.substring(0,7));
+        mPresenter.setCourseId(courseId.substring(0,6));
+
 
 
         return view;
@@ -163,7 +188,7 @@ public class ProgressStudentFragment extends Fragment implements ProgressContrac
     }
 
     @Override
-    public void showNames(ArrayList<String> nameList, ArrayList<String> studentIds, double avg) {
+    public void showNames(ArrayList<String> nameList, ArrayList<String> studentIds, ArrayList<Double> avg) {
 
     }
 
