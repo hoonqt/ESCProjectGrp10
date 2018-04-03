@@ -4,9 +4,12 @@ package com.example.esc_50005.UI.ProfSession.MainScreens;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.media.MediaCas;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -43,6 +46,7 @@ public class ActivityProfFrag extends Fragment implements QuizProfContract.View,
     private ActivityProfAdapter mQuizAdapter;
     private Context context;
     private QuizProfContract.Presenter mPresenter;
+    SharedPreferences sharedPreferences;
 
     private enum LayoutManagerType {
         LINEAR_LAYOUT_MANAGER
@@ -82,7 +86,7 @@ public class ActivityProfFrag extends Fragment implements QuizProfContract.View,
         ProfWebSocket socket = ProfWebSocket.getInstance();
         socket.start();
 
-
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
 
         FloatingActionButton fab = view.findViewById(R.id.fabbtn);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -101,10 +105,13 @@ public class ActivityProfFrag extends Fragment implements QuizProfContract.View,
                                 String quizname = input.getText().toString();
                                 ActivityInfo adder = new ActivityInfo();
                                 Bundle bundle = new Bundle();
+                                SharedPreferences.Editor edithere = sharedPreferences.edit();
+                                edithere.putString("QuizName",quizname);
+                                edithere.commit();
                                 //bundle.putSerializable("allthequestions",mPresenter);
                                 adder.setArguments(bundle);
                                 SessionActivity myActivity = (SessionActivity)context;
-                                myActivity.getSupportFragmentManager().beginTransaction().addToBackStack(null).setCustomAnimations(R.anim.slide_out_up,R.anim.slide_in_up).replace(R.id.profsessionhere,adder).addToBackStack(null).commit();
+                                myActivity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_out_up,R.anim.slide_in_up).replace(R.id.profsessionhere,adder).addToBackStack(null).commit();
                             }
                         });
                 alert.show();
@@ -140,5 +147,8 @@ public class ActivityProfFrag extends Fragment implements QuizProfContract.View,
 
     }
 
-
+    @Override
+    public Context getContext() {
+        return context;
+    }
 }

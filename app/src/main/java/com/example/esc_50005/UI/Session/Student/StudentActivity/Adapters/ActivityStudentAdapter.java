@@ -39,8 +39,8 @@ public class ActivityStudentAdapter extends RecyclerView.Adapter<ActivityStudent
         dataset = input;
 
         for (int i = 0;i<dataset.size();i++) {
-            if (!names.contains(dataset.get(i).getQuizNameQnID().split(" ")[0])) {
-                names.add(dataset.get(i).getQuizNameQnID().split(" ")[0]);
+            if (!names.contains(dataset.get(i).getQuizNameQnID().split(" ")[0] + " " + dataset.get(i).getQuizNameQnID().split(" ")[1])) {
+                names.add(dataset.get(i).getQuizNameQnID().split(" ")[0] + " " + dataset.get(i).getQuizNameQnID().split(" ")[1]);
             }
         }
 
@@ -51,8 +51,8 @@ public class ActivityStudentAdapter extends RecyclerView.Adapter<ActivityStudent
         dataset.addAll(input);
         names.clear();
         for (int i = 0;i<dataset.size();i++) {
-            if (!names.contains(dataset.get(i).getQuizNameQnID().split(" ")[0])) {
-                names.add(dataset.get(i).getQuizNameQnID().split(" ")[0]);
+            if (!names.contains(dataset.get(i).getQuizNameQnID().split(" ")[0] + " " + dataset.get(i).getQuizNameQnID().split(" ")[1])) {
+                names.add(dataset.get(i).getQuizNameQnID().split(" ")[0] + " " + dataset.get(i).getQuizNameQnID().split(" ")[1]);
             }
         }
 
@@ -117,6 +117,10 @@ public class ActivityStudentAdapter extends RecyclerView.Adapter<ActivityStudent
 
             AnsweringZoneFrag editor = new AnsweringZoneFrag();
             Bundle bundler = new Bundle();
+
+            SharedPreferences.Editor editshared = sharedPreferences.edit();
+            editshared.putString("QuizName",names.get(getAdapterPosition()));
+            editshared.commit();
 
             ArrayList<QuizQuestions2DO> tobetransferred = new ArrayList<>(dataset);
 

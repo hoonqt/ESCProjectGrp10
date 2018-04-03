@@ -65,6 +65,9 @@ public class BruteForceLoginTest {
         for (int i = 0; i < passwords.size(); i++) {
             onView(withId(R.id.email)).perform(typeText("corgi101"));
             onView(withId(R.id.password)).perform(typeText(passwords.get(i)));
+
+            //onView(withId(R.id.email_sign_in_button)).perform(click());
+
             onView(withId(R.id.email_sign_in_button)).perform(click());
             onView(withText("Your account has been locked out, kindly contact your adminstrator."))
                     .inRoot(isDialog())
@@ -77,6 +80,7 @@ public class BruteForceLoginTest {
             }
             onView(withId(R.id.email)).perform(clearText());
             onView(withId(R.id.password)).perform(clearText());
+
         }
     }
 }
