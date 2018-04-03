@@ -66,7 +66,7 @@ public class ActivityInfo extends Fragment{
             bundle2.putSerializable("allthequestions",dataset);
             adder.setArguments(bundle2);
             SessionActivity myActivity = (SessionActivity) context;
-            getActivity().getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.profsessionhere,adder).addToBackStack(null).commit();
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.profsessionhere,adder).addToBackStack(null).commit();
         }
 
     };

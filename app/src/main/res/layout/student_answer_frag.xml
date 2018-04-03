@@ -13,19 +13,22 @@
         android:background="#eeeeee">
 
         <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerViewStudentQns"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="0dp"
-            android:id="@+id/recyclerViewStudentQns"></android.support.v7.widget.RecyclerView>
+            android:layout_above="@+id/submitbutton"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"></android.support.v7.widget.RecyclerView>
 
         <Button
+            android:id="@+id/submitbutton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:background="#fafafa"
             android:text="Submit"
-            android:id="@+id/submitbutton"/>
+            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
     </RelativeLayout>
 
 </RelativeLayout>

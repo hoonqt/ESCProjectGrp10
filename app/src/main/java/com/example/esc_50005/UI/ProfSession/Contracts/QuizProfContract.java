@@ -1,5 +1,7 @@
 package com.example.esc_50005.UI.ProfSession.Contracts;
 
+import android.content.Context;
+
 import com.example.esc_50005.Database.Quizstuff.QuizQuestions2DO;
 import com.example.esc_50005.UI.Base.BasePresenter;
 import com.example.esc_50005.UI.Base.BaseView;
@@ -26,6 +28,7 @@ public interface QuizProfContract {
         void addNewQuiz(String subjCode, String sessionCode, String quizName,String question, String correctAns, ArrayList<String> options);
         void processEmptyQuiz();
         ArrayList<QuizQuestions2DO> getQuestionData(String subjectCode, String sessionCode);
+
 
     }
 

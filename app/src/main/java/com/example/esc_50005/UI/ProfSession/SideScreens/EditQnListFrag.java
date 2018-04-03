@@ -90,4 +90,8 @@ public class EditQnListFrag extends Fragment implements Serializable {
         return view;
     }
 
+    public void onBackPressed() {
+
+    }
+
 }
