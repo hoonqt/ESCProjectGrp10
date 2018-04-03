@@ -185,7 +185,8 @@ public class QuizEditor extends Fragment {
 
         tobeadded.setQuestion(question.getText().toString());
         tobeadded.setOptions(options);
-        tobeadded.setQuizNameQnID("Quiz 1" + " " + getSaltString());
+        String quizname = sharedPreferences.getString("QuizName",null);
+        tobeadded.setQuizNameQnID(quizname + " " + getSaltString());
 
 
         tobeadded.setSubjectCodeSessionCode(courseCode+sessionID);

@@ -1,7 +1,9 @@
 package com.example.esc_50005.UI.Session.Student.StudentActivity.SideScreens;
 
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -33,6 +35,7 @@ public class AnsweringZoneFrag extends Fragment {
     private StudentAnswerAdapter qnAdapter;
     ArrayList<QuizQuestions2DO> allthequestions;
     Button submitbtn;
+    SharedPreferences sharedPreferences;
 
     private enum LayoutManagerType {
         LINEAR_LAYOUT_MANAGER
@@ -55,6 +58,8 @@ public class AnsweringZoneFrag extends Fragment {
 
         submitbtn = view.findViewById(R.id.submitbutton);
         submitbtn.setOnClickListener(submitclick);
+
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
 
         Bundle bundle = this.getArguments();
 
@@ -103,7 +108,12 @@ public class AnsweringZoneFrag extends Fragment {
             }
 
             ProgressRemoteDataSource data = new ProgressRemoteDataSource();
-            data.putScores("1002212","50.004","111","Quiz 1",(double)score,"John Chang");
+
+            String userID = sharedPreferences.getString("UserID", null);
+            String quizName = sharedPreferences.getString("QuizName",null);
+            String courseCode = sharedPreferences.getString("CurrentCourseActivity", null).split(" ")[0];
+
+            data.putScores(userID,courseCode,"111",quizName,(double)score,"John Chang");
         }
     };
 
