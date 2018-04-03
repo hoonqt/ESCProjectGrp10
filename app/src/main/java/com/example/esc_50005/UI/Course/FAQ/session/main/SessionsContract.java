@@ -25,5 +25,6 @@ public interface SessionsContract {
         void showLoadSessionsError();
         void showSuccessfulAddNewSession();
         void showUnsuccessfulAddNewSession();
+        void sessionsLoaded();
     }
 }

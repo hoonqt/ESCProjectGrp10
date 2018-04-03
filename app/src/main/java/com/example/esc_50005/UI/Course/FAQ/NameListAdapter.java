@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.esc_50005.Database.FAQ.Faq;
+import com.example.esc_50005.Log;
 import com.example.esc_50005.R;
 import com.example.esc_50005.UI.Base.BaseViewHolder;
 
@@ -26,16 +27,16 @@ public class NameListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     private ArrayList<String> mNameList;
     private ArrayList<String> mStudentIdsList;
     private NameListItemListener mNameListItemListener;
-    private double avg;
+    private ArrayList<Double> avgList;
 
     public static final int VIEW_TYPE_EMPTY = 0;
     public static final int VIEW_TYPE_NORMAL = 1;
 
     private static int viewHolderCount = 0;
 
-    public NameListAdapter(ArrayList<String> nameList, ArrayList<String> studentIdsList, double avg, NameListItemListener itemListener){
+    public NameListAdapter(ArrayList<String> nameList, ArrayList<String> studentIdsList, ArrayList<Double> avgList, NameListItemListener itemListener){
         this.mNameList = nameList;
-        this.avg = avg;
+        this.avgList = avgList;
         this.mStudentIdsList = studentIdsList;
         this.mNameListItemListener = itemListener;
     }
@@ -107,8 +108,11 @@ public class NameListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         }
 
         public void bind(int position) {
+            Log.i(TAG, "NameList size: : " + mNameList.size());
+            Log.i(TAG, "avgList size: : " + avgList.size());
 
             String name = mNameList.get(position);
+            Double avg = avgList.get(position);
             if(avg < 4){
                 tv_question.setText(name);
 //            tv_answer.setText(name);
