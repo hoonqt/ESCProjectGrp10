@@ -21,6 +21,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
+import com.example.esc_50005.Database.utilities.Injection;
 import com.example.esc_50005.R;
 import com.example.esc_50005.UI.Course.FAQ.session.main.SessionsAdapter;
 import com.example.esc_50005.UI.Course.FAQ.session.main.SessionsContract;
@@ -36,7 +37,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class ProfessorSessionsFragment extends Fragment implements SessionsContract.View, View.OnClickListener {
     protected LayoutManagerType mCurrentLayoutManagerType;
     protected RecyclerView.LayoutManager mLayoutManager;
-    private SessionsContract.Presenter mPresenter = new SessionsPresenter(this);
+    private SessionsContract.Presenter mPresenter;
     private LinearLayout mSessionsView;
     private RecyclerView sessionsListRecycler;
     private SwipeRefreshLayout swipeLayout;
@@ -56,7 +57,13 @@ public class ProfessorSessionsFragment extends Fragment implements SessionsContr
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mPresenter = new SessionsPresenter(
+                Injection.provideSessionsRepository(getActivity().getApplicationContext()),
+                Injection.provideCoursesRepository(getActivity().getApplicationContext()),
+                Injection.provideUsersInformationRepository(getActivity().getApplicationContext()),
+                this);
     }
+
 
     @Override
     public void onResume() {
