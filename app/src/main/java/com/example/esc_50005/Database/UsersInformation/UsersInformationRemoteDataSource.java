@@ -8,6 +8,7 @@ import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBQueryExpression;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.PaginatedList;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
+import com.example.esc_50005.Database.FAQ.FaqRemoteDataSource;
 
 import java.util.ArrayList;
 
@@ -16,6 +17,15 @@ public class UsersInformationRemoteDataSource implements UsersInformationDataSou
     DynamoDBMapper dynamoDBMapper;
     ArrayList<UsersInformationDO> usersArrayList;
     public static final String TAG = "UsersInformationRemote";
+
+    private static UsersInformationRemoteDataSource INSTANCE;
+
+    public static UsersInformationRemoteDataSource getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new UsersInformationRemoteDataSource();
+        }
+        return INSTANCE;
+    }
 
     public UsersInformationRemoteDataSource() {
         AmazonDynamoDBClient dynamoDBClient = new AmazonDynamoDBClient(AWSMobileClient.getInstance().getCredentialsProvider());
@@ -39,8 +49,6 @@ public class UsersInformationRemoteDataSource implements UsersInformationDataSou
 
     @Override
     public void addUser(final UsersInformationDO userInformation) {
-        Log.i("getting it",userInformation.getDisabled().toString());
-        Log.i("username keyed",userInformation.getUsername());
         new Thread(new Runnable() {
             @Override
             public void run() {

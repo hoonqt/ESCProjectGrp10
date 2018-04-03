@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.example.esc_50005.Database.CoursesInformation.CoursesInformationDO;
 import com.example.esc_50005.Database.CoursesInformation.CoursesInformationRemoteDataSource;
+import com.example.esc_50005.Database.FAQ.FaqRemoteDataSource;
 import com.example.esc_50005.Database.UsersInformation.UsersInformationDO;
 import com.example.esc_50005.Database.UsersInformation.UsersInformationRemoteDataSource;
 import com.example.esc_50005.Database.sessionsInformation.SessionsInformationDO;
@@ -23,19 +24,22 @@ public class SessionsPresenter implements SessionsContract.Presenter {
     public static final String TAG = "SessionsPresenter";
 
     private final SessionsContract.View mSessionsView;
-    private UsersInformationRemoteDataSource mUserRepository;
-    private SessionsInformationRemoteDataSource mSessionsRepository;
-    private final CoursesInformationRemoteDataSource mCoursesRepository;
+    public UsersInformationRemoteDataSource mUserRepository;
+    public SessionsInformationRemoteDataSource mSessionsRepository;
+    public CoursesInformationRemoteDataSource mCoursesRepository;
     ArrayList<UsersInformationDO> usersJsonData;
     private ArrayList<String> listOfSessions=new ArrayList<String>();
     private ArrayList<SessionsInformationDO> sessionsJsonData;
     private ArrayList<SessionsInformationDO> queriedSessionsJsonData;
     private ArrayList<CoursesInformationDO> courseJsonData;
 
-    public SessionsPresenter(@NonNull SessionsContract.View sessionsView) {
-        mUserRepository = new UsersInformationRemoteDataSource();
-        mSessionsRepository=new SessionsInformationRemoteDataSource();
-        mCoursesRepository=new CoursesInformationRemoteDataSource();
+    public SessionsPresenter(@NonNull SessionsInformationRemoteDataSource sessionsRepository,
+                             @NonNull CoursesInformationRemoteDataSource coursesRepository,
+                             @NonNull UsersInformationRemoteDataSource usersRepository,
+                             @NonNull SessionsContract.View sessionsView) {
+        mSessionsRepository=sessionsRepository;
+        mCoursesRepository=coursesRepository;
+        mUserRepository=usersRepository;
         mSessionsView = checkNotNull(sessionsView, "faqView cannot be null!");
         mSessionsView.setPresenter(this);
     }

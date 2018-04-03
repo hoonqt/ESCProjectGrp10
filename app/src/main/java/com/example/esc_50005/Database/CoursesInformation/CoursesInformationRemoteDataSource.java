@@ -8,6 +8,8 @@ import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBQueryExpression;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.PaginatedList;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
+import com.example.esc_50005.Database.FAQ.FaqRemoteDataSource;
+import com.example.esc_50005.Database.UsersInformation.UsersInformationRemoteDataSource;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +19,18 @@ public class CoursesInformationRemoteDataSource implements CoursesInformationDat
     DynamoDBMapper dynamoDBMapper;
     ArrayList<CoursesInformationDO> coursesArrayList;
     public static final String TAG = "CoursesInformationRemote";
+
+    private static CoursesInformationRemoteDataSource INSTANCE;
+
+//    private ArrayList<JSONObject> dataInJson;
+
+    public static CoursesInformationRemoteDataSource getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new CoursesInformationRemoteDataSource();
+        }
+        return INSTANCE;
+    }
+
 
     public CoursesInformationRemoteDataSource() {
 
