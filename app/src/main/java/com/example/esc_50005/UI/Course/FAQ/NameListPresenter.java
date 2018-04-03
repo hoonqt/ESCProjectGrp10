@@ -26,6 +26,7 @@ public class NameListPresenter implements ProgressContract.Presenter {
     ArrayList<QuizScores4DO> nameList;
     ArrayList<String> studIdArrayList;
     ArrayList<Double> avgList;
+    private String courseId;
 
     public NameListPresenter(@NonNull ProgressContract.View nameListView) {
         mProgressRepository = new ProgressRemoteDataSource();
@@ -35,7 +36,7 @@ public class NameListPresenter implements ProgressContract.Presenter {
 
     @Override
     public void start() {
-        loadScores();
+//        loadScores();
         loadNames();
         processAverage(progressArrayList);
     }
@@ -46,8 +47,13 @@ public class NameListPresenter implements ProgressContract.Presenter {
     }
 
     @Override
+    public void setCourseId(String courseId) {
+        this.courseId=courseId;
+    }
+
+    @Override
     public void loadScores() {
-        progressArrayList = mProgressRepository.getScores("50.004","1002212");// need to change it to base on the user login details
+        progressArrayList = mProgressRepository.getScores(courseId,"1002212");// need to change it to base on the user login details
 //        processScores(progressArrayList);
 
         Log.i(TAG, "LoadScores size is " + progressArrayList.size());
@@ -115,7 +121,7 @@ public class NameListPresenter implements ProgressContract.Presenter {
             for(int i=0; i<studIdArrayList.size();i++){
                 ArrayList<QuizScores4DO> temp = new ArrayList<>();
                 Log.i(TAG, "Process AVG studId: " + studIdArrayList.get(i).substring(0,7));
-                temp = mProgressRepository.getScores("50.004",studIdArrayList.get(i).substring(0,7));
+                temp = mProgressRepository.getScores(courseId,studIdArrayList.get(i).substring(0,7));
 //                Log.i(TAG, "Name: " + temp.get(i).getName());
                 Log.i(TAG, "Process AVG temp size:  " + temp.size());
                 Double total=0.0;
@@ -140,7 +146,9 @@ public class NameListPresenter implements ProgressContract.Presenter {
 
     @Override
     public void loadNames() {
-        nameList = mProgressRepository.getNames("50.004");// need to change it to base on the user login details
+        Log.i(TAG, "Course Id" + courseId);
+
+        nameList = mProgressRepository.getNames(courseId);// need to change it to base on the user login details
         Log.i(TAG, "LoadName size is " + nameList.size() + nameList.get(0).getName());
 //        for(int i=0; i<nameList.size();i++){
 //            Log.i(TAG, "LoadName size is " + nameList.size() + nameList.get(i).getName());

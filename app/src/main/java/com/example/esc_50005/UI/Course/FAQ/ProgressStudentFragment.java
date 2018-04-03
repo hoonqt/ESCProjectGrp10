@@ -36,7 +36,6 @@ public class ProgressStudentFragment extends Fragment implements ProgressContrac
     }
 
     private final String TAG = "ProgressStudentFragment";
-    private String studentId;
     private String courseId;
     private ProgressContract.Presenter mPresenter = new ProgressPresenter(this);
     private BarChart mChart;
@@ -88,7 +87,7 @@ public class ProgressStudentFragment extends Fragment implements ProgressContrac
         } else{
             studentId = userInformation.getString("UserId", "");
         }
-
+        courseId = userInformation.getString("CurrentCourseActivity","");
         Log.i(TAG, "STUDENT_ID: " + studentId);
         mChart = (BarChart)view.findViewById(R.id.chart1);
 //        swipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.faq_swipe);
@@ -100,6 +99,7 @@ public class ProgressStudentFragment extends Fragment implements ProgressContrac
 //        });
         Log.i(TAG, "onCreateView");
         mPresenter.setStudentId(studentId.substring(0,7));
+        mPresenter.setCourseId(courseId.substring(0,6));
 
 
 

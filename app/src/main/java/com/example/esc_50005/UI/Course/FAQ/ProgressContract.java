@@ -21,6 +21,7 @@ public interface ProgressContract {
 
     interface Presenter extends BasePresenter {
         void setStudentId(String studentId);
+        void setCourseId(String courseId);
         void loadScores();
         ArrayList<Double> processAverage(ArrayList<QuizScores4DO> progressArrayList);
         void loadNames();

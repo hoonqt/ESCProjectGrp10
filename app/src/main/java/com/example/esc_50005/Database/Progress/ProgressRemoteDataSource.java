@@ -187,7 +187,7 @@ public class ProgressRemoteDataSource implements ProgressDataSource {
             ex.printStackTrace();
         }
 
-        Log.i("Progresslist in prds", "progressList" + progressArrayList.toString());
+//        Log.i("Progresslist in prds", "progressList" + progressArrayList.toString());
 
         return output;
     }

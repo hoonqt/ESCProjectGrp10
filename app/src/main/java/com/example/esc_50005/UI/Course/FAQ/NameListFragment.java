@@ -1,7 +1,9 @@
 package com.example.esc_50005.UI.Course.FAQ;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -47,8 +49,9 @@ public class NameListFragment extends Fragment implements ProgressContract.View 
     private LinearLayout mNameListView;
     private RecyclerView nameListRecycler;
     private SwipeRefreshLayout swipeLayout;
-
+    private SharedPreferences userInformation;
     private NameListAdapter mNameListAdapter;
+    private String courseId;
 
     public NameListFragment() {
         // Required empty public constructor
@@ -84,6 +87,9 @@ public class NameListFragment extends Fragment implements ProgressContract.View 
         mCurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
         nameListRecycler.setLayoutManager(new LinearLayoutManager(this.getActivity()));
 
+        userInformation = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
+        courseId = userInformation.getString("CurrentCourseActivity","");
+
         swipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.name_list_swipe);
         swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -91,7 +97,7 @@ public class NameListFragment extends Fragment implements ProgressContract.View 
                 mPresenter.loadNames(); // change it to load namelist
             }
         });
-
+        mPresenter.setCourseId(courseId.substring(0,6));
         return view;
     }
 
