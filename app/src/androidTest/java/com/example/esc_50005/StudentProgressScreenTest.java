@@ -40,7 +40,7 @@ public class StudentProgressScreenTest {
     public ActivityTestRule<WelcomeActivity> mActivityTestRule = new ActivityTestRule<>(WelcomeActivity.class);
 
     @Test
-    public void welcomeActivityTest2() {
+    public void StudentProgressScreenTest() {
         ViewInteraction appCompatButton = onView(
                 allOf(withId(R.id.sign_in_button), withText("Sign In"),
                         childAtPosition(

@@ -64,13 +64,13 @@
 //                .check(matches(isDisplayed()));
 //        ProgressStudentFragment fragment = new ProgressStudentFragment();
 //        mActivityRule.getActivity()
-//                .getSupportFragmentManager().beginTransaction();
+//                .getSupportFragmentManager().beginTransaction().add(R.id.pager,fragment);
 //    }
 //    @Test
 //    public void testVisibility(){
 //        //ensures that the relevant text box and radio button are present
-////        onView(withId(R.id.title)).check(matches(isDisplayed()));
-//        onView(withId(R.id.pager)).check(matches(isDisplayed()));
+//        onView(withId(R.id.title)).check(matches(isDisplayed()));
+//        onView(withId(R.id.chart1)).check(matches(isDisplayed()));
 //    }
 //
 //    @Test
