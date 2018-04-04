@@ -45,23 +45,35 @@ public class CoursesSessionPresenterTest {
     @Before
     public void setupLoginPresenter() {
         MockitoAnnotations.initMocks(this);
+
         mSessionsPresenter = new SessionsPresenter(mSessionsRepository, mCoursesRepository,mLoginRepository,mSessionsView);
+
+        UsersInformationDO user=new UsersInformationDO();
+        user.setBruteForceCount(Integer.toString(0));
+        user.setUserId(12.0);
+        user.setUserType("student");
+        user.setUsername("cindy");
+        listOfUsers.add(user);
+        mLoginRepository.addUser(user);
 
     }
 
     @Test
-    public void loadEmptySessions()
-    {
+
+    public void loadEmptySessions() {
         mSessionsPresenter.loadEmptySessions();
         mSessionsView.showEmptySessions();
     }
 
+
     @Test
+
     public void addInvalidNewSession()
-    {
-        mSessionsPresenter.addInvalidNewSession();
-        mSessionsView.showUnsuccessfulAddNewSession();
-    }
+        {
+            mSessionsPresenter.addInvalidNewSession();
+            mSessionsView.showUnsuccessfulAddNewSession();
+        }
+
 
 
 }

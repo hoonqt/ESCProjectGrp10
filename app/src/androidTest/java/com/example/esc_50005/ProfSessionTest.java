@@ -19,6 +19,7 @@ import org.junit.runner.RunWith;
 
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.swipeLeft;
 import static android.support.test.espresso.action.ViewActions.swipeRight;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
@@ -36,7 +37,7 @@ public class ProfSessionTest {
 
     @Rule
     public ActivityTestRule<SessionActivity> mActivitytestRule =
-            new ActivityTestRule<SessionActivity>(SessionActivity.class,true,false);
+            new ActivityTestRule<SessionActivity>(SessionActivity.class);
 
     @Before
     public void setUp() {
@@ -46,6 +47,8 @@ public class ProfSessionTest {
         preferencesEditor = PreferenceManager.getDefaultSharedPreferences(context).edit();
         String userType = "professor";
         preferencesEditor.putString("UserType",userType);
+        preferencesEditor.putString("CurrentCourseActivity","50.004");
+        preferencesEditor.putString("SessionSelected","Hello - 111");
         preferencesEditor.commit();
         mActivitytestRule.launchActivity(intent);
     }
@@ -55,13 +58,9 @@ public class ProfSessionTest {
     public void clickHereandThere() {
 
         onView(withId(R.id.pager)).perform(swipeLeft());
-        try {
-            Thread.sleep(1000);
-        }
+        onView(withId(R.id.fabbtn)).check(matches(isDisplayed()));
+        onView(withId(R.id.fabbtn)).perform(click());
 
-        catch (InterruptedException ex) {
-
-        }
 
     }
 

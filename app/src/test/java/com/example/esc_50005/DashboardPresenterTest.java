@@ -62,11 +62,12 @@ public class DashboardPresenterTest {
     }
 
     @Test
-    public void addInvalidCourse()
-    {
+
+    public void addInvalidCourse() {
         mDashboardPresenter.addInvalidCourse();
         mDashboardView.showAddInvalidCourse();
     }
+
 
 //    @Test
 //    public void addValidCourseProfessor()

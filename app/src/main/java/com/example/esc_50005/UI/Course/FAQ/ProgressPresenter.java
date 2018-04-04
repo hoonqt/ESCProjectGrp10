@@ -1,13 +1,14 @@
 package com.example.esc_50005.UI.Course.FAQ;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 
+import com.example.esc_50005.Database.FAQ.FaqRemoteDataSource;
 import com.example.esc_50005.Database.Progress.NewQuizScoresDO;
 import com.example.esc_50005.Database.Progress.ProgressRemoteDataSource;
 import com.example.esc_50005.Database.Progress.QuizScores2DO;
 import com.example.esc_50005.Database.Progress.QuizScores4DO;
+import com.example.esc_50005.Log;
 
 
 import java.util.ArrayList;
@@ -26,9 +27,13 @@ public class ProgressPresenter implements ProgressContract.Presenter {
     private ProgressRemoteDataSource mProgressRepository;
     ArrayList<QuizScores4DO> progressArrayList;
     ArrayList<QuizScores4DO> nameList;
+    ArrayList<Double> avgList;
 
-    public ProgressPresenter(@NonNull ProgressContract.View progressView) {
-        mProgressRepository = new ProgressRemoteDataSource();
+    String studentId;
+    String courseId;
+
+    public ProgressPresenter(@NonNull ProgressRemoteDataSource progressRepository, @NonNull ProgressContract.View progressView) {
+        mProgressRepository = progressRepository;
         mProgressView = checkNotNull(progressView, "progressView cannot be null!");
         mProgressView.setPresenter(this);
     }
@@ -43,12 +48,27 @@ public class ProgressPresenter implements ProgressContract.Presenter {
 
     @Override
     public void loadScores() {
-        progressArrayList = mProgressRepository.getScores("50.004","1002212");// need to change it to base on the user login details
+        progressArrayList = mProgressRepository.getScores(courseId,studentId);// need to change it to base on the user login details
         processScores(progressArrayList);
 
         Log.i(TAG, "LoadScores size is " + progressArrayList.size());
     }
 
+    public String getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(String studentId) {
+        this.studentId = studentId;
+    }
+
+    public String getCourseId() {
+        return courseId;
+    }
+
+    public void setCourseId(String courseId) {
+        this.courseId = courseId;
+    }
 
     public void processScores(ArrayList<QuizScores4DO> progressArrayList) {
         ArrayList<Double> scoreList = new ArrayList<Double>();
@@ -74,8 +94,9 @@ public class ProgressPresenter implements ProgressContract.Presenter {
 
 
     @Override
-    public double processAverage(ArrayList<QuizScores4DO> progressArrayList) {
+    public ArrayList<Double> processAverage(ArrayList<QuizScores4DO> progressArrayList) {
         ArrayList<Double> scoreList = new ArrayList<Double>();
+
         double total=0;
         double avg = 0;
         String student;
@@ -94,14 +115,14 @@ public class ProgressPresenter implements ProgressContract.Presenter {
             }
             avg = total/progressArrayList.size();
         }
-
-       return avg;
+        avgList.add(avg);
+       return avgList;
 
     }
 
     @Override
     public void loadNames() {
-        nameList = mProgressRepository.getScores("50.004","1002212");// need to change it to base on the user login details
+        nameList = mProgressRepository.getScores(courseId,studentId);// need to change it to base on the user login details
         processNames(nameList);
 
         Log.i(TAG, "LoadName size is " + nameList.size() + nameList.get(0).getName());

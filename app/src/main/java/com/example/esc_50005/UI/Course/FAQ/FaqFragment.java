@@ -1,12 +1,19 @@
 package com.example.esc_50005.UI.Course.FAQ;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -39,6 +46,12 @@ public class FaqFragment extends Fragment implements FaqContract.View {
     private LinearLayout mFaqView;
     private RecyclerView faqListRecycler;
     private SwipeRefreshLayout swipeLayout;
+    private CoordinatorLayout coordinatorLayout;
+
+    private SharedPreferences userInformation;
+    private String userType;
+    private String userId;
+    private String courseId;
 
     private FaqAdapter mFaqAdapter;
 
@@ -55,6 +68,13 @@ public class FaqFragment extends Fragment implements FaqContract.View {
         super.onCreate(savedInstanceState);
         mPresenter = new FaqPresenter(
                 Injection.provideFaqRepository(getActivity().getApplicationContext()), this);
+
+        userInformation = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
+        userType = userInformation.getString("UserType","");
+        userId = userInformation.getString("Username","");
+        courseId = userInformation.getString("CurrentCourseActivity", "");
+        mPresenter.setUserId(userId);
+        mPresenter.setCourseId(courseId);
     }
 
     @Override
@@ -86,6 +106,8 @@ public class FaqFragment extends Fragment implements FaqContract.View {
             }
         });
 
+        coordinatorLayout = (CoordinatorLayout) view.findViewById(R.id.faq_cl);
+
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.faq_fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,7 +130,21 @@ public class FaqFragment extends Fragment implements FaqContract.View {
     }
 
     public void showLoadFaqError() {
-
+        ConnectivityManager conMan = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo.State mobile = conMan.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState();
+        NetworkInfo.State wifi = conMan.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState();
+        if (mobile != NetworkInfo.State.CONNECTED && wifi != NetworkInfo.State.CONNECTED) {
+            Snackbar snackbar = Snackbar
+                    .make(coordinatorLayout, "No Connection", Snackbar.LENGTH_LONG)
+                    .setAction("Retry", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            mPresenter.loadFaq();
+                        }
+                    });
+            snackbar.show();
+//            snackbar.setActionTextColor(Color.WHITE);
+        }
     }
 
     public void faqLoaded() {

@@ -11,6 +11,7 @@ import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.services.dynamodbv2.model.ComparisonOperator;
 import com.amazonaws.services.dynamodbv2.model.Condition;
+import com.example.esc_50005.Database.FAQ.FaqRemoteDataSource;
 
 import org.json.JSONObject;
 
@@ -23,6 +24,15 @@ public class ProgressRemoteDataSource implements ProgressDataSource {
     ArrayList<JSONObject> datainjson;
     ArrayList<QuizScores4DO> progressArrayList;
     ArrayList<QuizScores4DO> nameList;
+
+    private static ProgressRemoteDataSource INSTANCE;
+
+    public static ProgressRemoteDataSource getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new ProgressRemoteDataSource();
+        }
+        return INSTANCE;
+    }
 
     public ProgressRemoteDataSource() {
 
@@ -148,28 +158,32 @@ public class ProgressRemoteDataSource implements ProgressDataSource {
 
     }
 
-    public ArrayList<String> getNames(final String subjectCode) {
-        final ArrayList<String> output = new ArrayList<>();
+    public ArrayList<QuizScores4DO> getNames(final String subjectCode) {
+        final ArrayList<QuizScores4DO> output = new ArrayList<>();
 
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
 
-                QuizScores4DO scores = new QuizScores4DO();
-                scores.setCourseID(subjectCode);
+                QuizScores4DO names = new QuizScores4DO();
+                names.setCourseID(subjectCode);
 
 
                 DynamoDBQueryExpression queryExpression = new DynamoDBQueryExpression()
-                        .withHashKeyValues(scores);
+                        .withHashKeyValues(names);
 
 
                 PaginatedList<QuizScores4DO> result = dynamoDBMapper.query(QuizScores4DO.class, queryExpression);
 
-                for (QuizScores4DO score : result) {
-                    if (!output.contains(output.add(score.getName()))) {
-                        output.add(score.getName());
+                for (QuizScores4DO name : result) {
+                    if (!output.contains(output.add(name))) {
+                        output.add(name);
                     }
-                    Log.i("scores in prds","scores: " + score.getScore().toString());
+                    Log.i("Names in prds","names: " + name.getName().toString());
+                }
+                for (QuizScores4DO out: output){
+                    Log.i("Names in prds","out: " + out.getName().toString());
+
                 }
 
             }
@@ -183,7 +197,7 @@ public class ProgressRemoteDataSource implements ProgressDataSource {
             ex.printStackTrace();
         }
 
-        Log.i("Progresslist in prds", "progressList" + progressArrayList.toString());
+//        Log.i("Progresslist in prds", "progressList" + progressArrayList.toString());
 
         return output;
     }

@@ -51,6 +51,7 @@ public class SessionsPresenter implements SessionsContract.Presenter {
     public void loadSessions()
     {
         mSessionsView.showSessions(listOfSessions);
+        mSessionsView.sessionsLoaded();
     }
 
     public void querySessions(String username, String userType, String currentCourse) {
@@ -95,6 +96,7 @@ public class SessionsPresenter implements SessionsContract.Presenter {
 
             if(queriedSessionsJsonData.get(0).getCourseID().equals(courseId))
             {
+                Log.i("here","hereeee");
                 String session=usersJsonData.get(0).getSessionDate().get(i)+ " -"  + usersJsonData.get(0).getSessionName().get(i);
                 listOfSessions.add(session);
             }

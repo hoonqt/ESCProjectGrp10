@@ -109,6 +109,7 @@ public class LoginPresenterTest {
         double number=23.0;
         mLoginPresenter.loadSuccessfulLogin(number);
         verify(mLoginView).showSuccessfulLogin(number);
+
     }
 
     @Test

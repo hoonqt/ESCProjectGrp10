@@ -10,12 +10,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.example.esc_50005.Database.Quizstuff.QuizQuestions2DO;
 import com.example.esc_50005.R;
 import com.example.esc_50005.UI.ProfSession.Adapters.QnListAdapter;
 import com.example.esc_50005.UI.Session.Main.SessionActivity;
+import com.example.esc_50005.UI.Session.Student.StudentActivity.MainScreen.ActivityStudentFrag;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -87,7 +89,21 @@ public class EditQnListFrag extends Fragment implements Serializable {
             }
         });
 
+        Button backbtn = view.findViewById(R.id.back);
+        backbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ActivityStudentFrag gohere = new ActivityStudentFrag();
+                SessionActivity myActivity = (SessionActivity) context;
+                myActivity.getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.profsessionhere,gohere).addToBackStack(null).commit();
+            }
+        });
+
         return view;
+    }
+
+    public void onBackPressed() {
+
     }
 
 }
