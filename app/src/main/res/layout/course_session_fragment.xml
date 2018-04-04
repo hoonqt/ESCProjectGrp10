@@ -35,11 +35,11 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textColor="#000000"
                 android:textSize="20dp"
-                app:layout_constraintLeft_toRightOf="@+id/add_button"
+                app:layout_constraintLeft_toRightOf="@+id/questions_btn_add"
                 app:layout_constraintVertical_chainStyle="packed" />
 
             <ImageButton
-                android:id="@+id/add_button"
+                android:id="@+id/questions_btn_add"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="?android:attr/selectableItemBackground"

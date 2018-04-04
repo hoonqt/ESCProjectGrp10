@@ -1,13 +1,14 @@
 package com.example.esc_50005.UI.Course.FAQ;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 
+import com.example.esc_50005.Database.FAQ.FaqRemoteDataSource;
 import com.example.esc_50005.Database.Progress.NewQuizScoresDO;
 import com.example.esc_50005.Database.Progress.ProgressRemoteDataSource;
 import com.example.esc_50005.Database.Progress.QuizScores2DO;
 import com.example.esc_50005.Database.Progress.QuizScores4DO;
+import com.example.esc_50005.Log;
 
 
 import java.util.ArrayList;
@@ -31,8 +32,8 @@ public class ProgressPresenter implements ProgressContract.Presenter {
     String studentId;
     String courseId;
 
-    public ProgressPresenter(@NonNull ProgressContract.View progressView) {
-        mProgressRepository = new ProgressRemoteDataSource();
+    public ProgressPresenter(@NonNull ProgressRemoteDataSource progressRepository, @NonNull ProgressContract.View progressView) {
+        mProgressRepository = progressRepository;
         mProgressView = checkNotNull(progressView, "progressView cannot be null!");
         mProgressView.setPresenter(this);
     }

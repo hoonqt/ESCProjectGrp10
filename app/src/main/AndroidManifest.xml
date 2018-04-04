@@ -16,7 +16,7 @@
             android:name=".UI.Session.Main.SessionActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-            android:name=".UI.Course.FAQ.addEditFaq.AddEditFaqActivity"
+            android:name=".UI.Course.FAQ.editFaq.AddEditFaqActivity"
             android:label="Add FAQ" />
         <activity
             android:name=".UI.Course.FAQ.CourseActivity"

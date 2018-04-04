@@ -11,6 +11,8 @@ import com.example.esc_50005.Database.Database.SessionQuestionsDO;
  */
 
 public interface QuestionsItemListener {
-    void onUpvoteClick(SessionQuestionsDO clickedTask);
+    void onUpvoteClick(SessionQuestionsDO clickedQuestion);
+    void onDownvoteClick(SessionQuestionsDO clickedQuestion);
+    void onRetryClick();
 
 }

@@ -17,6 +17,7 @@ public interface QuestionsContract {
         void showAddedQuestion(ArrayList<SessionQuestionsDO> questionsList);
         void showNoQuestions();
         void showLoadQuestionsError();
+        void questionsLoaded();
     }
 
     interface Presenter extends BasePresenter{
@@ -24,5 +25,8 @@ public interface QuestionsContract {
         void addNewQuestion(String question);
         void processEmptyQuestion();
         void upvoteQuestion(SessionQuestionsDO question);
+        void downvoteQuestion(SessionQuestionsDO question);
+        void setCourseId(String courseId);
+        void setUserId(String userId);
     }
 }

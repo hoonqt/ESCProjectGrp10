@@ -5,6 +5,7 @@ import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBHashKey;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBRangeKey;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBTable;
 
+import java.util.ArrayList;
 import java.util.List;
 @DynamoDBTable(tableName = "escproject-mobilehub-27166461-sessionQuestions")
 
@@ -12,7 +13,8 @@ public class SessionQuestionsDO {
     private String _sessioncode;
     private String _question;
     private List<String> _answers;
-    private Double _upvote;
+    private int _upvote;
+    private ArrayList<String> _usersVoted;
 
     @DynamoDBHashKey(attributeName = "sessioncode")
     @DynamoDBAttribute(attributeName = "sessioncode")
@@ -41,12 +43,21 @@ public class SessionQuestionsDO {
         this._answers = _answers;
     }
     @DynamoDBAttribute(attributeName = "upvote")
-    public Double getUpvote() {
+    public int getUpvote() {
         return _upvote;
     }
 
-    public void setUpvote(final Double _upvote) {
+    public void setUpvote(final int _upvote) {
         this._upvote = _upvote;
     }
+
+    @DynamoDBAttribute(attributeName = "String")
+    public ArrayList<String> getUsersVoted() {
+        return _usersVoted;
+    }
+    public void setUsersVoted(final ArrayList<String> usersVoted) {
+        this._usersVoted = usersVoted;
+    }
+
 
 }

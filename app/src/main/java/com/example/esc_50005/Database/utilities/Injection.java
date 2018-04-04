@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 
 import com.example.esc_50005.Database.CoursesInformation.CoursesInformationRemoteDataSource;
 import com.example.esc_50005.Database.FAQ.FaqRemoteDataSource;
+import com.example.esc_50005.Database.Progress.ProgressRemoteDataSource;
 import com.example.esc_50005.Database.UsersInformation.UsersInformationRemoteDataSource;
 import com.example.esc_50005.Database.sessionsInformation.SessionsInformationRemoteDataSource;
 
@@ -42,4 +43,9 @@ public class Injection {
         checkNotNull(context);
         return CoursesInformationRemoteDataSource.getInstance();
     }
+    public static ProgressRemoteDataSource provideProgressRepository(@NonNull Context context) {
+        checkNotNull(context);
+        return ProgressRemoteDataSource.getInstance();
+    }
+
 }

@@ -11,6 +11,7 @@ import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.services.dynamodbv2.model.ComparisonOperator;
 import com.amazonaws.services.dynamodbv2.model.Condition;
+import com.example.esc_50005.Database.FAQ.FaqRemoteDataSource;
 
 import org.json.JSONObject;
 
@@ -23,6 +24,15 @@ public class ProgressRemoteDataSource implements ProgressDataSource {
     ArrayList<JSONObject> datainjson;
     ArrayList<QuizScores4DO> progressArrayList;
     ArrayList<QuizScores4DO> nameList;
+
+    private static ProgressRemoteDataSource INSTANCE;
+
+    public static ProgressRemoteDataSource getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new ProgressRemoteDataSource();
+        }
+        return INSTANCE;
+    }
 
     public ProgressRemoteDataSource() {
 
