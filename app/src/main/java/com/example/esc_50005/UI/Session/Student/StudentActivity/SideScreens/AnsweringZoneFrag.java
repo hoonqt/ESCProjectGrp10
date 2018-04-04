@@ -120,8 +120,9 @@ public class AnsweringZoneFrag extends Fragment {
             String userID = sharedPreferences.getString("UserID", null);
             String quizName = sharedPreferences.getString("QuizName",null);
             String courseCode = sharedPreferences.getString("CurrentCourseActivity", null).split(" ")[0];
+            String userName = sharedPreferences.getString("Username",null);
 
-            data.putScores(userID,courseCode,"111",quizName,(double)score,"John Chang");
+            data.putScores(userID,courseCode,"111",quizName,(double)score,userName);
 
             AlertDialog.Builder builder=new AlertDialog.Builder(getContext());
             builder.setMessage("Your score is:" + score + "/" + qnRecycler.getChildCount() );

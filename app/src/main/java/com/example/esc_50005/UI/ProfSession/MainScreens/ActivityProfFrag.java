@@ -79,7 +79,7 @@ public class ActivityProfFrag extends Fragment implements QuizProfContract.View,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        context = getContext();
+        context = getActivity().getApplicationContext();
 
         mPresenter = new ActivityProfPresenter(this,context);
 

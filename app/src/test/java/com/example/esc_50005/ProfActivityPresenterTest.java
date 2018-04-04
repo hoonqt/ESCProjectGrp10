@@ -60,6 +60,7 @@ public class ProfActivityPresenterTest {
     public void init() {
         MockitoAnnotations.initMocks(this);
         context = new MockContext();
+        context = mSessionActivity.getApplicationContext();
 
     }
 

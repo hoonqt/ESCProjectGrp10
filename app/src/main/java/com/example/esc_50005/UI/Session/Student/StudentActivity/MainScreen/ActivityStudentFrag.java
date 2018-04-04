@@ -70,6 +70,7 @@ public class ActivityStudentFrag extends Fragment implements QuizStudentContract
     public void showQuizes(ArrayList<QuizQuestions2DO> allthequestions) {
         mQuizAdapter.setData(allthequestions);
         mQuizAdapter.notifyDataSetChanged();
+        quizRecycler.setAdapter(mQuizAdapter);
         Log.i("set here","setter");
 
     }

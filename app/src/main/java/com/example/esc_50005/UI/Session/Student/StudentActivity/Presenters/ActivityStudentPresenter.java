@@ -41,7 +41,7 @@ public class ActivityStudentPresenter implements QuizStudentContract.Presenter {
 
         WebSocket socket = new WebSocket();
         socket.send("sinita113");
-        loadQuizes("50.005","101");
+        loadQuizes("hello","mormon");
 
 
     }
@@ -50,7 +50,7 @@ public class ActivityStudentPresenter implements QuizStudentContract.Presenter {
 
         String part1 = input.substring(0,6);
         String part2 = input.substring(6);
-        loadQuizes("50.004","Session1");
+        loadQuizes("50.005","101");
 
     }
 
