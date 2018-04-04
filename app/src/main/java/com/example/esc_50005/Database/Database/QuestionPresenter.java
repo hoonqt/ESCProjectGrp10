@@ -30,7 +30,7 @@ public class QuestionPresenter {
 
         newQuestion.setSessioncode(sessionCode);
         newQuestion.setQuestion(question);
-        newQuestion.setUpvote(newQuestion.getUpvote()+1.0);
+        newQuestion.setUpvote(newQuestion.getUpvote()+1);
 
         new Thread(new Runnable() {
             @Override

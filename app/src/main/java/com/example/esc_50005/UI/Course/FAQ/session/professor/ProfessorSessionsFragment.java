@@ -95,7 +95,7 @@ public class ProfessorSessionsFragment extends Fragment implements SessionsContr
             }
         });
 
-        button= view.findViewById(R.id.add_button);
+        button= view.findViewById(R.id.questions_btn_add);
         button.setOnClickListener(this);
         attemptQuerySessions();
         return view;

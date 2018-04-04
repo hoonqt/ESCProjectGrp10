@@ -96,15 +96,15 @@ public class ProfessorProgressScreenTest {
                         isDisplayed()));
         tabView.perform(click());
 
-        ViewInteraction appCompatButton3 = onView(
-                allOf(withId(R.id.name_list_progress_btn),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.name_list_cv),
-                                        0),
-                                2),
-                        isDisplayed()));
-        appCompatButton3.perform(click());
+//        ViewInteraction appCompatButton3 = onView(
+//                allOf(withId(R.id.name_list_progress_btn),
+//                        childAtPosition(
+//                                childAtPosition(
+//                                        withId(R.id.name_list_cv),
+//                                        0),
+//                                2),
+//                        isDisplayed()));
+//        appCompatButton3.perform(click());
 
     }
 

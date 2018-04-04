@@ -25,8 +25,6 @@ import com.example.esc_50005.UI.Course.FAQ.session.main.SessionsContract;
 import com.example.esc_50005.UI.Course.FAQ.session.main.SessionsPresenter;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -90,7 +88,7 @@ public class StudentSessionsFragment extends Fragment implements SessionsContrac
             }
         });
 
-        button= view.findViewById(R.id.add_button);
+        button= view.findViewById(R.id.questions_btn_add);
         button.setOnClickListener(this);
         attemptQuerySessions();
         return view;

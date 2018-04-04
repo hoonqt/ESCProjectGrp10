@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.example.esc_50005.Database.Database.SessionQuestionsDO;
 import com.example.esc_50005.Database.Database.SessionQuestionsRemoteDataSource;
+import com.example.esc_50005.Log;
 
 import java.util.ArrayList;
 
@@ -20,6 +21,8 @@ public class QuestionsPresenter implements QuestionsContract.Presenter {
     private SessionQuestionsRemoteDataSource mSessionQuestionsRepository;
     ArrayList<SessionQuestionsDO> questionsJsonData;
 
+    String courseId;
+    String userId;
 
     public QuestionsPresenter(@NonNull QuestionsContract.View sessionQuestionsView) {
         mSessionQuestionsRepository = new SessionQuestionsRemoteDataSource();
@@ -55,14 +58,47 @@ public class QuestionsPresenter implements QuestionsContract.Presenter {
     {
         if (questionsJsonData.size() != 0) {
             mSessionQuestionView.showAddedQuestion(questionsJsonData);
+            mSessionQuestionView.questionsLoaded();
         }
     }
 
 
     public void upvoteQuestion(SessionQuestionsDO question) {
-        question.setUpvote(question.getUpvote() + 1);
-        mSessionQuestionsRepository.saveQuestion(question);
+        ArrayList<String> usersVoted = question.getUsersVoted();
+        if (!usersVoted.contains(userId)) {
+            question.setUpvote(question.getUpvote() + 1);
+            usersVoted.add(userId);
+            question.setUsersVoted(usersVoted);
+            mSessionQuestionsRepository.saveQuestion(question);
+            Log.i(TAG, "upvote Faq" + question.getUpvote());
+        }
+//        tv_question.setUpvote(tv_question.getUpvote() + 1);
+//        mSessionQuestionsRepository.saveQuestion(tv_question);
         loadQuestions();
+    }
+
+    public void downvoteQuestion(SessionQuestionsDO question) {
+        ArrayList<String> usersVoted = question.getUsersVoted();
+        if (usersVoted.contains(userId)) {
+            question.setUpvote(question.getUpvote() - 1);
+            usersVoted.remove(userId);
+            question.setUsersVoted(usersVoted);
+            mSessionQuestionsRepository.saveQuestion(question);
+            Log.i(TAG, "downvote Faq" + question.getUpvote());
+        }
+//        tv_question.setUpvote(tv_question.getUpvote() - 1);
+//        mSessionQuestionsRepository.saveQuestion(tv_question);
+        loadQuestions();
+    }
+
+    @Override
+    public void setCourseId(String courseId) {
+        this.courseId = courseId;
+    }
+
+    @Override
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
 }
