@@ -29,11 +29,14 @@ public class FaqAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     public static final int VIEW_TYPE_EMPTY = 0;
     public static final int VIEW_TYPE_NORMAL = 1;
 
+    private String userId;
+
     private static int viewHolderCount = 0;
 
-    public FaqAdapter(ArrayList<Faq> faqList, FaqItemListener itemListener){
+    public FaqAdapter(ArrayList<Faq> faqList, FaqItemListener itemListener, String userId){
         this.mFaqList = faqList;
         this.mFaqItemListener = itemListener;
+        this.userId = userId;
     }
 
 
@@ -140,7 +143,7 @@ public class FaqAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         }
 
         boolean userUpvoted (Faq faq) {
-            if (faq.getUsersVoted().contains("1001688")) {
+            if (faq.getUsersVoted().contains(userId)) {
                 return true;
             } else {
                 return false;

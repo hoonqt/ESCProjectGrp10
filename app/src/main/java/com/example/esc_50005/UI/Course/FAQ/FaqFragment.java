@@ -1,7 +1,6 @@
 package com.example.esc_50005.UI.Course.FAQ;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -15,6 +14,8 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -27,7 +28,7 @@ import android.widget.LinearLayout;
 import com.example.esc_50005.Database.FAQ.Faq;
 import com.example.esc_50005.Database.utilities.Injection;
 import com.example.esc_50005.R;
-import com.example.esc_50005.UI.Course.FAQ.addEditFaq.AddEditFaqActivity;
+import com.example.esc_50005.UI.Course.FAQ.editFaq.EditFaqDialog;
 
 import java.util.ArrayList;
 
@@ -109,11 +110,21 @@ public class FaqFragment extends Fragment implements FaqContract.View {
         coordinatorLayout = (CoordinatorLayout) view.findViewById(R.id.faq_cl);
 
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.faq_fab);
+
+        if (userType.equals("student")) {
+//            fab.setVisibility(View.GONE);
+        }
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), AddEditFaqActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(getActivity(), AddEditFaqActivity.class);
+//                startActivity(intent);
+                FragmentManager fm = getFragmentManager();
+                EditFaqDialog editFaqDialogFragment = new EditFaqDialog();
+                FragmentTransaction transaction = fm.beginTransaction();
+                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                transaction.add(R.id.course_rl, editFaqDialogFragment).addToBackStack(null).commit();
             }
         });
 
@@ -122,7 +133,7 @@ public class FaqFragment extends Fragment implements FaqContract.View {
 
     public void showFaq(ArrayList<Faq> faqList) {
 
-        mFaqAdapter = new FaqAdapter(faqList, mItemListener);
+        mFaqAdapter = new FaqAdapter(faqList, mItemListener, userId);
         faqListRecycler.setAdapter(mFaqAdapter);
     }
 
@@ -151,6 +162,7 @@ public class FaqFragment extends Fragment implements FaqContract.View {
         if (swipeLayout.isRefreshing()) {
             swipeLayout.setRefreshing(false);
         }
+        mFaqAdapter.notifyDataSetChanged();
     }
 
     FaqItemListener mItemListener = new FaqItemListener() {
