@@ -77,6 +77,7 @@ public class BruteForceLoginTest {
             }
             onView(withId(R.id.email)).perform(clearText());
             onView(withId(R.id.password)).perform(clearText());
+
         }
     }
 }

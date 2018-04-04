@@ -46,7 +46,7 @@ public class SessionQnsTest {
 
     @Test
     public void createPresenter() {
-        mProfPresenter = new ActivityProfPresenter(mQuizView);
+        mProfPresenter = new ActivityProfPresenter(mQuizView,sessionActivity);
         verify(mQuizView).setPresenter(mProfPresenter);
 
     }

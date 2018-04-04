@@ -5,6 +5,7 @@ import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBQueryExpression;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.PaginatedList;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
+import com.example.esc_50005.Database.FAQ.FaqRemoteDataSource;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -16,6 +17,15 @@ import java.util.Random;
 public class QuizRemoteDataSource {
     DynamoDBMapper dynamoDBMapper;
     ArrayList<QuizQuestions2DO> questionsArrayList;
+
+    private static QuizRemoteDataSource INSTANCE;
+
+    public static QuizRemoteDataSource getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new QuizRemoteDataSource();
+        }
+        return INSTANCE;
+    }
 
     public QuizRemoteDataSource() {
 
