@@ -1,4 +1,4 @@
-package com.example.esc_50005.UI.Course.FAQ.addEditFaq;
+package com.example.esc_50005.UI.Course.FAQ.editFaq;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

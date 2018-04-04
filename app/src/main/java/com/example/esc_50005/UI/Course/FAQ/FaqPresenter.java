@@ -81,12 +81,12 @@ public class FaqPresenter implements FaqContract.Presenter {
         loadFaq();
     }
 
-    public void processFaq(ArrayList<Faq> faqJsonData) {
+    public void processFaq(ArrayList<Faq> mFaqList) {
 
-        Log.i(TAG, "Length of mFaqList = " + faqJsonData.size());
+        Log.i(TAG, "Length of mFaqList = " + mFaqList.size());
 
 //        if (faqJsonData.size() != 0) {
-            mFaqView.showFaq(faqJsonData);
+            mFaqView.showFaq(mFaqList);
             mFaqView.faqLoaded();
 //        }
 

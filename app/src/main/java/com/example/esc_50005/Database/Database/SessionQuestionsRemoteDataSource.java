@@ -35,7 +35,7 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
         newQuestion.setSessioncode(sessionCode);
         newQuestion.setAnswers(new ArrayList<String>());
         newQuestion.setQuestion(question);
-        newQuestion.setUpvote(0.0);
+        newQuestion.setUpvote(0);
 
         new Thread(new Runnable() {
             @Override

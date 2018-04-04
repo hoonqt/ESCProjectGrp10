@@ -39,19 +39,14 @@ public class FaqPresenterTest {
     @Mock
     private FaqRemoteDataSource mFaqRepository;
 
-    @Captor
-    private ArgumentCaptor<Faq> captor;
-
-    @Captor
-    private ArgumentCaptor<ArrayList<Faq>> showFaqArgumentCaptor;
-
-
     private FaqPresenter mFaqPresenter;
 
     @Before
     public void setupFaqPresenter() {
         MockitoAnnotations.initMocks(this);
         mFaqPresenter = new FaqPresenter(mFaqRepository, mFaqView);
+        mFaqPresenter.setCourseId("50003");
+        mFaqPresenter.setUserId("1001688");
 
         FAQS = new ArrayList<Faq>();
         Faq faq1 = new Faq();
