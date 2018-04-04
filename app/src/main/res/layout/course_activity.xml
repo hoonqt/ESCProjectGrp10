@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/course_rl"
     tools:context="com.example.esc_50005.UI.Course.FAQ.CourseActivity">
 
     <android.support.v7.widget.Toolbar
