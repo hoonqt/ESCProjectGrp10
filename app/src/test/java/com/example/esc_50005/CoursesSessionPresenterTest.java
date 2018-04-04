@@ -1,7 +1,9 @@
 package com.example.esc_50005;
 
+import com.example.esc_50005.Database.CoursesInformation.CoursesInformationRemoteDataSource;
 import com.example.esc_50005.Database.UsersInformation.UsersInformationDO;
 import com.example.esc_50005.Database.UsersInformation.UsersInformationRemoteDataSource;
+import com.example.esc_50005.Database.sessionsInformation.SessionsInformationRemoteDataSource;
 import com.example.esc_50005.UI.Course.FAQ.FaqPresenter;
 import com.example.esc_50005.UI.Course.FAQ.session.main.SessionsContract;
 import com.example.esc_50005.UI.Course.FAQ.session.main.SessionsPresenter;
@@ -29,10 +31,12 @@ public class CoursesSessionPresenterTest {
     private static ArrayList<UsersInformationDO> usersInformation;
 
     @Mock
-    private SessionsContract.View mSessionView;
+    private SessionsContract.View mSessionsView;
 
     @Mock
     private UsersInformationRemoteDataSource mLoginRepository;
+    private SessionsInformationRemoteDataSource mSessionsRepository;
+    private CoursesInformationRemoteDataSource mCoursesRepository;
 
     private SessionsPresenter mSessionsPresenter;
 
@@ -41,7 +45,9 @@ public class CoursesSessionPresenterTest {
     @Before
     public void setupLoginPresenter() {
         MockitoAnnotations.initMocks(this);
-        //mSessionsPresenter = new LoginPresenter(mLoginRepository, mSessionView);
+
+        mSessionsPresenter = new SessionsPresenter(mSessionsRepository, mCoursesRepository,mLoginRepository,mSessionsView);
+
         UsersInformationDO user=new UsersInformationDO();
         user.setBruteForceCount(Integer.toString(0));
         user.setUserId(12.0);
@@ -49,84 +55,25 @@ public class CoursesSessionPresenterTest {
         user.setUsername("cindy");
         listOfUsers.add(user);
         mLoginRepository.addUser(user);
-//        listOfUsers=mLoginRepository.queryParticularUser("cindy","student");
 
     }
 
     @Test
-    public void addBruteForceCount() {
-        //mSessionsPresenter.addBruteForceCount("cindy","student");
-        ArrayList<UsersInformationDO> listOfUsers=mLoginRepository.queryParticularUser("cindy","student");
-        UsersInformationDO user=new UsersInformationDO();
-        user.setBruteForceCount(Integer.toString(0));
-        user.setUserId(12.0);
-        user.setUserType("student");
-        listOfUsers.add(user);
 
-        int count=Integer.parseInt(listOfUsers.get(0).getBruteForceCount());
+    public void loadEmptySessions() {
+        mSessionsPresenter.loadEmptySessions();
+        mSessionsView.showEmptySessions();
+    }
 
-        if(count>2)
+
+    @Test
+
+    public void addInvalidNewSession()
         {
-            //verify(mSessionView).showSecurityQuestion();
+            mSessionsPresenter.addInvalidNewSession();
+            mSessionsView.showUnsuccessfulAddNewSession();
         }
-        else{
-            UsersInformationDO editedUser;
-            editedUser=listOfUsers.get(0);
-            count++;
-            editedUser.setBruteForceCount(Integer.toString(count));
-            verify(mLoginRepository).addUser(editedUser);
-            loadUnsuccessfulLogin();
-        }
-    }
 
-    @Test
-    public void createPresenter_setsThePresenterToView() {
-        // Get a reference to the class under test
-        //mSessionsPresenter = new SessionsPresenter(mLoginRepository, mSessionView);
 
-        // Then the presenter is set to the view
-        verify(mSessionView).setPresenter(mSessionsPresenter);
-    }
-
-    @Test
-    public void loadUsersFromRepository() {
-        String username="cindy";
-        String userType="student";
-        String password="cindyhello";
-        //mSessionsPresenter.loadUsersFromDatabase(username,userType,password);
-        verify(mLoginRepository).queryParticularUser(username,userType);
-    }
-
-    @Test
-    public void loadUnsuccessfulLogin() {
-        //mSessionsPresenter.loadUnsuccessfulLogin();
-        //verify(mSessionView).showUnsuccessfulLogin();
-    }
-
-    @Test
-    public void loadSuccessfulLogin() {
-        //mSessionsPresenter.loadSuccessfulLogin();
-        //verify(mSessionView).showSuccessfulLogin();
-    }
-
-    @Test
-    public void loadAccountLocked() {
-        //mSessionsPresenter.loadAccountLockedOut();
-        //verify(mSessionView).showAccountLockedOut();
-    }
-
-    @Test
-    public void disableAccount() {
-        //mSessionsPresenter.disableAccount();
-
-        ArrayList<UsersInformationDO> editedUser;
-        editedUser=mLoginRepository.queryParticularUser("cindy","student");
-        editedUser.get(0).setDisabled(true);
-
-        mLoginRepository.addUser(editedUser.get(0));
-        mLoginRepository.addUser(editedUser.get(0));
-
-        //verify(mSessionView).showAccountLockedOut();
-    }
 
 }

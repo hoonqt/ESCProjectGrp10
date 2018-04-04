@@ -23,15 +23,17 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class DashboardPresenter implements DashboardContract.Presenter  {
 
     private final DashboardContract.View mDashboardView;
-    private final UsersInformationRemoteDataSource mUsersRepository;
-    private final CoursesInformationRemoteDataSource mCoursesRepository;
+    public final UsersInformationRemoteDataSource mUsersRepository;
+    public final CoursesInformationRemoteDataSource mCoursesRepository;
     ArrayList<UsersInformationDO> userCoursesInformationJsonData;
     ArrayList<CoursesInformationDO> coursesInformationJsonData;
     private static  ArrayList<String> listOfCourses=new ArrayList<>();
 
-    public DashboardPresenter(@NonNull DashboardContract.View contractView) {
-        mUsersRepository=new UsersInformationRemoteDataSource();
-        mCoursesRepository=new CoursesInformationRemoteDataSource();
+    public DashboardPresenter(@NonNull UsersInformationRemoteDataSource usersInformationRepository,
+                              @NonNull CoursesInformationRemoteDataSource coursesInformationRepository,
+                              @NonNull DashboardContract.View contractView) {
+        mUsersRepository=usersInformationRepository;
+        mCoursesRepository=coursesInformationRepository;
         mDashboardView = checkNotNull(contractView, "dashboardView cannot be null!");
         mDashboardView.setPresenter(this);
     }
@@ -39,6 +41,7 @@ public class DashboardPresenter implements DashboardContract.Presenter  {
     @Override
     public void start()
     {
+        mDashboardView.attemptLoadCourses();
     }
 
     public void showSuccessfullyLoadedCourses()

@@ -1,8 +1,11 @@
 package com.example.esc_50005;
 
+import com.example.esc_50005.Database.CoursesInformation.CoursesInformationRemoteDataSource;
 import com.example.esc_50005.Database.UsersInformation.UsersInformationDO;
 import com.example.esc_50005.Database.UsersInformation.UsersInformationRemoteDataSource;
 import com.example.esc_50005.UI.Course.FAQ.FaqPresenter;
+import com.example.esc_50005.UI.Dashboard.main.DashboardContract;
+import com.example.esc_50005.UI.Dashboard.main.DashboardPresenter;
 import com.example.esc_50005.UI.Login.LoginContract;
 import com.example.esc_50005.UI.Login.LoginPresenter;
 
@@ -16,10 +19,6 @@ import java.util.ArrayList;
 import static org.mockito.Mockito.verify;
 
 /**
- * Created by tan_j on 14/3/2018.
- */
-
-/**
  * Unit tests for the implementation of {@link FaqPresenter}
  */
 public class DashboardPresenterTest {
@@ -27,104 +26,59 @@ public class DashboardPresenterTest {
     private static ArrayList<UsersInformationDO> usersInformation;
 
     @Mock
-    private LoginContract.View mLoginView;
+    private DashboardContract.View mDashboardView;
 
     @Mock
     private UsersInformationRemoteDataSource mLoginRepository;
+    private CoursesInformationRemoteDataSource mCoursesRepository;
+    private static  ArrayList<String> listOfCourses=new ArrayList<>();
 
-    private LoginPresenter mLoginPresenter;
+
+    private DashboardPresenter mDashboardPresenter;
 
     private static ArrayList<UsersInformationDO> listOfUsers=new ArrayList<>();
 
     @Before
     public void setupLoginPresenter() {
         MockitoAnnotations.initMocks(this);
-        mLoginPresenter = new LoginPresenter(mLoginRepository, mLoginView);
-        UsersInformationDO user=new UsersInformationDO();
-        user.setBruteForceCount(Integer.toString(0));
-        user.setUserId(12.0);
-        user.setUserType("student");
-        user.setUsername("cindy");
-        listOfUsers.add(user);
-        mLoginRepository.addUser(user);
-//        listOfUsers=mLoginRepository.queryParticularUser("cindy","student");
+        mDashboardPresenter = new DashboardPresenter(mLoginRepository,mCoursesRepository, mDashboardView);
 
-    }
-
-    @Test
-    public void addBruteForceCount() {
-        mLoginPresenter.addBruteForceCount("cindy","student");
-        ArrayList<UsersInformationDO> listOfUsers=mLoginRepository.queryParticularUser("cindy","student");
-        UsersInformationDO user=new UsersInformationDO();
-        user.setBruteForceCount(Integer.toString(0));
-        user.setUserId(12.0);
-        user.setUserType("student");
-        listOfUsers.add(user);
-
-        int count=Integer.parseInt(listOfUsers.get(0).getBruteForceCount());
-
-        if(count>2)
-        {
-            verify(mLoginView).showSecurityQuestion();
-        }
-        else{
-            UsersInformationDO editedUser;
-            editedUser=listOfUsers.get(0);
-            count++;
-            editedUser.setBruteForceCount(Integer.toString(count));
-            verify(mLoginRepository).addUser(editedUser);
-            loadUnsuccessfulLogin();
-        }
     }
 
     @Test
     public void createPresenter_setsThePresenterToView() {
         // Get a reference to the class under test
-        mLoginPresenter = new LoginPresenter(mLoginRepository, mLoginView);
+        mDashboardPresenter = new DashboardPresenter(mLoginRepository,mCoursesRepository, mDashboardView);
 
         // Then the presenter is set to the view
-        verify(mLoginView).setPresenter(mLoginPresenter);
+        verify(mDashboardView).setPresenter(mDashboardPresenter);
     }
 
     @Test
-    public void loadUsersFromRepository() {
-        String username="cindy";
-        String userType="student";
-        String password="cindyhello";
-        mLoginPresenter.loadUsersFromDatabase(username,userType,password);
-        verify(mLoginRepository).queryParticularUser(username,userType);
+    public void showSuccessfullyLoadedCourses()
+    {
+        mDashboardPresenter.showSuccessfullyLoadedCourses();
+        verify(mDashboardView).showSuccessfullyLoadedCourses(listOfCourses);
     }
 
     @Test
-    public void loadUnsuccessfulLogin() {
-        mLoginPresenter.loadUnsuccessfulLogin();
-        verify(mLoginView).showUnsuccessfulLogin();
+
+    public void addInvalidCourse() {
+        mDashboardPresenter.addInvalidCourse();
+        mDashboardView.showAddInvalidCourse();
     }
 
-    @Test
-    public void loadSuccessfulLogin() {
-        //mLoginPresenter.loadSuccessfulLogin();
-        //verify(mLoginView).showSuccessfulLogin();
-    }
 
-    @Test
-    public void loadAccountLocked() {
-        mLoginPresenter.loadAccountLockedOut();
-        verify(mLoginView).showAccountLockedOut();
-    }
-
-    @Test
-    public void disableAccount() {
-        mLoginPresenter.disableAccount();
-
-        ArrayList<UsersInformationDO> editedUser;
-        editedUser=mLoginRepository.queryParticularUser("cindy","student");
-        editedUser.get(0).setDisabled(true);
-
-        mLoginRepository.addUser(editedUser.get(0));
-        mLoginRepository.addUser(editedUser.get(0));
-
-        verify(mLoginView).showAccountLockedOut();
-    }
+//    @Test
+//    public void addValidCourseProfessor()
+//    {
+//        Double courseId=102.0;
+//        String courseName="ESC";
+//        mDashboardPresenter.addValidCourseProfessor(courseId,courseName);
+//        ArrayList<String> listOfStudents=new ArrayList<>();
+//        listOfStudents.add("102");
+//        mDashboardPresenter.mCoursesRepository.addCourse(2.0,"ESC",listOfStudents);
+//
+//    }
 
 }

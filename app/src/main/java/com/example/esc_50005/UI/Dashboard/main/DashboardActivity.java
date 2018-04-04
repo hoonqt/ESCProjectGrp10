@@ -1,5 +1,6 @@
 package com.example.esc_50005.UI.Dashboard.main;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -33,6 +34,8 @@ public class DashboardActivity extends MainActivity{
         AWSMobileClient.getInstance().initialize(this).execute();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dashboard_activity);
+
+        
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
         switch(sharedPreferences.getString("UserType",""))
         {

@@ -64,7 +64,8 @@ public class UsersInformationRemoteDataSource implements UsersInformationDataSou
 
     }
     public ArrayList<UsersInformationDO> queryParticularUser(final String username, final String userType) {
-        Log.i("username",userType);
+        Log.i("username!!!!!!!",username);
+        Log.i("userType!!!!!!!",userType);
         usersArrayList = new ArrayList<UsersInformationDO>();
 
         Thread random = new Thread(new Runnable() {
