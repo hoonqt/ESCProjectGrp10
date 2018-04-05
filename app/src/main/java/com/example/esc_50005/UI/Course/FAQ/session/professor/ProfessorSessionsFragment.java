@@ -9,15 +9,21 @@ import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -44,6 +50,7 @@ public class ProfessorSessionsFragment extends Fragment implements SessionsContr
     private SwipeRefreshLayout swipeLayout;
     private ImageButton button;
     private SharedPreferences sharedPreferences;
+    private BottomSheetBehavior mBottomSheetBehavior;
 
     private SessionsAdapter mSessionsAdapter;
 
@@ -87,7 +94,8 @@ public class ProfessorSessionsFragment extends Fragment implements SessionsContr
         mLayoutManager= new LinearLayoutManager(getActivity());
         mCurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
         sessionsListRecycler.setLayoutManager(new LinearLayoutManager(this.getActivity()));
-
+        button= view.findViewById(R.id.questions_btn_add);
+        button.setOnClickListener(this);
         swipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.sessions_swipe);
         swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -96,11 +104,10 @@ public class ProfessorSessionsFragment extends Fragment implements SessionsContr
             }
         });
 
-        button= view.findViewById(R.id.questions_btn_add);
-        button.setOnClickListener(this);
         attemptQuerySessions();
         return view;
     }
+
 
     public void attemptQuerySessions()
     {
@@ -131,9 +138,68 @@ public class ProfessorSessionsFragment extends Fragment implements SessionsContr
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if(sharedPreferences.getString(getString(R.string.user_type),"").equals("professor"))
+        {
+            int id = item.getItemId();
+
+            if(id == R.id.end_session){
+                Log.i("end","end");
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString(getString(R.string.end_session), "True");
+                editor.commit();
+                return true;
+            }
+            else if(id == R.id.start_session){
+                Log.i("end","end");
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString(getString(R.string.delete_session), "True");
+                editor.commit();
+                return true;
+            }
+            else if(id == R.id.get_session_id){
+
+                return true;
+            }
+            else if(id == R.id.delete_session){
+
+                return true;
+            }
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void showPopup(View v) {
+
+        AlertDialog.Builder builder=new AlertDialog.Builder(this.getContext());
+        builder.setTitle("Session added, new session id is "+ sharedPreferences.getString(getString(R.string.session_id),""));
+
+        builder.create();
+        builder.show();
+
+
+
+    }
+
+//
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//
+//        if(sharedPreferences.getString(getString(R.string.user_type),"").equals("professor"))
+//        {
+//            MenuInflater inflater = getMenuInflater();
+//            inflater.inflate(R.menu.menu_main, menu);
+//            return true;
+//        }
+//        return false;
+//    }
+
+    @Override
     public void showSuccessfulAddNewSession() {
         AlertDialog.Builder builder=new AlertDialog.Builder(this.getContext());
-        builder.setTitle("Session added, new session id is "+ sharedPreferences.getString("AddedSessionId",""));
+        builder.setTitle("Session added, new session id is "+ sharedPreferences.getString(getString(R.string.session_id),""));
         attemptQuerySessions();
         builder.create();
         builder.show();
