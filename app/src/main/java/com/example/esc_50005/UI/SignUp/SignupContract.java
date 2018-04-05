@@ -2,7 +2,8 @@ package com.example.esc_50005.UI.SignUp;
 
 import android.content.Context;
 
-import com.example.esc_50005.Database.UsersInformation.UsersInformationDO;
+
+import com.example.esc_50005.Database.UsersInformation.EditedUsersInformationDO;
 import com.example.esc_50005.UI.Base.BasePresenter;
 import com.example.esc_50005.UI.Base.BaseView;
 
@@ -13,9 +14,9 @@ public interface SignupContract {
     interface Presenter extends BasePresenter {
         void loadUnsuccessfulSignup();
         void loadSuccessfulSignup();
-        void processSuccessfulSignup(String username, String password, String userType, String securityAnswer);
-        void loadUsersFromDatabase(String username, String password, String userType, String securityAnswer);
-        void checkIfSignupIsValid(ArrayList<UsersInformationDO> userInformationJsonData, String username, String password, String userType, String securityAnswer);
+        void processSuccessfulSignup(String userId, String fullName, String password, String userType, String securityAnswer);
+        void loadUsersFromDatabase(String userId, String password, String fullName, String userType, String securityAnswer);
+        void checkIfSignupIsValid(ArrayList<EditedUsersInformationDO> userInformationJsonData, String userId, String fullName, String password, String userType, String securityAnswer);
     }
     interface View extends BaseView <Presenter> {
         void showUnsuccessfulSignup();

@@ -7,57 +7,41 @@ import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBTable;
 
 import java.util.List;
 
+
 @DynamoDBTable(tableName = "escproject-mobilehub-27166461-SessionsInformation")
 
 public class SessionsInformationDO {
-    private String _sessionID;
-    private String _courseID;
-    private String _courseName;
-    private String _dateOfCreation;
-    private List<String> _listOfStudents;
+    private String _sessionId;
+    private String _courseId;
+    private String _sessionDate;
     private String _sessionName;
+    private List<String> _sessionStudentList;
 
-    @DynamoDBHashKey(attributeName = "sessionID")
-    @DynamoDBAttribute(attributeName = "sessionID")
-    public String getSessionID() {
-        return _sessionID;
-    }
-
-    public void setSessionID(final String _sessionID) {
-        this._sessionID = _sessionID;
-    }
-    @DynamoDBRangeKey(attributeName = "courseID")
-    @DynamoDBAttribute(attributeName = "courseID")
-    public String getCourseID() {
-        return _courseID;
+    @DynamoDBHashKey(attributeName = "sessionId")
+    @DynamoDBAttribute(attributeName = "sessionId")
+    public String getSessionId() {
+        return _sessionId;
     }
 
-    public void setCourseID(final String _courseID) {
-        this._courseID = _courseID;
+    public void setSessionId(final String _sessionId) {
+        this._sessionId = _sessionId;
     }
-    @DynamoDBAttribute(attributeName = "courseName")
-    public String getCourseName() {
-        return _courseName;
-    }
-
-    public void setCourseName(final String _courseName) {
-        this._courseName = _courseName;
-    }
-    @DynamoDBAttribute(attributeName = "dateOfCreation")
-    public String getDateOfCreation() {
-        return _dateOfCreation;
+    @DynamoDBRangeKey(attributeName = "courseId")
+    @DynamoDBAttribute(attributeName = "courseId")
+    public String getCourseId() {
+        return _courseId;
     }
 
-    public void setDateOfCreation(final String _dateOfCreation) {
-        this._dateOfCreation = _dateOfCreation;
+    public void setCourseId(final String _courseId) {
+        this._courseId = _courseId;
     }
-    @DynamoDBAttribute(attributeName = "listOfStudents")
-    public List<String> getListOfStudents() {
-        return _listOfStudents;
+    @DynamoDBAttribute(attributeName = "sessionDate")
+    public String getSessionDate() {
+        return _sessionDate;
     }
 
-    public void setListOfStudents(final List<String> _listOfStudents) {
-        this._listOfStudents = _listOfStudents;
+    public void setSessionDate(final String _sessionDate) {
+        this._sessionDate = _sessionDate;
     }
     @DynamoDBAttribute(attributeName = "sessionName")
     public String getSessionName() {
@@ -66,6 +50,14 @@ public class SessionsInformationDO {
 
     public void setSessionName(final String _sessionName) {
         this._sessionName = _sessionName;
+    }
+    @DynamoDBAttribute(attributeName = "sessionStudentList")
+    public List<String> getSessionStudentList() {
+        return _sessionStudentList;
+    }
+
+    public void setSessionStudentList(final List<String> _sessionStudentList) {
+        this._sessionStudentList = _sessionStudentList;
     }
 
 }

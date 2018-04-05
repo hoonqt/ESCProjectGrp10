@@ -42,13 +42,13 @@ public class CoursesInformationRemoteDataSource implements CoursesInformationDat
     }
 
     @Override
-    public void addCourse(final Double courseId, final String courseName, final List<String> studentIds) {
+    public void addCourse(final String courseId, final String courseName, final List<String> studentIds) {
         final CoursesInformationDO newCourse=new CoursesInformationDO();
-        newCourse.setCourseID(courseId);
+        newCourse.setCourseId(courseId);
         newCourse.setCourseName(courseName);
         if(studentIds!=null)
         {
-            newCourse.setListOfStudents(studentIds);
+            newCourse.setCourseStudentList(studentIds);
         }
         new Thread(new Runnable() {
             @Override
@@ -70,7 +70,8 @@ public class CoursesInformationRemoteDataSource implements CoursesInformationDat
 
     }
 
-    public ArrayList<CoursesInformationDO> queryCourses(final Double courseId) {
+    public ArrayList<CoursesInformationDO> queryCourses(final String courseId) {
+
 
         coursesArrayList = new ArrayList<CoursesInformationDO>();
 
@@ -80,7 +81,7 @@ public class CoursesInformationRemoteDataSource implements CoursesInformationDat
 
                 CoursesInformationDO courseSelected = new CoursesInformationDO();
 
-                courseSelected.setCourseID(courseId);
+                courseSelected.setCourseId(courseId);
 
                 DynamoDBQueryExpression queryExpression = new DynamoDBQueryExpression()
                         .withHashKeyValues(courseSelected);

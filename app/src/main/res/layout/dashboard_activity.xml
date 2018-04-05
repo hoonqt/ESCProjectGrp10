@@ -15,20 +15,21 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         />
 
-    <fragment
-        android:layout_marginTop="60dp"
-        android:id="@+id/professorDashboardFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        class="com.example.esc_50005.UI.Dashboard.professor.ProfessorDashboardFragment"
-        >
-    </fragment>
+
     <fragment
         android:layout_marginTop="60dp"
         android:id="@+id/studentDashboardFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         class="com.example.esc_50005.UI.Dashboard.student.StudentDashboardFragment"
+        >
+    </fragment>
+    <fragment
+        android:layout_marginTop="60dp"
+        android:id="@+id/professorDashboardFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        class="com.example.esc_50005.UI.Dashboard.professor.ProfessorDashboardFragment"
         >
     </fragment>
 

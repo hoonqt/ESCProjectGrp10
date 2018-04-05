@@ -46,10 +46,10 @@ public class SessionsInformationRemoteDataSource implements SessionsInformationD
     @Override
     public void addSession(String sessionId, String sessionName, String dateOfCreation, String courseId) {
         final SessionsInformationDO newSessionToAdd= new SessionsInformationDO();
-        newSessionToAdd.setSessionID(sessionId);
+        newSessionToAdd.setSessionId(sessionId);
         newSessionToAdd.setSessionName(sessionName);
-        newSessionToAdd.setCourseID(courseId);
-        newSessionToAdd.setDateOfCreation(dateOfCreation);
+        newSessionToAdd.setCourseId(courseId);
+        newSessionToAdd.setSessionDate(dateOfCreation);
 
         new Thread(new Runnable() {
             @Override
@@ -68,7 +68,7 @@ public class SessionsInformationRemoteDataSource implements SessionsInformationD
             public void run() {
 
                 SessionsInformationDO sessionSelected = new SessionsInformationDO();
-                sessionSelected.setSessionID(sessionId);
+                sessionSelected.setSessionId(sessionId);
 
                 DynamoDBQueryExpression queryExpression = new DynamoDBQueryExpression()
                         .withHashKeyValues(sessionSelected);
