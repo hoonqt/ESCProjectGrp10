@@ -6,7 +6,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.example.esc_50005.Database.UsersInformation.UsersInformationDO;
+import com.example.esc_50005.Database.UsersInformation.EditedUsersInformationDO;
 import com.example.esc_50005.Database.UsersInformation.UsersInformationRemoteDataSource;
 
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ public class SignupPresenter implements SignupContract.Presenter  {
 
     private final SignupContract.View mSignupView;
     private final UsersInformationRemoteDataSource mLoginRepository;
-    ArrayList<UsersInformationDO> userInformationJsonData;
+    ArrayList<EditedUsersInformationDO> userInformationJsonData;
 
     public SignupPresenter(@NonNull SignupContract.View contractView) {
         mLoginRepository=new UsersInformationRemoteDataSource();
@@ -43,44 +43,34 @@ public class SignupPresenter implements SignupContract.Presenter  {
     }
 
     @Override
-    public void processSuccessfulSignup(String username, String password, String userType, String securityAnswer){
+    public void processSuccessfulSignup(String userId, String fullName, String password, String userType, String securityAnswer){
 
-        Random random= new Random();
-        int randomNumber=random.nextInt(1000);
-        double userId= (double) randomNumber;
-        UsersInformationDO newUser =new UsersInformationDO();
-        newUser.setUsername(username);
+        EditedUsersInformationDO newUser =new EditedUsersInformationDO();
+        newUser.setUserId(userId);
+        newUser.setFullName(fullName);
         newUser.setPassword(password);
         newUser.setUserType(userType);
         newUser.setSecurityAnswer(securityAnswer);
-        newUser.setUserId(userId);
         newUser.setDisabled(false);
-        newUser.setBruteForceCount(Integer.toString(0));
+        newUser.setBruteForceCount("0");
         mLoginRepository.addUser(newUser);
 
-//        try{
-//            Thread.sleep(5);
-//        }
-//        catch(Exception ex)
-//        {
-//
-//        }
         loadSuccessfulSignup();
 
     }
 
-    public void loadUsersFromDatabase(String username, String password, String userType, String securityAnswer)
+    public void loadUsersFromDatabase(String userId, String password, String fullName, String userType, String securityAnswer)
     {
 
-        userInformationJsonData=mLoginRepository.queryParticularUser(username,userType);
-        checkIfSignupIsValid(userInformationJsonData,username,password,userType,securityAnswer);
+        userInformationJsonData=mLoginRepository.queryAParticularUser(userId);
+        checkIfSignupIsValid(userInformationJsonData,userId, fullName, password,userType,securityAnswer);
     }
 
     @Override
-    public void checkIfSignupIsValid(ArrayList<UsersInformationDO> userInformationJsonData, String username, String password, String userType, String securityAnswer ) {
+    public void checkIfSignupIsValid(ArrayList<EditedUsersInformationDO> userInformationJsonData, String userId, String fullName, String password, String userType, String securityAnswer ) {
         if(userInformationJsonData.size()==0)
         {
-            processSuccessfulSignup(username,password, userType, securityAnswer);
+            processSuccessfulSignup(userId, fullName, password, userType, securityAnswer);
         }
         else{
             loadUnsuccessfulSignup();

@@ -28,9 +28,9 @@ public class QuestionPresenter {
 
         final SessionQuestionsDO newQuestion = new SessionQuestionsDO();
 
-        newQuestion.setSessioncode(sessionCode);
+        newQuestion.setSessionId(sessionCode);
         newQuestion.setQuestion(question);
-        newQuestion.setUpvote(newQuestion.getUpvote()+1);
+        newQuestion.setUpvotes(newQuestion.getUpvotes()+1);
 
         new Thread(new Runnable() {
             @Override

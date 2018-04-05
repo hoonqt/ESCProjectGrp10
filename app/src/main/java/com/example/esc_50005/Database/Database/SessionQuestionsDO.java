@@ -7,23 +7,23 @@ import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBTable;
 
 import java.util.ArrayList;
 import java.util.List;
-@DynamoDBTable(tableName = "escproject-mobilehub-27166461-sessionQuestions")
+@DynamoDBTable(tableName = "escproject-mobilehub-27166461-SessionQuestions")
 
 public class SessionQuestionsDO {
-    private String _sessioncode;
+    private String _sessionId;
     private String _question;
-    private List<String> _answers;
-    private int _upvote;
-    private ArrayList<String> _usersVoted;
+    private String _answer;
+    private int _upvotes;
+    private List<String> _usersVoters;
 
-    @DynamoDBHashKey(attributeName = "sessioncode")
-    @DynamoDBAttribute(attributeName = "sessioncode")
-    public String getSessioncode() {
-        return _sessioncode;
+    @DynamoDBHashKey(attributeName = "sessionId")
+    @DynamoDBAttribute(attributeName = "sessionId")
+    public String getSessionId() {
+        return _sessionId;
     }
 
-    public void setSessioncode(final String _sessioncode) {
-        this._sessioncode = _sessioncode;
+    public void setSessionId(final String _sessionId) {
+        this._sessionId = _sessionId;
     }
     @DynamoDBRangeKey(attributeName = "question")
     @DynamoDBAttribute(attributeName = "question")
@@ -34,30 +34,29 @@ public class SessionQuestionsDO {
     public void setQuestion(final String _question) {
         this._question = _question;
     }
-    @DynamoDBAttribute(attributeName = "answers")
-    public List<String> getAnswers() {
-        return _answers;
+    @DynamoDBAttribute(attributeName = "answer")
+    public String getAnswer() {
+        return _answer;
     }
 
-    public void setAnswers(final List<String> _answers) {
-        this._answers = _answers;
+    public void setAnswer(final String _answer) {
+        this._answer = _answer;
     }
-    @DynamoDBAttribute(attributeName = "upvote")
-    public int getUpvote() {
-        return _upvote;
-    }
-
-    public void setUpvote(final int _upvote) {
-        this._upvote = _upvote;
+    @DynamoDBAttribute(attributeName = "upvotes")
+    public int getUpvotes() {
+        return _upvotes;
     }
 
-    @DynamoDBAttribute(attributeName = "String")
-    public ArrayList<String> getUsersVoted() {
-        return _usersVoted;
+    public void setUpvotes(final int _upvotes) {
+        this._upvotes = _upvotes;
     }
-    public void setUsersVoted(final ArrayList<String> usersVoted) {
-        this._usersVoted = usersVoted;
+    @DynamoDBAttribute(attributeName = "usersVoters")
+    public List<String> getUsersVoters() {
+        return _usersVoters;
     }
 
+    public void setUsersVoters(final List<String> _usersVoters) {
+        this._usersVoters = _usersVoters;
+    }
 
 }

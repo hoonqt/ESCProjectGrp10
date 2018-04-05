@@ -24,15 +24,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <EditText
-                    android:id="@+id/username"
+                <AutoCompleteTextView
+                    android:id="@+id/user_id"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="username"
-                    android:imeActionId="6"
-                    android:imeActionLabel="@string/action_sign_in_short"
-                    android:imeOptions="actionUnspecified"
-                    android:inputType="textPassword"
+                    android:hint="User Id"
+                    android:maxLines="1"
+                    android:singleLine="true" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <AutoCompleteTextView
+                    android:id="@+id/full_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Full Name"
                     android:maxLines="1"
                     android:singleLine="true" />
 
@@ -60,15 +71,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <EditText
-                    android:id="@+id/security_question"
+                <AutoCompleteTextView
+                    android:id="@+id/security_answer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="What is your favorite colour?"
-                    android:imeActionId="6"
-                    android:imeActionLabel="@string/action_sign_in_short"
-                    android:imeOptions="actionUnspecified"
-                    android:inputType="textPassword"
+                    android:hint="What is your favorite food?"
                     android:maxLines="1"
                     android:singleLine="true" />
 

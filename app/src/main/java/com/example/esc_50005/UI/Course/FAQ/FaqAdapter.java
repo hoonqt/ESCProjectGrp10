@@ -113,7 +113,7 @@ public class FaqAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             Faq faq = mFaqList.get(position);
             tv_question.setText(faq.getQuestion());
             tv_answer.setText(faq.getAnswer());
-            tv_upvote.setText(String.valueOf(faq.getUpvotes()));
+            tv_upvote.setText(String.valueOf(faq.getUsersVoted().size()));
             tv_time.setText(faq.getAuthor() + ", " + faq.getDate());
 
             upvoted = userUpvoted(faq);

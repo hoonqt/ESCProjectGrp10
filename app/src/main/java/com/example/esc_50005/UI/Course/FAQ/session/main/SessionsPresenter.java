@@ -9,7 +9,7 @@ import android.util.Log;
 import com.example.esc_50005.Database.CoursesInformation.CoursesInformationDO;
 import com.example.esc_50005.Database.CoursesInformation.CoursesInformationRemoteDataSource;
 import com.example.esc_50005.Database.FAQ.FaqRemoteDataSource;
-import com.example.esc_50005.Database.UsersInformation.UsersInformationDO;
+import com.example.esc_50005.Database.UsersInformation.EditedUsersInformationDO;
 import com.example.esc_50005.Database.UsersInformation.UsersInformationRemoteDataSource;
 import com.example.esc_50005.Database.sessionsInformation.SessionsInformationDO;
 import com.example.esc_50005.Database.sessionsInformation.SessionsInformationRemoteDataSource;
@@ -27,7 +27,7 @@ public class SessionsPresenter implements SessionsContract.Presenter {
     public UsersInformationRemoteDataSource mUserRepository;
     public SessionsInformationRemoteDataSource mSessionsRepository;
     public CoursesInformationRemoteDataSource mCoursesRepository;
-    ArrayList<UsersInformationDO> usersJsonData;
+    ArrayList<EditedUsersInformationDO> usersJsonData;
     private ArrayList<String> listOfSessions=new ArrayList<String>();
     private ArrayList<SessionsInformationDO> sessionsJsonData;
     private ArrayList<SessionsInformationDO> queriedSessionsJsonData;
@@ -54,12 +54,13 @@ public class SessionsPresenter implements SessionsContract.Presenter {
         mSessionsView.sessionsLoaded();
     }
 
-    public void querySessions(String username, String userType, String currentCourse) {
-        usersJsonData=mUserRepository.queryParticularUser(username,userType);
+    public void querySessions(String userId, String currentCourse) {
+
+        usersJsonData=mUserRepository.queryAParticularUser(userId);
         processSessions(usersJsonData, currentCourse);
 
     }
-    public void processSessions(ArrayList<UsersInformationDO> usersJsonData, String currentCourse) {
+    public void processSessions(ArrayList<EditedUsersInformationDO> usersJsonData, String currentCourse) {
         if(usersJsonData.get(0).getSessionIds()!=null)
         {
             generateListOfSessions(currentCourse);
@@ -83,8 +84,8 @@ public class SessionsPresenter implements SessionsContract.Presenter {
         listOfSessions=new ArrayList<String>();
         String[] retrieveCourseId = currentCourse.split("\\s+");
         String courseId=retrieveCourseId[0];
-        courseJsonData=mCoursesRepository.queryCourses(Double.parseDouble(retrieveCourseId[0]));
-//        ArrayList<UsersInformationDO> newUserJsonData;
+        courseJsonData=mCoursesRepository.queryCourses(retrieveCourseId[0]);
+//        ArrayList<EditedUsersInformationDO> newUserJsonData;
 //
 //        newUserJsonData=mUserRepository.queryParticularUser(usersJsonData.get(0).getUsername(),usersJsonData.get(0).getUserType());
 
@@ -94,10 +95,9 @@ public class SessionsPresenter implements SessionsContract.Presenter {
 
             queriedSessionsJsonData=mSessionsRepository.querySessions(usersJsonData.get(0).getSessionIds().get(0));
 
-            if(queriedSessionsJsonData.get(0).getCourseID().equals(courseId))
+            if(queriedSessionsJsonData.get(0).getCourseId().equals(courseId))
             {
-                Log.i("here","hereeee");
-                String session=usersJsonData.get(0).getSessionDate().get(i)+ " -"  + usersJsonData.get(0).getSessionName().get(i);
+                String session=usersJsonData.get(0).getSessionDates().get(i)+ " -"  + usersJsonData.get(0).getSessionNames().get(i);
                 listOfSessions.add(session);
             }
         }
@@ -137,7 +137,7 @@ public class SessionsPresenter implements SessionsContract.Presenter {
             switch(userType)
             {
                 case "student":
-                    addNewSession(userType,sessionsJsonData.get(0).getSessionID(),sessionsJsonData.get(0).getSessionName(),sessionsJsonData.get(0).getDateOfCreation(),"");
+                    addNewSession(userType,sessionsJsonData.get(0).getSessionId(),sessionsJsonData.get(0).getSessionName(),sessionsJsonData.get(0).getSessionDate(),"");
                 case "professor":
                     addNewSession(userType,sessionId,sessionName,timeOfCreation, courseId);
             }
@@ -155,7 +155,7 @@ public class SessionsPresenter implements SessionsContract.Presenter {
                 mSessionsRepository.addSession(sessionId,sessionName,timeOfCreation,courseId);
         }
 
-        UsersInformationDO updatedUser=usersJsonData.get(0);
+        EditedUsersInformationDO updatedUser=usersJsonData.get(0);
         if(updatedUser.getSessionIds()==null)
         {
             List<String> listOfIds=new ArrayList<String>();
@@ -163,12 +163,12 @@ public class SessionsPresenter implements SessionsContract.Presenter {
             List<String> listOfNames=new ArrayList<>();
             listOfNames.add(sessionName);
             updatedUser.setSessionIds(listOfIds);
-            updatedUser.setSessionName(listOfNames);
+            updatedUser.setSessionNames(listOfNames);
         }
         else{
             updatedUser.getSessionIds().add(sessionId);
-            updatedUser.getSessionName().add(sessionName);
-            updatedUser.getSessionDate().add(timeOfCreation);
+            updatedUser.getSessionNames().add(sessionName);
+            updatedUser.getSessionDates().add(timeOfCreation);
         }
         mUserRepository.addUser(updatedUser);
 

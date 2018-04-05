@@ -23,7 +23,7 @@ public class Faq {
     public String question;
     public String answer;
     public String date;
-    public int upvotes;
+//    public int upvotes;
     public String author;
     @TypeConverters(Converters.class)
     private ArrayList<String> usersVoted;
@@ -70,13 +70,13 @@ public class Faq {
         this.answer = answer;
     }
 
-    @DynamoDBAttribute(attributeName = "upvotes")
-    public int getUpvotes() {
-        return upvotes;
-    }
-    public void setUpvotes(final int _upvotes) {
-        this.upvotes = _upvotes;
-    }
+//    @DynamoDBAttribute(attributeName = "upvotes")
+//    public int getUpvotes() {
+//        return upvotes;
+//    }
+//    public void setUpvotes(final int _upvotes) {
+//        this.upvotes = _upvotes;
+//    }
 
     @DynamoDBAttribute(attributeName = "usersVoted")
     public ArrayList<String> getUsersVoted() {

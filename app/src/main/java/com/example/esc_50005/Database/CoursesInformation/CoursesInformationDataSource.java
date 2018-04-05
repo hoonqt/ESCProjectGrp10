@@ -10,7 +10,7 @@ import java.util.List;
 public interface CoursesInformationDataSource {
 
     void removeCourse(CoursesInformationDO faq);
-    void addCourse(final Double courseId, final String courseName, List<String> studentIds);
-    ArrayList<CoursesInformationDO> queryCourses(Double courseId);
+    void addCourse(final String courseId, final String courseName, List<String> studentIds);
+    ArrayList<CoursesInformationDO> queryCourses(String courseId);
 
 }

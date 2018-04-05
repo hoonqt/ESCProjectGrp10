@@ -32,10 +32,10 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
 
         final SessionQuestionsDO newQuestion = new SessionQuestionsDO();
 
-        newQuestion.setSessioncode(sessionCode);
-        newQuestion.setAnswers(new ArrayList<String>());
+        newQuestion.setSessionId(sessionCode);
+        newQuestion.setAnswer(null);
         newQuestion.setQuestion(question);
-        newQuestion.setUpvote(0);
+        newQuestion.setUpvotes(0);
 
         new Thread(new Runnable() {
             @Override
@@ -52,7 +52,7 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
     public void removeQuestion(String question, String sessionCode) {
 
         final SessionQuestionsDO deleteQn = new SessionQuestionsDO();
-        deleteQn.setSessioncode(sessionCode);
+        deleteQn.setSessionId(sessionCode);
         deleteQn.setQuestion(question);
 
         new Thread(new Runnable() {
@@ -86,13 +86,12 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
     public ArrayList<SessionQuestionsDO> getQuestionsListBySessionId(final String sessionCode) {
 
         questionsArrayList=new ArrayList<>();
-        Log.i("sessionCode",sessionCode);
         Thread retriever = new Thread(new Runnable() {
             @Override
             public void run() {
 
                 SessionQuestionsDO sessionSelected = new SessionQuestionsDO();
-                sessionSelected.setSessioncode(sessionCode);
+                sessionSelected.setSessionId(sessionCode);
 
                 DynamoDBQueryExpression queryExpression = new DynamoDBQueryExpression()
                         .withHashKeyValues(sessionSelected);
