@@ -8,42 +8,45 @@ import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBRangeKey
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBTable;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-
-@DynamoDBTable(tableName = "escproject-mobilehub-27166461-UsersInformation")
+@DynamoDBTable(tableName = "escproject-mobilehub-27166461-editedUsersInformation")
 
 public class UsersInformationDO {
-    private String _userType;
-    private Double _userId;
+    private String _userId;
+    private String _fullName;
     private String _bruteForceCount;
     private List<String> _courseIds;
     private List<String> _courseNames;
     private Boolean _disabled;
     private String _password;
     private String _securityAnswer;
-    private List<String> _sessionDate;
+    private List<String> _sessionDates;
     private List<String> _sessionIds;
-    private List<String> _sessionName;
-    private String _username;
+    private List<String> _sessionNames;
+    private String _userType;
 
-    @DynamoDBHashKey(attributeName = "userType")
-    @DynamoDBIndexHashKey(attributeName = "userType", globalSecondaryIndexName = "userType-userId")
-    public String getUserType() {
-        return _userType;
-    }
-
-    public void setUserType(final String _userType) {
-        this._userType = _userType;
-    }
-    @DynamoDBRangeKey(attributeName = "userId")
-    @DynamoDBIndexRangeKey(attributeName = "userId", globalSecondaryIndexName = "userType-userId")
-    public Double getUserId() {
+    @DynamoDBHashKey(attributeName = "userId")
+    @DynamoDBAttribute(attributeName = "userId")
+    public String getUserId() {
         return _userId;
     }
 
-    public void setUserId(final Double _userId) {
+    public void setUserId(final String _userId) {
         this._userId = _userId;
     }
+
+    @DynamoDBRangeKey(attributeName = "fullName")
+    @DynamoDBAttribute(attributeName = "fullName")
+    public String getFullName() {
+        return _fullName;
+    }
+
+    public void setFullName(final String _fullName) {
+        this._fullName = _fullName;
+    }
+
     @DynamoDBAttribute(attributeName = "bruteForceCount")
     public String getBruteForceCount() {
         return _bruteForceCount;
@@ -52,6 +55,7 @@ public class UsersInformationDO {
     public void setBruteForceCount(final String _bruteForceCount) {
         this._bruteForceCount = _bruteForceCount;
     }
+
     @DynamoDBAttribute(attributeName = "courseIds")
     public List<String> getCourseIds() {
         return _courseIds;
@@ -60,6 +64,7 @@ public class UsersInformationDO {
     public void setCourseIds(final List<String> _courseIds) {
         this._courseIds = _courseIds;
     }
+
     @DynamoDBAttribute(attributeName = "courseNames")
     public List<String> getCourseNames() {
         return _courseNames;
@@ -68,6 +73,7 @@ public class UsersInformationDO {
     public void setCourseNames(final List<String> _courseNames) {
         this._courseNames = _courseNames;
     }
+
     @DynamoDBAttribute(attributeName = "disabled")
     public Boolean getDisabled() {
         return _disabled;
@@ -76,6 +82,7 @@ public class UsersInformationDO {
     public void setDisabled(final Boolean _disabled) {
         this._disabled = _disabled;
     }
+
     @DynamoDBAttribute(attributeName = "password")
     public String getPassword() {
         return _password;
@@ -84,6 +91,7 @@ public class UsersInformationDO {
     public void setPassword(final String _password) {
         this._password = _password;
     }
+
     @DynamoDBAttribute(attributeName = "securityAnswer")
     public String getSecurityAnswer() {
         return _securityAnswer;
@@ -92,14 +100,16 @@ public class UsersInformationDO {
     public void setSecurityAnswer(final String _securityAnswer) {
         this._securityAnswer = _securityAnswer;
     }
-    @DynamoDBAttribute(attributeName = "sessionDate")
-    public List<String> getSessionDate() {
-        return _sessionDate;
+
+    @DynamoDBAttribute(attributeName = "sessionDates")
+    public List<String> getSessionDates() {
+        return _sessionDates;
     }
 
-    public void setSessionDate(final List<String> _sessionDate) {
-        this._sessionDate = _sessionDate;
+    public void setSessionDates(final List<String> _sessionDates) {
+        this._sessionDates = _sessionDates;
     }
+
     @DynamoDBAttribute(attributeName = "sessionIds")
     public List<String> getSessionIds() {
         return _sessionIds;
@@ -108,21 +118,23 @@ public class UsersInformationDO {
     public void setSessionIds(final List<String> _sessionIds) {
         this._sessionIds = _sessionIds;
     }
-    @DynamoDBAttribute(attributeName = "sessionName")
-    public List<String> getSessionName() {
-        return _sessionName;
+
+    @DynamoDBAttribute(attributeName = "sessionNames")
+    public List<String> getSessionNames() {
+        return _sessionNames;
     }
 
-    public void setSessionName(final List<String> _sessionName) {
-        this._sessionName = _sessionName;
-    }
-    @DynamoDBAttribute(attributeName = "username")
-    public String getUsername() {
-        return _username;
+    public void setSessionNames(final List<String> _sessionNames) {
+        this._sessionNames = _sessionNames;
     }
 
-    public void setUsername(final String _username) {
-        this._username = _username;
+    @DynamoDBAttribute(attributeName = "userType")
+    public String getUserType() {
+        return _userType;
+    }
+
+    public void setUserType(final String _userType) {
+        this._userType = _userType;
     }
 
 }
