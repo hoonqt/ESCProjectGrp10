@@ -54,17 +54,10 @@
 //    public void init(){
 //        Context context = getInstrumentation().getTargetContext();
 //        preferencesEditor = PreferenceManager.getDefaultSharedPreferences(context);
-////        Matcher<View> matcher = allOf(withText("Progress"),
-////                isDescendantOfA(withId(R.id.tab_layout)));
-////        onView(matcher).perform(click());
-////        onView(withId(R.id.tab_layout)).perform(swipeLeft());
-//        onView(allOf(
-//                withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE),
-//                withId(R.id.pager)))
-//                .check(matches(isDisplayed()));
-//        ProgressStudentFragment fragment = new ProgressStudentFragment();
-//        mActivityRule.getActivity()
-//                .getSupportFragmentManager().beginTransaction().add(R.id.pager,fragment);
+//        //currently testing sessions tab
+//        Matcher<View> matcher = allOf(withText("Progress"),
+//                isDescendantOfA(withId(R.id.tab_layout)));
+//        onView(matcher).perform(click());
 //    }
 //    @Test
 //    public void testVisibility(){
