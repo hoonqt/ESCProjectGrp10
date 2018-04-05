@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class UsersInformationRemoteDataSource implements UsersInformationDataSource {
 
     DynamoDBMapper dynamoDBMapper;
-    ArrayList<UsersInformationDO> usersArrayList;
+    ArrayList<EditedUsersInformationDO> usersArrayList;
     public static final String TAG = "UsersInformationRemote";
 
     private static UsersInformationRemoteDataSource INSTANCE;
@@ -36,7 +36,7 @@ public class UsersInformationRemoteDataSource implements UsersInformationDataSou
     }
 
     @Override
-    public void removeUser(final UsersInformationDO usersInformation) {
+    public void removeUser(final EditedUsersInformationDO usersInformation) {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -48,7 +48,7 @@ public class UsersInformationRemoteDataSource implements UsersInformationDataSou
     }
 
     @Override
-    public void addUser(final UsersInformationDO userInformation) {
+    public void addUser(final EditedUsersInformationDO userInformation) {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -63,29 +63,28 @@ public class UsersInformationRemoteDataSource implements UsersInformationDataSou
     public void editUser(String course) {
 
     }
-    public ArrayList<UsersInformationDO> queryParticularUser(final String username, final String userType) {
-        Log.i("username",userType);
-        usersArrayList = new ArrayList<UsersInformationDO>();
+    public ArrayList<EditedUsersInformationDO> queryAParticularUser(final String userId) {
+        Log.i("here at query","here at query");
+        Log.i("user id received",userId);
+        usersArrayList = new ArrayList<EditedUsersInformationDO>();
 
         Thread random = new Thread(new Runnable() {
             @Override
             public void run() {
 
-                UsersInformationDO userSelected = new UsersInformationDO();
-                userSelected.setUserType(userType);
-                userSelected.setUsername(username);
+                EditedUsersInformationDO userSelected = new EditedUsersInformationDO();
+               userSelected.setUserId(userId);
 
                 DynamoDBQueryExpression queryExpression = new DynamoDBQueryExpression()
                         .withHashKeyValues(userSelected);
 
-                PaginatedList<UsersInformationDO> result = dynamoDBMapper.query(UsersInformationDO.class, queryExpression);
-                for (UsersInformationDO userInformation : result) {
-                    if(userInformation.getUsername().equals(username))
+                PaginatedList<EditedUsersInformationDO> result = dynamoDBMapper.query(EditedUsersInformationDO.class, queryExpression);
+                for (EditedUsersInformationDO userInformation : result) {
+                    Log.i("user id",userInformation.getUserId());
+                    if(userInformation.getUserId().equals(userId))
                     {
                         usersArrayList.add(userInformation);
                     }
-                    Log.i("gettingData","gettingData");
-                    //You gonna have to change the way you retrieve stuff here.
                 }
 
 
@@ -106,30 +105,23 @@ public class UsersInformationRemoteDataSource implements UsersInformationDataSou
     }
 
 
-    public ArrayList<UsersInformationDO> queryUser(final String username, final String userType, final String password) {
-
-        Log.i("username",userType);
-        usersArrayList = new ArrayList<UsersInformationDO>();
+    public ArrayList<EditedUsersInformationDO> queryAllUsers(final String userId, final String fullName) {
+        usersArrayList = new ArrayList<EditedUsersInformationDO>();
 
         Thread retriever = new Thread(new Runnable() {
             @Override
             public void run() {
 
-                UsersInformationDO userSelected = new UsersInformationDO();
-                Log.i("userType at db",userType);
-                Log.i("username at db",username);
-                userSelected.setUserType(userType);
-                userSelected.setUsername(username);
-                userSelected.setPassword(password);
+                EditedUsersInformationDO userSelected = new EditedUsersInformationDO();
+                userSelected.setUserId(userId);
+                userSelected.setFullName(fullName);
 
                 DynamoDBQueryExpression queryExpression = new DynamoDBQueryExpression()
                         .withHashKeyValues(userSelected);
 
-                PaginatedList<UsersInformationDO> result = dynamoDBMapper.query(UsersInformationDO.class, queryExpression);
-                for (UsersInformationDO userInformation : result) {
+                PaginatedList<EditedUsersInformationDO> result = dynamoDBMapper.query(EditedUsersInformationDO.class, queryExpression);
+                for (EditedUsersInformationDO userInformation : result) {
                     usersArrayList.add(userInformation);
-                    Log.i("gettingData","gettingData");
-                    //You gonna have to change the way you retrieve stuff here.
                 }
 
 

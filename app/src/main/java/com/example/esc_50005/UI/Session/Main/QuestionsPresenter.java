@@ -7,6 +7,7 @@ import com.example.esc_50005.Database.Database.SessionQuestionsRemoteDataSource;
 import com.example.esc_50005.Log;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -64,13 +65,13 @@ public class QuestionsPresenter implements QuestionsContract.Presenter {
 
 
     public void upvoteQuestion(SessionQuestionsDO question) {
-        ArrayList<String> usersVoted = question.getUsersVoted();
+        List<String> usersVoted = question.getUsersVoters();
         if (!usersVoted.contains(userId)) {
-            question.setUpvote(question.getUpvote() + 1);
+            question.setUpvotes(question.getUpvotes() + 1);
             usersVoted.add(userId);
-            question.setUsersVoted(usersVoted);
+            question.setUsersVoters(usersVoted);
             mSessionQuestionsRepository.saveQuestion(question);
-            Log.i(TAG, "upvote Faq" + question.getUpvote());
+            Log.i(TAG, "upvote Faq" + question.getUpvotes());
         }
 //        tv_question.setUpvote(tv_question.getUpvote() + 1);
 //        mSessionQuestionsRepository.saveQuestion(tv_question);
@@ -78,13 +79,13 @@ public class QuestionsPresenter implements QuestionsContract.Presenter {
     }
 
     public void downvoteQuestion(SessionQuestionsDO question) {
-        ArrayList<String> usersVoted = question.getUsersVoted();
+        List<String> usersVoted = question.getUsersVoters();
         if (usersVoted.contains(userId)) {
-            question.setUpvote(question.getUpvote() - 1);
+            question.setUpvotes(question.getUpvotes() - 1);
             usersVoted.remove(userId);
-            question.setUsersVoted(usersVoted);
+            question.setUsersVoters(usersVoted);
             mSessionQuestionsRepository.saveQuestion(question);
-            Log.i(TAG, "downvote Faq" + question.getUpvote());
+            Log.i(TAG, "downvote Faq" + question.getUpvotes());
         }
 //        tv_question.setUpvote(tv_question.getUpvote() - 1);
 //        mSessionQuestionsRepository.saveQuestion(tv_question);

@@ -25,12 +25,10 @@
             android:name=".UI.Dashboard.main.DashboardActivity"
             android:label="Add FAQ" />
         <activity android:name=".UI.QuizSession.QuizActivity" />
-        <activity android:name=".UI.Login.LoginActivity" />
         <activity android:name=".UI.SignUp.SignupActivity" />
 
-
         <activity
-            android:name=".UI.Welcome.WelcomeActivity">
+            android:name=".UI.Login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

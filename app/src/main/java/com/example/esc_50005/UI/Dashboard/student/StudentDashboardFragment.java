@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,6 +19,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
+import com.example.esc_50005.Database.utilities.Injection;
 import com.example.esc_50005.R;
 import com.example.esc_50005.UI.Course.FAQ.CourseActivity;
 import com.example.esc_50005.UI.Dashboard.main.CoursesAdapter;
@@ -34,7 +36,7 @@ public class StudentDashboardFragment extends Fragment implements DashboardContr
 
     // UI references.
     SharedPreferences sharedPreferences;
-    private DashboardContract.Presenter mPresenter= new DashboardPresenter(this);
+    private DashboardContract.Presenter mPresenter;
     private CoursesAdapter mCoursesAdapter;
     private RecyclerView coursesListRecycler;
     private StudentDashboardFragment.LayoutManagerType mCurrentLayoutManagerType;
@@ -45,8 +47,20 @@ public class StudentDashboardFragment extends Fragment implements DashboardContr
         // Required empty public constructor
     }
 
+
     private enum LayoutManagerType {
         LINEAR_LAYOUT_MANAGER
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+        mPresenter = new DashboardPresenter(
+                Injection.provideUsersInformationRepository(getActivity().getApplicationContext()),
+                Injection.provideCoursesRepository(getActivity().getApplicationContext()),
+                this)
+        ;
     }
 
     @Override
@@ -58,6 +72,7 @@ public class StudentDashboardFragment extends Fragment implements DashboardContr
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.i("student onCreateView","student onCreateView");
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         View view=inflater.inflate(R.layout.dashboard_fragment, container, false);
         coursesListRecycler=view.findViewById(R.id.recyclerViewDashboardCourses);
@@ -74,8 +89,8 @@ public class StudentDashboardFragment extends Fragment implements DashboardContr
 
     public void attemptLoadCourses()
     {
-        Log.i("attemptLoad","attemptLoad");
-        mPresenter.loadCoursesFromDatabase(sharedPreferences.getString("Username",""),sharedPreferences.getString("UserType",""));
+        mPresenter.loadCoursesFromDatabase(
+                sharedPreferences.getString(getString(R.string.user_id),""));
     }
 
 
@@ -118,33 +133,17 @@ public class StudentDashboardFragment extends Fragment implements DashboardContr
         @Override
         public void moveToCourseScreen(String clickedCourse) {
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("CurrentCourseActivity", clickedCourse);
+
+            editor.putString(getString(R.string.current_course_activity), clickedCourse);
             editor.commit();
+            Log.i("string this is the data",sharedPreferences.getString(getString(R.string.current_course_activity),""));
             Intent intent = new Intent(getActivity(), CourseActivity.class);
             startActivity(intent);
         }
     };
     @Override
     public void onClick(View view) {
-        Log.i("student","student");
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this.getActivity());
-        alertDialog.setTitle("Add New Course");
-        LinearLayout layout = new LinearLayout(this.getActivity());
-        layout.setOrientation(LinearLayout.VERTICAL);
 
-        final EditText courseId = new EditText(getActivity().getApplicationContext());
-        courseId.setHint("Course Id");
-        alertDialog.setNegativeButton("Submit",new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog,int id) {
-                Log.i("start query","start query");
-                mPresenter.queryCourseBeforeAdding(sharedPreferences.getString("UserType",""),Double.parseDouble(courseId.getText().toString()),"");
-                dialog.cancel();
-            }
-        });
-        layout.addView(courseId);
-        alertDialog.setView(layout);
-        alertDialog.create();
-        alertDialog.show();
     }
 
 }

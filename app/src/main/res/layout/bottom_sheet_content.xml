@@ -1,0 +1,44 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/start_session"
+        app:layout_constraintRight_toLeftOf="@+id/end_session"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/start_session"
+        />
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/start_session"-->
+        <!--android:text="@string/start_session"/>-->
+
+    <Button
+        android:id="@+id/end_session"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/end_session"
+
+        app:layout_constraintLeft_toRightOf="@+id/start_session"
+
+         />
+
+    <Button
+        android:id="@+id/delete_session"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/delete_session"
+
+        app:layout_constraintLeft_toRightOf="@+id/end_session"
+
+        />
+
+</android.support.constraint.ConstraintLayout>

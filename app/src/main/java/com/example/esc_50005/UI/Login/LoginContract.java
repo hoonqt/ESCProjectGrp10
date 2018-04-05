@@ -2,7 +2,7 @@ package com.example.esc_50005.UI.Login;
 
 import android.content.Context;
 
-import com.example.esc_50005.Database.UsersInformation.UsersInformationDO;
+import com.example.esc_50005.Database.UsersInformation.EditedUsersInformationDO;
 import com.example.esc_50005.UI.Base.BasePresenter;
 import com.example.esc_50005.UI.Base.BaseView;
 import com.nexmo.client.NexmoClientException;
@@ -13,19 +13,21 @@ import java.util.ArrayList;
 public interface LoginContract {
 
     interface Presenter extends BasePresenter {
+        void loadSignUp();
         void loadUnsuccessfulLogin();
-        void loadSuccessfulLogin(Double userId);
-        void loadUsersFromDatabase(String username, String userType, String password);
-        void checkIfLoginIsValid(ArrayList<UsersInformationDO> userInformationJsonData, String password);
+        void loadSuccessfulLogin(String userId);
+        void loadUsersFromDatabase(String userId, String userType, String password);
+        void checkIfLoginIsValid(ArrayList<EditedUsersInformationDO> userInformationJsonData, String password, String userType);
         void addBruteForceCount(String username, String userType);
-        void verifySecurityAnswer(String answer, String userType, String username);
+        void verifySecurityAnswer(String answer, String userId, String fullName);
         void disableAccount();
         void loadAccountLockedOut();
     }
     interface View extends BaseView <Presenter> {
         void showUnsuccessfulLogin();
-        void showSuccessfulLogin(Double userId);
+        void showSuccessfulLogin(String userId);
         void showSecurityQuestion();
         void showAccountLockedOut();
+        void showSignUp();
     }
 }

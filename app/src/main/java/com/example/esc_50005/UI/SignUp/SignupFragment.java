@@ -30,12 +30,15 @@ public class SignupFragment extends Fragment implements SignupContract.View {
 
 
     // UI references.
-    private EditText mUsernameView;
+    private EditText mUserIdView;
     private EditText mPasswordView;
-    public static String username;
+    private EditText mFullNameView;
+    private EditText mSecurityAnswerView;
+    public static String userId;
     public static String password;
     public static String userType;
     public static String securityAnswer;
+    public static String fullName;
     SharedPreferences sharedPreferences;
     private SignupContract.Presenter mPresenter= new SignupPresenter(this);
 
@@ -62,26 +65,31 @@ public class SignupFragment extends Fragment implements SignupContract.View {
 
     public void setUpSignup(View view)
     {
-        mUsernameView = (EditText) view.findViewById(R.id.username);
+        mUserIdView = (EditText) view.findViewById(R.id.user_id);
         mPasswordView = (EditText) view.findViewById(R.id.password);
+        mFullNameView = (EditText) view.findViewById(R.id.full_name);
+        mSecurityAnswerView = (EditText) view.findViewById(R.id.security_answer);
         RadioGroup selectProfessorOrStudentButton = (RadioGroup) view.findViewById(R.id.professorOrStudent);
 
         Button mSignUpButton = (Button) view.findViewById(R.id.submit_signup);
         mSignUpButton.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
-                username=mUsernameView.getText().toString();
+
+                userId=mUserIdView.getText().toString();
+                securityAnswer=mSecurityAnswerView.getText().toString();
                 password=mPasswordView.getText().toString();
+                fullName=mFullNameView.getText().toString();
                 if(userType==null)
                 {
                     userType="professor";
                 }
                 SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString("Username", username);
-                editor.putString("Password", password);
-                editor.putString("UserType", userType);
-                editor.putString("SecurityAnswer", securityAnswer);
-                Log.i("answer",sharedPreferences.getString("Username",""));
+                editor.putString(getString(R.string.user_id), userId);
+                editor.putString(getString(R.string.password), password);
+                editor.putString(getString(R.string.user_type), userType);
+                editor.putString(getString(R.string.full_name), fullName);
+                editor.putString(getString(R.string.security_answer), securityAnswer);
                 editor.commit();
                 attemptSignup();
             }
@@ -95,11 +103,9 @@ public class SignupFragment extends Fragment implements SignupContract.View {
                 switch(checkedId)
                 {
                     case R.id.professor:
-                        Log.i("clicked","clicked");
                         userType="professor";
                         break;
                     case R.id.student:
-                        Log.i("clicked","clickedstudent");
                         userType="student";
                         break;
 
@@ -110,19 +116,22 @@ public class SignupFragment extends Fragment implements SignupContract.View {
 
     public void attemptSignup()
     {
-        String username=sharedPreferences.getString("Username","");
-        String password=sharedPreferences.getString("Password","");
-        String userType=sharedPreferences.getString("UserType","");
-        String securityAnswer=sharedPreferences.getString("SecurityAnswer","");
-        mPresenter.loadUsersFromDatabase(username, password, userType, securityAnswer);
+        String userId=sharedPreferences.getString(getString(R.string.user_id),"");
+        String fullName=sharedPreferences.getString(getString(R.string.full_name),"");
+        String password=sharedPreferences.getString(getString(R.string.password),"");
+        String userType=sharedPreferences.getString(getString(R.string.user_type),"");
+        String securityAnswer=sharedPreferences.getString(getString(R.string.security_answer),"");
+        mPresenter.loadUsersFromDatabase(userId,fullName, password, userType, securityAnswer);
     }
 
     @Override
     public void showUnsuccessfulSignup() {
-        mUsernameView.clearComposingText();
+        mFullNameView.clearComposingText();
+        mUserIdView.clearComposingText();
+        mSecurityAnswerView.clearComposingText();
         mPasswordView.clearComposingText();
         AlertDialog.Builder builder=new AlertDialog.Builder(getContext());
-        builder.setMessage("Username already exists! " );
+        builder.setMessage("User Id already exists! " );
         AlertDialog alertDialog=builder.create();
         alertDialog.show();
 

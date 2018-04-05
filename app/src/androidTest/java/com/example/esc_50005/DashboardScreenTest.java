@@ -3,13 +3,17 @@ package com.example.esc_50005;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
+import android.util.*;
+import android.util.Log;
 import android.view.View;
 
 import com.example.esc_50005.UI.Dashboard.main.DashboardActivity;
+import com.example.esc_50005.UI.Dashboard.professor.ProfessorDashboardFragment;
 import com.example.esc_50005.UI.Dashboard.student.StudentDashboardFragment;
 import com.example.esc_50005.UI.Login.LoginActivity;
 import com.example.esc_50005.UI.Login.LoginFragment;
@@ -51,16 +55,32 @@ public class DashboardScreenTest {
     public ActivityTestRule<DashboardActivity> mActivityRule =
             new ActivityTestRule(DashboardActivity.class);
 
+
     @Before
     public void init(){
-        Context context = getInstrumentation().getTargetContext();
-        preferencesEditor = PreferenceManager.getDefaultSharedPreferences(context);
-        StudentDashboardFragment fragment = new StudentDashboardFragment();
-        mActivityRule.getActivity()
-                .getSupportFragmentManager().beginTransaction();
+
+        SharedPreferences.Editor editor = preferencesEditor.edit();
+        editor.putString("Username", "jiawen");
+        editor.putString("Password", "jiawen");
+        editor.putString("UserType", "professor");
+        editor.commit();
+
+//        ProfessorDashboardFragment fragment = new ProfessorDashboardFragment();
+        mActivityRule.getActivity().getSupportFragmentManager().beginTransaction().add(R.id.professorDashboardFragment,new ProfessorDashboardFragment()).commit();
+//        mActivityRule.getActivity()
+//                .getSupportFragmentManager().beginTransaction();
     }
     @Test
-    public void addNewCourse(){
+    public void loadCourse(){
+
+        // First, scroll to the position that needs to be matched and click on it.
+        onView(ViewMatchers.withId(R.id.recyclerViewDashboardCourses))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(1,
+                        click()));
+
+        // Match the text in an item below the fold and check that it's displayed.
+        String itemElementText = "50.005 Computer System Engineering";
+        onView(withText(itemElementText)).check(matches(isDisplayed()));
 
 
     }

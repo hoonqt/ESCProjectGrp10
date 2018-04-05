@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,12 +19,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
+import com.example.esc_50005.Database.utilities.Injection;
 import com.example.esc_50005.R;
 import com.example.esc_50005.UI.Course.FAQ.CourseActivity;
 import com.example.esc_50005.UI.Dashboard.main.CoursesAdapter;
 import com.example.esc_50005.UI.Dashboard.main.CoursesItemListener;
 import com.example.esc_50005.UI.Dashboard.main.DashboardContract;
 import com.example.esc_50005.UI.Dashboard.main.DashboardPresenter;
+import com.example.esc_50005.UI.Login.LoginPresenter;
 
 import java.util.ArrayList;
 
@@ -34,7 +37,7 @@ public class ProfessorDashboardFragment extends Fragment implements DashboardCon
 
     // UI references.
     SharedPreferences sharedPreferences;
-    private DashboardContract.Presenter mPresenter= new DashboardPresenter(this);
+    private DashboardContract.Presenter mPresenter;
     private CoursesAdapter mCoursesAdapter;
     private RecyclerView coursesListRecycler;
     private ProfessorDashboardFragment.LayoutManagerType mCurrentLayoutManagerType;
@@ -48,6 +51,23 @@ public class ProfessorDashboardFragment extends Fragment implements DashboardCon
         LINEAR_LAYOUT_MANAGER
     }
 
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        mPresenter.start();
+//    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+        mPresenter = new DashboardPresenter(
+                Injection.provideUsersInformationRepository(getActivity().getApplicationContext()),
+                Injection.provideCoursesRepository(getActivity().getApplicationContext()),
+                this)
+        ;
+    }
+
     @Override
     public void setPresenter(@NonNull DashboardContract.Presenter presenter) {
         Log.i("checkIfNull","checkIfNullDashboard");
@@ -57,6 +77,7 @@ public class ProfessorDashboardFragment extends Fragment implements DashboardCon
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.i("prof onCreateView","prof onCreateView");
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         View view=inflater.inflate(R.layout.dashboard_fragment, container, false);
         coursesListRecycler=view.findViewById(R.id.recyclerViewDashboardCourses);
@@ -72,7 +93,8 @@ public class ProfessorDashboardFragment extends Fragment implements DashboardCon
 
     public void attemptLoadCourses()
     {
-        mPresenter.loadCoursesFromDatabase(sharedPreferences.getString("Username",""),sharedPreferences.getString("UserType",""));
+        mPresenter.loadCoursesFromDatabase(
+                sharedPreferences.getString(getString(R.string.user_id),""));
     }
 
 
@@ -100,35 +122,66 @@ public class ProfessorDashboardFragment extends Fragment implements DashboardCon
         @Override
         public void moveToCourseScreen(String clickedCourse) {
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("CurrentCourseActivity", clickedCourse);
+            editor.putString(getString(R.string.current_course_activity), clickedCourse);
             editor.commit();
             Intent intent = new Intent(getActivity(), CourseActivity.class);
             startActivity(intent);
         }
     };
 
+    @Override
     public void onClick(View view) {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this.getActivity());
-        alertDialog.setTitle("Add New Course");
-        LinearLayout layout = new LinearLayout(this.getActivity());
-        layout.setOrientation(LinearLayout.VERTICAL);
-        final EditText courseId = new EditText(getActivity().getApplicationContext());
-        courseId.setHint("Course Id");
-        courseId.setId(0);
-        final EditText courseName = new EditText(getActivity().getApplicationContext());
-        courseName.setHint("Course Name");
-        alertDialog.setNegativeButton("Submit",new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog,int id) {
-                Log.i("start query","start query");
-                mPresenter.queryCourseBeforeAdding(sharedPreferences.getString("UserType",""),Double.parseDouble(courseId.getText().toString()),courseName.getText().toString());
-                dialog.cancel();
-            }
-        });
-        layout.addView(courseId);
-        layout.addView(courseName);
-        alertDialog.setView(layout);
-        alertDialog.create();
-        alertDialog.show();
+
+        switch(sharedPreferences.getString((getString(R.string.user_type)),"")){
+            case "professor":
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(this.getActivity());
+                alertDialog.setTitle("Add New Course");
+                LinearLayout layout = new LinearLayout(this.getActivity());
+                layout.setOrientation(LinearLayout.VERTICAL);
+                final EditText courseId = new EditText(getActivity().getApplicationContext());
+                courseId.setHint("Course Id");
+                courseId.setId(0);
+                final EditText courseName = new EditText(getActivity().getApplicationContext());
+                courseName.setHint("Course Name");
+                alertDialog.setNegativeButton("Submit",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int id) {
+                        Log.i("start query","start query");
+                        mPresenter.queryCourseBeforeAdding(
+                                sharedPreferences.getString(getString(R.string.user_type),""), courseId.getText().toString(),
+                                courseName.getText().toString());
+                        dialog.cancel();
+                    }
+                });
+                layout.addView(courseId);
+                layout.addView(courseName);
+                alertDialog.setView(layout);
+                alertDialog.create();
+                alertDialog.show();
+
+            case "student":
+                AlertDialog.Builder alertDialog2 = new AlertDialog.Builder(this.getActivity());
+                alertDialog2.setTitle("Add New Course");
+                LinearLayout layout2 = new LinearLayout(this.getActivity());
+                layout2.setOrientation(LinearLayout.VERTICAL);
+
+                final EditText courseId2 = new EditText(getActivity().getApplicationContext());
+                courseId2.setHint("Course Id");
+                alertDialog2.setNegativeButton("Submit",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int id) {
+                        Log.i("start query","start query");
+                        mPresenter.queryCourseBeforeAdding(
+                                sharedPreferences.getString(getString(R.string.user_type),""),
+                                courseId2.getText().toString(),"");
+                        dialog.cancel();
+                    }
+                });
+                layout2.addView(courseId2);
+                alertDialog2.setView(layout2);
+                alertDialog2.create();
+                alertDialog2.show();
+
+        }
+
 
     }
     public void showAddInvalidCourse()

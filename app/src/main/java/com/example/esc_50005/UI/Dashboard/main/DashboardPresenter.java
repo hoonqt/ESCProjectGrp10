@@ -8,7 +8,7 @@ import android.util.Log;
 
 import com.example.esc_50005.Database.CoursesInformation.CoursesInformationDO;
 import com.example.esc_50005.Database.CoursesInformation.CoursesInformationRemoteDataSource;
-import com.example.esc_50005.Database.UsersInformation.UsersInformationDO;
+import com.example.esc_50005.Database.UsersInformation.EditedUsersInformationDO;
 import com.example.esc_50005.Database.UsersInformation.UsersInformationRemoteDataSource;
 
 import java.util.ArrayList;
@@ -23,22 +23,24 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class DashboardPresenter implements DashboardContract.Presenter  {
 
     private final DashboardContract.View mDashboardView;
-    private final UsersInformationRemoteDataSource mUsersRepository;
-    private final CoursesInformationRemoteDataSource mCoursesRepository;
-    ArrayList<UsersInformationDO> userCoursesInformationJsonData;
+    public final UsersInformationRemoteDataSource mUsersRepository;
+    public final CoursesInformationRemoteDataSource mCoursesRepository;
+    ArrayList<EditedUsersInformationDO> userCoursesInformationJsonData;
     ArrayList<CoursesInformationDO> coursesInformationJsonData;
     private static  ArrayList<String> listOfCourses=new ArrayList<>();
 
-    public DashboardPresenter(@NonNull DashboardContract.View contractView) {
-        mUsersRepository=new UsersInformationRemoteDataSource();
-        mCoursesRepository=new CoursesInformationRemoteDataSource();
+    public DashboardPresenter(@NonNull UsersInformationRemoteDataSource usersInformationRepository,
+                              @NonNull CoursesInformationRemoteDataSource coursesInformationRepository,
+                              @NonNull DashboardContract.View contractView) {
+        mUsersRepository=usersInformationRepository;
+        mCoursesRepository=coursesInformationRepository;
         mDashboardView = checkNotNull(contractView, "dashboardView cannot be null!");
         mDashboardView.setPresenter(this);
     }
 
     @Override
-    public void start()
-    {
+    public void start() {
+//        mDashboardView.attemptLoadCourses();
     }
 
     public void showSuccessfullyLoadedCourses()
@@ -59,14 +61,14 @@ public class DashboardPresenter implements DashboardContract.Presenter  {
     }
 
     @Override
-    public void loadCoursesFromDatabase(String username, String userType) {
-        userCoursesInformationJsonData=mUsersRepository.queryParticularUser(username,userType);
-        processCoursesForUsers(userCoursesInformationJsonData, username, userType);
+    public void loadCoursesFromDatabase(String userId) {
+        userCoursesInformationJsonData=mUsersRepository.queryAParticularUser(userId);
+        processCoursesForUsers(userCoursesInformationJsonData,userId);
     }
 
-    public void processCoursesForUsers(ArrayList<UsersInformationDO> usersCoursesInformationJsonData, String username, String userType)
+    public void processCoursesForUsers(ArrayList<EditedUsersInformationDO> usersCoursesInformationJsonData, String username)
     {
-            if(userCoursesInformationJsonData.get(0).getCourseIds()==null)
+            if(usersCoursesInformationJsonData.get(0).getCourseIds()==null)
                 {
                     loadEmptyView();
                 }
@@ -87,7 +89,7 @@ public class DashboardPresenter implements DashboardContract.Presenter  {
         }
     }
 
-    public void queryCourseBeforeAdding(String userType,Double courseId, String courseName)
+    public void queryCourseBeforeAdding(String userType,String courseId, String courseName)
     {
         switch(userType)
         {
@@ -102,7 +104,7 @@ public class DashboardPresenter implements DashboardContract.Presenter  {
 
     }
 
-    public void checkIfCourseIsValid(String userType, ArrayList<CoursesInformationDO> coursesInformationJsonData, Double courseId, String courseName)
+    public void checkIfCourseIsValid(String userType, ArrayList<CoursesInformationDO> coursesInformationJsonData, String courseId, String courseName)
     {
         switch (userType)
         {
@@ -133,20 +135,20 @@ public class DashboardPresenter implements DashboardContract.Presenter  {
     }
 
 
-    public void addValidCourseProfessor(Double courseId,String courseName)
+    public void addValidCourseProfessor(String courseId,String courseName)
     {
         mCoursesRepository.addCourse(courseId,courseName,null);
         CoursesInformationDO newCourse= new CoursesInformationDO();
-        UsersInformationDO updateUser=userCoursesInformationJsonData.get(0);
+        EditedUsersInformationDO updateUser=userCoursesInformationJsonData.get(0);
 
         if(updateUser.getCourseIds()!=null && updateUser.getCourseNames()!=null)
         {
-            updateUser.getCourseIds().add(Double.toString(courseId));
+            updateUser.getCourseIds().add(courseId);
             updateUser.getCourseNames().add(courseName);
         }
         else{
             List<String> listOfCourseIds=new ArrayList<>();
-            listOfCourseIds.add(Double.toString(courseId));
+            listOfCourseIds.add(courseId);
             List<String> listOfCourseNames=new ArrayList<>();
             listOfCourseNames.add(courseName);
 
@@ -158,22 +160,22 @@ public class DashboardPresenter implements DashboardContract.Presenter  {
         mDashboardView.showAddValidNewCourse();
     }
 
-    public void addValidCourseStudent(Double courseId, String courseName)
+    public void addValidCourseStudent(String courseId, String courseName)
     {
-        UsersInformationDO updateUser=userCoursesInformationJsonData.get(0);
-        if(updateUser.getCourseIds().contains(Double.toString(courseId)))
+        EditedUsersInformationDO updateUser=userCoursesInformationJsonData.get(0);
+        if(updateUser.getCourseIds().contains(courseId))
         {
             mDashboardView.showAddInvalidCourse();
         }
         else{
             if(updateUser.getCourseIds()!=null && updateUser.getCourseNames()!=null)
             {
-                updateUser.getCourseIds().add(Double.toString(courseId));
+                updateUser.getCourseIds().add(courseId);
                 updateUser.getCourseNames().add(courseName);
             }
             else{
                 List<String> listOfCourseIds=new ArrayList<>();
-                listOfCourseIds.add(Double.toString(courseId));
+                listOfCourseIds.add(courseId);
                 List<String> listOfCourseNames=new ArrayList<>();
                 listOfCourseNames.add(courseName);
 
@@ -182,16 +184,16 @@ public class DashboardPresenter implements DashboardContract.Presenter  {
             }
 
             mUsersRepository.addUser(updateUser);
-            if(coursesInformationJsonData.get(0).getListOfStudents()==null)
+            if(coursesInformationJsonData.get(0).getCourseStudentList()==null)
             {
                 List<String> listOfStudentIds=new ArrayList<>();
-                listOfStudentIds.add(Double.toString(updateUser.getUserId()));
+                listOfStudentIds.add(updateUser.getUserId());
                 mCoursesRepository.addCourse(courseId,courseName,listOfStudentIds);
 
             }
             else{
-                coursesInformationJsonData.get(0).getListOfStudents().add(Double.toString(updateUser.getUserId()));
-                mCoursesRepository.addCourse(courseId,courseName,coursesInformationJsonData.get(0).getListOfStudents());
+                coursesInformationJsonData.get(0).getCourseStudentList().add(updateUser.getUserId());
+                mCoursesRepository.addCourse(courseId,courseName,coursesInformationJsonData.get(0).getCourseStudentList());
             }
             mDashboardView.showAddValidNewCourse();
         }

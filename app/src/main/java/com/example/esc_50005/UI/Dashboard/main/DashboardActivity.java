@@ -1,5 +1,6 @@
 package com.example.esc_50005.UI.Dashboard.main;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -12,9 +13,11 @@ import android.widget.Button;
 import com.amazonaws.mobile.client.AWSMobileClient;
 import com.example.esc_50005.MainActivity;
 import com.example.esc_50005.R;
+import com.example.esc_50005.UI.Course.FAQ.session.professor.ProfessorSessionsFragment;
+import com.example.esc_50005.UI.Course.FAQ.session.student.StudentSessionsFragment;
 import com.example.esc_50005.UI.Dashboard.professor.ProfessorDashboardFragment;
 import com.example.esc_50005.UI.Dashboard.professor.ProfessorDashboardFragment;
-import com.example.esc_50005.UI.Dashboard.student.StudentDashboardFragment;
+
 import com.example.esc_50005.UI.Login.LoginFragment;
 import com.example.esc_50005.UI.Session.Main.SessionActivity;
 
@@ -33,6 +36,8 @@ public class DashboardActivity extends MainActivity{
         AWSMobileClient.getInstance().initialize(this).execute();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dashboard_activity);
+
+        
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
         switch(sharedPreferences.getString("UserType",""))
         {
@@ -43,7 +48,7 @@ public class DashboardActivity extends MainActivity{
                 break;
             case("student"):
                 Log.i("load student","load student");
-                Fragment studentFragment = new StudentDashboardFragment();
+                Fragment professorFragment2 = new StudentSessionsFragment();
                 getSupportFragmentManager().beginTransaction();
                 break;
 

@@ -10,9 +10,9 @@ import java.util.ArrayList;
 public interface DashboardContract {
 
     interface Presenter extends BasePresenter {
-        void loadCoursesFromDatabase(String username, String userType);
-        void addValidCourseProfessor(Double courseId, String courseName);
-        void queryCourseBeforeAdding(String userType, Double courseId, String courseName);
+        void loadCoursesFromDatabase(String userId);
+        void addValidCourseProfessor(String courseId, String courseName);
+        void queryCourseBeforeAdding(String userType, String courseId, String courseName);
     }
     interface View extends BaseView <Presenter> {
         void showSuccessfullyLoadedCourses(ArrayList<String> courseInformationJsonData);
