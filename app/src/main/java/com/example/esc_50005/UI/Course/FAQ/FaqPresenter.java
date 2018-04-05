@@ -60,11 +60,11 @@ public class FaqPresenter implements FaqContract.Presenter {
     public void upvoteFaq(Faq faq) {
         ArrayList<String> usersVoted = faq.getUsersVoted();
         if (!usersVoted.contains(userId)) {
-            faq.setUpvotes(faq.getUpvotes() + 1);
+//            faq.setUpvotes(faq.getUpvotes() + 1);
             usersVoted.add(userId);
             faq.setUsersVoted(usersVoted);
             mFaqRepository.saveFaq(faq);
-            Log.i(TAG, "upvote Faq" + faq.getUpvotes());
+            Log.i(TAG, "upvote Faq" + usersVoted.size());
         }
         loadFaq();
     }
@@ -72,11 +72,11 @@ public class FaqPresenter implements FaqContract.Presenter {
     public void downvoteFaq(Faq faq) {
         ArrayList<String> usersVoted = faq.getUsersVoted();
         if (faq.getUsersVoted().contains(userId)) {
-            faq.setUpvotes(faq.getUpvotes() - 1);
+//            faq.setUpvotes(usersVoted.size() - 1);
             usersVoted.remove(userId);
             faq.setUsersVoted(usersVoted);
             mFaqRepository.saveFaq(faq);
-            Log.i(TAG, "downvote Faq" + faq.getUpvotes());
+            Log.i(TAG, "downvote Faq" + usersVoted.size());
         }
         loadFaq();
     }

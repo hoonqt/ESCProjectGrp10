@@ -14,6 +14,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -103,7 +104,9 @@ public class ProfessorSessionsFragment extends Fragment implements SessionsContr
 
     public void attemptQuerySessions()
     {
-        mPresenter.querySessions(sharedPreferences.getString("Username",""),sharedPreferences.getString("UserType",""),sharedPreferences.getString("CurrentCourseActivity",""));
+        mPresenter.querySessions(
+                sharedPreferences.getString(getString(R.string.user_id),""),
+                sharedPreferences.getString(getString(R.string.current_course_activity),""));
     }
 
     public void showSessions(ArrayList<String> sessions) {

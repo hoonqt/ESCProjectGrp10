@@ -86,7 +86,7 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.Ques
         public void bind(int position) {
             SessionQuestionsDO question = mQuestionsList.get(position);
             tv_question.setText(question.getQuestion());
-            tv_upvote.setText(String.valueOf(question.getUpvote()));
+            tv_upvote.setText(String.valueOf(question.getUpvotes()));
 //            tv_time.setText(question.getDate());
 
 //            tv_question.setText(questionsList.getQuestion());
@@ -123,7 +123,7 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.Ques
         }
 
         boolean userUpvoted(SessionQuestionsDO question) {
-            if (question.getUsersVoted().contains(mUserId)) {
+            if (question.getUsersVoters().contains(mUserId)) {
                 return true;
             } else {
                 return false;

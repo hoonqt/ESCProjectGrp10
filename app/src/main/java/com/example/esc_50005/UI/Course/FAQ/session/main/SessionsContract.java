@@ -13,7 +13,7 @@ public interface SessionsContract {
     interface Presenter extends BasePresenter {
         void loadSessions();
         void processEmptySessions();
-        void querySessions(String username, String userType, String currentCourse);
+        void querySessions(String userId, String currentCourse);
         void queryAddNewSession(String userType, String sessionId, String sessionName, String timeOfCreation, String courseId);
         void addNewSession(String userType, String sessionId,String sessionName,String timeOfCreation, String courseId);
 
