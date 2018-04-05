@@ -10,7 +10,7 @@ import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBTable;
 import java.util.List;
 
 
-@DynamoDBTable(tableName = "escproject-mobilehub-27166461-UsersInformation")
+@DynamoDBTable(tableName = "escproject-mobilehub-27166461-editedUsersInformation")
 
 public class UsersInformationDO {
     private String _userType;
