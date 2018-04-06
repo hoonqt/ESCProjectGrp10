@@ -15,11 +15,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.example.esc_50005.Database.Progress.ProgressRemoteDataSource;
-import com.example.esc_50005.Database.Quizstuff.QuizQuestions1DO;
 import com.example.esc_50005.Database.Quizstuff.QuizQuestions2DO;
 import com.example.esc_50005.R;
 import com.example.esc_50005.UI.Session.Main.SessionActivity;
@@ -120,8 +118,9 @@ public class AnsweringZoneFrag extends Fragment {
             String userID = sharedPreferences.getString("UserID", null);
             String quizName = sharedPreferences.getString("QuizName",null);
             String courseCode = sharedPreferences.getString("CurrentCourseActivity", null).split(" ")[0];
+            String userName = sharedPreferences.getString("Username",null);
 
-            data.putScores(userID,courseCode,"111",quizName,(double)score,"John Chang");
+            data.putScores(userID,courseCode,"111",quizName,(double)score,userName);
 
             AlertDialog.Builder builder=new AlertDialog.Builder(getContext());
             builder.setMessage("Your score is:" + score + "/" + qnRecycler.getChildCount() );

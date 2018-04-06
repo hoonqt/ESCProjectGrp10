@@ -30,6 +30,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.ArrayList;
 
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 /**
@@ -59,13 +60,14 @@ public class ProfActivityPresenterTest {
     @Before
     public void init() {
         MockitoAnnotations.initMocks(this);
-        context = new MockContext();
+        context = mock(SessionActivity.class);
 
     }
 
     @Test
     public void createPresenter_setsPresenterToView() {
-        mActivityPresenter = new ActivityProfPresenter(mActivityView,context);
+        AWSMobileClient.getInstance().initialize(context).execute();
+        mActivityPresenter = new ActivityProfPresenter(mActivityView,context.getApplicationContext());
         verify(mActivityView).setPresenter(mActivityPresenter);
     }
 
