@@ -85,10 +85,6 @@ public class SessionsPresenter implements SessionsContract.Presenter {
         String[] retrieveCourseId = currentCourse.split("\\s+");
         String courseId=retrieveCourseId[0];
         courseJsonData=mCoursesRepository.queryCourses(retrieveCourseId[0]);
-//        ArrayList<EditedUsersInformationDO> newUserJsonData;
-//
-//        newUserJsonData=mUserRepository.queryParticularUser(usersJsonData.get(0).getUsername(),usersJsonData.get(0).getUserType());
-
 
         for(int i=0;i<usersJsonData.get(0).getSessionIds().size();i++)
         {
