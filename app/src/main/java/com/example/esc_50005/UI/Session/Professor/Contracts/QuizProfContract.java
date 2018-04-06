@@ -1,6 +1,4 @@
-package com.example.esc_50005.UI.ProfSession.Contracts;
-
-import android.content.Context;
+package com.example.esc_50005.UI.Session.Professor.Contracts;
 
 import com.example.esc_50005.Database.Quizstuff.QuizQuestions2DO;
 import com.example.esc_50005.UI.Base.BasePresenter;
@@ -24,10 +22,9 @@ public interface QuizProfContract {
 
     interface Presenter extends BasePresenter {
         void loadQuizes(String subjectCode, String sessionCode);
-        void addNewQuiz(QuizQuestions2DO input);
-        void addNewQuiz(String subjCode, String sessionCode, String quizName,String question, String correctAns, ArrayList<String> options);
         void processEmptyQuiz();
         ArrayList<QuizQuestions2DO> getQuestionData(String subjectCode, String sessionCode);
+        ArrayList<QuizQuestions2DO> getStoredData();
 
 
     }

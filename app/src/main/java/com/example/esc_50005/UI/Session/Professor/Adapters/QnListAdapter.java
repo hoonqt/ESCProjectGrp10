@@ -1,4 +1,4 @@
-package com.example.esc_50005.UI.ProfSession.Adapters;
+package com.example.esc_50005.UI.Session.Professor.Adapters;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.example.esc_50005.Database.Quizstuff.QuizQuestions2DO;
 import com.example.esc_50005.R;
-import com.example.esc_50005.UI.ProfSession.SideScreens.QuizEditor;
+import com.example.esc_50005.UI.Session.Professor.SideScreens.QuizEditor;
 import com.example.esc_50005.UI.Session.Main.SessionActivity;
 
 import java.util.ArrayList;

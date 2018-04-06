@@ -1,5 +1,7 @@
 package com.example.esc_50005.UI.Session.Student.StudentActivity.Presenters;
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.example.esc_50005.Database.Quizstuff.QuizQuestions2DO;
@@ -26,11 +28,16 @@ public class ActivityStudentPresenter implements QuizStudentContract.Presenter {
     private QuizRemoteDataSource mQuizQuestionsRepository;
     private ArrayList<QuizQuestions2DO> questionData;
 
+    private String courseCode;
+    private String sessionID;
+
     public ActivityStudentPresenter(QuizStudentContract.View fragment) {
 
         mQuizQuestionsRepository = new QuizRemoteDataSource();
         mQuizStudentView = checkNotNull(fragment,"Quiz not null");
         mQuizStudentView.setPresenter(this);
+
+
 
 
     }
@@ -49,7 +56,7 @@ public class ActivityStudentPresenter implements QuizStudentContract.Presenter {
 
         String part1 = input.substring(0,6);
         String part2 = input.substring(6);
-        loadQuizes("50.005","101");
+        loadQuizes(part1,part2);
 
     }
 
@@ -90,14 +97,6 @@ public class ActivityStudentPresenter implements QuizStudentContract.Presenter {
 
         public void send(String message) {
             ws.send(message);
-        }
-
-        private void processMsg(String input) {
-
-            if (input != null) {
-                loadQuizes("50.004","Session1");
-            }
-
         }
 
     }

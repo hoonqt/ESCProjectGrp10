@@ -1,11 +1,10 @@
-package com.example.esc_50005.UI.ProfSession.MainScreens;
+package com.example.esc_50005.UI.Session.Professor.MainScreens;
 
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
-import android.media.MediaCas;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
@@ -20,14 +19,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
-import com.amazonaws.mobile.client.AWSMobileClient;
 import com.example.esc_50005.Database.Quizstuff.QuizQuestions2DO;
 import com.example.esc_50005.R;
-import com.example.esc_50005.UI.ProfSession.Adapters.ActivityProfAdapter;
-import com.example.esc_50005.UI.ProfSession.Contracts.QuizProfContract;
-import com.example.esc_50005.UI.ProfSession.Presenters.ActivityProfPresenter;
-import com.example.esc_50005.UI.ProfSession.SideScreens.ActivityInfo;
+import com.example.esc_50005.UI.Session.Professor.Adapters.ActivityProfAdapter;
+import com.example.esc_50005.UI.Session.Professor.Contracts.QuizProfContract;
+import com.example.esc_50005.UI.Session.Professor.Presenters.ActivityProfPresenter;
 import com.example.esc_50005.UI.Session.Main.SessionActivity;
+import com.example.esc_50005.UI.Session.Professor.SideScreens.EditQnListFrag;
 import com.example.esc_50005.WebSocket.ProfWebSocket;
 
 import java.io.Serializable;
@@ -109,15 +107,18 @@ public class ActivityProfFrag extends Fragment implements QuizProfContract.View,
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 String quizname = input.getText().toString();
-                                ActivityInfo adder = new ActivityInfo();
-                                Bundle bundle = new Bundle();
+
                                 SharedPreferences.Editor edithere = sharedPreferences.edit();
                                 edithere.putString("QuizName",quizname);
                                 edithere.commit();
-                                //bundle.putSerializable("allthequestions",mPresenter);
-                                adder.setArguments(bundle);
+
+                                EditQnListFrag editQnfrag = new EditQnListFrag();
+                                Bundle bundle = new Bundle();
+
+                                bundle.putSerializable("allthequestions",mPresenter.getStoredData());
+                                editQnfrag.setArguments(bundle);
                                 SessionActivity myActivity = (SessionActivity)context;
-                                myActivity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_out_up,R.anim.slide_in_up).replace(R.id.profsessionhere,adder).addToBackStack(null).commit();
+                                myActivity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_out_up,R.anim.slide_in_up).replace(R.id.profsessionhere,editQnfrag).addToBackStack(null).commit();
                             }
                         });
                 alert.show();

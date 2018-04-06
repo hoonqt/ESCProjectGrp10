@@ -1,4 +1,4 @@
-package com.example.esc_50005.UI.ProfSession.Presenters;
+package com.example.esc_50005.UI.Session.Professor.Presenters;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -7,7 +7,7 @@ import android.support.annotation.NonNull;
 
 import com.example.esc_50005.Database.Quizstuff.QuizQuestions2DO;
 import com.example.esc_50005.Database.Quizstuff.QuizRemoteDataSource;
-import com.example.esc_50005.UI.ProfSession.Contracts.QuizProfContract;
+import com.example.esc_50005.UI.Session.Professor.Contracts.QuizProfContract;
 
 import java.util.ArrayList;
 
@@ -55,26 +55,17 @@ public class ActivityProfPresenter implements QuizProfContract.Presenter{
     }
 
     @Override
-    public void addNewQuiz(QuizQuestions2DO input) {
-        mQuizQuestionsRepository.putQuestion(input);
-    }
-
-    @Override
-    public void addNewQuiz(String subjCode, String sessionCode, String quizName,String question, String correctAns, ArrayList<String> options) {
-
-
-    }
-
-    @Override
     public void processEmptyQuiz() {
 
     }
 
+    @Override
     public ArrayList<QuizQuestions2DO> getQuestionData(String subjectCode, String sessionCode) {
         loadQuizes(subjectCode, sessionCode);
         return questionData;
     }
 
+    @Override
     public ArrayList<QuizQuestions2DO> getStoredData() {
         return questionData;
     }
