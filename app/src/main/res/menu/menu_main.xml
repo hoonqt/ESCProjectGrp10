@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.esc_50005.MainActivity">
     <item
-        android:id="@+id/end_session"
-        android:title="End Session"
+        android:id="@+id/get_session_id"
+        android:title="@string/session_id"
         app:showAsAction="never" />
 </menu>

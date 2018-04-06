@@ -8,6 +8,7 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.util.Log;
 
 import com.example.esc_50005.R;
 import com.example.esc_50005.UI.Course.FAQ.session.professor.ProfessorSessionsFragment;
@@ -38,7 +39,9 @@ public class CoursePagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         userInformation = PreferenceManager.getDefaultSharedPreferences(context);
+        Log.i("CoursePagerAdapter", "User Type: " + userInformation.getString("UserType",""));
         if(userInformation.getString("UserType","").equals("student")) {
+
             switch (position) {
                 case 0:
                     return new StudentSessionsFragment();

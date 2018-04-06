@@ -1,14 +1,24 @@
 package com.example.esc_50005.UI.Course.FAQ.session.main;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.Image;
 import android.preference.PreferenceManager;
+import android.provider.ContactsContract;
+import android.support.design.widget.BottomSheetBehavior;
+import android.support.design.widget.BottomSheetDialog;
+import android.support.design.widget.BottomSheetDialogFragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.esc_50005.R;
@@ -25,14 +35,22 @@ public class SessionsAdapter extends RecyclerView.Adapter<SessionsAdapter.Sessio
     public static final String TAG = "FaqAdapter";
 
     private ArrayList<String> mSessionsList;
+    private boolean clicked=false;
 
     private static int viewHolderCount = 0;
     private Context context;
     private SharedPreferences sharedPreferences;
+    private ImageButton button;
+    private BottomSheetBehavior mBottomSheetBehavior;
 
     public SessionsAdapter(ArrayList<String> sessions, Context context){
         this.mSessionsList = sessions;
         this.context=context;
+        Log.i("size",Integer.toString(sessions.size()));
+        for(String session: sessions)
+        {
+            Log.i("the name", session);
+        }
     }
 
 
@@ -58,6 +76,8 @@ public class SessionsAdapter extends RecyclerView.Adapter<SessionsAdapter.Sessio
 
         View view = inflater.inflate(layoutIDForListItem,parent,shouldAttachToParentImmediately);
         SessionsViewHolder sessionViewHolder = new SessionsViewHolder(view);
+
+
         viewHolderCount++;
 
         return sessionViewHolder;
@@ -68,33 +88,124 @@ public class SessionsAdapter extends RecyclerView.Adapter<SessionsAdapter.Sessio
 
     }
 
+//    @Override
+//    public void onClick(View view) {
+//
+//    }
+
+
+//    @Override
+//    public void onClick(View view) {
+//
+//        Log.i("here at click","here at click");
+//        switch( view.getId() ) {
+//            case R.id.showBottomSheetDialog: {
+//                if(clicked==false)
+//                {
+//                    mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+//                    clicked=true;
+//                    break;
+//                }
+//                else if(clicked==true)
+//                {
+//                    mBottomSheetBehavior.setPeekHeight(0);
+//                    mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+//                    clicked=false;
+//                    break;
+//                }
+//
+//            }
+//        }
+//
+//    }
+
     class SessionsViewHolder extends RecyclerView.ViewHolder implements  View.OnClickListener {
 
         TextView session_card;
+        ImageButton button;
 
 
         SessionsViewHolder(View v) {
 
             super(v);
             v.setOnClickListener(this);
-            //we need the v object because the view contains the references to the widgets that we need
+
             session_card = (TextView) v.findViewById(R.id.session_details);
+
+            button=v.findViewById(R.id.click_to_get_options);
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Button start;
+                    Button end;
+                    Button delete;
+                    view = ((FragmentActivity)context).getLayoutInflater().inflate(R.layout.bottom_sheet, null);
+                    start=view.findViewById(R.id.start_session);
+                    end=view.findViewById(R.id.end_session);
+                    delete=view.findViewById(R.id.delete_session);
+
+                    start.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Log.i("start","start");
+
+                        }
+                    });
+
+                    end.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Log.i("end","end");
+                        }
+                    });
+
+                    delete.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Log.i("delete","delete");
+                        }
+                    });
+
+                    BottomSheetDialog dialog = new BottomSheetDialog(context);
+                    dialog.setContentView(view);
+                    dialog.show();
+
+                    switch( view.getId() ) {
+                    case R.id.click_to_get_options: {
+                        if(clicked==false)
+                        {
+                            mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                            clicked=true;
+                            break;
+                        }
+                        else if(clicked==true)
+                        {
+                            mBottomSheetBehavior.setPeekHeight(0);
+                            mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                            clicked=false;
+                            break;
+                        }
+                    }
+
+            }
+
+                }
+            });
 
         }
 
         public void bind(int position) {
-
             String session = mSessionsList.get(position);
             session_card.setText(session);
         }
 
         @Override
         public void onClick(View v) {
-            Log.i("clicked in pager","clicked in pager");
+
             int clickedPosition=getAdapterPosition();
             sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("SessionSelected", mSessionsList.get(clickedPosition));
+            editor.putString("Current Session", mSessionsList.get(clickedPosition));
             editor.commit();
             //session should inflate the corresponding session activity
             context.startActivity(new Intent(context, SessionActivity.class));

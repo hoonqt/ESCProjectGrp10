@@ -74,6 +74,8 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
             }
         });
 
+
+
 //        FragmentManager fragmentManager = getSupportFragmentManager();
 //        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 //
@@ -101,4 +103,6 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
                 .replace(R.id.content_frame, fragment).commit();
     }
 
+    public void showBottomSheetDialog(View view) {
+    }
 }
