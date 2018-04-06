@@ -205,7 +205,9 @@ public class SessionsAdapter extends RecyclerView.Adapter<SessionsAdapter.Sessio
             int clickedPosition=getAdapterPosition();
             sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("Current Session", mSessionsList.get(clickedPosition));
+            Log.i("session id",mSessionsList.get(clickedPosition));
+            editor.putString(context.getResources().getString(R.string.session_id),mSessionsList.get(clickedPosition));
+//            editor.putString("Current Session", mSessionsList.get(clickedPosition));
             editor.commit();
             //session should inflate the corresponding session activity
             context.startActivity(new Intent(context, SessionActivity.class));
