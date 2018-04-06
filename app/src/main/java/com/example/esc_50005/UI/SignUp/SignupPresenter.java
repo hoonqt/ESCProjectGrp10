@@ -59,7 +59,7 @@ public class SignupPresenter implements SignupContract.Presenter  {
 
     }
 
-    public void loadUsersFromDatabase(String userId, String password, String fullName, String userType, String securityAnswer)
+    public void loadUsersFromDatabase(String userId, String fullName, String password, String userType, String securityAnswer)
     {
 
         userInformationJsonData=mLoginRepository.queryAParticularUser(userId);

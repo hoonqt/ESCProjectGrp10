@@ -89,7 +89,6 @@ public class ProfessorSessionsFragment extends Fragment implements SessionsContr
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        Log.i("professor yay","professor yay");
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getContext());
         View view=inflater.inflate(R.layout.course_session_fragment, container, false);
         sessionsListRecycler=(RecyclerView) view.findViewById(R.id.sessions_recycler);
@@ -160,10 +159,7 @@ public class ProfessorSessionsFragment extends Fragment implements SessionsContr
                 editor.commit();
                 return true;
             }
-            else if(id == R.id.get_session_id){
 
-                return true;
-            }
             else if(id == R.id.delete_session){
 
                 return true;
@@ -182,21 +178,8 @@ public class ProfessorSessionsFragment extends Fragment implements SessionsContr
         builder.show();
 
 
-
     }
 
-//
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//
-//        if(sharedPreferences.getString(getString(R.string.user_type),"").equals("professor"))
-//        {
-//            MenuInflater inflater = getMenuInflater();
-//            inflater.inflate(R.menu.menu_main, menu);
-//            return true;
-//        }
-//        return false;
-//    }
 
     @Override
     public void showSuccessfulAddNewSession() {
@@ -227,7 +210,7 @@ public class ProfessorSessionsFragment extends Fragment implements SessionsContr
                 Random randomGenerator=new Random();
                 int sessionId=100+ randomGenerator.nextInt(100);
                 String sessionNameToAdd=sessionName.getText().toString();
-                String months[] = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep",
+                String months[] = {"Jan", "Feb", "March", "April", "May", "June", "July", "Aug", "Sep",
                         "Oct", "Nov", "Dec"};
                 GregorianCalendar gcalendar = new GregorianCalendar();
                 String month=months[gcalendar.get(Calendar.MONTH)];
