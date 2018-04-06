@@ -38,7 +38,7 @@ public class NameListPresenter implements ProgressContract.Presenter {
     public void start() {
 //        loadScores();
         loadNames();
-        processAverage(progressArrayList);
+//        processAverage(progressArrayList);
     }
 
     @Override
@@ -92,30 +92,6 @@ public class NameListPresenter implements ProgressContract.Presenter {
         Double avg = 0.0;
 
         String student;
-
-
-//        if (progressArrayList.size() != 0) {
-//            Log.i(TAG, "Length of progressArrayList = " + progressArrayList.size());
-//            student = progressArrayList.get(0).getName();//might need to change in the future
-//            for(int i = 0; i<progressArrayList.size();i++){
-//                try{
-//                    total += progressArrayList.get(i).getScore();
-//                } catch(Exception e){
-//                    e.printStackTrace();
-//                }
-//
-//            }
-//            avg = total/progressArrayList.size();
-//        }
-//        if(avgList==null){
-//            scoreList.add(avg);
-//            avgList=scoreList;
-//        } else{
-//            avgList.add(avg);
-//        }
-//
-//
-//        return avgList;
         if (studIdArrayList.size()!=0){
             Log.i(TAG, "Process AVG studIdArrayList size: " + studIdArrayList.size());
             for(int i=0; i<studIdArrayList.size();i++){
@@ -130,7 +106,8 @@ public class NameListPresenter implements ProgressContract.Presenter {
                     total+=temp.get(j).getScore();
                     Log.i(TAG, "Process AVG total: " + total);
                 }
-                avg = total/temp.size();
+                avg = Math.round(total/temp.size() * 100.0) / 100.0;
+
                 if(avgList==null){
                     scoreList.add(avg);
                     avgList=scoreList;
@@ -149,12 +126,18 @@ public class NameListPresenter implements ProgressContract.Presenter {
         Log.i(TAG, "Course Id" + courseId);
 
         nameList = mProgressRepository.getNames(courseId);// need to change it to base on the user login details
-        Log.i(TAG, "LoadName size is " + nameList.size() + nameList.get(0).getName());
+
+        if (nameList.size()==0){
+            mNameListView.showNoName();
+            Log.i(TAG, "HERE1" + courseId);
+        } else{
+            processNames(nameList);
+            Log.i(TAG, "LoadName size is " + nameList.size() + nameList.get(0).getName());
 //        for(int i=0; i<nameList.size();i++){
 //            Log.i(TAG, "LoadName size is " + nameList.size() + nameList.get(i).getName());
 //        }
+        }
 
-        processNames(nameList);
 
     }
 
