@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import com.example.esc_50005.R;
 import com.example.esc_50005.UI.Session.Prof.MainScreens.ActivityProfFrag;
 import com.example.esc_50005.UI.Session.Student.QuestionsFragment;
 import com.example.esc_50005.UI.Session.Student.StudentActivity.MainScreen.ActivityStudentFrag;
@@ -28,7 +29,7 @@ public class SessionPagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         userInformation = PreferenceManager.getDefaultSharedPreferences(context);
 
-        if(userInformation.getString("UserType","").equals("student"))
+        if(userInformation.getString((context.getResources().getString(R.string.user_type)),"").equals("student"))
         {
             switch (position)
             {
@@ -41,7 +42,7 @@ public class SessionPagerAdapter extends FragmentStatePagerAdapter {
             }
         }
 
-        else{
+        else if (userInformation.getString((context.getResources().getString(R.string.user_type)),"").equals("professor")) {
             switch (position)
             {
                 case 0:
@@ -55,6 +56,8 @@ public class SessionPagerAdapter extends FragmentStatePagerAdapter {
             }
 
         }
+
+        return null;
 
     }
 
