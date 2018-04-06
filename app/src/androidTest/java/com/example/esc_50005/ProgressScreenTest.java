@@ -1,5 +1,9 @@
 package com.example.esc_50005;
 
+import android.support.test.runner.AndroidJUnit4;
+
+import com.example.esc_50005.UI.Course.FAQ.CourseActivity;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;

@@ -17,6 +17,7 @@ public interface ProgressContract {
         void showProgress(ArrayList<Double> scoreList);
         void showAverage(double avg);
         void showNames(ArrayList<String> nameList, ArrayList<String> studentIds, ArrayList<Double> avg);
+        void showNoName();
     }
 
     interface Presenter extends BasePresenter {
