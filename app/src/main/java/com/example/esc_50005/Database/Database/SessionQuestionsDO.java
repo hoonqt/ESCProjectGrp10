@@ -11,8 +11,8 @@ import java.util.List;
 public class SessionQuestionsDO {
     private String _sessionId;
     private String _question;
-//    private String _answer;
-//    private int _upvotes;
+    private String _answer;
+    private int _upvotes;
     private List<String> _usersVoted;
     private String _courseId;
 
@@ -34,22 +34,22 @@ public class SessionQuestionsDO {
     public void setQuestion(final String _question) {
         this._question = _question;
     }
-//    @DynamoDBAttribute(attributeName = "answer")
-//    public String getAnswer() {
-//        return _answer;
-//    }
-//
-//    public void setAnswer(final String _answer) {
-//        this._answer = _answer;
-//    }
-//    @DynamoDBAttribute(attributeName = "upvotes")
-//    public int getUpvotes() {
-//        return _upvotes;
-//    }
-//
-//    public void setUpvotes(final int _upvotes) {
-//        this._upvotes = _upvotes;
-//    }
+    @DynamoDBAttribute(attributeName = "answer")
+    public String getAnswer() {
+        return _answer;
+    }
+
+    public void setAnswer(final String _answer) {
+        this._answer = _answer;
+    }
+    @DynamoDBAttribute(attributeName = "upvotes")
+    public int getUpvotes() {
+        return _upvotes;
+    }
+
+    public void setUpvotes(final int _upvotes) {
+        this._upvotes = _upvotes;
+    }
     @DynamoDBAttribute(attributeName = "usersVoted")
     public List<String> getUsersVoted() {
         return _usersVoted;
