@@ -123,8 +123,9 @@ public class LoginFragment extends Fragment implements LoginContract.View {
 
                 switch(checkedId)
                 {
+
                     case R.id.professor:
-                        Log.i("clicked","clicked");
+                        Log.i("clicked","clicked professor");
                         userType="professor";
                         break;
                     case R.id.student:
