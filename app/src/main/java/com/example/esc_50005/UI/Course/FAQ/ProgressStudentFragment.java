@@ -78,7 +78,7 @@ public class ProgressStudentFragment extends Fragment implements ProgressContrac
         View view=inflater.inflate(R.layout.my_progress_main, container, false);
         String studentId;
         userInformation = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
-        if(userInformation.getString("UserType","").equals("professor")) {
+        if(userInformation.getString(getString(R.string.user_type),"").equals("professor")) {
             if (savedInstanceState == null) {
                 Bundle extras = getActivity().getIntent().getExtras();
                 if(extras == null) {
@@ -90,10 +90,12 @@ public class ProgressStudentFragment extends Fragment implements ProgressContrac
                 studentId= (String) savedInstanceState.getSerializable("STUDENT_ID");
             }
         } else{
-            studentId = userInformation.getString("UserId", "");
+            studentId = userInformation.getString(getString(R.string.user_id), "");
         }
-        courseId = userInformation.getString("CurrentCourseActivity","");
+        courseId = userInformation.getString(getString(R.string.current_course_activity),"");
         Log.i(TAG, "STUDENT_ID: " + studentId);
+        Log.i(TAG, "Course ID: " + courseId);
+
         mChart = (BarChart)view.findViewById(R.id.chart1);
 //        swipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.faq_swipe);
 //        swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
