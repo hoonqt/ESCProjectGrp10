@@ -65,13 +65,13 @@ public class QuestionsPresenter implements QuestionsContract.Presenter {
 
 
     public void upvoteQuestion(SessionQuestionsDO question) {
-        List<String> usersVoted = question.getUsersVoters();
+        List<String> usersVoted = question.getUsersVoted();
         if (!usersVoted.contains(userId)) {
-            question.setUpvotes(question.getUpvotes() + 1);
+//            question.setUpvotes(question.getUpvotes() + 1);
             usersVoted.add(userId);
-            question.setUsersVoters(usersVoted);
+            question.setUsersVoted(usersVoted);
             mSessionQuestionsRepository.saveQuestion(question);
-            Log.i(TAG, "upvote Faq" + question.getUpvotes());
+            Log.i(TAG, "upvote Faq" + usersVoted.size());
         }
 //        tv_question.setUpvote(tv_question.getUpvote() + 1);
 //        mSessionQuestionsRepository.saveQuestion(tv_question);
@@ -79,13 +79,13 @@ public class QuestionsPresenter implements QuestionsContract.Presenter {
     }
 
     public void downvoteQuestion(SessionQuestionsDO question) {
-        List<String> usersVoted = question.getUsersVoters();
+        List<String> usersVoted = question.getUsersVoted();
         if (usersVoted.contains(userId)) {
-            question.setUpvotes(question.getUpvotes() - 1);
+//            question.setUpvotes(question.getUpvotes() - 1);
             usersVoted.remove(userId);
-            question.setUsersVoters(usersVoted);
+            question.setUsersVoted(usersVoted);
             mSessionQuestionsRepository.saveQuestion(question);
-            Log.i(TAG, "downvote Faq" + question.getUpvotes());
+            Log.i(TAG, "downvote Faq" + usersVoted.size());
         }
 //        tv_question.setUpvote(tv_question.getUpvote() - 1);
 //        mSessionQuestionsRepository.saveQuestion(tv_question);

@@ -74,6 +74,7 @@ public class StudentSessionsFragment extends Fragment implements SessionsContrac
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.i("student yay","student yay");
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getContext());
         View view=inflater.inflate(R.layout.course_session_fragment, container, false);
         sessionsListRecycler=(RecyclerView) view.findViewById(R.id.sessions_recycler);

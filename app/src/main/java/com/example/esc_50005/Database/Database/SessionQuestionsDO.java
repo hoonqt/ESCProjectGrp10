@@ -5,7 +5,6 @@ import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBHashKey;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBRangeKey;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBTable;
 
-import java.util.ArrayList;
 import java.util.List;
 @DynamoDBTable(tableName = "escproject-mobilehub-27166461-SessionQuestions")
 
@@ -14,7 +13,8 @@ public class SessionQuestionsDO {
     private String _question;
     private List<String> _answer;
     private int _upvotes;
-    private List<String> _usersVoters;
+    private List<String> _usersVoted;
+    private String _courseId;
 
     @DynamoDBHashKey(attributeName = "sessionId")
     @DynamoDBAttribute(attributeName = "sessionId")
@@ -50,13 +50,22 @@ public class SessionQuestionsDO {
     public void setUpvotes(final int _upvotes) {
         this._upvotes = _upvotes;
     }
-    @DynamoDBAttribute(attributeName = "usersVoters")
-    public List<String> getUsersVoters() {
-        return _usersVoters;
+    @DynamoDBAttribute(attributeName = "usersVoted")
+    public List<String> getUsersVoted() {
+        return _usersVoted;
     }
 
-    public void setUsersVoters(final List<String> _usersVoters) {
-        this._usersVoters = _usersVoters;
+    public void setUsersVoted(final List<String> _usersVoted) {
+        this._usersVoted = _usersVoted;
+    }
+
+    @DynamoDBAttribute(attributeName = "courseId")
+    public String getCourseId() {
+        return _courseId;
+    }
+
+    public void setCourseId(final String courseId) {
+        this._courseId = courseId;
     }
 
 }

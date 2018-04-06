@@ -49,6 +49,7 @@ public class NameListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     //indicates how many list objects it has
 
     public int getItemCount() {
+        android.util.Log.i(TAG,  "here2" );
         if (mNameList == null) {
             return 0;
         } else {
@@ -61,6 +62,7 @@ public class NameListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         View view;
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         boolean shouldAttachToParentImmediately = false;
+        android.util.Log.i(TAG,  "viewtype" + viewType );
         switch (viewType) {
             case VIEW_TYPE_NORMAL:
                 view = inflater.inflate(R.layout.name_list_recycler,parent,shouldAttachToParentImmediately);

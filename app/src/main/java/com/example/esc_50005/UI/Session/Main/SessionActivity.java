@@ -1,5 +1,6 @@
 package com.example.esc_50005.UI.Session.Main;
 
+import android.app.AlertDialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -42,7 +43,7 @@ public class SessionActivity extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setText(R.string.questions));
         tabLayout.addTab(tabLayout.newTab().setText(R.string.activities));
 
-        if(!userInformation.getString("UserType","").equals("student")) {
+        if(!userInformation.getString(getString(R.string.user_type),"").equals("student")) {
             tabLayout.addTab(tabLayout.newTab().setText(R.string.feedback));
         }
 
@@ -81,18 +82,17 @@ public class SessionActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if(sharedPreferences.getString("UserType","").equals("professor"))
+        if(sharedPreferences.getString(getString(R.string.user_type),"").equals("professor"))
         {
             int id = item.getItemId();
 
-            if(id == R.id.end_session){
-                Log.i("end","end");
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString("End Session", "True");
-                editor.commit();
+            if(id == R.id.get_session_id){
+                AlertDialog.Builder builder=new AlertDialog.Builder(this.getApplicationContext());
+                builder.setTitle("The sesson id is "+ sharedPreferences.getString(getString(R.string.session_id),""));
+                builder.create();
+                builder.show();
                 return true;
             }
-            return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -100,7 +100,7 @@ public class SessionActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
-        if(sharedPreferences.getString("UserType","").equals("professor"))
+        if(sharedPreferences.getString(getString(R.string.user_type),"").equals("professor"))
         {
             MenuInflater inflater = getMenuInflater();
             inflater.inflate(R.menu.menu_main, menu);
