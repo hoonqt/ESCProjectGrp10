@@ -5,8 +5,8 @@
 //
 //import com.amazonaws.mobile.client.AWSMobileClient;
 //import com.example.esc_50005.UI.DataAdder.AddDatahere;
-//import com.example.esc_50005.UI.ProfSession.Contracts.QuizProfContract;
-//import com.example.esc_50005.UI.ProfSession.Presenters.ActivityProfPresenter;
+//import com.example.esc_50005.UI.Session.Professor.Contracts.QuizProfContract;
+//import com.example.esc_50005.UI.Session.Professor.Presenters.ActivityProfPresenter;
 //import com.example.esc_50005.UI.Session.Main.SessionActivity;
 //
 //import org.junit.Before;

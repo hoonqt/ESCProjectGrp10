@@ -1,22 +1,23 @@
-package com.example.esc_50005.UI.ProfSession.Adapters;
+package com.example.esc_50005.UI.Session.Professor.Adapters;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
+import android.widget.PopupMenu;
 import android.widget.Switch;
 import android.widget.TextView;
 
 import com.example.esc_50005.Database.Quizstuff.QuizQuestions2DO;
 import com.example.esc_50005.R;
-import com.example.esc_50005.UI.ProfSession.SideScreens.ActivityInfo;
 import com.example.esc_50005.UI.Session.Main.SessionActivity;
+import com.example.esc_50005.UI.Session.Professor.SideScreens.EditQnListFrag;
 import com.example.esc_50005.WebSocket.ProfWebSocket;
 
 import java.util.ArrayList;
@@ -99,17 +100,36 @@ public class ActivityProfAdapter extends RecyclerView.Adapter<ActivityProfAdapte
                 @Override
                 public void onClick(View v) {
 
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString("currentquiz",mTextView.toString());
-                    editor.putString("currentSession",dataset.get(0).getSubjectCodeSessionCode());
-                    editor.commit();
+                    PopupMenu popup = new PopupMenu(context,lunchPad);
+                    popup.inflate(R.menu.quizcreate_menu);
+                    popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem menuItem) {
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString("currentquiz",mTextView.toString());
+                            editor.putString("currentSession",dataset.get(0).getSubjectCodeSessionCode());
+                            editor.commit();
 
-                    ActivityInfo adder = new ActivityInfo();
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("allthequestions",dataset);
-                    adder.setArguments(bundle);
-                    SessionActivity myActivity = (SessionActivity) context;
-                    myActivity.getSupportFragmentManager().beginTransaction().addToBackStack(null).setCustomAnimations(R.anim.slide_out_up,R.anim.slide_in_up).replace(R.id.profsessionhere,adder).addToBackStack(null).commit();
+                            switch (menuItem.getItemId()) {
+                                case (R.id.editbutton):
+                                    EditQnListFrag qnListFrag = new EditQnListFrag();
+                                    Bundle bundle = new Bundle();
+                                    bundle.putSerializable("allthequestions",dataset);
+                                    qnListFrag.setArguments(bundle);
+                                    SessionActivity myActivity = (SessionActivity) context;
+                                    myActivity.getSupportFragmentManager().beginTransaction().replace(R.id.profsessionhere,qnListFrag).addToBackStack(null).commit();
+                                    return true;
+
+                                case (R.id.gradesbutton):
+                                    return false;
+                                    //Insert logic for what not
+
+                            }
+                            return false;
+
+                        }
+                    });
+
 
                 }
             });
