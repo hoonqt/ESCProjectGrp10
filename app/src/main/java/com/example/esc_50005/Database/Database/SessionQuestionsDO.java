@@ -11,7 +11,7 @@ import java.util.List;
 public class SessionQuestionsDO {
     private String _sessionId;
     private String _question;
-    private String _answer;
+    private List<String> _answer;
     private int _upvotes;
     private List<String> _usersVoted;
     private String _courseId;
@@ -35,11 +35,11 @@ public class SessionQuestionsDO {
         this._question = _question;
     }
     @DynamoDBAttribute(attributeName = "answer")
-    public String getAnswer() {
+    public List<String> getAnswer() {
         return _answer;
     }
 
-    public void setAnswer(final String _answer) {
+    public void setAnswer(final List<String> _answer) {
         this._answer = _answer;
     }
     @DynamoDBAttribute(attributeName = "upvotes")
