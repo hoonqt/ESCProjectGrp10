@@ -77,7 +77,7 @@ public class ActivityProfFrag extends Fragment implements QuizProfContract.View,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        context = getActivity().getApplicationContext();
+        context = getActivity();
 
         mPresenter = new ActivityProfPresenter(this,context);
 
@@ -97,7 +97,7 @@ public class ActivityProfFrag extends Fragment implements QuizProfContract.View,
             @Override
             public void onClick(View view) {
 
-                AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+                AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
                 alert.setMessage("Enter quiz name");
                 alert.setTitle("Create new activity");
                 final EditText input = new EditText(getContext());
@@ -115,10 +115,10 @@ public class ActivityProfFrag extends Fragment implements QuizProfContract.View,
                                 EditQnListFrag editQnfrag = new EditQnListFrag();
                                 Bundle bundle = new Bundle();
 
-                                bundle.putSerializable("allthequestions",mPresenter.getStoredData());
+                                bundle.putSerializable("allthequestions",new ArrayList<QuizQuestions2DO>());
                                 editQnfrag.setArguments(bundle);
                                 SessionActivity myActivity = (SessionActivity)context;
-                                myActivity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_out_up,R.anim.slide_in_up).replace(R.id.profsessionhere,editQnfrag).addToBackStack(null).commit();
+                                myActivity.getSupportFragmentManager().beginTransaction().replace(R.id.profsessionhere,editQnfrag).addToBackStack(null).commit();
                             }
                         });
                 alert.show();
