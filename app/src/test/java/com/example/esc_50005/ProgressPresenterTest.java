@@ -149,8 +149,10 @@ public class ProgressPresenterTest {
     public void loadScoresFromRepository() {
 //         Given an initialized FaqPresenter with initialized faq
 //         When loading of faq is requested
-//        mProgressPresenter.loadScores();
-//        verify(mProgressRepository).getScores("50.004","1002212");
+        ArrayList<QuizScores4DO> progressArrayList = new ArrayList<>();
+        progressArrayList = mProgressRepository.getScores("50.004","1002212");// need to change it to base on the user login details
+        mProgressPresenter.processScores(progressArrayList);
+        verify(mProgressRepository).getScores("50.004","1002212");
     }
 
     @Test
