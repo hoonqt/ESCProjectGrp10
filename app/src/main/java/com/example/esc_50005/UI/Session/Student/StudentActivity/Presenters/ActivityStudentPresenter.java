@@ -2,7 +2,6 @@ package com.example.esc_50005.UI.Session.Student.StudentActivity.Presenters;
 
 import android.util.Log;
 
-import com.example.esc_50005.Database.Quizstuff.QuizQuestions1DO;
 import com.example.esc_50005.Database.Quizstuff.QuizQuestions2DO;
 import com.example.esc_50005.Database.Quizstuff.QuizRemoteDataSource;
 import com.example.esc_50005.UI.Session.Student.StudentActivity.Contracts.QuizStudentContract;

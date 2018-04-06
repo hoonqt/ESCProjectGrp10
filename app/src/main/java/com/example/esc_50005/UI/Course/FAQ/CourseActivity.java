@@ -2,7 +2,6 @@ package com.example.esc_50005.UI.Course.FAQ;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -16,21 +15,12 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.amazonaws.mobile.client.AWSMobileClient;
-import com.example.esc_50005.Database.activityQuestion.questionCreator;
 import com.example.esc_50005.R;
 import com.example.esc_50005.UI.Session.Main.SessionActivity;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-import okhttp3.WebSocket;
-import okhttp3.WebSocketListener;
 
 public class CourseActivity extends AppCompatActivity implements View.OnClickListener {
     private Button btn;

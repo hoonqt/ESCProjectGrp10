@@ -37,7 +37,7 @@ public class EditFaqDialogPresenter implements EditFaqDialogContract.Presenter {
         newFaq.setCourseId(courseId);
         newFaq.setAuthor(userId);
         newFaq.setUsersVoted(new ArrayList<String>());
-        newFaq.setUpvotes(0);
+        //newFaq.setUpvotes(0);
         newFaq.setQuestion(question);
         newFaq.setAnswer(answer);
         newFaq.setQuestionId(Integer.toString(r.nextInt(1000)));

@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import com.example.esc_50005.Database.Quizstuff.QuizQuestions1DO;
 import com.example.esc_50005.Database.Quizstuff.QuizQuestions2DO;
 import com.example.esc_50005.R;
 import com.example.esc_50005.UI.Session.Student.StudentActivity.Adapters.ActivityStudentAdapter;

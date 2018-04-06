@@ -3,10 +3,7 @@ package com.example.esc_50005.UI.Course.FAQ;
 import android.support.annotation.NonNull;
 
 
-import com.example.esc_50005.Database.FAQ.FaqRemoteDataSource;
-import com.example.esc_50005.Database.Progress.NewQuizScoresDO;
 import com.example.esc_50005.Database.Progress.ProgressRemoteDataSource;
-import com.example.esc_50005.Database.Progress.QuizScores2DO;
 import com.example.esc_50005.Database.Progress.QuizScores4DO;
 import com.example.esc_50005.Log;
 

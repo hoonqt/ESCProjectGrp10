@@ -15,11 +15,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.example.esc_50005.Database.Progress.ProgressRemoteDataSource;
-import com.example.esc_50005.Database.Quizstuff.QuizQuestions1DO;
 import com.example.esc_50005.Database.Quizstuff.QuizQuestions2DO;
 import com.example.esc_50005.R;
 import com.example.esc_50005.UI.Session.Main.SessionActivity;

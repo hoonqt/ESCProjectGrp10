@@ -3,9 +3,7 @@ package com.example.esc_50005.UI.Course.FAQ;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.example.esc_50005.Database.Progress.NewQuizScoresDO;
 import com.example.esc_50005.Database.Progress.ProgressRemoteDataSource;
-import com.example.esc_50005.Database.Progress.QuizScores2DO;
 import com.example.esc_50005.Database.Progress.QuizScores4DO;
 
 import java.util.ArrayList;
