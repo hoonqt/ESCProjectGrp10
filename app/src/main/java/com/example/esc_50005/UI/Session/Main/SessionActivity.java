@@ -36,14 +36,13 @@ public class SessionActivity extends AppCompatActivity {
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
         userInformation = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         TabLayout tabLayout=(TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText(R.string.questions));
         tabLayout.addTab(tabLayout.newTab().setText(R.string.activities));
 
-        if(!userInformation.getString(getString(R.string.user_type),"").equals("student")) {
+        if(userInformation.getString(getString(R.string.user_type),"").equals("professor")) {
             tabLayout.addTab(tabLayout.newTab().setText(R.string.feedback));
         }
 
