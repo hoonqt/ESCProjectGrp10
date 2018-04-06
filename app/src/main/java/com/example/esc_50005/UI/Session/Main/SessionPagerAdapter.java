@@ -7,7 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.example.esc_50005.UI.Session.Professor.MainScreens.ActivityProfFrag;
+import com.example.esc_50005.UI.Session.Prof.MainScreens.ActivityProfFrag;
 import com.example.esc_50005.UI.Session.Student.QuestionsFragment;
 import com.example.esc_50005.UI.Session.Student.StudentActivity.MainScreen.ActivityStudentFrag;
 import com.example.esc_50005.UI.Session.feedback.FeedbackFragment;

@@ -1,4 +1,4 @@
-package com.example.esc_50005.UI.Session.Professor.SideScreens;
+package com.example.esc_50005.UI.Session.Prof.SideScreens;
 
 
 import android.content.Context;
@@ -15,7 +15,7 @@ import android.widget.ImageView;
 
 import com.example.esc_50005.Database.Quizstuff.QuizQuestions2DO;
 import com.example.esc_50005.R;
-import com.example.esc_50005.UI.Session.Professor.Adapters.QnListAdapter;
+import com.example.esc_50005.UI.Session.Prof.Adapters.QnListAdapter;
 import com.example.esc_50005.UI.Session.Main.SessionActivity;
 import com.example.esc_50005.UI.Session.Student.StudentActivity.MainScreen.ActivityStudentFrag;
 

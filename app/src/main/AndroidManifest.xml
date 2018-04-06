@@ -24,7 +24,6 @@
         <activity
             android:name=".UI.Dashboard.main.DashboardActivity"
             android:label="Add FAQ" />
-        <activity android:name=".UI.QuizSession.QuizActivity" />
         <activity android:name=".UI.SignUp.SignupActivity" />
 
         <activity

@@ -5,8 +5,8 @@ import android.content.Context;
 import com.amazonaws.mobile.client.AWSMobileClient;
 import com.example.esc_50005.Database.Quizstuff.QuizQuestions2DO;
 import com.example.esc_50005.Database.Quizstuff.QuizRemoteDataSource;
-import com.example.esc_50005.UI.Session.Professor.Contracts.QuizProfContract;
-import com.example.esc_50005.UI.Session.Professor.Presenters.*;
+import com.example.esc_50005.UI.Session.Prof.Contracts.QuizProfContract;
+import com.example.esc_50005.UI.Session.Prof.Presenters.*;
 import com.example.esc_50005.UI.Session.Main.SessionActivity;
 
 import org.junit.Before;

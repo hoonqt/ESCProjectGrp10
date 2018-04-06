@@ -120,10 +120,12 @@ public class AnsweringZoneFrag extends Fragment {
             String courseCode = sharedPreferences.getString("CurrentCourseActivity", null).split(" ")[0];
             String userName = sharedPreferences.getString("Username",null);
 
-            data.putScores(userID,courseCode,"111",quizName,(double)score,userName);
+            double inpercent = Math.round(((double)score/(double)qnRecycler.getChildCount())*100);
+
+            data.putScores(userID,courseCode,"111",quizName,inpercent,userName);
 
             AlertDialog.Builder builder=new AlertDialog.Builder(getContext());
-            builder.setMessage("Your score is:" + score + "/" + qnRecycler.getChildCount() );
+            builder.setMessage("Your score is:" + score + "/" + qnRecycler.getChildCount() + "\nPercentage is: " + inpercent );
             builder.setNegativeButton("Close", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
@@ -138,5 +140,6 @@ public class AnsweringZoneFrag extends Fragment {
 
         }
     };
+    
 
 }

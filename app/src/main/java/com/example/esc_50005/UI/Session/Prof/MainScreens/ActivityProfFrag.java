@@ -1,4 +1,4 @@
-package com.example.esc_50005.UI.Session.Professor.MainScreens;
+package com.example.esc_50005.UI.Session.Prof.MainScreens;
 
 
 import android.app.AlertDialog;
@@ -21,11 +21,11 @@ import android.widget.EditText;
 
 import com.example.esc_50005.Database.Quizstuff.QuizQuestions2DO;
 import com.example.esc_50005.R;
-import com.example.esc_50005.UI.Session.Professor.Adapters.ActivityProfAdapter;
-import com.example.esc_50005.UI.Session.Professor.Contracts.QuizProfContract;
-import com.example.esc_50005.UI.Session.Professor.Presenters.ActivityProfPresenter;
+import com.example.esc_50005.UI.Session.Prof.Adapters.ActivityProfAdapter;
+import com.example.esc_50005.UI.Session.Prof.Contracts.QuizProfContract;
+import com.example.esc_50005.UI.Session.Prof.Presenters.ActivityProfPresenter;
 import com.example.esc_50005.UI.Session.Main.SessionActivity;
-import com.example.esc_50005.UI.Session.Professor.SideScreens.EditQnListFrag;
+import com.example.esc_50005.UI.Session.Prof.SideScreens.EditQnListFrag;
 import com.example.esc_50005.WebSocket.ProfWebSocket;
 
 import java.io.Serializable;

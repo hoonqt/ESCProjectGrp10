@@ -1,4 +1,4 @@
-package com.example.esc_50005.UI.Session.Professor.Presenters;
+package com.example.esc_50005.UI.Session.Prof.Presenters;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -7,7 +7,7 @@ import android.support.annotation.NonNull;
 
 import com.example.esc_50005.Database.Quizstuff.QuizQuestions2DO;
 import com.example.esc_50005.Database.Quizstuff.QuizRemoteDataSource;
-import com.example.esc_50005.UI.Session.Professor.Contracts.QuizProfContract;
+import com.example.esc_50005.UI.Session.Prof.Contracts.QuizProfContract;
 
 import java.util.ArrayList;
 

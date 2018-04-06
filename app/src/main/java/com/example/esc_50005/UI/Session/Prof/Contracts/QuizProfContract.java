@@ -1,4 +1,4 @@
-package com.example.esc_50005.UI.Session.Professor.Contracts;
+package com.example.esc_50005.UI.Session.Prof.Contracts;
 
 import com.example.esc_50005.Database.Quizstuff.QuizQuestions2DO;
 import com.example.esc_50005.UI.Base.BasePresenter;
