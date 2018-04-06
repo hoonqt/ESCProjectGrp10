@@ -1,4 +1,4 @@
-package com.example.esc_50005.UI.Session.Professor.SideScreens;
+package com.example.esc_50005.UI.Session.Prof.SideScreens;
 
 
 import android.app.AlertDialog;

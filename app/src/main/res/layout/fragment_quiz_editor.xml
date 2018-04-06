@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".UI.Session.Professor.SideScreens.QuizEditor"
+    tools:context=".UI.Session.Prof.SideScreens.QuizEditor"
     android:background="#59000000"
     android:clickable="true">
 
