@@ -130,6 +130,8 @@ public class ActivityProfAdapter extends RecyclerView.Adapter<ActivityProfAdapte
                         }
                     });
 
+                    popup.show();
+
 
                 }
             });
