@@ -195,8 +195,6 @@ public class QuizEditor extends Fragment {
 
         int selectedID = RadioGrp.getCheckedRadioButtonId();
 
-        Log.i("Selected input",Integer.toString(selectedID));
-
         if (button1.isChecked()) {
 
             tobeadded.setCorrectans(0.0);

@@ -34,7 +34,8 @@ configurations.all {
     resolutionStrategy.force 'com.android.support:support-annotations:23.1.0'
 }
 
-repositories {jcenter()}
+repositories { jcenter() }
+
 
 
 dependencies {
