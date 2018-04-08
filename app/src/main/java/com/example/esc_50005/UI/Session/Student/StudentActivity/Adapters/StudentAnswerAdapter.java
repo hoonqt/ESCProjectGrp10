@@ -91,8 +91,6 @@ public class StudentAnswerAdapter extends RecyclerView.Adapter<StudentAnswerAdap
             questionbox.setText(question.getQuestion());
             option1.setText(question.getOptions().get(0));
             option2.setText(question.getOptions().get(1));
-            option3.setText(question.getOptions().get(2));
-            option4.setText(question.getOptions().get(3));
 
         }
     }
