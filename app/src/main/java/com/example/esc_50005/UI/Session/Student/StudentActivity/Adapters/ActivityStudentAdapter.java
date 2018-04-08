@@ -127,7 +127,7 @@ public class ActivityStudentAdapter extends RecyclerView.Adapter<ActivityStudent
             editor.setArguments(bundler);
 
             SessionActivity myActivity = (SessionActivity) context;
-            myActivity.getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.profsessionhere,editor).addToBackStack(null).commit();
+            myActivity.getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.profsessionhere,editor).commit();
 
         }
     }

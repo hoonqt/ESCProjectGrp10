@@ -38,8 +38,6 @@ public class ActivityStudentPresenter implements QuizStudentContract.Presenter {
         mQuizStudentView.setPresenter(this);
 
 
-
-
     }
 
     @Override
@@ -47,7 +45,7 @@ public class ActivityStudentPresenter implements QuizStudentContract.Presenter {
 
         WebSocket socket = new WebSocket();
         socket.send("sinita113");
-        loadQuizes("hello","mormon");
+        loadQuizes("50.005","Process and Thread");
 
 
     }

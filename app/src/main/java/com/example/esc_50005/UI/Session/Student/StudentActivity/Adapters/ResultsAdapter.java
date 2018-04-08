@@ -3,6 +3,7 @@ package com.example.esc_50005.UI.Session.Student.StudentActivity.Adapters;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -22,20 +23,29 @@ import java.util.ArrayList;
 public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.AnsViewHolder> {
 
     private ArrayList<QuizQuestions2DO> dataset;
+    private ArrayList<Integer> userOptions;
     private static int viewHolderCount = 0;
     private Context context;
 
-    public ResultsAdapter(ArrayList<QuizQuestions2DO> input) {
+    public ResultsAdapter(ArrayList<QuizQuestions2DO> input,ArrayList<Integer> useroptions) {
         dataset = new ArrayList<>(input);
+        userOptions = new ArrayList<>(useroptions);
     }
 
     @NonNull
     @Override
     public AnsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
+        int layoutIDForListItem = R.layout.studentans_recycler;
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        boolean shouldAttachToParentImmediately = false;
 
+        View view = inflater.inflate(layoutIDForListItem,parent,shouldAttachToParentImmediately);
+        AnsViewHolder ansViewHolder = new AnsViewHolder(view);
+        viewHolderCount++;
 
-        return null;
+        return ansViewHolder;
+
     }
 
     @Override
@@ -93,12 +103,31 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.AnsViewH
 
             QuizQuestions2DO question = dataset.get(position);
 
+
             questionBox.setText(question.getQuestion());
 
             option1ans.setText(question.getOptions().get(0));
             option2ans.setText(question.getOptions().get(1));
-            option3ans.setText(question.getOptions().get(2));
-            option4ans.setText(question.getOptions().get(3));
+            //option3ans.setText(question.getOptions().get(2));
+            //option4ans.setText(question.getOptions().get(3));
+
+            Integer selected = userOptions.get(position);
+
+            if (selected == 0) {
+                option1box.setImageResource(R.drawable.ic_close_black_24dp);
+            }
+
+            else if (selected == 1) {
+                option2box.setImageResource(R.drawable.ic_close_black_24dp);
+            }
+
+            else if (selected == 2) {
+                option3box.setImageResource(R.drawable.ic_close_black_24dp);
+            }
+
+            else if (selected == 3) {
+                option4box.setImageResource(R.drawable.ic_close_black_24dp);
+            }
 
             double option = question.getCorrectans();
 
