@@ -28,6 +28,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
+import com.example.esc_50005.Database.sessionsInformation.SessionsInformationDO;
+import com.example.esc_50005.Database.sessionsInformation.SessionsInformationDataSource;
 import com.example.esc_50005.Database.utilities.Injection;
 import com.example.esc_50005.R;
 import com.example.esc_50005.UI.Course.FAQ.session.main.SessionsAdapter;
@@ -119,18 +121,22 @@ public class ProfessorSessionsFragment extends Fragment implements SessionsContr
     {
         mPresenter.querySessions(
                 sharedPreferences.getString(getString(R.string.user_id),""),
-                sharedPreferences.getString(getString(R.string.current_course_activity),""));
+                sharedPreferences.getString(getString(R.string.course_full_name),""));
     }
 
-    public void showSessions(ArrayList<String> sessions) {
-        mSessionsAdapter=new SessionsAdapter(sessions,this.getContext());
-        sessionsListRecycler.setAdapter(mSessionsAdapter);
-    }
+
+
 
     public void showNoSessions()
     {
 
 
+    }
+
+    @Override
+    public void showSessions(ArrayList<SessionsInformationDO> sessions) {
+        mSessionsAdapter=new SessionsAdapter(sessions,this.getContext());
+        sessionsListRecycler.setAdapter(mSessionsAdapter);
     }
 
     @Override
@@ -234,10 +240,9 @@ public class ProfessorSessionsFragment extends Fragment implements SessionsContr
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString("AddedSessionId",  Integer.toString(sessionId));
                 editor.commit();
-                String currentCourse=sharedPreferences.getString("CurrentCourseActivity","");
-                String[] retrieveCourseId = currentCourse.split("\\s+");
-                String courseId=retrieveCourseId[0];
-                mPresenter.queryAddNewSession(sharedPreferences.getString("UserType",""),Integer.toString(sessionId),sessionNameToAdd,timeOfCreation.toString(),courseId);
+                String courseId=sharedPreferences.getString(getString(R.string.course_id),"");
+
+                mPresenter.queryAddNewSession(sharedPreferences.getString(getString(R.string.user_type),""),Integer.toString(sessionId),sessionNameToAdd,timeOfCreation.toString(),courseId);
                 dialog.cancel();
             }
         });

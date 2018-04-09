@@ -19,6 +19,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
+import com.example.esc_50005.Database.sessionsInformation.SessionsInformationDO;
+import com.example.esc_50005.Database.sessionsInformation.SessionsInformationDataSource;
 import com.example.esc_50005.Database.utilities.Injection;
 import com.example.esc_50005.R;
 import com.example.esc_50005.UI.Course.FAQ.session.main.SessionsAdapter;
@@ -98,14 +100,14 @@ public class StudentSessionsFragment extends Fragment implements SessionsContrac
 
     public void attemptQuerySessions()
     {
-        Log.i("this is it ",getString(R.string.current_course_activity));
-        Log.i("getting information",sharedPreferences.getString(getString(R.string.current_course_activity),""));
         mPresenter.querySessions(
                 sharedPreferences.getString(getString(R.string.user_id),""),
-                sharedPreferences.getString(getString(R.string.current_course_activity),""));
+                sharedPreferences.getString(getString(R.string.course_full_name),""));
     }
 
-    public void showSessions(ArrayList<String> sessions) {
+
+    @Override
+    public void showSessions(ArrayList<SessionsInformationDO> sessions) {
         mSessionsAdapter=new SessionsAdapter(sessions,this.getContext());
         sessionsListRecycler.setAdapter(mSessionsAdapter);
     }
@@ -149,7 +151,7 @@ public class StudentSessionsFragment extends Fragment implements SessionsContrac
 
         builder.setNegativeButton("Submit",new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog,int id) {
-                mPresenter.queryAddNewSession(sharedPreferences.getString("UserType",""),sessionId.getText().toString(),"","","");
+                mPresenter.queryAddNewSession(sharedPreferences.getString(getString(R.string.user_type),""),sessionId.getText().toString(),"","","");
                 dialog.cancel();
             }
         });

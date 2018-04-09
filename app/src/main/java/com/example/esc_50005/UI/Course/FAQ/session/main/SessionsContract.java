@@ -2,6 +2,8 @@ package com.example.esc_50005.UI.Course.FAQ.session.main;
 
 import android.content.Context;
 
+import com.example.esc_50005.Database.sessionsInformation.SessionsInformationDO;
+import com.example.esc_50005.Database.sessionsInformation.SessionsInformationDataSource;
 import com.example.esc_50005.UI.Base.BasePresenter;
 import com.example.esc_50005.UI.Base.BaseView;
 
@@ -20,7 +22,7 @@ public interface SessionsContract {
     }
 
     interface View extends BaseView<Presenter> {
-        void showSessions(ArrayList<String> sessions);
+        void showSessions(ArrayList<SessionsInformationDO> sessions);
         void showEmptySessions();
         void showLoadSessionsError();
         void showSuccessfulAddNewSession();

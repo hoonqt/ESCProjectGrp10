@@ -20,10 +20,10 @@
             android:label="Add FAQ" />
         <activity
             android:name=".UI.Course.FAQ.CourseActivity"
-            android:label="Add FAQ" />
+             />
         <activity
             android:name=".UI.Dashboard.main.DashboardActivity"
-            android:label="Add FAQ" />
+            />
         <activity android:name=".UI.SignUp.SignupActivity" />
 
         <activity
@@ -34,9 +34,6 @@
             </intent-filter>
 
         </activity>
-        <!--<activity android:name=".UI.DataAdder.AddDatahere">-->
-
-        <!--</activity>-->
 
         <activity android:name=".UI.Course.FAQ.ProfessorProgressActivity"></activity>
     </application>

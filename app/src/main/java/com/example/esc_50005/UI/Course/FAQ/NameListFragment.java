@@ -93,7 +93,7 @@ public class NameListFragment extends Fragment implements ProgressContract.View 
         nameListRecycler.setLayoutManager(new LinearLayoutManager(this.getActivity()));
 
         userInformation = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
-        courseId = userInformation.getString(getString(R.string.current_course_activity),"");
+        courseId = userInformation.getString(getString(R.string.course_full_name),"");
         frameLayout = (FrameLayout) view.findViewById(R.id.name_list_fl);
 
         swipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.name_list_swipe);
@@ -109,7 +109,7 @@ public class NameListFragment extends Fragment implements ProgressContract.View 
 
     public void showNames(ArrayList<String> nameList, ArrayList<String> studentIdsList, ArrayList<Double> avg) {
 
-        Log.i("NameListFragment", "showNames: " + nameList.get(0));
+//        Log.i("NameListFragment", "showNames: " + nameList.get(0));
         mNameListAdapter = new NameListAdapter(nameList, studentIdsList, avg, mItemListener);
         nameListRecycler.setAdapter(mNameListAdapter);
 
@@ -152,6 +152,10 @@ public class NameListFragment extends Fragment implements ProgressContract.View 
             startActivity(intent);//need to switch that fragment here
         }
 
+        @Override
+        public void onRetryClick() {
+            mPresenter.loadNames();
+        }
 
 
     };

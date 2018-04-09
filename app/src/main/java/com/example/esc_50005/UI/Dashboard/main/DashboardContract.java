@@ -13,6 +13,7 @@ public interface DashboardContract {
         void loadCoursesFromDatabase(String userId);
         void addValidCourseProfessor(String courseId, String courseName);
         void queryCourseBeforeAdding(String userType, String courseId, String courseName);
+        void deleteCourse(String courseId, String courseName);
     }
     interface View extends BaseView <Presenter> {
         void showSuccessfullyLoadedCourses(ArrayList<String> courseInformationJsonData);
@@ -20,6 +21,7 @@ public interface DashboardContract {
         void showAddValidNewCourse();
         void showAddInvalidCourse();
         void showEmptyCourses();
+        void coursesLoaded();
 
     }
 }

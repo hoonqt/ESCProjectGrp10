@@ -46,6 +46,7 @@ public class DashboardPresenter implements DashboardContract.Presenter  {
     public void showSuccessfullyLoadedCourses()
     {
         mDashboardView.showSuccessfullyLoadedCourses(listOfCourses);
+        mDashboardView.coursesLoaded();
     }
 
 
@@ -103,6 +104,15 @@ public class DashboardPresenter implements DashboardContract.Presenter  {
         }
 
     }
+
+    @Override
+    public void deleteCourse(String courseId, String courseName) {
+        CoursesInformationDO courseToDelete=new CoursesInformationDO();
+        courseToDelete.setCourseId(courseId);
+        courseToDelete.setCourseName(courseName);
+        mCoursesRepository.removeCourse(courseToDelete);
+    }
+
 
     public void checkIfCourseIsValid(String userType, ArrayList<CoursesInformationDO> coursesInformationJsonData, String courseId, String courseName)
     {
