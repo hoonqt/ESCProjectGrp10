@@ -93,7 +93,7 @@ public class NameListFragment extends Fragment implements ProgressContract.View 
         nameListRecycler.setLayoutManager(new LinearLayoutManager(this.getActivity()));
 
         userInformation = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
-        courseId = userInformation.getString(getString(R.string.current_course_activity),"");
+        courseId = userInformation.getString(getString(R.string.course_full_name),"");
         frameLayout = (FrameLayout) view.findViewById(R.id.name_list_fl);
 
         swipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.name_list_swipe);

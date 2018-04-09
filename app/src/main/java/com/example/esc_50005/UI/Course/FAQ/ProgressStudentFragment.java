@@ -92,7 +92,7 @@ public class ProgressStudentFragment extends Fragment implements ProgressContrac
         } else{
             studentId = userInformation.getString(getString(R.string.user_id), "");
         }
-        courseId = userInformation.getString(getString(R.string.current_course_activity),"");
+        courseId = userInformation.getString(getString(R.string.course_full_name),"");
         Log.i(TAG, "STUDENT_ID: " + studentId);
         Log.i(TAG, "Course ID: " + courseId);
 

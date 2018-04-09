@@ -2,6 +2,7 @@ package com.example.esc_50005.UI.Login;
 
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.view.ViewDebug;
 
 import com.example.esc_50005.Database.FAQ.FaqRemoteDataSource;
 import com.example.esc_50005.Database.UsersInformation.EditedUsersInformationDO;
@@ -34,20 +35,24 @@ public class LoginPresenter implements LoginContract.Presenter  {
     public void addBruteForceCount(String userId, String fullName)
     {
         userBruteForceJsonData=mLoginRepository.queryAParticularUser(userId);
-        int count=Integer.parseInt(userBruteForceJsonData.get(0).getBruteForceCount());
-
-        if(count>2)
+        if(userBruteForceJsonData.size()!=0)
         {
-            mLoginView.showSecurityQuestion();
+            int count=Integer.parseInt(userBruteForceJsonData.get(0).getBruteForceCount());
+
+            if(count>2)
+            {
+                mLoginView.showSecurityQuestion();
+            }
+            else{
+                EditedUsersInformationDO editedUser;
+                editedUser=userBruteForceJsonData.get(0);
+                count++;
+                editedUser.setBruteForceCount(Integer.toString(count));
+                mLoginRepository.addUser(editedUser);
+                loadUnsuccessfulLogin();
+            }
         }
-        else{
-            EditedUsersInformationDO editedUser;
-            editedUser=userBruteForceJsonData.get(0);
-            count++;
-            editedUser.setBruteForceCount(Integer.toString(count));
-            mLoginRepository.addUser(editedUser);
-            loadUnsuccessfulLogin();
-        }
+
     }
 
     @Override
@@ -79,8 +84,19 @@ public class LoginPresenter implements LoginContract.Presenter  {
 
     public void loadUsersFromDatabase(String userId, String userType, String password)
     {
-        userInformationJsonData=mLoginRepository.queryAParticularUser(userId);
-        checkIfLoginIsValid(userInformationJsonData, password, userType);
+
+        Log.i("size of it", Integer.toString(userId.length()));
+        if(userId.length()==0)
+        {
+            Log.i("this is null","this is nuk");
+            loadUnsuccessfulLogin();
+        }
+        else if(userId.length()!=0){
+            Log.i("this is null","not null");
+            userInformationJsonData=mLoginRepository.queryAParticularUser(userId);
+            checkIfLoginIsValid(userInformationJsonData, password, userType);
+        }
+
     }
 
     @Override
@@ -97,21 +113,27 @@ public class LoginPresenter implements LoginContract.Presenter  {
             loadUnsuccessfulLogin();
         }
 
-        if(!userInformationJsonData.get(0).getUserType().equals(userType))
-        {
-            loadUnsuccessfulLogin();
-        }
-        else if(userInformationJsonData.get(0).getDisabled().toString().equals("true"))
-        {
-            loadAccountLockedOut();
-        }
-        else if(userInformationJsonData.get(0).getPassword().equals(password))
-        {
-            loadSuccessfulLogin(userInformationJsonData.get(0).getUserId());
-        }
         else{
-            addBruteForceCount(userInformationJsonData.get(0).getUserId(),userInformationJsonData.get(0).getFullName());
+
+            if(!userInformationJsonData.get(0).getUserType().equals(userType))
+            {
+                loadUnsuccessfulLogin();
+            }
+            else if(userInformationJsonData.get(0).getDisabled().toString().equals("true"))
+            {
+                loadAccountLockedOut();
+            }
+            else if(userInformationJsonData.get(0).getPassword().equals(password))
+            {
+                loadSuccessfulLogin(userInformationJsonData.get(0).getUserId());
+            }
+            else{
+                addBruteForceCount(userInformationJsonData.get(0).getUserId(),userInformationJsonData.get(0).getFullName());
+            }
+
         }
+
+
 
     }
 

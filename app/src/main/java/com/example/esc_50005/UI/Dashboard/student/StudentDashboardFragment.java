@@ -9,6 +9,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -26,6 +27,7 @@ import com.example.esc_50005.UI.Dashboard.main.CoursesAdapter;
 import com.example.esc_50005.UI.Dashboard.main.CoursesItemListener;
 import com.example.esc_50005.UI.Dashboard.main.DashboardContract;
 import com.example.esc_50005.UI.Dashboard.main.DashboardPresenter;
+import com.example.esc_50005.UI.Dashboard.main.DeleteCourseItemListener;
 
 import java.util.ArrayList;
 
@@ -42,6 +44,7 @@ public class StudentDashboardFragment extends Fragment implements DashboardContr
     private StudentDashboardFragment.LayoutManagerType mCurrentLayoutManagerType;
     private RecyclerView.LayoutManager mLayoutManager;
     private Button button;
+    private SwipeRefreshLayout swipeLayout;
 
     public StudentDashboardFragment() {
         // Required empty public constructor
@@ -82,6 +85,13 @@ public class StudentDashboardFragment extends Fragment implements DashboardContr
 
         button=view.findViewById(R.id.addNewCourse);
         button.setOnClickListener(this);
+        swipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.courses_swipe);
+        swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                attemptLoadCourses();
+            }
+        });
 
         attemptLoadCourses();
         return view;
@@ -97,9 +107,17 @@ public class StudentDashboardFragment extends Fragment implements DashboardContr
     public void showSuccessfullyLoadedCourses(ArrayList<String> coursesList)
     {
         Log.i("showSuccessfulLogin","showSuccessfulLogin");
-        mCoursesAdapter=new CoursesAdapter(coursesList,mItemListener);
+        mCoursesAdapter=new CoursesAdapter(coursesList,mItemListener,this.getActivity().getApplicationContext(),mDeleteCourseListener);
         coursesListRecycler.setAdapter(mCoursesAdapter);
     }
+
+    DeleteCourseItemListener mDeleteCourseListener = new DeleteCourseItemListener() {
+        @Override
+        public void deleteCourse(String courseId, String courseName) {
+            mPresenter.deleteCourse(courseId,courseName);
+        }
+
+    };
 
     public void showUnsuccessfullyLoadedCourses()
     {
@@ -125,6 +143,13 @@ public class StudentDashboardFragment extends Fragment implements DashboardContr
 
     }
 
+    public void coursesLoaded() {
+        if (swipeLayout.isRefreshing()) {
+            swipeLayout.setRefreshing(false);
+        }
+        mCoursesAdapter.notifyDataSetChanged();
+    }
+
 
     public void showLoadedCourses() {
 
@@ -134,9 +159,8 @@ public class StudentDashboardFragment extends Fragment implements DashboardContr
         public void moveToCourseScreen(String clickedCourse) {
             SharedPreferences.Editor editor = sharedPreferences.edit();
 
-            editor.putString(getString(R.string.current_course_activity), clickedCourse);
+            editor.putString(getString(R.string.course_full_name), clickedCourse);
             editor.commit();
-            Log.i("string this is the data",sharedPreferences.getString(getString(R.string.current_course_activity),""));
             Intent intent = new Intent(getActivity(), CourseActivity.class);
             startActivity(intent);
         }
