@@ -152,6 +152,10 @@ public class NameListFragment extends Fragment implements ProgressContract.View 
             startActivity(intent);//need to switch that fragment here
         }
 
+        @Override
+        public void onRetryClick() {
+            mPresenter.loadNames();
+        }
 
 
     };
