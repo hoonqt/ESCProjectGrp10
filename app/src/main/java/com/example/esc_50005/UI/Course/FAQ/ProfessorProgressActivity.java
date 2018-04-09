@@ -48,8 +48,9 @@ public class ProfessorProgressActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent (getApplicationContext(), CourseActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent (getApplicationContext(), CourseActivity.class);
+//                startActivity(intent);
+                finish();
             }
         });
 

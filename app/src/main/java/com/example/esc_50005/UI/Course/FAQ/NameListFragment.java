@@ -109,7 +109,7 @@ public class NameListFragment extends Fragment implements ProgressContract.View 
 
     public void showNames(ArrayList<String> nameList, ArrayList<String> studentIdsList, ArrayList<Double> avg) {
 
-        Log.i("NameListFragment", "showNames: " + nameList.get(0));
+//        Log.i("NameListFragment", "showNames: " + nameList.get(0));
         mNameListAdapter = new NameListAdapter(nameList, studentIdsList, avg, mItemListener);
         nameListRecycler.setAdapter(mNameListAdapter);
 
@@ -152,6 +152,10 @@ public class NameListFragment extends Fragment implements ProgressContract.View 
             startActivity(intent);//need to switch that fragment here
         }
 
+        @Override
+        public void onRetryClick() {
+            mPresenter.loadNames();
+        }
 
 
     };
