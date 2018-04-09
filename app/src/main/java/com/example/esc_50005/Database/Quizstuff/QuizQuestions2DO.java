@@ -17,6 +17,7 @@ public class QuizQuestions2DO {
     private String _subjectCodeSessionCode;
     private String _quizNameQnID;
     private Double _correctans;
+    private Boolean _isItQn;
     private List<String> _options;
     private String _question;
 
@@ -45,6 +46,14 @@ public class QuizQuestions2DO {
 
     public void setCorrectans(final Double _correctans) {
         this._correctans = _correctans;
+    }
+    @DynamoDBAttribute(attributeName = "IsItQn")
+    public Boolean getIsItQn() {
+        return _isItQn;
+    }
+
+    public void setIsItQn(final Boolean _isItQn) {
+        this._isItQn = _isItQn;
     }
     @DynamoDBAttribute(attributeName = "Options")
     public List<String> getOptions() {

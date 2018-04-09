@@ -33,6 +33,7 @@ import com.example.esc_50005.R;
 import com.example.esc_50005.UI.Course.FAQ.session.main.SessionsAdapter;
 import com.example.esc_50005.UI.Course.FAQ.session.main.SessionsContract;
 import com.example.esc_50005.UI.Course.FAQ.session.main.SessionsPresenter;
+import com.example.esc_50005.WebSocket.ProfWebSocket;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -51,6 +52,8 @@ public class ProfessorSessionsFragment extends Fragment implements SessionsContr
     private ImageButton button;
     private SharedPreferences sharedPreferences;
     private BottomSheetBehavior mBottomSheetBehavior;
+
+    private ProfWebSocket websock;
 
     private SessionsAdapter mSessionsAdapter;
 
@@ -105,6 +108,8 @@ public class ProfessorSessionsFragment extends Fragment implements SessionsContr
             }
         });
 
+        websock = ProfWebSocket.getInstance();
+
         attemptQuerySessions();
         return view;
     }
@@ -150,6 +155,9 @@ public class ProfessorSessionsFragment extends Fragment implements SessionsContr
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString(getString(R.string.end_session), "True");
                 editor.commit();
+
+                websock.sendMsg("penda113");
+                websock.end();
                 return true;
             }
             else if(id == R.id.start_session){
@@ -157,6 +165,9 @@ public class ProfessorSessionsFragment extends Fragment implements SessionsContr
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString(getString(R.string.delete_session), "True");
                 editor.commit();
+
+                websock.sendMsg("psenda113");
+
                 return true;
             }
 

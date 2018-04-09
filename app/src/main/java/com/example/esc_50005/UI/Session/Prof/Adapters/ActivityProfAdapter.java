@@ -40,7 +40,12 @@ public class ActivityProfAdapter extends RecyclerView.Adapter<ActivityProfAdapte
         dataset = input;
 
         for (int i = 0;i<dataset.size();i++) {
-            if (!(names.contains(dataset.get(i).getQuizNameQnID().split(" ")[0]+ " " +dataset.get(i).getQuizNameQnID().split(" ")[1]))) {
+
+            if (dataset.get(i).getIsItQn()) {
+                names.add(dataset.get(i).getQuizNameQnID().split(" ")[0]+ " " +dataset.get(i).getQuizNameQnID().split(" ")[1]);
+            }
+
+            else if (!(names.contains(dataset.get(i).getQuizNameQnID().split(" ")[0]+ " " +dataset.get(i).getQuizNameQnID().split(" ")[1]))) {
                 names.add(dataset.get(i).getQuizNameQnID().split(" ")[0]+ " " +dataset.get(i).getQuizNameQnID().split(" ")[1]);
             }
         }
@@ -48,11 +53,14 @@ public class ActivityProfAdapter extends RecyclerView.Adapter<ActivityProfAdapte
 
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        return super.getItemViewType(position);
+    }
 
     // Create new views (invoked by the layout manager)
     @Override
     public ActivityProfAdapter.QuizViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
         int layoutIDForListItem = R.layout.profquiz_recycler;
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         boolean shouldAttachToParentImmediately = false;
@@ -63,10 +71,6 @@ public class ActivityProfAdapter extends RecyclerView.Adapter<ActivityProfAdapte
 
         QuizViewHolder quizViewHolder = new QuizViewHolder(view);
         viewHolderCount++;
-
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(parent.getContext());
-
-
 
         return quizViewHolder;
     }
@@ -131,8 +135,6 @@ public class ActivityProfAdapter extends RecyclerView.Adapter<ActivityProfAdapte
                     });
 
                     popup.show();
-
-
                 }
             });
 
@@ -140,17 +142,9 @@ public class ActivityProfAdapter extends RecyclerView.Adapter<ActivityProfAdapte
             switchUp.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    ProfWebSocket websock = ProfWebSocket.getInstance();
-                    if (isChecked) {
-                        websock.sendMsg("psenda113");
-                    }
 
-                    else {
-                        websock.end();
-                    }
                 }
             });
-
 
         }
 
@@ -160,7 +154,13 @@ public class ActivityProfAdapter extends RecyclerView.Adapter<ActivityProfAdapte
 
         }
 
+    }
 
+    class QuestionViewHolder extends RecyclerView.ViewHolder {
+
+        public QuestionViewHolder(View v) {
+            super(v);
+        }
     }
 
 }
