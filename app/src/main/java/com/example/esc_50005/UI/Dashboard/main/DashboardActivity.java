@@ -39,7 +39,7 @@ public class DashboardActivity extends MainActivity{
 
         
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
-        switch(sharedPreferences.getString("UserType",""))
+        switch(sharedPreferences.getString(getString(R.string.user_type),""))
         {
             case("professor"):
                 Log.i("load prof","load prof");

@@ -51,7 +51,7 @@ public class NameListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     public int getItemCount() {
         android.util.Log.i(TAG,  "here2" );
         if (mNameList == null) {
-            return 0;
+            return 1;
         } else {
             return mNameList.size();
         }
@@ -143,14 +143,6 @@ public class NameListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                     mNameListItemListener.onArrowClick(mStudentIdsList.get(getAdapterPosition()));
             }
 
-        }
-
-        boolean userUpvoted (Faq faq) {
-            if (faq.getUsersVoted().contains("1001688")) {
-                return true;
-            } else {
-                return false;
-            }
         }
     }
 

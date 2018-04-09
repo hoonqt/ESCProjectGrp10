@@ -72,7 +72,7 @@ public class LoginPresenter implements LoginContract.Presenter  {
         EditedUsersInformationDO editedUser;
         editedUser=userBruteForceJsonData.get(0);
         editedUser.setDisabled(true);
-        
+
         mLoginRepository.addUser(editedUser);
         mLoginView.showAccountLockedOut();
     }
