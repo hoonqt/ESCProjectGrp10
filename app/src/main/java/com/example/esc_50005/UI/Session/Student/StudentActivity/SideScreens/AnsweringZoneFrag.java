@@ -87,6 +87,8 @@ public class AnsweringZoneFrag extends Fragment {
 
         @Override
         public void onClick(View view) {
+
+            ArrayList<Integer> input = new ArrayList<>();
             for (int childCount = qnRecycler.getChildCount(), i = 0; i < childCount; ++i) {
                 final RecyclerView.ViewHolder holder = qnRecycler.getChildViewHolder(qnRecycler.getChildAt(i));
                 group = holder.itemView.findViewById(R.id.radiobuttons);
@@ -96,20 +98,40 @@ public class AnsweringZoneFrag extends Fragment {
 
 
 
-                if (group.getCheckedRadioButtonId() == R.id.option1 && allthequestions.get(i).getCorrectans() == 0) {
-                    score++;
+
+                if (group.getCheckedRadioButtonId() == R.id.option1) {
+
+                    input.add(0);
+
+                    if (allthequestions.get(i).getCorrectans() == 0) {
+                        score++;
+                    }
+
+
                 }
 
-                else if (group.getCheckedRadioButtonId() == R.id.option2 && allthequestions.get(i).getCorrectans() == 1) {
-                    score++;
+                else if (group.getCheckedRadioButtonId() == R.id.option2) {
+                    input.add(1);
+                    if (allthequestions.get(i).getCorrectans() == 1) {
+                        score++;
+                    }
                 }
 
-                else if (group.getCheckedRadioButtonId() == R.id.option3 && allthequestions.get(i).getCorrectans() == 2) {
-                    score++;
+                else if (group.getCheckedRadioButtonId() == R.id.option3) {
+                    input.add(2);
+                    if (allthequestions.get(i).getCorrectans() == 2) {
+                        score++;
+                    }
+
                 }
 
-                else if (group.getCheckedRadioButtonId() == R.id.option4 && allthequestions.get(i).getCorrectans() == 3) {
-                    score++;
+                else if (group.getCheckedRadioButtonId() == R.id.option4) {
+                    input.add(3);
+
+                    if (allthequestions.get(i).getCorrectans() == 3) {
+                        score++;
+                    }
+
                 }
             }
 
@@ -124,18 +146,16 @@ public class AnsweringZoneFrag extends Fragment {
 
             data.putScores(userID,courseCode,"111",quizName,inpercent,userName);
 
-            AlertDialog.Builder builder=new AlertDialog.Builder(getContext());
-            builder.setMessage("Your score is:" + score + "/" + qnRecycler.getChildCount() + "\nPercentage is: " + inpercent );
-            builder.setNegativeButton("Close", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    ActivityStudentFrag tobestarted = new ActivityStudentFrag();
-                    SessionActivity myActivity = (SessionActivity) context;
-                    myActivity.getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.profsessionhere,tobestarted).commit();
-                }
-            });
-            AlertDialog alertDialog=builder.create();
-            alertDialog.show();
+            Bundle bundle = new Bundle();
+            bundle.putInt("ScoreInt",score);
+            bundle.putSerializable("QnList",allthequestions);
+            bundle.putSerializable("StudentInput",input);
+
+            QuizResultsFrag tobestarted = new QuizResultsFrag();
+            SessionActivity myActivity = (SessionActivity) context;
+
+            tobestarted.setArguments(bundle);
+            myActivity.getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.profsessionhere,tobestarted).commit();
 
 
         }

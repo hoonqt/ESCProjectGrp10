@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/prof_question_cv"
+        style="@style/CardView.Light"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:cardUseCompatPadding="true"
+        tools:ignore="ContentDescription">
+
+        <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/questionBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="6dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+            <ImageView
+                android:id="@+id/option1pic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/questionBox" />
+
+            <TextView
+                android:id="@+id/option1ans"
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/questionBox"
+                android:layout_toEndOf="@+id/option1pic"
+                android:layout_toRightOf="@+id/option1pic"
+                android:paddingLeft="5dp"
+                android:textColor="#000000"/>
+
+            <ImageView
+                android:id="@+id/option2pic"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@id/option1pic"
+                android:layout_toLeftOf="@id/option2ans" />
+
+            <TextView
+                android:id="@+id/option2ans"
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
+                android:layout_below="@id/option1ans"
+                android:layout_toEndOf="@+id/option1pic"
+                android:layout_toRightOf="@+id/option1pic"
+                android:paddingLeft="5dp"
+                android:textColor="#000000"/>
+
+            <ImageView
+                android:id="@+id/option3pic"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/option2pic" />
+
+            <TextView
+                android:id="@+id/option3ans"
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
+                android:layout_below="@id/option2ans"
+                android:layout_toEndOf="@+id/option2pic"
+                android:layout_toRightOf="@+id/option2pic"
+                android:paddingLeft="5dp"
+                android:textColor="#000000"/>
+
+            <ImageView
+                android:id="@+id/option4pic"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@id/option3pic"
+                android:layout_toLeftOf="@+id/option4ans"
+                android:layout_toStartOf="@+id/option4ans" />
+
+            <TextView
+                android:id="@+id/option4ans"
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
+                android:layout_below="@id/option3ans"
+                android:layout_toEndOf="@+id/option1pic"
+                android:layout_toRightOf="@+id/option1pic"
+                android:paddingLeft="5dp"
+                android:textColor="#000000"/>
+
+
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>
