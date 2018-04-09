@@ -3,6 +3,7 @@ package com.example.esc_50005.UI.Course.FAQ;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -37,10 +38,13 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.course_activity);
 
+
         AWSMobileClient.getInstance().initialize(this).execute();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
+        setTitle(sharedPreferences.getString(getString(R.string.course_full_name),""));
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText(R.string.sessions));

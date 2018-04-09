@@ -9,6 +9,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -26,6 +27,7 @@ import com.example.esc_50005.UI.Dashboard.main.CoursesAdapter;
 import com.example.esc_50005.UI.Dashboard.main.CoursesItemListener;
 import com.example.esc_50005.UI.Dashboard.main.DashboardContract;
 import com.example.esc_50005.UI.Dashboard.main.DashboardPresenter;
+import com.example.esc_50005.UI.Dashboard.main.DeleteCourseItemListener;
 import com.example.esc_50005.UI.Login.LoginPresenter;
 
 import java.util.ArrayList;
@@ -43,6 +45,8 @@ public class ProfessorDashboardFragment extends Fragment implements DashboardCon
     private ProfessorDashboardFragment.LayoutManagerType mCurrentLayoutManagerType;
     private RecyclerView.LayoutManager mLayoutManager;
     private Button button;
+    private Button deleteCourse;
+    private SwipeRefreshLayout swipeLayout;
 
     public ProfessorDashboardFragment() {
     }
@@ -77,7 +81,6 @@ public class ProfessorDashboardFragment extends Fragment implements DashboardCon
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.i("prof onCreateView","prof onCreateView");
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         View view=inflater.inflate(R.layout.dashboard_fragment, container, false);
         coursesListRecycler=view.findViewById(R.id.recyclerViewDashboardCourses);
@@ -87,8 +90,23 @@ public class ProfessorDashboardFragment extends Fragment implements DashboardCon
         button=view.findViewById(R.id.addNewCourse);
         button.setOnClickListener(this);
 
+        swipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.courses_swipe);
+        swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                attemptLoadCourses();
+            }
+        });
+
         attemptLoadCourses();
         return view;
+    }
+
+    public void coursesLoaded() {
+        if (swipeLayout.isRefreshing()) {
+            swipeLayout.setRefreshing(false);
+        }
+        mCoursesAdapter.notifyDataSetChanged();
     }
 
     public void attemptLoadCourses()
@@ -100,8 +118,7 @@ public class ProfessorDashboardFragment extends Fragment implements DashboardCon
 
     public void showSuccessfullyLoadedCourses(ArrayList<String> coursesList)
     {
-        Log.i("showSuccessfulLogin","showSuccessfulLogin");
-        mCoursesAdapter=new CoursesAdapter(coursesList,mItemListener);
+        mCoursesAdapter=new CoursesAdapter(coursesList,mItemListener,this.getActivity().getApplicationContext(),mDeleteCourseListener);
         coursesListRecycler.setAdapter(mCoursesAdapter);
     }
 
@@ -118,11 +135,19 @@ public class ProfessorDashboardFragment extends Fragment implements DashboardCon
     public void showLoadedCourses() {
 
     }
+
+    DeleteCourseItemListener mDeleteCourseListener = new DeleteCourseItemListener() {
+        @Override
+        public void deleteCourse(String courseId,String courseName) {
+            mPresenter.deleteCourse(courseId,courseName);
+        }
+
+    };
     CoursesItemListener mItemListener = new CoursesItemListener() {
         @Override
         public void moveToCourseScreen(String clickedCourse) {
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString(getString(R.string.current_course_activity), clickedCourse);
+            editor.putString(getString(R.string.course_full_name), clickedCourse);
             editor.commit();
             Intent intent = new Intent(getActivity(), CourseActivity.class);
             startActivity(intent);
@@ -157,6 +182,7 @@ public class ProfessorDashboardFragment extends Fragment implements DashboardCon
                 alertDialog.setView(layout);
                 alertDialog.create();
                 alertDialog.show();
+                break;
 
             case "student":
                 AlertDialog.Builder alertDialog2 = new AlertDialog.Builder(this.getActivity());
@@ -179,6 +205,7 @@ public class ProfessorDashboardFragment extends Fragment implements DashboardCon
                 alertDialog2.setView(layout2);
                 alertDialog2.create();
                 alertDialog2.show();
+                break;
 
         }
 

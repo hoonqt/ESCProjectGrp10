@@ -50,8 +50,8 @@ public class NameListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     public int getItemCount() {
         android.util.Log.i(TAG,  "here2" );
-        if (mNameList == null) {
-            return 0;
+        if (mNameList == null || mNameList.size() == 0) {
+            return 1;
         } else {
             return mNameList.size();
         }
@@ -144,14 +144,6 @@ public class NameListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             }
 
         }
-
-        boolean userUpvoted (Faq faq) {
-            if (faq.getUsersVoted().contains("1001688")) {
-                return true;
-            } else {
-                return false;
-            }
-        }
     }
 
     public class EmptyViewHolder extends BaseViewHolder implements  View.OnClickListener {
@@ -171,9 +163,9 @@ public class NameListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
         @Override
         public void onClick(View view) {
-//            if (view.getId() == btn_retry.getId()) {
-//                mFaqItemListener.onRetryClick();
-//            }
+            if (view.getId() == btn_retry.getId()) {
+                mNameListItemListener.onRetryClick();
+            }
         }
     }
 }

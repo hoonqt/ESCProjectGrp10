@@ -126,7 +126,8 @@ public class NameListPresenter implements ProgressContract.Presenter {
         nameList = mProgressRepository.getNames(courseId);// need to change it to base on the user login details
 
         if (nameList.size()==0){
-            mNameListView.showNoName();
+//            mNameListView.showNoName();
+            processNames(nameList);
             Log.i(TAG, "HERE1" + courseId);
         } else{
             processNames(nameList);
