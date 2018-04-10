@@ -100,6 +100,9 @@ public class ActivityProfFrag extends Fragment implements QuizProfContract.View,
             @Override
             public void onClick(View view) {
 
+                
+
+                /*
                 AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
                 alert.setMessage("Enter quiz/question name");
                 alert.setTitle("Create new activity");
@@ -155,6 +158,8 @@ public class ActivityProfFrag extends Fragment implements QuizProfContract.View,
                             }
                         });
                 alert.show();
+
+                */
 
             }
         });

@@ -7,6 +7,8 @@ import android.support.annotation.NonNull;
 
 import com.example.esc_50005.Database.Quizstuff.QuizQuestions2DO;
 import com.example.esc_50005.Database.Quizstuff.QuizRemoteDataSource;
+import com.example.esc_50005.Log;
+import com.example.esc_50005.R;
 import com.example.esc_50005.UI.Session.Prof.Contracts.QuizProfContract;
 
 import java.util.ArrayList;
@@ -34,8 +36,10 @@ public class ActivityProfPresenter implements QuizProfContract.Presenter{
         mQuizProfView = checkNotNull(quizProfView,"Quiz not null");
         mQuizProfView.setPresenter(this);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        courseCode = sharedPreferences.getString("CurrentCourseActivity", null).split(" ")[0];
-        sessionID = sharedPreferences.getString("SessionSelected",null).split("-")[1].trim();
+        courseCode = sharedPreferences.getString(context.getResources().getString(R.string.course_id), null).split(" ")[0];
+        sessionID = sharedPreferences.getString(context.getResources().getString(R.string.session_id),null);
+        Log.i("What's here 1: ",courseCode);
+        Log.i("What's here 2: ",sessionID);
 
     }
 
@@ -50,7 +54,13 @@ public class ActivityProfPresenter implements QuizProfContract.Presenter{
     public void loadQuizes(String subjectCode, String sessionCode) {
 
         questionData = mQuizQuestionsRepository.getQuestions(subjectCode, sessionCode);
-        mQuizProfView.showQuizes(questionData);
+        if (questionData.isEmpty()) {
+            mQuizProfView.showNoQuiz();
+        }
+
+        else {
+            mQuizProfView.showQuizes(questionData);
+        }
 
     }
 
