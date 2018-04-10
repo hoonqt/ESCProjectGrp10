@@ -36,24 +36,24 @@
                             android:orientation="vertical"
                             android:paddingTop="60dp">
 
-                                <TextView
-                                    android:id="@+id/toolbar_title_text"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:paddingLeft="16dp"
-                                    android:paddingRight="16dp"
-                                    android:layout_gravity="center"
-                                    android:text="Set Session Name"
-                                    android:textAppearance="@style/Faq_Question" />
+                            <TextView
+                                android:id="@+id/toolbar_title_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:paddingLeft="16dp"
+                                android:paddingRight="16dp"
+                                android:text="SESSION NAME"
+                                android:textAppearance="@style/Faq_Question" />
 
-                                <TextView
-                                    android:id="@+id/toolbartitle_text"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginBottom="45dp"
-                                    android:layout_gravity="center"
-                                    android:text="Session Code: 001234"
-                                    android:textAppearance="@style/Faq_Info" />
+                            <TextView
+                                android:id="@+id/toolbartitle_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginBottom="45dp"
+                                android:text="Session Code: 001234"
+                                android:textAppearance="@style/Faq_Info" />
 
                         </LinearLayout>
 
@@ -97,6 +97,7 @@
             android:id="@+id/pager"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:layout_below="@id/tab_layout"/>
 
         <FrameLayout

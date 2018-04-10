@@ -71,9 +71,9 @@ public class FaqFragment extends Fragment implements FaqContract.View {
                 Injection.provideFaqRepository(getActivity().getApplicationContext()), this);
 
         userInformation = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
-        userType = userInformation.getString("UserType","");
-        userId = userInformation.getString("Username","");
-        courseId = userInformation.getString("CurrentCourseActivity", "");
+        userType = userInformation.getString(getString(R.string.user_type),"");
+        userId = userInformation.getString(getString(R.string.user_id),"");
+        courseId = userInformation.getString(getString(R.string.course_id), "");
         mPresenter.setUserId(userId);
         mPresenter.setCourseId(courseId);
     }
