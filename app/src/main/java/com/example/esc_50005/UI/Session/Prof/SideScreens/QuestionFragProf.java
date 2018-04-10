@@ -12,10 +12,10 @@ import com.example.esc_50005.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class QuestionFragStudent extends Fragment {
+public class QuestionFragProf extends Fragment {
 
 
-    public QuestionFragStudent() {
+    public QuestionFragProf() {
         // Required empty public constructor
     }
 
