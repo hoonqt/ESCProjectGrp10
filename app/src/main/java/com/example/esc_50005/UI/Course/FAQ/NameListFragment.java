@@ -146,9 +146,10 @@ public class NameListFragment extends Fragment implements ProgressContract.View 
 
     NameListItemListener mItemListener = new NameListItemListener() {
         @Override
-        public void onArrowClick(String studentId) {
+        public void onArrowClick(String studentId, String studentName) {
             Intent intent = new Intent(getActivity(), ProfessorProgressActivity.class);
             intent.putExtra("STUDENT_ID", studentId);
+            intent.putExtra("STUDENT_NAME", studentName);
             startActivity(intent);//need to switch that fragment here
         }
 
@@ -159,14 +160,5 @@ public class NameListFragment extends Fragment implements ProgressContract.View 
 
 
     };
-
-    // TO BE REMOVED (cant remove yet due to QuestionsFragment using it)
-    public class FaqJsonData {
-
-        String question;
-        String answer;
-        String upvotes;
-
-    }
 }
 
