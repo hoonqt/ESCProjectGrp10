@@ -9,6 +9,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -84,9 +85,9 @@ public class ProfessorDashboardFragment extends Fragment implements DashboardCon
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         View view=inflater.inflate(R.layout.dashboard_fragment, container, false);
         coursesListRecycler=view.findViewById(R.id.recyclerViewDashboardCourses);
-        mLayoutManager= new LinearLayoutManager(getActivity());
-        mCurrentLayoutManagerType = ProfessorDashboardFragment.LayoutManagerType.LINEAR_LAYOUT_MANAGER;
-        coursesListRecycler.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        mLayoutManager= new GridLayoutManager(getActivity(),2);
+//        mCurrentLayoutManagerType = ProfessorDashboardFragment.LayoutManagerType.LINEAR_LAYOUT_MANAGER;
+        coursesListRecycler.setLayoutManager(new GridLayoutManager(view.getContext(),2));
         button=view.findViewById(R.id.addNewCourse);
         button.setOnClickListener(this);
 
