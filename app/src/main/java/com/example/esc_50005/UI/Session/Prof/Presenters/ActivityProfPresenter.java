@@ -36,10 +36,8 @@ public class ActivityProfPresenter implements QuizProfContract.Presenter{
         mQuizProfView = checkNotNull(quizProfView,"Quiz not null");
         mQuizProfView.setPresenter(this);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        courseCode = sharedPreferences.getString(context.getResources().getString(R.string.course_id), null).split(" ")[0];
+        courseCode = sharedPreferences.getString(context.getResources().getString(R.string.course_id), null);
         sessionID = sharedPreferences.getString(context.getResources().getString(R.string.session_id),null);
-        Log.i("What's here 1: ",courseCode);
-        Log.i("What's here 2: ",sessionID);
 
     }
 

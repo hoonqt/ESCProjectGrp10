@@ -17,6 +17,7 @@ public class QuizAnswersDO {
     private String _subjectCodeSessionCode;
     private String _quizNameStudentID;
     private String _answer;
+    private String _name;
     private String _time;
 
     @DynamoDBHashKey(attributeName = "SubjectCodeSessionCode")
@@ -44,6 +45,14 @@ public class QuizAnswersDO {
 
     public void setAnswer(final String _answer) {
         this._answer = _answer;
+    }
+    @DynamoDBAttribute(attributeName = "Name")
+    public String getName() {
+        return _name;
+    }
+
+    public void setName(final String _name) {
+        this._name = _name;
     }
     @DynamoDBAttribute(attributeName = "Time")
     public String getTime() {
