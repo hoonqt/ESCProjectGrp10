@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.example.esc_50005.Database.sessionsInformation.SessionsInformationDO;
 import com.example.esc_50005.R;
 import com.example.esc_50005.UI.Session.Main.SessionActivity;
 
@@ -34,7 +35,7 @@ public class SessionsAdapter extends RecyclerView.Adapter<SessionsAdapter.Sessio
 
     public static final String TAG = "FaqAdapter";
 
-    private ArrayList<String> mSessionsList;
+    private ArrayList<SessionsInformationDO> mSessionsList;
     private boolean clicked=false;
 
     private static int viewHolderCount = 0;
@@ -43,14 +44,14 @@ public class SessionsAdapter extends RecyclerView.Adapter<SessionsAdapter.Sessio
     private ImageButton button;
     private BottomSheetBehavior mBottomSheetBehavior;
 
-    public SessionsAdapter(ArrayList<String> sessions, Context context){
+    public SessionsAdapter(ArrayList<SessionsInformationDO> sessions, Context context){
         this.mSessionsList = sessions;
         this.context=context;
         Log.i("size",Integer.toString(sessions.size()));
-        for(String session: sessions)
-        {
-            Log.i("the name", session);
-        }
+//        for(String session: sessions)
+//        {
+//            Log.i("the name", session);
+//        }
     }
 
 
@@ -195,8 +196,13 @@ public class SessionsAdapter extends RecyclerView.Adapter<SessionsAdapter.Sessio
         }
 
         public void bind(int position) {
-            String session = mSessionsList.get(position);
-            session_card.setText(session);
+            StringBuilder session=new StringBuilder();
+            session.append(mSessionsList.get(position).getSessionDate());
+            session.append(" ");
+            session.append(mSessionsList.get(position).getSessionName());
+
+
+            session_card.setText(session.toString());
         }
 
         @Override
@@ -205,11 +211,8 @@ public class SessionsAdapter extends RecyclerView.Adapter<SessionsAdapter.Sessio
             int clickedPosition=getAdapterPosition();
             sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            Log.i("session id",mSessionsList.get(clickedPosition));
-            editor.putString(context.getResources().getString(R.string.session_id),mSessionsList.get(clickedPosition));
-//            editor.putString("Current Session", mSessionsList.get(clickedPosition));
+            editor.putString(context.getResources().getString(R.string.session_id),mSessionsList.get(clickedPosition).getSessionId());
             editor.commit();
-            //session should inflate the corresponding session activity
             context.startActivity(new Intent(context, SessionActivity.class));
         }
     }

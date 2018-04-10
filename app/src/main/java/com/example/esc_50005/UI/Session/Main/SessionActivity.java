@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 
 import com.amazonaws.mobile.client.AWSMobileClient;
@@ -46,8 +47,6 @@ public class SessionActivity extends AppCompatActivity {
             tabLayout.addTab(tabLayout.newTab().setText(R.string.feedback));
         }
 
-
-        //fragment is reusable cuz you can use it in other activities
         tabLayout.setTabGravity(tabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager=(ViewPager) findViewById(R.id.pager);
@@ -76,6 +75,14 @@ public class SessionActivity extends AppCompatActivity {
 
         });
 
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
     }
 
     @Override
@@ -86,7 +93,7 @@ public class SessionActivity extends AppCompatActivity {
             int id = item.getItemId();
 
             if(id == R.id.get_session_id){
-                AlertDialog.Builder builder=new AlertDialog.Builder(this.getApplicationContext());
+                AlertDialog.Builder builder=new AlertDialog.Builder(SessionActivity.this);
                 builder.setTitle("The sesson id is "+ sharedPreferences.getString(getString(R.string.session_id),""));
                 builder.create();
                 builder.show();

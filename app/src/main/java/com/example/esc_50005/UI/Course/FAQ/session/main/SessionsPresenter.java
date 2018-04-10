@@ -28,7 +28,7 @@ public class SessionsPresenter implements SessionsContract.Presenter {
     public SessionsInformationRemoteDataSource mSessionsRepository;
     public CoursesInformationRemoteDataSource mCoursesRepository;
     ArrayList<EditedUsersInformationDO> usersJsonData;
-    private ArrayList<String> listOfSessions=new ArrayList<String>();
+    private ArrayList<SessionsInformationDO> listOfSessions=new ArrayList<SessionsInformationDO>();
     private ArrayList<SessionsInformationDO> sessionsJsonData;
     private ArrayList<SessionsInformationDO> queriedSessionsJsonData;
     private ArrayList<CoursesInformationDO> courseJsonData;
@@ -81,19 +81,22 @@ public class SessionsPresenter implements SessionsContract.Presenter {
 
     public void generateListOfSessions(String currentCourse)
     {
-        listOfSessions=new ArrayList<String>();
+        listOfSessions=new ArrayList<SessionsInformationDO>();
         String[] retrieveCourseId = currentCourse.split("\\s+");
         String courseId=retrieveCourseId[0];
         courseJsonData=mCoursesRepository.queryCourses(retrieveCourseId[0]);
 
         for(int i=0;i<usersJsonData.get(0).getSessionIds().size();i++)
         {
-
             queriedSessionsJsonData=mSessionsRepository.querySessions(usersJsonData.get(0).getSessionIds().get(0));
 
             if(queriedSessionsJsonData.get(0).getCourseId().equals(courseId))
             {
-                String session=usersJsonData.get(0).getSessionDates().get(i)+ " -"  + usersJsonData.get(0).getSessionNames().get(i);
+                SessionsInformationDO session=new SessionsInformationDO();
+                session.setSessionDate(usersJsonData.get(0).getSessionDates().get(i));
+                session.setSessionName(usersJsonData.get(0).getSessionNames().get(i));
+                session.setSessionId(usersJsonData.get(0).getSessionIds().get(i));
+//                session=usersJsonData.get(0).getSessionDates().get(i)+ " -"  + usersJsonData.get(0).getSessionNames().get(i);
                 listOfSessions.add(session);
             }
         }
@@ -124,8 +127,16 @@ public class SessionsPresenter implements SessionsContract.Presenter {
 
     public void checkIfNewSessionIsValid(String userType, String sessionId, String sessionName, String timeOfCreation, String courseId)
     {
-        if(sessionsJsonData.size()==0)
+
+        if(sessionsJsonData.size()==0 && userType.equals("professor"))
         {
+            Log.i("here at size is 0","size is 0");
+            addNewSession(userType,sessionId,sessionName,timeOfCreation,courseId);
+        }
+
+        else if(sessionsJsonData.size()==0 && userType.equals("student"))
+        {
+            Log.i("here at size is 0","size is 0");
             addInvalidNewSession();
         }
 
@@ -148,6 +159,7 @@ public class SessionsPresenter implements SessionsContract.Presenter {
             case "student":
                 break;
             case "professor":
+                Log.i("here at size is 0","prof add new session");
                 mSessionsRepository.addSession(sessionId,sessionName,timeOfCreation,courseId);
         }
 

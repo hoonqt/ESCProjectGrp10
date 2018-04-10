@@ -98,10 +98,24 @@ public class LoginFragment extends Fragment implements LoginContract.View {
         mSignInButton.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
-
                 userId=mUserIdView.getText().toString();
-                Log.i("here at login",userId);
+                if(userId.length()==0)
+                {
+                    userId=null;
+                    Log.i("haha","haha");
+                }
+
+
+                               Log.i("ho","hi");
+
+                Log.i("user user",userId + "hi");
+
                 password=mPasswordView.getText().toString();
+                if(password==null)
+                {
+
+                }
+
                 if(userType==null)
                 {
                     userType="professor";
@@ -123,12 +137,11 @@ public class LoginFragment extends Fragment implements LoginContract.View {
 
                 switch(checkedId)
                 {
+
                     case R.id.professor:
-                        Log.i("clicked","clicked");
                         userType="professor";
                         break;
                     case R.id.student:
-                        Log.i("clicked","clickedstudent");
                         userType="student";
                         break;
 
@@ -201,8 +214,11 @@ public class LoginFragment extends Fragment implements LoginContract.View {
         builder.setMessage("Wrong username or password sorry! " );
         AlertDialog alertDialog=builder.create();
         alertDialog.show();
+        if(userId!=null)
+        {
+            mPresenter.addBruteForceCount(userId,fullName);
+        }
 
-        mPresenter.addBruteForceCount(userId,fullName);
     }
 
 }

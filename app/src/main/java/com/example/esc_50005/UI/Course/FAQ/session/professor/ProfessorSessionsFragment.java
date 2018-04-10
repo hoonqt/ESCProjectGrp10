@@ -28,11 +28,14 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
+import com.example.esc_50005.Database.sessionsInformation.SessionsInformationDO;
+import com.example.esc_50005.Database.sessionsInformation.SessionsInformationDataSource;
 import com.example.esc_50005.Database.utilities.Injection;
 import com.example.esc_50005.R;
 import com.example.esc_50005.UI.Course.FAQ.session.main.SessionsAdapter;
 import com.example.esc_50005.UI.Course.FAQ.session.main.SessionsContract;
 import com.example.esc_50005.UI.Course.FAQ.session.main.SessionsPresenter;
+import com.example.esc_50005.WebSocket.ProfWebSocket;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -51,6 +54,8 @@ public class ProfessorSessionsFragment extends Fragment implements SessionsContr
     private ImageButton button;
     private SharedPreferences sharedPreferences;
     private BottomSheetBehavior mBottomSheetBehavior;
+
+    private ProfWebSocket websock;
 
     private SessionsAdapter mSessionsAdapter;
 
@@ -105,6 +110,8 @@ public class ProfessorSessionsFragment extends Fragment implements SessionsContr
             }
         });
 
+        websock = ProfWebSocket.getInstance();
+
         attemptQuerySessions();
         return view;
     }
@@ -114,18 +121,22 @@ public class ProfessorSessionsFragment extends Fragment implements SessionsContr
     {
         mPresenter.querySessions(
                 sharedPreferences.getString(getString(R.string.user_id),""),
-                sharedPreferences.getString(getString(R.string.current_course_activity),""));
+                sharedPreferences.getString(getString(R.string.course_full_name),""));
     }
 
-    public void showSessions(ArrayList<String> sessions) {
-        mSessionsAdapter=new SessionsAdapter(sessions,this.getContext());
-        sessionsListRecycler.setAdapter(mSessionsAdapter);
-    }
+
+
 
     public void showNoSessions()
     {
 
 
+    }
+
+    @Override
+    public void showSessions(ArrayList<SessionsInformationDO> sessions) {
+        mSessionsAdapter=new SessionsAdapter(sessions,this.getContext());
+        sessionsListRecycler.setAdapter(mSessionsAdapter);
     }
 
     @Override
@@ -150,6 +161,9 @@ public class ProfessorSessionsFragment extends Fragment implements SessionsContr
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString(getString(R.string.end_session), "True");
                 editor.commit();
+
+                websock.sendMsg("penda113");
+                websock.end();
                 return true;
             }
             else if(id == R.id.start_session){
@@ -157,6 +171,9 @@ public class ProfessorSessionsFragment extends Fragment implements SessionsContr
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString(getString(R.string.delete_session), "True");
                 editor.commit();
+
+                websock.sendMsg("psenda113");
+
                 return true;
             }
 
@@ -223,10 +240,9 @@ public class ProfessorSessionsFragment extends Fragment implements SessionsContr
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString("AddedSessionId",  Integer.toString(sessionId));
                 editor.commit();
-                String currentCourse=sharedPreferences.getString("CurrentCourseActivity","");
-                String[] retrieveCourseId = currentCourse.split("\\s+");
-                String courseId=retrieveCourseId[0];
-                mPresenter.queryAddNewSession(sharedPreferences.getString("UserType",""),Integer.toString(sessionId),sessionNameToAdd,timeOfCreation.toString(),courseId);
+                String courseId=sharedPreferences.getString(getString(R.string.course_id),"");
+
+                mPresenter.queryAddNewSession(sharedPreferences.getString(getString(R.string.user_type),""),Integer.toString(sessionId),sessionNameToAdd,timeOfCreation.toString(),courseId);
                 dialog.cancel();
             }
         });

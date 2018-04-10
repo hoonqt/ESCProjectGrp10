@@ -41,11 +41,11 @@
     <string name="user_type">User Type</string>
     <string name="password">Password</string>
     <string name="security_answer">Security Answer</string>
-    <string name="current_course_activity">Current Course Activity</string>
-    <string name="current_session">Current Session</string>
+    <string name="course_full_name">Current Course Full Name</string>
+    <string name="course_id">Current Course Id</string>
     <string name="end_session">End Session</string>
     <string name="start_session">Start Session</string>
     <string name="delete_session">Delete Session</string>
-    <string name="session_id">Session Id</string>
+    <string name="session_id">Current Session Id</string>
 
 </resources>

@@ -65,7 +65,6 @@ public class UsersInformationRemoteDataSource implements UsersInformationDataSou
     }
     public ArrayList<EditedUsersInformationDO> queryAParticularUser(final String userId) {
         Log.i("here at query","here at query");
-        Log.i("user id received",userId);
         usersArrayList = new ArrayList<EditedUsersInformationDO>();
 
         Thread random = new Thread(new Runnable() {
