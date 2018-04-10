@@ -44,6 +44,8 @@ public class ActivityProfAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         names = new ArrayList<>();
         dataset = input;
 
+        smallerdataset = new ArrayList<>();
+
         for (int i = 0;i<dataset.size();i++) {
 
             if (dataset.get(i).getIsItQn()) {
