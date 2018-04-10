@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.esc_50005.UI.Session.Prof.SideScreens.QuestionFragProf"
+    tools:context="com.example.esc_50005.UI.Session.Prof.SideScreens.ProfResponsesFrag"
     android:background="#59000000"
     android:clickable="true">
 
@@ -12,13 +12,13 @@
         android:layout_marginTop="70dp"
         android:background="#eeeeee">
 
-        <EditText
+        <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:hint="Input question"
-            />
+            android:layout_marginTop="0dp"
+            android:id="@+id/recyclerViewProfResponses">
+
+        </android.support.v7.widget.RecyclerView>
     </RelativeLayout>
 
 </RelativeLayout>

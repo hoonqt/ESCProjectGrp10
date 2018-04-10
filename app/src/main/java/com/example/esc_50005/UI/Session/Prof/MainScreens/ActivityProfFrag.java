@@ -2,6 +2,7 @@ package com.example.esc_50005.UI.Session.Prof.MainScreens;
 
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
@@ -17,7 +18,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.EditText;
+import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.example.esc_50005.Database.Quizstuff.QuizQuestions2DO;
 import com.example.esc_50005.Database.Quizstuff.QuizRemoteDataSource;
@@ -63,6 +67,8 @@ public class ActivityProfFrag extends Fragment implements QuizProfContract.View,
         super.onCreate(savedInstanceState);
     }
 
+
+
     public void onResume() {
         super.onResume();
         mPresenter.start();
@@ -90,9 +96,6 @@ public class ActivityProfFrag extends Fragment implements QuizProfContract.View,
         mCurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
         quizRecycler.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
-        ProfWebSocket socket = ProfWebSocket.getInstance();
-        socket.start();
-
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
 
         FloatingActionButton fab = view.findViewById(R.id.fabbtn);
@@ -100,23 +103,23 @@ public class ActivityProfFrag extends Fragment implements QuizProfContract.View,
             @Override
             public void onClick(View view) {
 
-                
-
-                /*
-                AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
-                alert.setMessage("Enter quiz/question name");
-                alert.setTitle("Create new activity");
-                final EditText input = new EditText(getContext());
-                alert.setView(input);
-                String[] options = {"Quiz","Question"};
-
                 final SharedPreferences.Editor edithere = sharedPreferences.edit();
 
-                alert.setSingleChoiceItems(options, -1, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
+                final Dialog dialog = new Dialog(getActivity());
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setContentView(R.layout.prof_qn_popup);
 
-                        if (i == 0) {
+                final EditText input = dialog.findViewById(R.id.quizName);
+                final RadioGroup rg = dialog.findViewById(R.id.radiobtns);
+
+                TextView submitbtn = dialog.findViewById(R.id.submit);
+                submitbtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        int selected = rg.getCheckedRadioButtonId();
+
+                        if (selected == R.id.quizBubble) {
                             edithere.putString("ActivityType","Quiz");
                         }
 
@@ -124,42 +127,36 @@ public class ActivityProfFrag extends Fragment implements QuizProfContract.View,
                             edithere.putString("ActivityType","Question");
                         }
 
+
+                        String quizname = input.getText().toString();
+
+
+                        edithere.putString("QuizName",quizname);
+                        edithere.commit();
+
+                        String ActivityType = sharedPreferences.getString("ActivityType",null);
+
+                        Fragment editQnfrag;
+
+                        if (ActivityType.equals("Quiz")) {
+                            editQnfrag = new EditQnListFrag();
+                            Bundle bundle = new Bundle();
+                            bundle.putSerializable("allthequestions",new ArrayList<QuizQuestions2DO>());
+                            editQnfrag.setArguments(bundle);
+                            SessionActivity myActivity = (SessionActivity)context;
+                            myActivity.getSupportFragmentManager().beginTransaction().replace(R.id.profsessionhere,editQnfrag).addToBackStack(null).commit();
+                        }
+
+                        else {
+                            QnCreator(input.getText().toString());
+                        }
+
+
+                        dialog.dismiss();
                     }
                 });
-                alert.setNegativeButton("Submit",
-                        new DialogInterface.OnClickListener() {
 
-
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-
-                                String quizname = input.getText().toString();
-
-
-                                edithere.putString("QuizName",quizname);
-                                edithere.commit();
-
-                                String ActivityType = sharedPreferences.getString("ActivityType",null);
-
-                                Fragment editQnfrag;
-
-                                if (ActivityType.equals("Quiz")) {
-                                    editQnfrag = new EditQnListFrag();
-                                    Bundle bundle = new Bundle();
-                                    bundle.putSerializable("allthequestions",new ArrayList<QuizQuestions2DO>());
-                                    editQnfrag.setArguments(bundle);
-                                    SessionActivity myActivity = (SessionActivity)context;
-                                    myActivity.getSupportFragmentManager().beginTransaction().replace(R.id.profsessionhere,editQnfrag).addToBackStack(null).commit();
-                                }
-
-                                else {
-                                    QnCreator(input.getText().toString());
-                                }
-                            }
-                        });
-                alert.show();
-
-                */
+                dialog.show();
 
             }
         });
@@ -171,7 +168,7 @@ public class ActivityProfFrag extends Fragment implements QuizProfContract.View,
     @Override
     public void showQuizes(ArrayList<QuizQuestions2DO> allthequestions) {
 
-        mQuizAdapter = new ActivityProfAdapter(allthequestions);
+        mQuizAdapter = new ActivityProfAdapter(allthequestions,context);
         quizRecycler.setAdapter(mQuizAdapter);
 
     }
@@ -211,7 +208,7 @@ public class ActivityProfFrag extends Fragment implements QuizProfContract.View,
 
                 QuizQuestions2DO tobeadded = new QuizQuestions2DO();
                 tobeadded.setQuizNameQnID(qnName + " " + getSaltString());
-                tobeadded.setSubjectCodeSessionCode(sharedPreferences.getString("CurrentCourseActivity", null).split(" ")[0]+sharedPreferences.getString(getString(R.string.session_id),""));
+                tobeadded.setSubjectCodeSessionCode(sharedPreferences.getString(getString(R.string.course_id), null)+sharedPreferences.getString(getString(R.string.session_id),""));
                 tobeadded.setIsItQn(true);
                 tobeadded.setQuestion(input.getText().toString());
 
@@ -221,6 +218,8 @@ public class ActivityProfFrag extends Fragment implements QuizProfContract.View,
                 dialogInterface.dismiss();
             }
         });
+
+        qnBuilder.show();
 
 
     }

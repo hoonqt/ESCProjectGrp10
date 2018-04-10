@@ -19,9 +19,11 @@ import android.widget.TextView;
 
 import com.example.esc_50005.Database.Quizstuff.QuizQuestions2DO;
 import com.example.esc_50005.Database.Quizstuff.QuizRemoteDataSource;
+import com.example.esc_50005.Log;
 import com.example.esc_50005.R;
 import com.example.esc_50005.UI.Session.Main.SessionActivity;
 import com.example.esc_50005.UI.Session.Prof.SideScreens.EditQnListFrag;
+import com.example.esc_50005.UI.Session.Prof.SideScreens.ProfResponsesFrag;
 import com.example.esc_50005.WebSocket.ProfWebSocket;
 
 import java.util.ArrayList;
@@ -39,7 +41,9 @@ public class ActivityProfAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private Context context;
     SharedPreferences sharedPreferences;
 
-    public ActivityProfAdapter(ArrayList<QuizQuestions2DO> input) {
+    public ActivityProfAdapter(ArrayList<QuizQuestions2DO> input, Context context) {
+
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
 
         names = new ArrayList<>();
         dataset = input;
@@ -88,7 +92,6 @@ public class ActivityProfAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         switch (viewType) {
             case 0: return new QuestionViewHolder(view);
-
             case 1: return new QuizViewHolder(view);
 
             default: return null;
@@ -102,15 +105,14 @@ public class ActivityProfAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
-        switch (holder.getItemViewType()) {
-            case 0:
-                QuestionViewHolder viewholder = (QuestionViewHolder)holder;
-                viewholder.bind(position);
+        if (holder.getItemViewType() == 0) {
+            QuestionViewHolder viewholder = (QuestionViewHolder)holder;
+            viewholder.bind(position);
+        }
 
-            case 1:
-                QuizViewHolder viewholder1 = (QuizViewHolder)holder;
-                viewholder1.bind(position);
-
+        else {
+            QuizViewHolder viewholder1 = (QuizViewHolder)holder;
+            viewholder1.bind(position);
         }
 
     }
@@ -144,8 +146,6 @@ public class ActivityProfAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                         @Override
                         public boolean onMenuItemClick(MenuItem menuItem) {
                             SharedPreferences.Editor editor = sharedPreferences.edit();
-                            editor.putString("currentquiz",mTextView.toString());
-                            editor.putString("currentSession",dataset.get(0).getSubjectCodeSessionCode());
                             editor.commit();
 
                             switch (menuItem.getItemId()) {
@@ -227,7 +227,7 @@ public class ActivityProfAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
                                             QuizQuestions2DO tobeadded = new QuizQuestions2DO();
                                             tobeadded.setQuizNameQnID(smallerdataset.get(getAdapterPosition()).getQuizNameQnID());
-                                            tobeadded.setSubjectCodeSessionCode(sharedPreferences.getString("CurrentCourseActivity", null).split(" ")[0]+sharedPreferences.getString("Current Session Id",""));
+                                            tobeadded.setSubjectCodeSessionCode(sharedPreferences.getString("Current Course Id", null)+sharedPreferences.getString("Current Session Id",""));
                                             tobeadded.setIsItQn(true);
                                             tobeadded.setQuestion(input.getText().toString());
 
@@ -237,11 +237,19 @@ public class ActivityProfAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                                             dialogInterface.dismiss();
                                         }
                                     });
+
+                                    qnBuilder.show();
                                     return true;
 
                                 case (R.id.responsesbutton):
-                                    //Goes to new fragment
-                                    return false;
+
+                                    ProfResponsesFrag responsesFrag = new ProfResponsesFrag();
+                                    Bundle bundle = new Bundle();
+                                    bundle.putString("quizName",mTextView.getText().toString());
+                                    responsesFrag.setArguments(bundle);
+                                    SessionActivity myActivity = (SessionActivity) context;
+                                    myActivity.getSupportFragmentManager().beginTransaction().replace(R.id.profsessionhere,responsesFrag).addToBackStack(null).commit();
+                                    return true;
 
                             }
                             return false;
