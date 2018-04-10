@@ -79,8 +79,8 @@ public class QuizEditor extends Fragment {
         mCurrentLayoutManagerType = QuizEditor.LayoutManagerType.LINEAR_LAYOUT_MANAGER;
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-        courseCode = sharedPreferences.getString("CurrentCourseActivity", null).split(" ")[0];
-        sessionID = sharedPreferences.getString("SessionSelected",null).split("-")[1].trim();
+        courseCode = sharedPreferences.getString(getString(R.string.course_id),null);
+        sessionID = sharedPreferences.getString(getString(R.string.session_id),null);
 
         dataSource = new QuizRemoteDataSource();
 

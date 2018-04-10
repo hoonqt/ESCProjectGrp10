@@ -11,6 +11,7 @@
         android:id="@+id/titlepopup"
         android:text="Create new activity"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:padding="10dp"
         android:textColor="#000000"/>
 
     <EditText
@@ -20,7 +21,8 @@
 
     <RadioGroup
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:id="@+id/radiobtns">
 
         <RadioButton
             android:layout_width="wrap_content"
@@ -34,5 +36,13 @@
             android:id="@+id/qnBubble"
             android:text="Question"/>
     </RadioGroup>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:text="Submit"
+        android:padding="10dp"
+        android:id="@+id/submit"/>
 
 </LinearLayout>

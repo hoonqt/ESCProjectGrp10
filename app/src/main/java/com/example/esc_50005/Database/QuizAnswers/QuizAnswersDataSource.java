@@ -8,7 +8,8 @@ import java.util.ArrayList;
 
 public interface QuizAnswersDataSource {
 
-    void addQuestion(String subjectCodesessionCode, String quizNameStudentID, String answer, String time);
-    ArrayList<QuizAnswersDO> getQuestions(String subjectCodesessionCode);
+    void addQuestion(QuizAnswersDO question);
+    void addQuestion(String subjectCodesessionCode, String quizNameStudentID, String answer, String time, String name);
+    ArrayList<QuizAnswersDO> getQuestions(String subjectCodesessionCode, String qnName);
 
 }
