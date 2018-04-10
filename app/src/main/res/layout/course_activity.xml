@@ -22,7 +22,7 @@
             app:collapsedTitleTextAppearance="@style/Transparent"
             app:contentScrim="?attr/colorPrimary"
             app:expandedTitleTextAppearance="@style/Transparent"
-            app:layout_scrollFlags="scroll|snap">
+            app:layout_scrollFlags="scroll|enterAlwaysCollapsed">
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -43,20 +43,24 @@
                     android:id="@+id/toolbar_title_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="16dp"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="30dp"
                     android:layout_gravity="center"
+                    android:gravity="left"
                     android:text="Elements of Software Construction"
-                    android:textAppearance="@style/Faq_Question" />
+                    android:textAppearance="@style/Toolbar_Title" />
 
                 <TextView
                     android:id="@+id/toolbartitle_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="45dp"
-                    android:layout_gravity="center"
+                    android:paddingTop="8dp"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="30dp"
+                    android:layout_gravity="left"
                     android:text="Course Code: 50.003"
-                    android:textAppearance="@style/Faq_Info" />
+                    android:textAppearance="@style/Toolbar_Subtitle" />
 
                 <!--<Button-->
                 <!--android:id="@+id/btntest"-->

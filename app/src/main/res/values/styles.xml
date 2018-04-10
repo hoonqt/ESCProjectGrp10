@@ -19,17 +19,37 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="Toolbar_Title" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/colorHeadline</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@font/lato_bold</item>
+    </style>
+
+    <style name="Toolbar_Subtitle" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/colorHeadline</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@font/lato_light</item>
+    </style>
+
     <style name="Faq_Question" parent="@android:style/TextAppearance.Medium">
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/colorHeadline</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:typeface">sans</item>
+        <item name="android:fontFamily">@font/lato_bold</item>
+    </style>
+
+    <style name="Faq_Content" parent="@style/TextAppearance.AppCompat.Body1">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/colorHeadline</item>
+        <item name="android:fontFamily">@font/lato_light</item>
     </style>
 
     <style name="Faq_Info" parent="@style/TextAppearance.AppCompat.Body1">
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">@color/colorHeadline</item>
-        <item name="android:typeface">sans</item>
+        <item name="android:fontFamily">@font/lato_light</item>
     </style>
 
     <style name="Transparent" parent="@style/TextAppearance.AppCompat.Body1">
