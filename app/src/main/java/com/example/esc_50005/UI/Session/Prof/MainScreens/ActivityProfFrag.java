@@ -20,16 +20,19 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.example.esc_50005.Database.Quizstuff.QuizQuestions2DO;
+import com.example.esc_50005.Database.Quizstuff.QuizRemoteDataSource;
 import com.example.esc_50005.R;
 import com.example.esc_50005.UI.Session.Prof.Adapters.ActivityProfAdapter;
 import com.example.esc_50005.UI.Session.Prof.Contracts.QuizProfContract;
 import com.example.esc_50005.UI.Session.Prof.Presenters.ActivityProfPresenter;
 import com.example.esc_50005.UI.Session.Main.SessionActivity;
 import com.example.esc_50005.UI.Session.Prof.SideScreens.EditQnListFrag;
+import com.example.esc_50005.UI.Session.Prof.SideScreens.QuizEditor;
 import com.example.esc_50005.WebSocket.ProfWebSocket;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Random;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -98,27 +101,57 @@ public class ActivityProfFrag extends Fragment implements QuizProfContract.View,
             public void onClick(View view) {
 
                 AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
-                alert.setMessage("Enter quiz name");
+                alert.setMessage("Enter quiz/question name");
                 alert.setTitle("Create new activity");
                 final EditText input = new EditText(getContext());
                 alert.setView(input);
+                String[] options = {"Quiz","Question"};
+
+                final SharedPreferences.Editor edithere = sharedPreferences.edit();
+
+                alert.setSingleChoiceItems(options, -1, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                        if (i == 0) {
+                            edithere.putString("ActivityType","Quiz");
+                        }
+
+                        else {
+                            edithere.putString("ActivityType","Question");
+                        }
+
+                    }
+                });
                 alert.setNegativeButton("Submit",
                         new DialogInterface.OnClickListener() {
+
+
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
+
                                 String quizname = input.getText().toString();
 
-                                SharedPreferences.Editor edithere = sharedPreferences.edit();
+
                                 edithere.putString("QuizName",quizname);
                                 edithere.commit();
 
-                                EditQnListFrag editQnfrag = new EditQnListFrag();
-                                Bundle bundle = new Bundle();
+                                String ActivityType = sharedPreferences.getString("ActivityType",null);
 
-                                bundle.putSerializable("allthequestions",new ArrayList<QuizQuestions2DO>());
-                                editQnfrag.setArguments(bundle);
-                                SessionActivity myActivity = (SessionActivity)context;
-                                myActivity.getSupportFragmentManager().beginTransaction().replace(R.id.profsessionhere,editQnfrag).addToBackStack(null).commit();
+                                Fragment editQnfrag;
+
+                                if (ActivityType.equals("Quiz")) {
+                                    editQnfrag = new EditQnListFrag();
+                                    Bundle bundle = new Bundle();
+                                    bundle.putSerializable("allthequestions",new ArrayList<QuizQuestions2DO>());
+                                    editQnfrag.setArguments(bundle);
+                                    SessionActivity myActivity = (SessionActivity)context;
+                                    myActivity.getSupportFragmentManager().beginTransaction().replace(R.id.profsessionhere,editQnfrag).addToBackStack(null).commit();
+                                }
+
+                                else {
+                                    QnCreator(input.getText().toString());
+                                }
                             }
                         });
                 alert.show();
@@ -157,5 +190,46 @@ public class ActivityProfFrag extends Fragment implements QuizProfContract.View,
     @Override
     public Context getContext() {
         return context;
+    }
+
+    void QnCreator(final String qnName) {
+
+        AlertDialog.Builder qnBuilder = new AlertDialog.Builder(getActivity());
+        qnBuilder.setTitle("Create " + qnName);
+        qnBuilder.setMessage("Enter question");
+        final EditText input = new EditText(getContext());
+        qnBuilder.setView(input);
+
+        qnBuilder.setNegativeButton("Submit", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+                QuizQuestions2DO tobeadded = new QuizQuestions2DO();
+                tobeadded.setQuizNameQnID(qnName + " " + getSaltString());
+                tobeadded.setSubjectCodeSessionCode(sharedPreferences.getString("CurrentCourseActivity", null).split(" ")[0]+sharedPreferences.getString(getString(R.string.session_id),""));
+                tobeadded.setIsItQn(true);
+                tobeadded.setQuestion(input.getText().toString());
+
+                QuizRemoteDataSource adder = new QuizRemoteDataSource();
+                adder.putQuestion(tobeadded);
+
+                dialogInterface.dismiss();
+            }
+        });
+
+
+    }
+
+    protected String getSaltString() {
+        String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        StringBuilder salt = new StringBuilder();
+        Random rnd = new Random();
+        while (salt.length() < 6) { // length of the random string.
+            int index = (int) (rnd.nextFloat() * SALTCHARS.length());
+            salt.append(SALTCHARS.charAt(index));
+        }
+        String saltStr = salt.toString();
+        return saltStr;
+
     }
 }

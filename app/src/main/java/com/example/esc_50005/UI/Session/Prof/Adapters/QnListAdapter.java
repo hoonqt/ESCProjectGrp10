@@ -31,7 +31,13 @@ public class QnListAdapter extends RecyclerView.Adapter<QnListAdapter.QnViewHold
     SharedPreferences sharedPreferences;
 
     public QnListAdapter(ArrayList<QuizQuestions2DO> input) {
-        questions = input;
+        questions = new ArrayList<>();
+
+        for (int i = 0;i<input.size();i++) {
+            if (input.get(i).getIsItQn() == false) {
+                questions.add(input.get(i));
+            }
+        }
 
 
     }
