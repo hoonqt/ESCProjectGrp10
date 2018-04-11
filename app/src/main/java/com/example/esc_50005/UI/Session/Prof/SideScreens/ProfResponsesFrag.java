@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.esc_50005.Database.QuizAnswers.QuizAnswersDO;
 import com.example.esc_50005.Log;
@@ -40,6 +41,8 @@ public class ProfResponsesFrag extends Fragment implements ResponseProfContract.
     private String sessionID;
 
     SharedPreferences sharedPreferences;
+
+    TextView questionBox;
 
     private enum LayoutManagerType {
         LINEAR_LAYOUT_MANAGER
@@ -79,13 +82,21 @@ public class ProfResponsesFrag extends Fragment implements ResponseProfContract.
         Bundle bundle = this.getArguments();
 
         String quizName = "";
+        String question = "";
 
         if (bundle != null) {
             quizName = bundle.getString("quizName");
+            question = bundle.getString("questionName");
         }
 
 
         mPresenter.loadResponses(courseCode,sessionID,quizName);
+
+        questionBox = view.findViewById(R.id.questionBox);
+
+        questionBox.setText(question);
+
+
 
 
         return view;

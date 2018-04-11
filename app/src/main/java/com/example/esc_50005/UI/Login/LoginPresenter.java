@@ -67,7 +67,7 @@ public class LoginPresenter implements LoginContract.Presenter  {
             mLoginView.showAccountLockedOut();
         }
         else{
-            mLoginView.showSuccessfulLogin(userBruteForceJsonData.get(0).getUserId());
+            mLoginView.showSuccessfulLogin(userBruteForceJsonData.get(0).getUserId(),userBruteForceJsonData.get(0).getFullName());
         }
     }
 
@@ -100,9 +100,9 @@ public class LoginPresenter implements LoginContract.Presenter  {
     }
 
     @Override
-    public void loadSuccessfulLogin(String userId) {
+    public void loadSuccessfulLogin(String userId, String name) {
 
-        mLoginView.showSuccessfulLogin(userId);
+        mLoginView.showSuccessfulLogin(userId,name);
     }
 
     public void checkIfLoginIsValid(ArrayList<EditedUsersInformationDO> userInformationJsonData, String password, String userType){
@@ -125,7 +125,7 @@ public class LoginPresenter implements LoginContract.Presenter  {
             }
             else if(userInformationJsonData.get(0).getPassword().equals(password))
             {
-                loadSuccessfulLogin(userInformationJsonData.get(0).getUserId());
+                loadSuccessfulLogin(userInformationJsonData.get(0).getUserId(),userInformationJsonData.get(0).getFullName());
             }
             else{
                 addBruteForceCount(userInformationJsonData.get(0).getUserId(),userInformationJsonData.get(0).getFullName());

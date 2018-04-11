@@ -15,7 +15,7 @@ public interface LoginContract {
     interface Presenter extends BasePresenter {
         void loadSignUp();
         void loadUnsuccessfulLogin();
-        void loadSuccessfulLogin(String userId);
+        void loadSuccessfulLogin(String userId,String name);
         void loadUsersFromDatabase(String userId, String userType, String password);
         void checkIfLoginIsValid(ArrayList<EditedUsersInformationDO> userInformationJsonData, String password, String userType);
         void addBruteForceCount(String username, String userType);
@@ -25,7 +25,7 @@ public interface LoginContract {
     }
     interface View extends BaseView <Presenter> {
         void showUnsuccessfulLogin();
-        void showSuccessfulLogin(String userId);
+        void showSuccessfulLogin(String userId, String name);
         void showSecurityQuestion();
         void showAccountLockedOut();
         void showSignUp();

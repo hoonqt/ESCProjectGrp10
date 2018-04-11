@@ -139,7 +139,7 @@ public class AnsweringZoneFrag extends Fragment {
 
             String userID = sharedPreferences.getString("UserID", null);
             String quizName = sharedPreferences.getString("QuizName",null);
-            String courseCode = sharedPreferences.getString("CurrentCourseActivity", null).split(" ")[0];
+            String courseCode = sharedPreferences.getString(getString(R.string.course_id),null);
             String userName = sharedPreferences.getString("Username",null);
 
             double inpercent = Math.round(((double)score/(double)qnRecycler.getChildCount())*100);
