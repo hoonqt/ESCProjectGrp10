@@ -246,6 +246,7 @@ public class ActivityProfAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                                     ProfResponsesFrag responsesFrag = new ProfResponsesFrag();
                                     Bundle bundle = new Bundle();
                                     bundle.putString("quizName",mTextView.getText().toString());
+                                    bundle.putString("questionName",smallerdataset.get(getAdapterPosition()).getQuestion());
                                     responsesFrag.setArguments(bundle);
                                     SessionActivity myActivity = (SessionActivity) context;
                                     myActivity.getSupportFragmentManager().beginTransaction().replace(R.id.profsessionhere,responsesFrag).addToBackStack(null).commit();

@@ -12,10 +12,19 @@
         android:layout_marginTop="70dp"
         android:background="#eeeeee">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:id="@+id/questionBox"
+            android:background="#ffffff"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="#000000" />
+
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="0dp"
+            android:layout_below="@id/questionbox"
             android:id="@+id/recyclerViewProfResponses">
 
         </android.support.v7.widget.RecyclerView>
