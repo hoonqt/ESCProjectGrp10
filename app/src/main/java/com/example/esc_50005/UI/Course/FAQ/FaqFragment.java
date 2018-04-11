@@ -112,7 +112,7 @@ public class FaqFragment extends Fragment implements FaqContract.View {
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.faq_fab);
 
         if (userType.equals("student")) {
-//            fab.setVisibility(View.GONE);
+            fab.setVisibility(View.GONE);
         }
 
         fab.setOnClickListener(new View.OnClickListener() {

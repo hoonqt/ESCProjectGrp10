@@ -40,7 +40,7 @@
                 android:paddingTop="60dp">
 
                 <TextView
-                    android:id="@+id/toolbar_title_text"
+                    android:id="@+id/toolbar_course_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="30dp"
@@ -51,7 +51,7 @@
                     android:textAppearance="@style/Toolbar_Title" />
 
                 <TextView
-                    android:id="@+id/toolbartitle_text"
+                    android:id="@+id/toolbar_course_code"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="45dp"
