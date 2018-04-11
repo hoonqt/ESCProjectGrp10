@@ -11,7 +11,8 @@ import com.example.esc_50005.R;
 import com.example.esc_50005.UI.Session.Prof.MainScreens.ActivityProfFrag;
 import com.example.esc_50005.UI.Session.Student.QuestionsFragment;
 import com.example.esc_50005.UI.Session.Student.StudentActivity.MainScreen.ActivityStudentFrag;
-import com.example.esc_50005.UI.Session.feedback.FeedbackFragment;
+import com.example.esc_50005.UI.Session.feedback.FeedbackProfFragment;
+import com.example.esc_50005.UI.Session.feedback.FeedbackStudentFragment;
 
 public class SessionPagerAdapter extends FragmentStatePagerAdapter {
 
@@ -37,6 +38,8 @@ public class SessionPagerAdapter extends FragmentStatePagerAdapter {
                     return new QuestionsFragment();
                 case 1:
                     return new ActivityStudentFrag();
+                case 2:
+                    return new FeedbackStudentFragment();
                 default:
                     return null;
             }
@@ -50,7 +53,7 @@ public class SessionPagerAdapter extends FragmentStatePagerAdapter {
                 case 1:
                     return new ActivityProfFrag();
                 case 2:
-                    return new FeedbackFragment();
+                    return new FeedbackProfFragment();
                 default:
                     return null;
             }

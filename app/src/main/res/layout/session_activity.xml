@@ -47,10 +47,11 @@
                                 android:textAppearance="@style/Toolbar_Title" />
 
                             <TextView
-                                android:id="@+id/toolbartitle_text"
+                                android:id="@+id/toolbar_course_code"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
+                                android:paddingTop="8dp"
                                 android:layout_marginBottom="45dp"
                                 android:text="Session Code: 001234"
                                 android:textAppearance="@style/Toolbar_Subtitle" />
