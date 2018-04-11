@@ -92,7 +92,7 @@ public class StudentSessionsFragment extends Fragment implements SessionsContrac
             }
         });
 
-        button= view.findViewById(R.id.questions_btn_add);
+        button= view.findViewById(R.id.add_sessions);
         button.setOnClickListener(this);
         attemptQuerySessions();
         return view;

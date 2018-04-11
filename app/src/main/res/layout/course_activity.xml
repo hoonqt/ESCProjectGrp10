@@ -32,6 +32,12 @@
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
+                <!--<ImageButton-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--style="?android:attr/borderlessButtonStyle"-->
+                    <!--android:background="@drawable/keyboard_left_arrow_button"/>-->
+
             </android.support.v7.widget.Toolbar>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -82,23 +88,6 @@
             android:theme="@style/ThemeOverlay.AppCompat.Light" />
 
     </android.support.design.widget.AppBarLayout>
-    <!--<android.support.v7.widget.Toolbar-->
-    <!--android:id="@+id/toolbar"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_alignParentTop="true"-->
-    <!--android:background="?attr/colorPrimary"-->
-    <!--android:minHeight="?attr/actionBarSize"-->
-    <!--android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"-->
-    <!--app:popupTheme="@style/ThemeOverlay.AppCompat.Light"-->
-    <!--/>-->
-
-    <!--<Button-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:text="Click Here!"-->
-    <!--android:id="@+id/clickToGoToPostQuestion"-->
-    <!--android:layout_alignParentRight="true"/>-->
 
     <android.support.v4.view.ViewPager
         android:id="@+id/pager"
@@ -106,5 +95,6 @@
         android:layout_height="fill_parent"
         android:layout_below="@id/tab_layout"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
 
 </android.support.design.widget.CoordinatorLayout>

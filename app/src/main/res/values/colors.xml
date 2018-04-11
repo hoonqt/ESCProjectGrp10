@@ -8,4 +8,5 @@
     <color name="white">#FFFFFF</color>
     <color name="colorHeadline">#111111</color>
     <color name="transparent">#00000000</color>
+    <color name="colorDashboard">#f3d1d1</color>
 </resources>
