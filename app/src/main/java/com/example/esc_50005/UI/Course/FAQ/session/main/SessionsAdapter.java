@@ -94,6 +94,7 @@ public class SessionsAdapter extends RecyclerView.Adapter<SessionsAdapter.Sessio
 
         TextView session_card;
         ImageButton button;
+        TextView session_date;
 
 
         SessionsViewHolder(View v) {
@@ -102,6 +103,7 @@ public class SessionsAdapter extends RecyclerView.Adapter<SessionsAdapter.Sessio
             v.setOnClickListener(this);
 
             session_card = (TextView) v.findViewById(R.id.session_details);
+            session_date= (TextView) v.findViewById(R.id.session_date);
 
             button=v.findViewById(R.id.click_to_get_options);
             button.setOnClickListener(new View.OnClickListener() {
@@ -170,9 +172,9 @@ public class SessionsAdapter extends RecyclerView.Adapter<SessionsAdapter.Sessio
             session.append(mSessionsList.get(position).getSessionDate());
             session.append(" ");
             session.append(mSessionsList.get(position).getSessionName());
+            session_date.setText(mSessionsList.get(position).getSessionDate());
 
-
-            session_card.setText(session.toString());
+            session_card.setText(mSessionsList.get(position).getSessionName());
         }
 
         @Override
