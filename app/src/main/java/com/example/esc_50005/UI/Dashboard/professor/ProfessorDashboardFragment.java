@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -45,7 +46,7 @@ public class ProfessorDashboardFragment extends Fragment implements DashboardCon
     private RecyclerView coursesListRecycler;
     private ProfessorDashboardFragment.LayoutManagerType mCurrentLayoutManagerType;
     private RecyclerView.LayoutManager mLayoutManager;
-    private Button button;
+    private FloatingActionButton button;
     private Button deleteCourse;
     private SwipeRefreshLayout swipeLayout;
 
@@ -88,7 +89,7 @@ public class ProfessorDashboardFragment extends Fragment implements DashboardCon
         mLayoutManager= new GridLayoutManager(getActivity(),2);
 //        mCurrentLayoutManagerType = ProfessorDashboardFragment.LayoutManagerType.LINEAR_LAYOUT_MANAGER;
         coursesListRecycler.setLayoutManager(new GridLayoutManager(view.getContext(),2));
-        button=view.findViewById(R.id.addNewCourse);
+        button=view.findViewById(R.id.add_courses);
         button.setOnClickListener(this);
 
         swipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.courses_swipe);

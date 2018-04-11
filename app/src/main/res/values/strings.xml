@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name"></string>
     <string name="faq">FAQ</string>
     <string name="progress">Progress</string>
     <string name="sessions">Sessions</string>
@@ -7,7 +6,7 @@
     <string name="activities">Activities</string>
     <string name="rating_title">Feedback</string>
     <string name="rating_message">How was the class today?</string>
-    <string name="course_name">Elements of Software Construction</string>
+    <string name="course_name">Course Name</string>
     <string name="recyclerViewFaqs">Elements of Software Construction</string>
     <string name="title_activity_session">Elements of Software Construction</string>
     <string name="prompt_password">Password</string>
@@ -47,5 +46,6 @@
     <string name="start_session">Start Session</string>
     <string name="delete_session">Delete Session</string>
     <string name="session_id">Current Session Id</string>
+    <string name="application_name">Eureka</string>
 
 </resources>

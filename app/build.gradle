@@ -18,6 +18,9 @@ android {
         preDexLibraries = false
         javaMaxHeapSize "4g" // 2g should be also OK
     }
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
     buildTypes {
         release {
             minifyEnabled false

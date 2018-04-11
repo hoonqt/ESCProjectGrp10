@@ -130,13 +130,11 @@ public class SessionsPresenter implements SessionsContract.Presenter {
 
         if(sessionsJsonData.size()==0 && userType.equals("professor"))
         {
-            Log.i("here at size is 0","size is 0");
             addNewSession(userType,sessionId,sessionName,timeOfCreation,courseId);
         }
 
         else if(sessionsJsonData.size()==0 && userType.equals("student"))
         {
-            Log.i("here at size is 0","size is 0");
             addInvalidNewSession();
         }
 
@@ -159,7 +157,6 @@ public class SessionsPresenter implements SessionsContract.Presenter {
             case "student":
                 break;
             case "professor":
-                Log.i("here at size is 0","prof add new session");
                 mSessionsRepository.addSession(sessionId,sessionName,timeOfCreation,courseId);
         }
 

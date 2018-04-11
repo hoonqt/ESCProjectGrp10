@@ -32,7 +32,6 @@ public class CoursesAdapter extends RecyclerView.Adapter<CoursesAdapter.CoursesV
 
 
     public CoursesAdapter(ArrayList<String> coursesList, CoursesItemListener CoursesItemListener, Context context, DeleteCourseItemListener DeleteItemListener){
-        Log.i("coursesAdapter","coursesAdapter");
         this.mDeleteCourseItemListener=DeleteItemListener;
         this.mCoursesList = coursesList;
         this.context=context;
@@ -75,12 +74,14 @@ public class CoursesAdapter extends RecyclerView.Adapter<CoursesAdapter.CoursesV
 
     class CoursesViewHolder extends RecyclerView.ViewHolder implements  View.OnClickListener {
 
-       TextView question;
+       TextView courseName;
+       TextView courseId;
 
         CoursesViewHolder(View v){
 
             super(v);
-            question = (TextView) v.findViewById(R.id.courseName);
+            courseName = (TextView) v.findViewById(R.id.courseName);
+            courseId= v.findViewById(R.id.courseId);
             v.setOnClickListener(this);
             deleteCourse=v.findViewById(R.id.delete_course);
             deleteCourse.setOnClickListener(new View.OnClickListener(){
@@ -96,7 +97,15 @@ public class CoursesAdapter extends RecyclerView.Adapter<CoursesAdapter.CoursesV
 
         public void bind(int position ){
             String course = mCoursesList.get(position);
-            question.setText(course);
+            String[] fullCourseName=course.split("\\s+");
+            StringBuilder builder= new StringBuilder();
+            for(int i=1; i<fullCourseName.length;i++)
+            {
+                builder.append(fullCourseName[i]);
+                builder.append(" ");
+            }
+            courseId.setText(fullCourseName[0]);
+            courseName.setText(builder.toString());
         }
 
         @Override
@@ -104,6 +113,15 @@ public class CoursesAdapter extends RecyclerView.Adapter<CoursesAdapter.CoursesV
         {
             int clickedPosition=getAdapterPosition();
             SharedPreferences.Editor editor = sharedPreferences.edit();
+            String courseFullName=mCoursesList.get(clickedPosition);
+            String[] splitCourseFullName=courseFullName.split("\\s+");
+            StringBuilder builder= new StringBuilder();
+            for(int i=1; i<splitCourseFullName.length;i++)
+            {
+                builder.append(i);
+                builder.append(" ");
+            }
+            editor.putString(context.getResources().getString(R.string.course_name),splitCourseFullName[1]);
             editor.putString(context.getResources().getString(R.string.course_full_name),mCoursesList.get(clickedPosition));
             String[] fullName=mCoursesList.get(clickedPosition).split("\\s+");
             editor.putString(context.getResources().getString(R.string.course_id),fullName[0]);

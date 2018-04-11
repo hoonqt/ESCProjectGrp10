@@ -22,13 +22,13 @@ public class TestAll
     	System.out.println("test count " );
     	JUnit4TestAdapter suite = new JUnit4TestAdapter (TestAll.class);
     	TestResult result=junit.textui.TestRunner.run(suite);
-    	
+
     	List<junit.framework.Test> list = suite.getTests();
     	System.out.println("test count " + list.size());
     	for (int i = 0; i < list.size(); i++) {
     		junit.textui.TestRunner.run(list.get(i));
     	}
-    	
+
 //    	Result result = JUnitCore.runClasses(FindMaxTest.class);
 //    	while (result.failures().hasMoreElements()) {
 //    		Failure param = result.failures().nextElement().getClass();
