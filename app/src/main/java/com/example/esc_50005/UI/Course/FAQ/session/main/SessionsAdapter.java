@@ -89,36 +89,6 @@ public class SessionsAdapter extends RecyclerView.Adapter<SessionsAdapter.Sessio
 
     }
 
-//    @Override
-//    public void onClick(View view) {
-//
-//    }
-
-
-//    @Override
-//    public void onClick(View view) {
-//
-//        Log.i("here at click","here at click");
-//        switch( view.getId() ) {
-//            case R.id.showBottomSheetDialog: {
-//                if(clicked==false)
-//                {
-//                    mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-//                    clicked=true;
-//                    break;
-//                }
-//                else if(clicked==true)
-//                {
-//                    mBottomSheetBehavior.setPeekHeight(0);
-//                    mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-//                    clicked=false;
-//                    break;
-//                }
-//
-//            }
-//        }
-//
-//    }
 
     class SessionsViewHolder extends RecyclerView.ViewHolder implements  View.OnClickListener {
 
@@ -211,8 +181,14 @@ public class SessionsAdapter extends RecyclerView.Adapter<SessionsAdapter.Sessio
             int clickedPosition=getAdapterPosition();
             sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString(context.getResources().getString(R.string.session_id),mSessionsList.get(clickedPosition).getSessionId());
+            editor.putString(
+                    context.getResources().getString(R.string.session_id),
+                    mSessionsList.get(clickedPosition).getSessionId());
+            editor.putString(
+                    context.getResources().getString(R.string.session_name),
+                    mSessionsList.get(clickedPosition).getSessionName());
             editor.commit();
+            Log.i("this is session name",sharedPreferences.getString(context.getResources().getString(R.string.session_name),""));
             context.startActivity(new Intent(context, SessionActivity.class));
         }
     }

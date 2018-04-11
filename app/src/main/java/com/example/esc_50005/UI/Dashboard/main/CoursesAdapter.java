@@ -118,14 +118,15 @@ public class CoursesAdapter extends RecyclerView.Adapter<CoursesAdapter.CoursesV
             StringBuilder builder= new StringBuilder();
             for(int i=1; i<splitCourseFullName.length;i++)
             {
-                builder.append(i);
+                builder.append(splitCourseFullName[i]);
                 builder.append(" ");
             }
-            editor.putString(context.getResources().getString(R.string.course_name),splitCourseFullName[1]);
+            editor.putString(context.getResources().getString(R.string.course_name),builder.toString());
             editor.putString(context.getResources().getString(R.string.course_full_name),mCoursesList.get(clickedPosition));
             String[] fullName=mCoursesList.get(clickedPosition).split("\\s+");
             editor.putString(context.getResources().getString(R.string.course_id),fullName[0]);
             editor.commit();
+            Log.i("this is it",sharedPreferences.getString(context.getResources().getString(R.string.course_name),""));
 
             mCoursesItemListener.moveToCourseScreen(mCoursesList.get(getAdapterPosition()));
         }

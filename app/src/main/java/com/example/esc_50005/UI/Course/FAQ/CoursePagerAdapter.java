@@ -15,9 +15,6 @@ import com.example.esc_50005.UI.Course.FAQ.session.professor.ProfessorSessionsFr
 import com.example.esc_50005.UI.Course.FAQ.session.student.StudentSessionsFragment;
 
 
-/**
- * Created by YiLong on 30/11/17.
- */
 
 //use ctl+i in order to implement the method required by abstract class
 
