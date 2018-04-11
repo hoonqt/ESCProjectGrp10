@@ -2,6 +2,8 @@ package com.example.esc_50005.UI.Course.FAQ;
 
 
 import android.content.SharedPreferences;
+import android.graphics.Paint;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
@@ -15,6 +17,7 @@ import android.view.ViewGroup;
 import com.example.esc_50005.Database.utilities.Injection;
 import com.example.esc_50005.R;
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
@@ -146,23 +149,34 @@ public class ProgressStudentFragment extends Fragment implements ProgressContrac
     @Override
     public void showProgress(final ArrayList<Double> scoreList) {
 
+
             Log.i(TAG, "hi" + scoreList.size());
 
-        mChart.getDescription().setEnabled(false);
-        mChart.setMaxVisibleValueCount(40);
+        if(scoreList.size()!=0){
+            mChart.getDescription().setEnabled(false);
+            mChart.setMaxVisibleValueCount(40);
 
-        final String[] ds = new String[scoreList.size()];
-        Log.i("ShowProgress", "scoreList size " + scoreList.size());
-        for(int i=0; i<scoreList.size();i++){
-            ds[i]= "Quiz " + (i+1);
+            final String[] ds = new String[scoreList.size()];
+            Log.i("ShowProgress", "scoreList size " + scoreList.size());
+            for(int i=0; i<scoreList.size();i++){
+                ds[i]= "Quiz " + (i+1);
+            }
+
+
+            XAxis xval = mChart.getXAxis();
+            xval.setDrawLabels(false);
+
+            setData(scoreList);
+            mChart.setFitBars(false);
         }
-
-
-        XAxis xval = mChart.getXAxis();
-        xval.setDrawLabels(false);
-
-        setData(scoreList);
-        mChart.setFitBars(false);
+        mChart.setNoDataText("There are no results currently");
+        Paint p = mChart.getPaint(Chart.PAINT_INFO);
+        p.setTextSize(50);
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//            p.setTypeface(getResources().getFont(R.font.lato_black));
+//        }
+        p.setColor(getResources().getColor(R.color.colorPrimary));
+//        p.setTypeface(...);
 
 //        SessionQuestionsRemoteDataSource session= new SessionQuestionsRemoteDataSource();
 //        session.addQuestion("What is the difference between Observer and Strategy Design Pattern?","111");
