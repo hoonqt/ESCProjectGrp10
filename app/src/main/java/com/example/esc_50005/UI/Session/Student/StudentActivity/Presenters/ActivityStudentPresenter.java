@@ -45,24 +45,29 @@ public class ActivityStudentPresenter implements QuizStudentContract.Presenter {
 
         WebSocket socket = new WebSocket();
         socket.send("sinita113");
-        loadQuizes("50.005","101");
+        loadQuizes("50.005","101","Quiz 1");
 
 
     }
 
     public void sendQuestions(String input) {
 
-        String part1 = input.substring(0,6);
-        String part2 = input.substring(6);
-        loadQuizes(part1,part2);
+        String[] received = input.split(" ");
+        if (received.length == 3) {
+
+            String part1 = received[1].substring(0,6);
+            String part2 = received[1].substring(6);
+            loadQuizes(part1,part2,received[2]);
+        }
+
 
     }
 
 
 
     @Override
-    public void loadQuizes(String subjectCode, String sessionCode) {
-        questionData = mQuizQuestionsRepository.getQuestions(subjectCode,sessionCode);
+    public void loadQuizes(String subjectCode, String sessionCode, String quizName) {
+        questionData = mQuizQuestionsRepository.getOneQuestion(subjectCode,sessionCode,quizName);
         mQuizStudentView.showQuizes(questionData);
         Log.i("Size of data:", Integer.toString(questionData.size()));
     }
@@ -72,10 +77,6 @@ public class ActivityStudentPresenter implements QuizStudentContract.Presenter {
 
     }
 
-    @Override
-    public ArrayList<QuizQuestions2DO> getQuestionData(String subjectCode, String sessionCode) {
-        return null;
-    }
 
     private class WebSocket {
 

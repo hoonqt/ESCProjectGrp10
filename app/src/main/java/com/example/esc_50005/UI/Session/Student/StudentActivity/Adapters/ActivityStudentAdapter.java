@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.example.esc_50005.Database.QuizAnswers.QuizAnswersDO;
 import com.example.esc_50005.Database.QuizAnswers.QuizAnswersRemoteDataSource;
 import com.example.esc_50005.Database.Quizstuff.QuizQuestions2DO;
+import com.example.esc_50005.Log;
 import com.example.esc_50005.R;
 import com.example.esc_50005.UI.Session.Main.SessionActivity;
 import com.example.esc_50005.UI.Session.Student.StudentActivity.SideScreens.AnsweringZoneFrag;
@@ -174,9 +175,12 @@ public class ActivityStudentAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                     String formatted = formatter.format(date);
 
                     QuizAnswersDO answers = new QuizAnswersDO();
-                    answers.setName("Don Lemon");
+                    String name = sharedPreferences.getString("Full Name",null);
+                    String studentID = sharedPreferences.getString("User Id",null);
+
+                    answers.setName(name);
                     answers.setAnswer(input.getText().toString());
-                    answers.setQuizNameStudentID(names.get(getAdapterPosition())+"1002212");
+                    answers.setQuizNameStudentID(names.get(getAdapterPosition())+studentID);
                     answers.setTime(formatted);
                     answers.setSubjectCodeSessionCode(smallerdataset.get(getAdapterPosition()).getSubjectCodeSessionCode());
 

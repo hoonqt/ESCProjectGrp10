@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebBackForwardList;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.PopupMenu;
@@ -28,6 +29,8 @@ import com.example.esc_50005.WebSocket.ProfWebSocket;
 
 import java.util.ArrayList;
 
+import okhttp3.WebSocket;
+
 /**
  * Created by hoonqt on 25/3/18.
  */
@@ -42,8 +45,6 @@ public class ActivityProfAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     SharedPreferences sharedPreferences;
 
     public ActivityProfAdapter(ArrayList<QuizQuestions2DO> input, Context context) {
-
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
 
         names = new ArrayList<>();
         dataset = input;
@@ -80,6 +81,8 @@ public class ActivityProfAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(parent.getContext());
+
         int layoutIDForListItem = R.layout.profquiz_recycler;
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         boolean shouldAttachToParentImmediately = false;
@@ -97,7 +100,6 @@ public class ActivityProfAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             default: return null;
 
         }
-
 
     }
 
@@ -145,8 +147,6 @@ public class ActivityProfAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                         @Override
                         public boolean onMenuItemClick(MenuItem menuItem) {
-                            SharedPreferences.Editor editor = sharedPreferences.edit();
-                            editor.commit();
 
                             switch (menuItem.getItemId()) {
                                 case (R.id.editbutton):
@@ -176,7 +176,13 @@ public class ActivityProfAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             switchUp.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
+                    if (isChecked) {
+                        ProfWebSocket socket = ProfWebSocket.getInstance();
+                        String subjectCode = sharedPreferences.getString("Current Course Id",null);
+                        String sessionCode = sharedPreferences.getString("Current Session Id",null);
+                        String quizName = names.get(getAdapterPosition());
+                        socket.sendMsg("psend " + subjectCode + sessionCode + " " + quizName);
+                    }
                 }
             });
 

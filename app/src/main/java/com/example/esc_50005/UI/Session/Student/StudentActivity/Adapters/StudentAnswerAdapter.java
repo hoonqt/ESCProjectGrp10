@@ -81,6 +81,11 @@ public class StudentAnswerAdapter extends RecyclerView.Adapter<StudentAnswerAdap
             option3 = v.findViewById(R.id.option3);
             option4 = v.findViewById(R.id.option4);
 
+            option1.setVisibility(View.INVISIBLE);
+            option2.setVisibility(View.INVISIBLE);
+            option3.setVisibility(View.INVISIBLE);
+            option4.setVisibility(View.INVISIBLE);
+
 
 
         }
@@ -91,6 +96,19 @@ public class StudentAnswerAdapter extends RecyclerView.Adapter<StudentAnswerAdap
             questionbox.setText(question.getQuestion());
             option1.setText(question.getOptions().get(0));
             option2.setText(question.getOptions().get(1));
+            option1.setVisibility(View.VISIBLE);
+            option2.setVisibility(View.VISIBLE);
+
+            if (question.getOptions().size() == 3) {
+                option3.setText(question.getOptions().get(2));
+                option3.setVisibility(View.VISIBLE);
+            }
+
+            else if (question.getOptions().size() == 4) {
+                option4.setText(question.getOptions().get(3));
+                option4.setVisibility(View.VISIBLE);
+            }
+
 
         }
     }

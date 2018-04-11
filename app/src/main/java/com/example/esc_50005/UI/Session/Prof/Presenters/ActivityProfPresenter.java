@@ -27,8 +27,6 @@ public class ActivityProfPresenter implements QuizProfContract.Presenter{
 
     SharedPreferences sharedPreferences;
 
-    String courseCode;
-    String sessionID;
 
     public ActivityProfPresenter(@NonNull QuizProfContract.View quizProfView,Context context) {
 
@@ -36,15 +34,11 @@ public class ActivityProfPresenter implements QuizProfContract.Presenter{
         mQuizProfView = checkNotNull(quizProfView,"Quiz not null");
         mQuizProfView.setPresenter(this);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        courseCode = sharedPreferences.getString(context.getResources().getString(R.string.course_id), null);
-        sessionID = sharedPreferences.getString(context.getResources().getString(R.string.session_id),null);
 
     }
 
     @Override
     public void start() {
-
-        loadQuizes(courseCode,sessionID);
 
     }
 

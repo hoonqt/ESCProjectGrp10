@@ -162,7 +162,9 @@ public class ProfessorSessionsFragment extends Fragment implements SessionsContr
                 editor.putString(getString(R.string.end_session), "True");
                 editor.commit();
 
-                websock.sendMsg("penda113");
+                String sessionCode = sharedPreferences.getString(getString(R.string.session_id),null);
+
+                websock.sendMsg("pend"+sessionCode);
                 websock.end();
                 return true;
             }
@@ -172,7 +174,9 @@ public class ProfessorSessionsFragment extends Fragment implements SessionsContr
                 editor.putString(getString(R.string.delete_session), "True");
                 editor.commit();
 
-                websock.sendMsg("psenda113");
+                String sessionCode = sharedPreferences.getString(getString(R.string.session_id),null);
+
+                websock.sendMsg("pinit" + sessionCode);
 
                 return true;
             }
