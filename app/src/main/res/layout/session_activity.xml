@@ -44,7 +44,7 @@
                                 android:paddingLeft="16dp"
                                 android:paddingRight="16dp"
                                 android:text="SESSION NAME"
-                                android:textAppearance="@style/Faq_Question" />
+                                android:textAppearance="@style/CardView_Title" />
 
                             <TextView
                                 android:id="@+id/toolbartitle_text"
@@ -53,7 +53,7 @@
                                 android:layout_gravity="center"
                                 android:layout_marginBottom="45dp"
                                 android:text="Session Code: 001234"
-                                android:textAppearance="@style/Faq_Info" />
+                                android:textAppearance="@style/CardView_Subtext" />
 
                         </LinearLayout>
 
