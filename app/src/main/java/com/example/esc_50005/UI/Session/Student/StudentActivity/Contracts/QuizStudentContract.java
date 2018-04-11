@@ -19,9 +19,8 @@ public interface QuizStudentContract {
     }
 
     interface Presenter extends BasePresenter {
-        void loadQuizes(String subjectCode, String sessionCode);
+        void loadQuizes(String subjectCode, String sessionCode, String quizName);
         void processEmptyQuiz();
-        ArrayList<QuizQuestions2DO> getQuestionData(String subjectCode, String sessionCode);
 
     }
 

@@ -5,6 +5,9 @@ import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBQueryExpression;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.PaginatedList;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
+import com.amazonaws.services.dynamodbv2.model.AttributeValue;
+import com.amazonaws.services.dynamodbv2.model.ComparisonOperator;
+import com.amazonaws.services.dynamodbv2.model.Condition;
 import com.example.esc_50005.Database.FAQ.FaqRemoteDataSource;
 
 import java.util.ArrayList;
@@ -81,6 +84,49 @@ public class QuizRemoteDataSource {
 
                 DynamoDBQueryExpression queryExpression = new DynamoDBQueryExpression()
                         .withHashKeyValues(adder);
+
+                PaginatedList<QuizQuestions2DO> result = dynamoDBMapper.query(QuizQuestions2DO.class, queryExpression);
+
+                for (QuizQuestions2DO score : result) {
+                    questionsArrayList.add(score);
+                }
+
+            }
+        });
+
+        random.start();
+
+        try {
+            random.join();
+        }
+
+        catch (InterruptedException ex) {
+        }
+
+
+
+        return questionsArrayList;
+    }
+
+    public ArrayList<QuizQuestions2DO> getOneQuestion(final String subjCode, final String sessionCode, final String quizName) {
+
+        questionsArrayList = new ArrayList<QuizQuestions2DO>();
+
+        Thread random = new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                final QuizQuestions2DO adder = new QuizQuestions2DO();
+                adder.setSubjectCodeSessionCode(subjCode+sessionCode);
+
+                Condition rangeKeyCondition = new Condition()
+                        .withComparisonOperator(ComparisonOperator.BEGINS_WITH)
+                        .withAttributeValueList(new AttributeValue().withS(quizName));
+
+                DynamoDBQueryExpression queryExpression = new DynamoDBQueryExpression()
+                        .withHashKeyValues(adder)
+                        .withRangeKeyCondition("QuizNameQnID",rangeKeyCondition)
+                        .withConsistentRead(false);
 
                 PaginatedList<QuizQuestions2DO> result = dynamoDBMapper.query(QuizQuestions2DO.class, queryExpression);
 

@@ -1,9 +1,10 @@
 package com.example.esc_50005.UI.Session.feedback;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -12,7 +13,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.esc_50005.Database.feedback.Feedback;
 import com.example.esc_50005.R;
@@ -27,7 +29,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 
 
-public class FeedbackFragment extends Fragment implements FeedbackContract.View {
+public class FeedbackStudentFragment extends Fragment implements FeedbackContract.View {
 
     private enum LayoutManagerType {
         LINEAR_LAYOUT_MANAGER
@@ -36,23 +38,29 @@ public class FeedbackFragment extends Fragment implements FeedbackContract.View 
     protected LayoutManagerType mCurrentLayoutManagerType;
     protected RecyclerView.LayoutManager mLayoutManager;
     private FeedbackContract.Presenter mPresenter = new FeedbackPresenter(this);
-    private LinearLayout mFeedbackView;
-    private RecyclerView feedbackListRecycler;
     private SwipeRefreshLayout swipeLayout;
+    private TextView tv_message;
+    private Button btn_add;
 
-    private FeedbackAdapter mFeedbackAdapter;
+    SharedPreferences userInformation;
+    String sessionId;
+    String userId;
 
-    public FeedbackFragment() {
+    public FeedbackStudentFragment() {
         // Required empty public constructor
     }
 
-    public static FeedbackFragment newInstance() {
-        return new FeedbackFragment();
+    public static FeedbackStudentFragment newInstance() {
+        return new FeedbackStudentFragment();
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        userInformation = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
+        sessionId = userInformation.getString(getString(R.string.session_id), "");
+        userId = userInformation.getString(getString(R.string.user_id), "");
+        mPresenter.setSessionId(sessionId);
     }
 
     @Override
@@ -70,11 +78,7 @@ public class FeedbackFragment extends Fragment implements FeedbackContract.View 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_feedback, container, false);
-        feedbackListRecycler = (RecyclerView) view.findViewById(R.id.feedback_rv);
-        mLayoutManager = new LinearLayoutManager(getActivity());
-        mCurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
-        feedbackListRecycler.setLayoutManager(new LinearLayoutManager(this.getActivity()));
+        View view = inflater.inflate(R.layout.fragment_feedback_student, container, false);
 
         swipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.feedback_swipe);
         swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -84,9 +88,10 @@ public class FeedbackFragment extends Fragment implements FeedbackContract.View 
             }
         });
 
+        btn_add = (Button) view.findViewById(R.id.feedback_btn_add);
+        tv_message = (TextView) view.findViewById(R.id.feedback_tv_message);
 
-        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.feedback_fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showFeedbackDialogUi();
@@ -99,13 +104,24 @@ public class FeedbackFragment extends Fragment implements FeedbackContract.View 
     public void showFeedbackDialogUi() {
         FragmentManager fm = getFragmentManager();
         FeedbackDialog feedbackDialogFragment = FeedbackDialog.newInstance();
-        feedbackDialogFragment.show(fm,"tag");
+        feedbackDialogFragment.show(fm, "tag");
     }
 
     public void showFeedback(ArrayList<Feedback> feedbackList) {
-
-        mFeedbackAdapter = new FeedbackAdapter(feedbackList);
-        feedbackListRecycler.setAdapter(mFeedbackAdapter);
+        boolean gaveFeedback = false;
+        for (Feedback fb : feedbackList) {
+            if (fb.getStudentId().equals(userId)) {
+                gaveFeedback = true;
+                break;
+            }
+        }
+        if (gaveFeedback) {
+            btn_add.setVisibility(View.INVISIBLE);
+            tv_message.setText("Thanks for your feedback!");
+        } else {
+            tv_message.setText("How was today's session?");
+            btn_add.setVisibility(View.VISIBLE);
+        }
     }
 
     public void feedbackLoaded() {
