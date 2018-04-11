@@ -17,6 +17,10 @@ public class FeedbackDialogPresenter implements FeedbackDialogContract.Presenter
 
     private final FeedbackDialogContract.View mFeedbackView;
 
+    private String sessionId;
+    private String userId;
+    private String name;
+
 //    public FeedbackDialogPresenter(@NonNull FeedbackRepository feedbackRepository,
 //                             @NonNull FeedbackDialogContract.View feedbackView) {
 //        mFeedbackRepository = checkNotNull(feedbackRepository, "tasksRepository cannot be null");;
@@ -37,11 +41,11 @@ public class FeedbackDialogPresenter implements FeedbackDialogContract.Presenter
     @Override
     public void addFeedback(float rating, String message) {
         Feedback newFeedback = new Feedback();
-        newFeedback.setSessionId("1234");
-        newFeedback.setAuthor("John");
+        newFeedback.setSessionId(sessionId);
+        newFeedback.setAuthor(name);
         newFeedback.setComment(message);
         newFeedback.setRating(rating);
-        newFeedback.setStudentId("1001688");
+        newFeedback.setStudentId(userId);
 
         mFeedbackRepository.saveFeedback(newFeedback);
         mFeedbackView.dismissDialog();
@@ -51,5 +55,17 @@ public class FeedbackDialogPresenter implements FeedbackDialogContract.Presenter
     @Override
     public void onLaterClicked() {
         mFeedbackView.dismissDialog();
+    }
+
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

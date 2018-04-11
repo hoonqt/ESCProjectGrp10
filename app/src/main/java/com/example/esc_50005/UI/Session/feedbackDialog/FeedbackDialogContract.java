@@ -14,7 +14,9 @@ public interface FeedbackDialogContract {
 
     interface Presenter extends BasePresenter {
         void addFeedback(float rating, String message);
-
+        void setUserId(String userId);
+        void setSessionId(String sessionId);
+        void setName(String name);
         void onLaterClicked();
     }
 }

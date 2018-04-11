@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -43,7 +44,7 @@ public class StudentDashboardFragment extends Fragment implements DashboardContr
     private RecyclerView coursesListRecycler;
     private StudentDashboardFragment.LayoutManagerType mCurrentLayoutManagerType;
     private RecyclerView.LayoutManager mLayoutManager;
-    private Button button;
+    private FloatingActionButton button;
     private SwipeRefreshLayout swipeLayout;
 
     public StudentDashboardFragment() {
@@ -83,7 +84,7 @@ public class StudentDashboardFragment extends Fragment implements DashboardContr
         mCurrentLayoutManagerType = StudentDashboardFragment.LayoutManagerType.LINEAR_LAYOUT_MANAGER;
         coursesListRecycler.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
-        button=view.findViewById(R.id.addNewCourse);
+        button=view.findViewById(R.id.add_courses);
         button.setOnClickListener(this);
         swipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.courses_swipe);
         swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {

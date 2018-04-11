@@ -54,6 +54,9 @@ public class ActivityProfFrag extends Fragment implements QuizProfContract.View,
     private QuizProfContract.Presenter mPresenter;
     SharedPreferences sharedPreferences;
 
+    String courseCode;
+    String sessionID;
+
     private enum LayoutManagerType {
         LINEAR_LAYOUT_MANAGER
     }
@@ -97,6 +100,11 @@ public class ActivityProfFrag extends Fragment implements QuizProfContract.View,
         quizRecycler.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+
+        courseCode = sharedPreferences.getString(context.getResources().getString(R.string.course_id), null);
+        sessionID = sharedPreferences.getString(context.getResources().getString(R.string.session_id),null);
+
+        mPresenter.loadQuizes(courseCode,sessionID);
 
         FloatingActionButton fab = view.findViewById(R.id.fabbtn);
         fab.setOnClickListener(new View.OnClickListener() {
