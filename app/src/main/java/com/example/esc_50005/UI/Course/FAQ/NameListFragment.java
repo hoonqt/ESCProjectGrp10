@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
+import com.example.esc_50005.Database.utilities.Injection;
 import com.example.esc_50005.R;
 
 import java.util.ArrayList;
@@ -49,7 +50,7 @@ public class NameListFragment extends Fragment implements ProgressContract.View 
 
     protected LayoutManagerType mCurrentLayoutManagerType;
     protected RecyclerView.LayoutManager mLayoutManager;
-    private ProgressContract.Presenter mPresenter = new NameListPresenter(this);
+    private ProgressContract.Presenter mPresenter;
     private LinearLayout mNameListView;
     private RecyclerView nameListRecycler;
     private SwipeRefreshLayout swipeLayout;
@@ -87,6 +88,8 @@ public class NameListFragment extends Fragment implements ProgressContract.View 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.name_list_main, container, false);
+        mPresenter = new NameListPresenter(
+                Injection.provideProgressRepository(getActivity().getApplicationContext()), this);
         nameListRecycler = (RecyclerView) view.findViewById(R.id.name_list_rv);
         mLayoutManager = new LinearLayoutManager(getActivity());
         mCurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
