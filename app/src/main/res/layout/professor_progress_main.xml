@@ -18,8 +18,14 @@
         android:minHeight="?attr/actionBarSize"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:navigationIcon="@drawable/ic_keyboard_arrow_left_black_24dp"
-        />
+        app:navigationIcon="@drawable/ic_keyboard_arrow_left_black_24dp">
+            <TextView
+                android:id="@+id/toolbarTextView"
+                android:text="No Name"
+                android:textSize="30dp"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"/>
+    </android.support.v7.widget.Toolbar>
 
     <ScrollView
         android:layout_width="match_parent"

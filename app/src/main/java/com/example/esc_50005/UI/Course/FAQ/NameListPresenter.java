@@ -26,8 +26,8 @@ public class NameListPresenter implements ProgressContract.Presenter {
     ArrayList<Double> avgList;
     private String courseId;
 
-    public NameListPresenter(@NonNull ProgressContract.View nameListView) {
-        mProgressRepository = new ProgressRemoteDataSource();
+    public NameListPresenter(@NonNull ProgressRemoteDataSource progressRepository, @NonNull ProgressContract.View nameListView) {
+        mProgressRepository = progressRepository;
         mNameListView = checkNotNull(nameListView, "progressView cannot be null!");
         mNameListView.setPresenter(this);
     }
@@ -51,10 +51,10 @@ public class NameListPresenter implements ProgressContract.Presenter {
 
     @Override
     public void loadScores() {
-        progressArrayList = mProgressRepository.getScores(courseId,"1002212");// need to change it to base on the user login details
-//        processScores(progressArrayList);
-
-        Log.i(TAG, "LoadScores size is " + progressArrayList.size());
+//        progressArrayList = mProgressRepository.getScores(courseId,"1002212");// need to change it to base on the user login details
+////        processScores(progressArrayList);
+//
+//        Log.i(TAG, "LoadScores size is " + progressArrayList.size());
     }
 
 

@@ -42,15 +42,10 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-
-/**
- * Created by tan_j on 14/3/2018.
- */
-
 /**
  * Unit tests for the implementation of {@link ProgressPresenter}
  */
-public class ProgressPresenterTest {
+public class StudentProgressPresenterTest {
 
     private static ArrayList<QuizScores4DO> quiz;
 
@@ -73,17 +68,19 @@ public class ProgressPresenterTest {
     public void setupProgressPresenter() {
         MockitoAnnotations.initMocks(this);
         mProgressPresenter = new ProgressPresenter(mProgressRepository, mProgressView);
+        mProgressPresenter.setCourseId("50.005");
+        mProgressPresenter.setStudentId("1002212");
 
         quiz = new ArrayList<QuizScores4DO>();
         QuizScores4DO quiz1 = new QuizScores4DO();
-        quiz1.setCourseID("50.004");
+        quiz1.setCourseID("50.005");
         quiz1.setStudentIDSessionID("1002212Session1");
         quiz1.setName("Adam Liaw");
         quiz1.setQuizName("Quiz 1");
         quiz1.setScore(5.0);
         quiz.add(quiz1);
         QuizScores4DO quiz2 = new QuizScores4DO();
-        quiz2.setCourseID("50.004");
+        quiz2.setCourseID("50.005");
         quiz2.setStudentIDSessionID("1002215Session3");
         quiz2.setName("John Tan");
         quiz2.setQuizName("Quiz 1");
@@ -107,61 +104,20 @@ public class ProgressPresenterTest {
         verify(mProgressView).setPresenter(mProgressPresenter);
     }
 
-//    @Test
-//    public void clickOnUpvoteBtn_saveFaqInRepository() {
-//        // Given a stubbed faq
-//        Faq faq = new Faq();
-//        faq.setCourseId("50003");
-//        faq.setQuestionId("103");
-//        faq.setQuestion("Why is the sky white?");
-//        faq.setAnswer("Because its not red");
-//        faq.setAuthor("Jonathan");
-//        faq.setUsersVoted(new ArrayList<String>());
-//
-//        // When upvote faq
-//        mFaqPresenter.upvoteFaq(faq);
-//
-////         Then faq is saved
-//        verify(mFaqPresenter.mFaqRepository).saveFaq(any(Faq.class));
-//    }
-//
-//    @Test
-//    public void secondClickOnUpvoteBtn_saveFaqInRepository() {
-//        // Given a stubbed faq
-//        Faq faq = new Faq();
-//        faq.setCourseId("50003");
-//        faq.setQuestionId("103");
-//        faq.setQuestion("Why is the sky white?");
-//        faq.setAnswer("Because its not red");
-//        faq.setAuthor("Jonathan");
-//        ArrayList<String> usersVoted = new ArrayList<String>();
-//        usersVoted.add("1001688");
-//        faq.setUsersVoted(usersVoted);
-//
-//        // When upvote faq on second click
-//        mFaqPresenter.downvoteFaq(faq);
-//
-////         Then faq is saved
-//        verify(mFaqPresenter.mFaqRepository).saveFaq(any(Faq.class));
-//    }
-
     @Test
     public void loadScoresFromRepository() {
-//         Given an initialized FaqPresenter with initialized faq
-//         When loading of faq is requested
-        ArrayList<QuizScores4DO> progressArrayList = new ArrayList<>();
-        progressArrayList = mProgressRepository.getScores("50.004","1002212");// need to change it to base on the user login details
-        mProgressPresenter.processScores(progressArrayList);
-        verify(mProgressRepository).getScores("50.004","1002212");
+        mProgressPresenter.loadScores();
+        verify(mProgressRepository).getScores("50.005", "1002212");
+
     }
 
     @Test
     public void processScoresFromRepositoryAndLoadIntoView() {
         ArrayList<QuizScores4DO> result = quiz;
         ArrayList<Double> scoreList = new ArrayList<>();
-        scoreList.add(5.0);
-        scoreList.add(3.0);
-        scoreList.add(3.0);
+        for(int i=0; i<result.size();i++){
+            scoreList.add(result.get(i).getScore());
+        }
         mProgressPresenter.processScores(result);
         verify(mProgressView).showProgress(scoreList);
     }

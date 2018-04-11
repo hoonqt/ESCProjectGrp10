@@ -18,6 +18,9 @@ android {
         preDexLibraries = false
         javaMaxHeapSize "4g" // 2g should be also OK
     }
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -27,7 +30,7 @@ android {
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES'
     }
-    buildToolsVersion '26.0.2'
+    buildToolsVersion '27.0.3'
 }
 
 configurations.all {

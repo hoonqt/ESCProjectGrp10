@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
+import com.example.esc_50005.Database.utilities.Injection;
 import com.example.esc_50005.R;
 
 import java.util.ArrayList;
@@ -49,7 +50,7 @@ public class NameListFragment extends Fragment implements ProgressContract.View 
 
     protected LayoutManagerType mCurrentLayoutManagerType;
     protected RecyclerView.LayoutManager mLayoutManager;
-    private ProgressContract.Presenter mPresenter = new NameListPresenter(this);
+    private ProgressContract.Presenter mPresenter;
     private LinearLayout mNameListView;
     private RecyclerView nameListRecycler;
     private SwipeRefreshLayout swipeLayout;
@@ -87,6 +88,8 @@ public class NameListFragment extends Fragment implements ProgressContract.View 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.name_list_main, container, false);
+        mPresenter = new NameListPresenter(
+                Injection.provideProgressRepository(getActivity().getApplicationContext()), this);
         nameListRecycler = (RecyclerView) view.findViewById(R.id.name_list_rv);
         mLayoutManager = new LinearLayoutManager(getActivity());
         mCurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
@@ -146,9 +149,10 @@ public class NameListFragment extends Fragment implements ProgressContract.View 
 
     NameListItemListener mItemListener = new NameListItemListener() {
         @Override
-        public void onArrowClick(String studentId) {
+        public void onArrowClick(String studentId, String studentName) {
             Intent intent = new Intent(getActivity(), ProfessorProgressActivity.class);
             intent.putExtra("STUDENT_ID", studentId);
+            intent.putExtra("STUDENT_NAME", studentName);
             startActivity(intent);//need to switch that fragment here
         }
 
@@ -159,14 +163,5 @@ public class NameListFragment extends Fragment implements ProgressContract.View 
 
 
     };
-
-    // TO BE REMOVED (cant remove yet due to QuestionsFragment using it)
-    public class FaqJsonData {
-
-        String question;
-        String answer;
-        String upvotes;
-
-    }
 }
 

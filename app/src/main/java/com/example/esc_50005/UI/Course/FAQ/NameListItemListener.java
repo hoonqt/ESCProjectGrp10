@@ -6,7 +6,7 @@ package com.example.esc_50005.UI.Course.FAQ;
 
 public interface NameListItemListener {
 
-    void onArrowClick(String studentId);
+    void onArrowClick(String studentId, String studentName);
     void onRetryClick();
 
 }

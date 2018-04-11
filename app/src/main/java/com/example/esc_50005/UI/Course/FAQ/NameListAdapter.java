@@ -28,6 +28,7 @@ public class NameListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     private ArrayList<String> mStudentIdsList;
     private NameListItemListener mNameListItemListener;
     private ArrayList<Double> avgList;
+    private ArrayList<String> mStudentNamesList;
 
     public static final int VIEW_TYPE_EMPTY = 0;
     public static final int VIEW_TYPE_NORMAL = 1;
@@ -115,7 +116,7 @@ public class NameListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
             String name = mNameList.get(position);
             Double avg = avgList.get(position);
-            if(avg < 4){
+            if(avg < 50){
                 tv_question.setText(name);
 //            tv_answer.setText(name);
 //            tv_upvote.setText(String.valueOf(faq.getUpvotes()));
@@ -140,13 +141,13 @@ public class NameListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
             if (v.getId() == arrow.getId()) {
                     Toast.makeText(v.getContext(), "Id = " + mStudentIdsList.get(getAdapterPosition()), Toast.LENGTH_SHORT).show();
-                    mNameListItemListener.onArrowClick(mStudentIdsList.get(getAdapterPosition()));
+                    mNameListItemListener.onArrowClick(mStudentIdsList.get(getAdapterPosition()),mNameList.get(getAdapterPosition()));
             }
 
         }
     }
 
-    public class EmptyViewHolder extends BaseViewHolder implements  View.OnClickListener {
+    public class EmptyViewHolder extends BaseViewHolder implements View.OnClickListener {
 
         Button btn_retry;
         TextView tv_title;

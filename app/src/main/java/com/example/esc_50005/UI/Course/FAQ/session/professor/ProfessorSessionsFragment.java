@@ -100,7 +100,7 @@ public class ProfessorSessionsFragment extends Fragment implements SessionsContr
         mLayoutManager= new LinearLayoutManager(getActivity());
         mCurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
         sessionsListRecycler.setLayoutManager(new LinearLayoutManager(this.getActivity()));
-        button= view.findViewById(R.id.questions_btn_add);
+        button= view.findViewById(R.id.add_sessions);
         button.setOnClickListener(this);
         swipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.sessions_swipe);
         swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -214,6 +214,7 @@ public class ProfessorSessionsFragment extends Fragment implements SessionsContr
 
     @Override
     public void onClick(View view) {
+        Log.i("adding","adding");
         AlertDialog.Builder builder=new AlertDialog.Builder(this.getContext());
         builder.setTitle("Add new session");
         LinearLayout layout = new LinearLayout(this.getActivity());
