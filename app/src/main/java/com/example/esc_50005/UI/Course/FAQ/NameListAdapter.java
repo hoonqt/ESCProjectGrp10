@@ -116,7 +116,7 @@ public class NameListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
             String name = mNameList.get(position);
             Double avg = avgList.get(position);
-            if(avg < 4){
+            if(avg < 50){
                 tv_question.setText(name);
 //            tv_answer.setText(name);
 //            tv_upvote.setText(String.valueOf(faq.getUpvotes()));
