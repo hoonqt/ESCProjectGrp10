@@ -147,7 +147,7 @@ public class NameListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         }
     }
 
-    public class EmptyViewHolder extends BaseViewHolder implements  View.OnClickListener {
+    public class EmptyViewHolder extends BaseViewHolder implements View.OnClickListener {
 
         Button btn_retry;
         TextView tv_title;
