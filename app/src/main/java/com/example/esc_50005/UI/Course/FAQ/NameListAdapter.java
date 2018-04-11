@@ -121,7 +121,7 @@ public class NameListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 //            tv_answer.setText(name);
 //            tv_upvote.setText(String.valueOf(faq.getUpvotes()));
                 tv_time.setText("Average Score: " + Double.toString(avg));
-                tv_time.setTextColor(Color.parseColor("#FF0000"));
+                tv_time.setTextColor(Color.parseColor("#E1595C"));
             } else{
                 tv_question.setText(name);
                 tv_time.setText("Average Score: " + Double.toString(avg));

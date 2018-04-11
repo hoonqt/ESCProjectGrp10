@@ -3,7 +3,6 @@ package com.example.esc_50005.UI.Course.FAQ;
 
 import android.content.SharedPreferences;
 import android.graphics.Paint;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
@@ -128,7 +127,8 @@ public class ProgressStudentFragment extends Fragment implements ProgressContrac
 
         BarDataSet set = new BarDataSet(yVals, "(Quizzes)");
         set.setDrawIcons(false);
-        set.setColors(ColorTemplate.LIBERTY_COLORS);
+//        set.setColors(getResources().getColor(R.color.colorPrimary));
+        set.setColors(ColorTemplate.JOYFUL_COLORS);
         //Show value on top of each bar
         set.setDrawValues(true);
         set.setValueTextSize(10);
@@ -172,9 +172,6 @@ public class ProgressStudentFragment extends Fragment implements ProgressContrac
         mChart.setNoDataText("There are no results currently");
         Paint p = mChart.getPaint(Chart.PAINT_INFO);
         p.setTextSize(50);
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//            p.setTypeface(getResources().getFont(R.font.lato_black));
-//        }
         p.setColor(getResources().getColor(R.color.colorPrimary));
 //        p.setTypeface(...);
 
