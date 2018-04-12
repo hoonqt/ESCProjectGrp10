@@ -22,6 +22,6 @@
         android:layout_alignParentBottom="true"
         android:background="@color/colorPrimary"
         android:text="Submit"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+        android:textAppearance="@style/Edit_button" />
 
 </RelativeLayout>

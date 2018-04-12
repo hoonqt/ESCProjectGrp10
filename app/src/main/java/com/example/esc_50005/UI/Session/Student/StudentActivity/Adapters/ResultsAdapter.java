@@ -108,8 +108,8 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.AnsViewH
 
             option1ans.setText(question.getOptions().get(0));
             option2ans.setText(question.getOptions().get(1));
-            //option3ans.setText(question.getOptions().get(2));
-            //option4ans.setText(question.getOptions().get(3));
+            option3ans.setText(question.getOptions().get(2));
+            option4ans.setText(question.getOptions().get(3));
 
             Integer selected = userOptions.get(position);
 
