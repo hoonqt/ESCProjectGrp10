@@ -6,7 +6,10 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -21,6 +24,9 @@ import android.widget.TextView;
 
 import com.amazonaws.mobile.client.AWSMobileClient;
 import com.example.esc_50005.R;
+import com.example.esc_50005.UI.Course.FAQ.editFaq.EditFaqDialog;
+import com.example.esc_50005.UI.Course.FAQ.session.professor.ProfessorSessionsFragment;
+import com.example.esc_50005.UI.Course.FAQ.session.student.StudentSessionsFragment;
 import com.example.esc_50005.UI.Session.Main.SessionActivity;
 
 import okhttp3.OkHttpClient;
@@ -36,6 +42,7 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
     private String mActivityTitle;
     private TextView tv_toolbar_title;
     private TextView tv_toolbar_code;
+    private String userType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +55,7 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
+        userType = sharedPreferences.getString(getString(R.string.user_type),"");
         setTitle(sharedPreferences.getString(getString(R.string.course_name),""));
 
         tv_toolbar_title = (TextView) findViewById(R.id.toolbar_course_name);
@@ -77,10 +85,35 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
-                if (tab.getPosition() == 1) {
-                    fab.setVisibility(View.VISIBLE);
-                } else {
-                    fab.setVisibility(View.GONE);
+                if (tab.getPosition() == 2) {
+                    if (userType.equals("student")) {
+                        NameListFragment frag = (NameListFragment) viewPager
+                                .getAdapter()
+                                .instantiateItem(viewPager, viewPager.getCurrentItem());
+                        frag.setFab();
+                    } else {
+                        ProgressStudentFragment frag = (ProgressStudentFragment) viewPager
+                                .getAdapter()
+                                .instantiateItem(viewPager,viewPager.getCurrentItem());
+                        frag.setFab();
+                    }
+                } else if (tab.getPosition() == 1) {
+                    FaqFragment frag1 = (FaqFragment) viewPager
+                            .getAdapter()
+                            .instantiateItem(viewPager, viewPager.getCurrentItem());
+                    frag1.setFab();
+                } else if (tab.getPosition() == 0){
+                    if (userType.equals("student")) {
+                        StudentSessionsFragment frag = (StudentSessionsFragment) viewPager
+                                .getAdapter()
+                                .instantiateItem(viewPager, viewPager.getCurrentItem());
+                        frag.setFab();
+                    } else {
+                        ProfessorSessionsFragment frag = (ProfessorSessionsFragment)viewPager
+                                .getAdapter()
+                                .instantiateItem(viewPager, viewPager.getCurrentItem());
+                        frag.setFab();
+                    }
                 }
             }
 

@@ -43,7 +43,7 @@ public class SessionActivity extends AppCompatActivity {
         userInformation = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         tv_toolbar_title = (TextView) findViewById(R.id.toolbar_course_name);
-        tv_toolbar_title.setText(sharedPreferences.getString(getString(R.string.course_name),""));
+        tv_toolbar_title.setText(sharedPreferences.getString(getString(R.string.session_name),""));
         tv_toolbar_code = (TextView) findViewById(R.id.toolbar_course_code);
         String code = "Session Code: " + sharedPreferences.getString(getString(R.string.session_id),"");
         tv_toolbar_code.setText(code);

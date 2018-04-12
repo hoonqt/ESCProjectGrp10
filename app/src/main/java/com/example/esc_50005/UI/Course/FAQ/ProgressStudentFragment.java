@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -45,6 +46,7 @@ public class ProgressStudentFragment extends Fragment implements ProgressContrac
     private BarChart mChart;
     private SharedPreferences userInformation;
     private ProgressContract.Presenter mPresenter;
+    private FloatingActionButton fab;
     public ProgressStudentFragment() {
         // Required empty public constructor
     }
@@ -111,6 +113,7 @@ public class ProgressStudentFragment extends Fragment implements ProgressContrac
         mPresenter.setStudentId(studentId.substring(0,7));
         mPresenter.setCourseId(courseId.substring(0,6));
 
+        fab = (FloatingActionButton) getActivity().findViewById(R.id.course_fab);
 
 
         return view;
@@ -207,5 +210,9 @@ public class ProgressStudentFragment extends Fragment implements ProgressContrac
         String answer;
         String upvotes;
 
+    }
+
+    public void setFab() {
+        fab.setVisibility(View.GONE);
     }
 }

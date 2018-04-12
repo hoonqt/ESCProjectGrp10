@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -39,6 +40,7 @@ public class StudentSessionsFragment extends Fragment implements SessionsContrac
     private ImageButton button;
     private SharedPreferences sharedPreferences;
     private SwipeRefreshLayout swipeLayout;
+    private FloatingActionButton fab;
 
     private SessionsAdapter mSessionsAdapter;
 
@@ -60,11 +62,16 @@ public class StudentSessionsFragment extends Fragment implements SessionsContrac
                 this);
     }
 
-
     @Override
     public void onResume() {
         super.onResume();
         mPresenter.start();
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onFabClick();
+            }
+        });
     }
 
     @Override
@@ -91,6 +98,8 @@ public class StudentSessionsFragment extends Fragment implements SessionsContrac
                 attemptQuerySessions();
             }
         });
+
+        fab= getActivity().findViewById(R.id.course_fab);
 
         button= view.findViewById(R.id.add_sessions);
         button.setOnClickListener(this);
@@ -166,5 +175,37 @@ public class StudentSessionsFragment extends Fragment implements SessionsContrac
         if (swipeLayout.isRefreshing()) {
             swipeLayout.setRefreshing(false);
         }
+    }
+
+    public void setFab() {
+        fab= getActivity().findViewById(R.id.course_fab);
+        fab.setVisibility(View.VISIBLE);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onFabClick();
+            }
+        });
+    }
+
+    public void onFabClick() {
+        AlertDialog.Builder builder=new AlertDialog.Builder(this.getContext());
+        builder.setTitle("Add new session");
+        LinearLayout layout = new LinearLayout(this.getActivity());
+        layout.setOrientation(LinearLayout.VERTICAL);
+        final EditText sessionId = new EditText(getActivity().getApplicationContext());
+        sessionId.setHint("Session Id");
+
+        builder.setNegativeButton("Submit",new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog,int id) {
+                mPresenter.queryAddNewSession(sharedPreferences.getString(getString(R.string.user_type),""),sessionId.getText().toString(),"","","");
+                dialog.cancel();
+            }
+        });
+        layout.addView(sessionId);
+        builder.setView(layout);
+        layout.setId(R.id.layout_add_session);
+        builder.create();
+        builder.show();
     }
 }
