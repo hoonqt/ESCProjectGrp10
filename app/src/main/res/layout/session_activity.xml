@@ -37,23 +37,24 @@
                             android:paddingTop="60dp">
 
                             <TextView
-                                android:id="@+id/toolbar_title_text"
+                                android:id="@+id/toolbar_course_name"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:paddingLeft="16dp"
                                 android:paddingRight="16dp"
                                 android:text="SESSION NAME"
-                                android:textAppearance="@style/CardView_Title" />
+                                android:textAppearance="@style/Toolbar_Title" />
 
                             <TextView
-                                android:id="@+id/toolbartitle_text"
+                                android:id="@+id/toolbar_course_code"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
+                                android:paddingTop="8dp"
                                 android:layout_marginBottom="45dp"
                                 android:text="Session Code: 001234"
-                                android:textAppearance="@style/CardView_Subtext" />
+                                android:textAppearance="@style/Toolbar_Subtitle" />
 
                         </LinearLayout>
 
@@ -106,6 +107,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:foregroundGravity="fill_horizontal"></FrameLayout>
 
 </android.support.design.widget.CoordinatorLayout>

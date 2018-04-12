@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.amazonaws.mobile.client.AWSMobileClient;
 import com.example.esc_50005.R;
@@ -32,6 +33,8 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
     private ActionBarDrawerToggle mDrawerToggle;
     private DrawerLayout mDrawerLayout;
     private String mActivityTitle;
+    private TextView tv_toolbar_title;
+    private TextView tv_toolbar_code;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +47,13 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
-        setTitle(sharedPreferences.getString(getString(R.string.course_full_name),""));
+        setTitle(sharedPreferences.getString(getString(R.string.course_name),""));
+
+        tv_toolbar_title = (TextView) findViewById(R.id.toolbar_course_name);
+        tv_toolbar_title.setText(sharedPreferences.getString(getString(R.string.course_name),""));
+        tv_toolbar_code = (TextView) findViewById(R.id.toolbar_course_code);
+        String code = "Course Code: " + sharedPreferences.getString(getString(R.string.course_id),"");
+        tv_toolbar_code.setText(code);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText(R.string.sessions));

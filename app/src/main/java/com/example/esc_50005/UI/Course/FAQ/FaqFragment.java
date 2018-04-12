@@ -13,6 +13,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -112,7 +113,7 @@ public class FaqFragment extends Fragment implements FaqContract.View {
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.faq_fab);
 
         if (userType.equals("student")) {
-//            fab.setVisibility(View.GONE);
+            fab.setVisibility(View.GONE);
         }
 
         fab.setOnClickListener(new View.OnClickListener() {
@@ -122,9 +123,12 @@ public class FaqFragment extends Fragment implements FaqContract.View {
 //                startActivity(intent);
                 FragmentManager fm = getFragmentManager();
                 EditFaqDialog editFaqDialogFragment = new EditFaqDialog();
-                FragmentTransaction transaction = fm.beginTransaction();
-                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                transaction.add(R.id.course_rl, editFaqDialogFragment).addToBackStack(null).commit();
+                editFaqDialogFragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.Dialog_FullScreen);
+//                FragmentTransaction transaction = fm.beginTransaction();
+//                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+//                transaction.add(R.id.course_rl, editFaqDialogFragment).addToBackStack(null).commit();
+                editFaqDialogFragment.show(fm, "fragment_alert");
+
             }
         });
 

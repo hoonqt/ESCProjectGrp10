@@ -4,6 +4,7 @@
     android:id="@+id/empty_ll"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:gravity="top"
     android:orientation="vertical">
 
@@ -13,32 +14,38 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_gravity="center"
-        android:src="@drawable/ic_sentiment_dissatisfied_black_24dp" />
+        android:scaleX="2.5"
+        android:scaleY="2.5"
+        android:src="@drawable/sad_folder" />
 
     <TextView
         android:id="@+id/empty_tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="60dp"
         android:gravity="center"
-        android:text="Empty" />
+        android:textAppearance="@style/CardView_Title"
+        android:text="No questions yet" />
 
     <TextView
         android:id="@+id/empty_tv_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="30dp"
-        android:text="Please retry" />
+        android:layout_marginTop="8dp"
+        android:textAppearance="@style/CardView_Subtitle"
+        android:text="Try again later" />
 
     <Button
         android:id="@+id/empty_btn_retry"
         android:layout_width="150dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_gravity="center"
         android:layout_marginTop="16dp"
-        android:text="Retry"
+        android:text="RETRY"
+        android:background="@drawable/rounded_button"
+        android:textAppearance="@style/CardView_Title"
         android:theme="@style/RetryButton"
         android:textSize="20sp" />
 </LinearLayout>

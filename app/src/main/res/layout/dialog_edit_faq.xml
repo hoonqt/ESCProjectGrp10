@@ -53,12 +53,14 @@
         android:id="@+id/edit_faq_et_question"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/transparent"
         android:hint="Your Question" />
 
     <EditText
         android:id="@+id/edit_faq_et_answer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/transparent"
         android:hint="Your Answer" />
 
 </LinearLayout>
