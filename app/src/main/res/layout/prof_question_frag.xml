@@ -3,31 +3,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.esc_50005.UI.Session.Prof.SideScreens.ProfResponsesFrag"
-    android:background="#59000000"
+    android:background="@color/backgroundGrey"
+    android:layout_marginTop="50dp"
     android:clickable="true">
 
-    <RelativeLayout
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:id="@+id/questionBox"
+        android:background="#ffffff"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:padding="8dp"
+        android:textColor="#000000" />
+
+    <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="70dp"
-        android:background="#eeeeee">
+        android:layout_below="@id/questionBox"
+        android:id="@+id/recyclerViewProfResponses">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:id="@+id/questionBox"
-            android:background="#ffffff"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="#000000" />
-
-        <android.support.v7.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/questionBox"
-            android:id="@+id/recyclerViewProfResponses">
-
-        </android.support.v7.widget.RecyclerView>
-    </RelativeLayout>
+    </android.support.v7.widget.RecyclerView>
 
 </RelativeLayout>

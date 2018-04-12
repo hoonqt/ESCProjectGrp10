@@ -75,7 +75,7 @@ public class SessionActivity extends AppCompatActivity {
 
         });
 
-
+        toolbar.setNavigationIcon(R.drawable.ic_back_arrow_white);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
