@@ -26,7 +26,7 @@ public interface QuestionsContract {
         void processEmptyQuestion();
         void upvoteQuestion(SessionQuestionsDO question);
         void downvoteQuestion(SessionQuestionsDO question);
-        void setCourseId(String courseId);
         void setUserId(String userId);
+        void setSessionId(String sessionId);
     }
 }
