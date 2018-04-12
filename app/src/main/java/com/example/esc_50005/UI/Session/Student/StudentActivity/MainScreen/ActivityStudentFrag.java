@@ -92,8 +92,6 @@ public class ActivityStudentFrag extends Fragment implements QuizStudentContract
         mQuizAdapter.notifyDataSetChanged();
         quizRecycler.setAdapter(mQuizAdapter);
 
-        Log.i("set here","setter");
-
     }
 
     @Override
