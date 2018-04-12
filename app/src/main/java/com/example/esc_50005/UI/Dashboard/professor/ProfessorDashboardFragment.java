@@ -86,7 +86,7 @@ public class ProfessorDashboardFragment extends Fragment implements DashboardCon
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         View view=inflater.inflate(R.layout.dashboard_fragment, container, false);
         coursesListRecycler=view.findViewById(R.id.recyclerViewDashboardCourses);
-        mLayoutManager= new GridLayoutManager(getActivity(),2);
+//        mLayoutManager= new GridLayoutManager(getActivity(),2);
 //        mCurrentLayoutManagerType = ProfessorDashboardFragment.LayoutManagerType.LINEAR_LAYOUT_MANAGER;
         coursesListRecycler.setLayoutManager(new GridLayoutManager(view.getContext(),2));
         button=view.findViewById(R.id.add_courses);

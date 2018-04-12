@@ -62,7 +62,6 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.Ques
         return questionsViewHolder;
     }
 
-
     class QuestionsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView tv_question;
@@ -86,7 +85,7 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.Ques
         public void bind(int position) {
             SessionQuestionsDO question = mQuestionsList.get(position);
             tv_question.setText(question.getQuestion());
-            tv_upvote.setText(String.valueOf(question.getUsersVoted().size()));
+            tv_upvote.setText(String.valueOf(question.getUsersVoted().size())+" upvotes");
 //            tv_time.setText(question.getDate());
 
 //            tv_question.setText(questionsList.getQuestion());

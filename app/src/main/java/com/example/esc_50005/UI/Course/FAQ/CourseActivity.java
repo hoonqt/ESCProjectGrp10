@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -66,6 +67,8 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
         final com.example.esc_50005.UI.Course.FAQ.CoursePagerAdapter coursePagerAdapter = new com.example.esc_50005.UI.Course.FAQ.CoursePagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount(),this.getApplicationContext());
 
+        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.course_fab);
+
         viewPager.setAdapter(coursePagerAdapter);
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
@@ -74,6 +77,11 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
+                if (tab.getPosition() == 1) {
+                    fab.setVisibility(View.VISIBLE);
+                } else {
+                    fab.setVisibility(View.GONE);
+                }
             }
 
             @Override

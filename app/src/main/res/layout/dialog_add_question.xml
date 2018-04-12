@@ -25,30 +25,19 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="16dp"
-            android:text="@string/rating_title"
+            android:text="Add Question"
             android:textAppearance="@style/CardView_Title" />
-
-        <RatingBar
-            android:id="@+id/rating_bar_feedback"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:numStars="5"
-            android:stepSize="0.5"
-            tools:rating="3" />
 
         <EditText
             android:id="@+id/et_message"
             android:layout_width="270dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="16dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:background="@drawable/edit_text_style"
             android:layout_gravity="center"
-            android:gravity="start|top"
-            android:hint="Any comments?"
+            android:gravity="center|top"
             android:inputType="textMultiLine"
             android:lines="4"
             android:maxLines="20"
