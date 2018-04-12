@@ -94,27 +94,27 @@
     <Button
         android:id="@+id/addbtn"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="37dp"
+        android:layout_below="@id/radiobuttons"
         android:layout_centerVertical="true"
+        android:layout_marginTop="10dp"
         android:background="@color/colorPrimary"
         android:gravity="center_horizontal"
         android:padding="5dp"
         android:text="Add another question"
-        android:layout_below="@id/radiobuttons"
-        android:layout_marginTop="10dp"
-        android:textAppearance="@style/Toolbar_Title" />
+        android:textAppearance="@style/Edit_button" />
 
     <Button
         android:id="@+id/submitbtn"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="35dp"
         android:layout_below="@id/addbtn"
         android:layout_marginTop="10dp"
         android:background="@color/colorPrimary"
         android:gravity="center_horizontal"
         android:padding="5dp"
         android:text="Submit"
-        android:textAppearance="@style/Toolbar_Title" />
+        android:textAppearance="@style/Edit_button" />
 
 
 </RelativeLayout>

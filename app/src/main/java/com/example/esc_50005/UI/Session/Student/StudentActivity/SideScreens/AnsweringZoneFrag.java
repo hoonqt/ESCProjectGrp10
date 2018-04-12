@@ -89,8 +89,8 @@ public class AnsweringZoneFrag extends Fragment {
         public void onClick(View view) {
 
             ArrayList<Integer> input = new ArrayList<>();
-            for (int childCount = qnRecycler.getChildCount(), i = 0; i < childCount; ++i) {
-                final RecyclerView.ViewHolder holder = qnRecycler.getChildViewHolder(qnRecycler.getChildAt(i));
+            for (int i = 0;i<allthequestions.size();i++) {
+                final RecyclerView.ViewHolder holder = qnRecycler.findViewHolderForAdapterPosition(i);
                 group = holder.itemView.findViewById(R.id.radiobuttons);
 
                 Log.i("Selected answer",Integer.toString(group.getCheckedRadioButtonId()));
@@ -100,9 +100,7 @@ public class AnsweringZoneFrag extends Fragment {
 
 
                 if (group.getCheckedRadioButtonId() == R.id.option1) {
-
                     input.add(0);
-
                     if (allthequestions.get(i).getCorrectans() == 0) {
                         score++;
                     }
