@@ -57,7 +57,7 @@ public class FaqFragment extends Fragment implements FaqContract.View {
 
     private FaqAdapter mFaqAdapter;
     FloatingActionButton fab;
-    private ArrayList<String> faqList = new ArrayList<>();
+    private ArrayList<Faq> faqList = new ArrayList<>();
 
     public FaqFragment() {
         // Required empty public constructor
@@ -122,6 +122,7 @@ public class FaqFragment extends Fragment implements FaqContract.View {
     }
 
     public void showFaq(ArrayList<Faq> faqList) {
+        this.faqList = faqList;
         mFaqAdapter = new FaqAdapter(faqList, mItemListener, userId);
         faqListRecycler.setAdapter(mFaqAdapter);
     }

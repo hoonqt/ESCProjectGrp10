@@ -62,7 +62,6 @@ public class StudentSessionsFragment extends Fragment implements SessionsContrac
                 this);
     }
 
-
     @Override
     public void onResume() {
         super.onResume();
