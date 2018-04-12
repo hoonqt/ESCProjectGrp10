@@ -28,7 +28,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:padding="5dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textAppearance="@style/CardView_Title"
                 android:textColor="#000000" />
 
             <ImageView
@@ -36,6 +36,7 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_keyboard_arrow_down_black_24dp"
                 android:padding="8dp"
+                android:background="#ffffff"
                 app:layout_constraintEnd_toEndOf="parent"/>
 
 

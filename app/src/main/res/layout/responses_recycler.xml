@@ -25,7 +25,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:padding="5dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textAppearance="@style/CardView_Title"
                 android:textColor="#000000" />
 
             <TextView
@@ -35,7 +35,7 @@
                 android:layout_below="@id/answers"
                 android:layout_marginStart="8dp"
                 android:padding="5dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textAppearance="@style/CardView_Subtext"
                 android:textColor="#CC000000" />
 
             <TextView
@@ -50,7 +50,7 @@
                 android:gravity="right"
                 android:padding="5dp"
                 android:paddingRight="3dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textAppearance="@style/CardView_Subtitle"
                 android:textColor="#CC000000" />
 
         </RelativeLayout>
