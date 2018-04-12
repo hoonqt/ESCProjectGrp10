@@ -11,6 +11,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -80,9 +81,9 @@ public class StudentDashboardFragment extends Fragment implements DashboardContr
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         View view=inflater.inflate(R.layout.dashboard_fragment, container, false);
         coursesListRecycler=view.findViewById(R.id.recyclerViewDashboardCourses);
-        mLayoutManager= new LinearLayoutManager(getActivity());
+//        mLayoutManager= new LinearLayoutManager(getActivity());
         mCurrentLayoutManagerType = StudentDashboardFragment.LayoutManagerType.LINEAR_LAYOUT_MANAGER;
-        coursesListRecycler.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        coursesListRecycler.setLayoutManager(new GridLayoutManager(view.getContext(),2));
 
         button=view.findViewById(R.id.add_courses);
         button.setOnClickListener(this);
