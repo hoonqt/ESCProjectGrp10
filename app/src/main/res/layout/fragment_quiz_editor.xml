@@ -2,122 +2,119 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".UI.Session.Prof.SideScreens.QuizEditor"
-    android:background="#59000000"
+    android:background="#ffffff"
     android:clickable="true">
 
-    <RelativeLayout
+    <EditText
+        android:id="@+id/questionBox"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="70dp"
-        android:orientation="vertical"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/lato_bold"/>
 
-        android:background="#eeeeee">
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/questionBox"
+        android:id="@+id/radiobuttons">
 
-        <EditText
-            android:id="@+id/questionBox"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent">
 
-        <RadioGroup
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/questionBox"
-            android:id="@+id/radiobuttons">
+            <RadioButton
+                android:id="@+id/option1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
 
-            <RelativeLayout
+            <EditText
+                android:id="@+id/option1ans"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/option1"
+                android:fontFamily="@font/lato_bold"
+                />
 
-                <RadioButton
-                    android:id="@+id/option1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    />
+            <RadioButton
+                android:id="@+id/option2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/option1ans" />
 
-                <EditText
-                    android:id="@+id/option1ans"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@id/option1"
-                    />
+            <EditText
+                android:id="@+id/option2ans"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/option2"
+                android:layout_below="@id/option1ans"
+                android:fontFamily="@font/lato_bold"/>
 
-                <RadioButton
-                    android:id="@+id/option2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_below="@+id/option1ans" />
+            <RadioButton
+                android:id="@+id/option3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/option2ans" />
 
-                <EditText
-                    android:id="@+id/option2ans"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@id/option2"
-                    android:layout_below="@id/option1ans"/>
+            <EditText
+                android:id="@+id/option3ans"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/option3"
+                android:layout_below="@id/option2ans"
+                android:fontFamily="@font/lato_bold"
+                />
 
-                <RadioButton
-                    android:id="@+id/option3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_below="@+id/option2ans" />
-
-                <EditText
-                    android:id="@+id/option3ans"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@id/option3"
-                    android:layout_below="@id/option2ans"
-                    />
-
-                <RadioButton
-                    android:id="@+id/option4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignTop="@+id/option4ans" />
+            <RadioButton
+                android:id="@+id/option4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignTop="@+id/option4ans" />
 
 
-                <EditText
-                    android:id="@+id/option4ans"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@id/option4"
-                    android:layout_below="@id/option3ans" />
+            <EditText
+                android:id="@+id/option4ans"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/option4"
+                android:layout_below="@id/option3ans"
+                android:fontFamily="@font/lato_bold"/>
 
 
-            </RelativeLayout>
+        </RelativeLayout>
 
-        </RadioGroup>
-
-
-    </RelativeLayout>
+    </RadioGroup>
 
     <Button
         android:id="@+id/addbtn"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/submitbtn"
+        android:layout_height="37dp"
+        android:layout_below="@id/radiobuttons"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="10dp"
+        android:background="@color/colorPrimary"
         android:gravity="center_horizontal"
-        android:padding="10dp"
+        android:padding="5dp"
         android:text="Add another question"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+        android:textAppearance="@style/Edit_button" />
 
     <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Submit"
-        android:layout_alignParentBottom="true"
         android:id="@+id/submitbtn"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_below="@id/addbtn"
+        android:layout_marginTop="10dp"
+        android:background="@color/colorPrimary"
         android:gravity="center_horizontal"
-        android:padding="10dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        />
+        android:padding="5dp"
+        android:text="Submit"
+        android:textAppearance="@style/Edit_button" />
 
 
 </RelativeLayout>

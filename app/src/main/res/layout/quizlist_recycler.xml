@@ -25,12 +25,12 @@ tools:context="com.example.esc_50005.UI.Session.Main.SessionActivity">
 
         <TextView
             android:id="@+id/questionwho"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:padding="10dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textAppearance="@style/CardView_Title"
             android:textColor="#000000" />
 
         <ImageView
@@ -40,7 +40,7 @@ tools:context="com.example.esc_50005.UI.Session.Main.SessionActivity">
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:background="#fafafa"
+            android:background="#ffffff"
             android:src="@drawable/ic_keyboard_arrow_right_black_24dp" />
 
 

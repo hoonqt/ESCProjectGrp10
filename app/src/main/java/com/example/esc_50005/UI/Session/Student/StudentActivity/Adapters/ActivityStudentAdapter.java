@@ -175,8 +175,8 @@ public class ActivityStudentAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                     String formatted = formatter.format(date);
 
                     QuizAnswersDO answers = new QuizAnswersDO();
-                    String name = sharedPreferences.getString("Full Name",null);
-                    String studentID = sharedPreferences.getString("User Id",null);
+                    String name = sharedPreferences.getString(context.getString(R.string.full_name),null);
+                    String studentID = sharedPreferences.getString(context.getString(R.string.user_id),null);
 
                     answers.setName(name);
                     answers.setAnswer(input.getText().toString());
@@ -223,7 +223,7 @@ public class ActivityStudentAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             Bundle bundler = new Bundle();
 
             SharedPreferences.Editor editshared = sharedPreferences.edit();
-            editshared.putString("QuizName",names.get(getAdapterPosition()));
+            editshared.putString(context.getString(R.string.quiz_name),names.get(getAdapterPosition()));
             editshared.commit();
 
             ArrayList<QuizQuestions2DO> tobetransferred = new ArrayList<>(dataset);

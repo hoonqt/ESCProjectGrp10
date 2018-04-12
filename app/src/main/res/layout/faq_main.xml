@@ -6,17 +6,16 @@
     android:layout_height="match_parent"
     tools:context="com.example.esc_50005.UI.Course.FAQ.CourseActivity">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="8dp"
-        android:background="@color/backgroundGrey" />
+    <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="8dp"-->
+        <!--android:background="@color/backgroundGrey" />-->
 
     <android.support.v4.widget.SwipeRefreshLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/faq_swipe"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -24,12 +23,13 @@
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/faq_fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center"
-        android:layout_marginBottom="10dp"
-        android:src="@drawable/ic_add_white_24dp"
-        app:fabSize="mini" />
+    <!--<android.support.design.widget.FloatingActionButton-->
+        <!--android:id="@+id/faq_fab"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:elevation="8dp"-->
+        <!--android:layout_gravity="bottom|center"-->
+        <!--android:layout_margin="10dp"-->
+        <!--android:src="@drawable/ic_add_white_24dp"-->
+        <!--app:fabSize="mini" />-->
 </android.support.design.widget.CoordinatorLayout>

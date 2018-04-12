@@ -76,6 +76,4 @@
         android:src="@drawable/ic_add_white_24dp"
         app:fabSize="mini" />
 
-
-
 </android.support.design.widget.CoordinatorLayout>

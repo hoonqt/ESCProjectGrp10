@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,6 +26,7 @@ import com.example.esc_50005.UI.Session.Main.QuestionsAdapter;
 import com.example.esc_50005.UI.Session.Main.QuestionsContract;
 import com.example.esc_50005.UI.Session.Main.QuestionsItemListener;
 import com.example.esc_50005.UI.Session.Main.QuestionsPresenter;
+import com.example.esc_50005.UI.Session.addQuestionDialog.AddQuestionDialog;
 
 import java.util.ArrayList;
 
@@ -46,7 +50,7 @@ public class QuestionsFragment extends android.support.v4.app.Fragment implement
     private SharedPreferences userInformation;
     private String userType;
     private String userId;
-    private String courseId;
+    private String sessionId;
 
     ArrayList<com.example.esc_50005.UI.Course.FAQ.FaqFragment.FaqJsonData> FaqList;
 
@@ -71,9 +75,9 @@ public class QuestionsFragment extends android.support.v4.app.Fragment implement
         userInformation = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
         userType = userInformation.getString("UserType","");
         userId = userInformation.getString("Username","");
-        courseId = userInformation.getString("CurrentCourseActivity", "");
+        sessionId = userInformation.getString(getString(R.string.session_id), "");
         mPresenter.setUserId(userId);
-        mPresenter.setCourseId(courseId);
+        mPresenter.setSessionId(sessionId);
     }
 
     @Override
@@ -93,9 +97,7 @@ public class QuestionsFragment extends android.support.v4.app.Fragment implement
                              Bundle savedInstanceState) {
         Log.i("onCreateView", "onCreateView");
         View view = inflater.inflate(R.layout.sessionquestions_postquestions_main, container, false);
-        btn = view.findViewById(R.id.questions_btn_add);
-        editText = (EditText) view.findViewById(R.id.questions_et_question);
-        btn.setOnClickListener(this);
+
         questionListRecycler = view.findViewById(R.id.questions_rv);
         mLayoutManager = new LinearLayoutManager(getActivity());
         mCurrentLayoutManagerType = QuestionsFragment.LayoutManagerType.LINEAR_LAYOUT_MANAGER;
@@ -109,6 +111,22 @@ public class QuestionsFragment extends android.support.v4.app.Fragment implement
             }
         });
 
+        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.questions_fab);
+
+        if (userType.equals("professor")) {
+            fab.setVisibility(View.GONE);
+        }
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager fm = getFragmentManager();
+                AddQuestionDialog addQuestionDialogFragment = new AddQuestionDialog();
+                addQuestionDialogFragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.Dialog_FullScreen);
+                addQuestionDialogFragment.show(fm, "fragment_alert");
+
+            }
+        });
         return view;
     }
 

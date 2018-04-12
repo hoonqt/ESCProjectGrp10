@@ -100,6 +100,7 @@ public class ProfessorSessionsFragment extends Fragment implements SessionsContr
         mLayoutManager= new LinearLayoutManager(getActivity());
         mCurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
         sessionsListRecycler.setLayoutManager(new LinearLayoutManager(this.getActivity()));
+//        button= view.findViewById(R.id.add_sessions);
         button= view.findViewById(R.id.add_sessions);
         button.setOnClickListener(this);
         swipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.sessions_swipe);

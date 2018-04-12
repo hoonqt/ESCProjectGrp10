@@ -15,14 +15,12 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class QuestionsPresenter implements QuestionsContract.Presenter {
 
     public static final String TAG = "QuestionsPresenter";
-    //temporary set session code to be as such
-    private static final String SESSION_CODE="111";
 
     private final QuestionsContract.View mSessionQuestionView;
     private SessionQuestionsRemoteDataSource mSessionQuestionsRepository;
     ArrayList<SessionQuestionsDO> questionsJsonData;
 
-    String courseId;
+    String sessionId;
     String userId;
 
     public QuestionsPresenter(@NonNull QuestionsContract.View sessionQuestionsView) {
@@ -30,6 +28,7 @@ public class QuestionsPresenter implements QuestionsContract.Presenter {
         mSessionQuestionView = checkNotNull(sessionQuestionsView, "sessionQuestionView cannot be null!");
         mSessionQuestionView.setPresenter(this);
     }
+
     @Override
     public void start() {
 
@@ -38,14 +37,14 @@ public class QuestionsPresenter implements QuestionsContract.Presenter {
 
     @Override
     public void loadQuestions() {
-        questionsJsonData = mSessionQuestionsRepository.getQuestionsListBySessionId(SESSION_CODE);
+        questionsJsonData = mSessionQuestionsRepository.getQuestionsListBySessionId(sessionId);
         processQuestions(questionsJsonData);
     }
 
     @Override
     public void addNewQuestion(String question) {
 
-        mSessionQuestionsRepository.addQuestion(question,SESSION_CODE);
+        mSessionQuestionsRepository.addQuestion(question, sessionId);
         loadQuestions();
 
     }
@@ -55,12 +54,9 @@ public class QuestionsPresenter implements QuestionsContract.Presenter {
 
     }
 
-    public void processQuestions(ArrayList<SessionQuestionsDO> questionsJsonData)
-    {
-        if (questionsJsonData.size() != 0) {
-            mSessionQuestionView.showAddedQuestion(questionsJsonData);
-            mSessionQuestionView.questionsLoaded();
-        }
+    public void processQuestions(ArrayList<SessionQuestionsDO> questionsJsonData) {
+        mSessionQuestionView.showAddedQuestion(questionsJsonData);
+        mSessionQuestionView.questionsLoaded();
     }
 
 
@@ -93,13 +89,12 @@ public class QuestionsPresenter implements QuestionsContract.Presenter {
     }
 
     @Override
-    public void setCourseId(String courseId) {
-        this.courseId = courseId;
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
     }
 
     @Override
     public void setUserId(String userId) {
         this.userId = userId;
     }
-
 }

@@ -25,7 +25,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="6dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+                android:textAppearance="@style/CardView_Title"/>
 
             <ImageView
                 android:id="@+id/option1pic"
@@ -43,7 +43,7 @@
                 android:layout_toEndOf="@+id/option1pic"
                 android:layout_toRightOf="@+id/option1pic"
                 android:paddingLeft="5dp"
-                android:textColor="#000000"/>
+                android:textAppearance="@style/CardView_Subtitle"/>
 
             <ImageView
                 android:id="@+id/option2pic"
@@ -62,7 +62,7 @@
                 android:layout_toEndOf="@+id/option1pic"
                 android:layout_toRightOf="@+id/option1pic"
                 android:paddingLeft="5dp"
-                android:textColor="#000000"/>
+                android:textAppearance="@style/CardView_Subtitle"/>
 
             <ImageView
                 android:id="@+id/option3pic"
@@ -80,7 +80,7 @@
                 android:layout_toEndOf="@+id/option2pic"
                 android:layout_toRightOf="@+id/option2pic"
                 android:paddingLeft="5dp"
-                android:textColor="#000000"/>
+                android:textAppearance="@style/CardView_Subtitle"/>
 
             <ImageView
                 android:id="@+id/option4pic"
@@ -100,7 +100,7 @@
                 android:layout_toEndOf="@+id/option1pic"
                 android:layout_toRightOf="@+id/option1pic"
                 android:paddingLeft="5dp"
-                android:textColor="#000000"/>
+                android:textAppearance="@style/CardView_Subtitle"/>
 
 
 
