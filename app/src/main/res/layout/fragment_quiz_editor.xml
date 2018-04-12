@@ -91,28 +91,30 @@
 
     </RadioGroup>
 
-
-
     <Button
         android:id="@+id/addbtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/submitbtn"
+        android:layout_centerVertical="true"
+        android:background="@color/colorPrimary"
         android:gravity="center_horizontal"
-        android:padding="10dp"
+        android:padding="5dp"
         android:text="Add another question"
+        android:layout_below="@id/radiobuttons"
+        android:layout_marginTop="10dp"
         android:textAppearance="@style/Toolbar_Title" />
 
     <Button
+        android:id="@+id/submitbtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Submit"
-        android:layout_alignParentBottom="true"
-        android:id="@+id/submitbtn"
+        android:layout_below="@id/addbtn"
+        android:layout_marginTop="10dp"
+        android:background="@color/colorPrimary"
         android:gravity="center_horizontal"
-        android:padding="10dp"
-        android:textAppearance="@style/Toolbar_Title"
-        />
+        android:padding="5dp"
+        android:text="Submit"
+        android:textAppearance="@style/Toolbar_Title" />
 
 
 </RelativeLayout>

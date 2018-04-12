@@ -22,27 +22,27 @@
         <Button
             android:id="@+id/back"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="37dp"
             android:layout_above="@+id/addbutton"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_marginBottom="12dp"
             android:background="@color/colorPrimary"
             android:text="Back"
-            android:textColor="#ffffff"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="#ffffff" />
 
         <ImageButton
             android:id="@+id/addbutton"
             android:layout_width="match_parent"
-            android:layout_height="41dp"
+            android:layout_height="34dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginBottom="21dp"
+            android:layout_marginBottom="28dp"
             android:background="@color/colorPrimary"
             android:src="@drawable/ic_add_black_24dp"
-            android:tint="#ffffff"/>
+            android:tint="#ffffff" />
 
 
     </RelativeLayout>

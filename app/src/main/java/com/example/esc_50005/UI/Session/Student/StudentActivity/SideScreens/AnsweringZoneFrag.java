@@ -137,10 +137,10 @@ public class AnsweringZoneFrag extends Fragment {
 
             ProgressRemoteDataSource data = new ProgressRemoteDataSource();
 
-            String userID = sharedPreferences.getString("UserID", null);
-            String quizName = sharedPreferences.getString("QuizName",null);
+            String userID = sharedPreferences.getString(getString(R.string.user_id), null);
+            String quizName = sharedPreferences.getString(getString(R.string.quiz_name),null);
             String courseCode = sharedPreferences.getString(getString(R.string.course_id),null);
-            String userName = sharedPreferences.getString("Username",null);
+            String userName = sharedPreferences.getString(getString(R.string.full_name),null);
 
             double inpercent = Math.round(((double)score/(double)qnRecycler.getChildCount())*100);
 
