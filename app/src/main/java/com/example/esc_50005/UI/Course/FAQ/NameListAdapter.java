@@ -122,6 +122,7 @@ public class NameListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 //            tv_upvote.setText(String.valueOf(faq.getUpvotes()));
                 tv_time.setText("Average Score: " + Double.toString(avg));
                 tv_time.setTextColor(Color.parseColor("#E1595C"));
+//                tv_time.setTextColor(getResource().getColor(R.color.colorPrimary));
             } else{
                 tv_question.setText(name);
                 tv_time.setText("Average Score: " + Double.toString(avg));
@@ -157,6 +158,7 @@ public class NameListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             super(view);
             btn_retry = view.findViewById(R.id.empty_btn_retry);
             tv_title = view.findViewById(R.id.empty_tv_title);
+            tv_title.setText("No results yet");
             tv_message = view.findViewById(R.id.empty_tv_message);
 
             btn_retry.setOnClickListener(this);
