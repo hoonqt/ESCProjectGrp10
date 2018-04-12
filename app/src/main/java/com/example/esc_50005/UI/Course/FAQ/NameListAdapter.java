@@ -158,6 +158,7 @@ public class NameListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             super(view);
             btn_retry = view.findViewById(R.id.empty_btn_retry);
             tv_title = view.findViewById(R.id.empty_tv_title);
+            tv_title.setText("No results yet");
             tv_message = view.findViewById(R.id.empty_tv_message);
 
             btn_retry.setOnClickListener(this);
