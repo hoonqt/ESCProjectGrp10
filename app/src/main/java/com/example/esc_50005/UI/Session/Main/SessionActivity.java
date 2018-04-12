@@ -19,6 +19,11 @@ import android.widget.TextView;
 
 import com.amazonaws.mobile.client.AWSMobileClient;
 import com.example.esc_50005.R;
+import com.example.esc_50005.UI.Session.Prof.MainScreens.ActivityProfFrag;
+import com.example.esc_50005.UI.Session.Student.QuestionsFragment;
+import com.example.esc_50005.UI.Session.Student.StudentActivity.MainScreen.ActivityStudentFrag;
+import com.example.esc_50005.UI.Session.feedback.FeedbackProfFragment;
+import com.example.esc_50005.UI.Session.feedback.FeedbackStudentFragment;
 
 public class SessionActivity extends AppCompatActivity {
     private Button btn;
@@ -27,6 +32,7 @@ public class SessionActivity extends AppCompatActivity {
     private SharedPreferences userInformation;
     private TextView tv_toolbar_title;
     private TextView tv_toolbar_code;
+    private String userType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,11 +47,12 @@ public class SessionActivity extends AppCompatActivity {
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
         userInformation = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        userType = sharedPreferences.getString(getString(R.string.user_type), "");
 
         tv_toolbar_title = (TextView) findViewById(R.id.toolbar_course_name);
-        tv_toolbar_title.setText(sharedPreferences.getString(getString(R.string.session_name),""));
+        tv_toolbar_title.setText(sharedPreferences.getString(getString(R.string.session_name), ""));
         tv_toolbar_code = (TextView) findViewById(R.id.toolbar_course_code);
-        String code = "Session Code: " + sharedPreferences.getString(getString(R.string.session_id),"");
+        String code = "Session Code: " + sharedPreferences.getString(getString(R.string.session_id), "");
         tv_toolbar_code.setText(code);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
@@ -67,6 +74,36 @@ public class SessionActivity extends AppCompatActivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
+                if (tab.getPosition() == 2) {
+                    if (userType.equals("student")) {
+                        FeedbackStudentFragment frag = (FeedbackStudentFragment) viewPager
+                                .getAdapter()
+                                .instantiateItem(viewPager, viewPager.getCurrentItem());
+                        frag.setFab();
+                    } else {
+                        FeedbackProfFragment frag = (FeedbackProfFragment) viewPager
+                                .getAdapter()
+                                .instantiateItem(viewPager, viewPager.getCurrentItem());
+                        frag.setFab();
+                    }
+                } else if (tab.getPosition() == 1) {
+                    if (userType.equals("student")) {
+                        ActivityStudentFrag frag = (ActivityStudentFrag) viewPager
+                                .getAdapter()
+                                .instantiateItem(viewPager, viewPager.getCurrentItem());
+                        frag.setFab();
+                    } else {
+                        ActivityProfFrag frag = (ActivityProfFrag) viewPager
+                                .getAdapter()
+                                .instantiateItem(viewPager, viewPager.getCurrentItem());
+                        frag.setFab();
+                    }
+                } else if (tab.getPosition() == 0) {
+                    QuestionsFragment frag = (QuestionsFragment) viewPager
+                            .getAdapter()
+                            .instantiateItem(viewPager, viewPager.getCurrentItem());
+                    frag.setFab();
+                }
             }
 
             @Override
