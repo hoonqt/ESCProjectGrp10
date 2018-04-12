@@ -1,21 +1,22 @@
-package com.example.esc_50005.UI.Session.feedbackDialog;
+package com.example.esc_50005.UI.Session.addQuestionDialog;
 
-import com.example.esc_50005.Database.feedback.Feedback;
+import com.example.esc_50005.Database.Database.SessionQuestionsDO;
+import com.example.esc_50005.Database.Database.SessionQuestionsRemoteDataSource;
 import com.example.esc_50005.Database.feedback.FeedbackRemoteDataSource;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import java.util.ArrayList;
 
 /**
  * Created by tan_j on 5/3/2018.
  */
 
-public class FeedbackDialogPresenter implements FeedbackDialogContract.Presenter {
+public class AddQuestionDialogPresenter implements AddQuestionDialogContract.Presenter {
 
     public static final String TAG = "AddQuestionDialogPresenter";
 
-    private final FeedbackRemoteDataSource mFeedbackRepository;
+    private final SessionQuestionsRemoteDataSource mQuestionRepository;
 
-    private final FeedbackDialogContract.View mFeedbackView;
+    private final AddQuestionDialogContract.View mFeedbackView;
 
     private String sessionId;
     private String userId;
@@ -23,13 +24,13 @@ public class FeedbackDialogPresenter implements FeedbackDialogContract.Presenter
 
 //    public AddQuestionDialogPresenter(@NonNull FeedbackRepository feedbackRepository,
 //                             @NonNull AddQuestionDialogContract.View feedbackView) {
-//        mFeedbackRepository = checkNotNull(feedbackRepository, "tasksRepository cannot be null");;
+//        mQuestionRepository = checkNotNull(feedbackRepository, "tasksRepository cannot be null");;
 //        mFeedbackView = checkNotNull(feedbackView, "tasksView cannot be null!");;
 //        mFeedbackView.setPresenter(this);
 //    }
 
-    public FeedbackDialogPresenter(FeedbackDialogContract.View view) {
-        mFeedbackRepository = new FeedbackRemoteDataSource();
+    public AddQuestionDialogPresenter(AddQuestionDialogContract.View view) {
+        mQuestionRepository = new SessionQuestionsRemoteDataSource();
         mFeedbackView = view;
         mFeedbackView.setPresenter(this);
     }
@@ -39,15 +40,13 @@ public class FeedbackDialogPresenter implements FeedbackDialogContract.Presenter
     }
 
     @Override
-    public void addFeedback(float rating, String message) {
-        Feedback newFeedback = new Feedback();
-        newFeedback.setSessionId(sessionId);
-        newFeedback.setAuthor(name);
-        newFeedback.setComment(message);
-        newFeedback.setRating(rating);
-        newFeedback.setStudentId(userId);
+    public void addQuestion(String question) {
+        SessionQuestionsDO newQuestion = new SessionQuestionsDO();
+        newQuestion.setSessionId(sessionId);
+        newQuestion.setUsersVoted(new ArrayList<String>());
+        newQuestion.setQuestion(question);
 
-        mFeedbackRepository.saveFeedback(newFeedback);
+        mQuestionRepository.saveQuestion(newQuestion);
         mFeedbackView.dismissDialog();
 
     }

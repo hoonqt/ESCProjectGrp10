@@ -1,4 +1,4 @@
-package com.example.esc_50005.UI.Session.feedbackDialog;
+package com.example.esc_50005.UI.Session.addQuestionDialog;
 
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -19,15 +19,13 @@ import com.example.esc_50005.R;
  * Created by tan_j on 5/3/2018.
  */
 
-public class FeedbackDialog extends DialogFragment implements FeedbackDialogContract.View {
+public class AddQuestionDialog extends DialogFragment implements AddQuestionDialogContract.View {
 
     private static final String TAG = "AddQuestionDialog";
 
-    FeedbackDialogContract.Presenter mPresenter;
+    AddQuestionDialogContract.Presenter mPresenter;
 
-    RatingBar mRatingBar;
     EditText mMessage;
-    View mRatingMessageView;
     Button mSubmitButton;
     Button mLaterButton;
 
@@ -36,34 +34,33 @@ public class FeedbackDialog extends DialogFragment implements FeedbackDialogCont
     String userId;
     String name;
 
-    public static FeedbackDialog newInstance() {
-        FeedbackDialog fragment = new FeedbackDialog();
+    public static AddQuestionDialog newInstance() {
+        AddQuestionDialog fragment = new AddQuestionDialog();
         Bundle bundle = new Bundle();
         fragment.setArguments(bundle);
 
         return fragment;
     }
 
-    public FeedbackDialog() {
+    public AddQuestionDialog() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.dialog_feedback, container, false);
+        View view = inflater.inflate(R.layout.dialog_add_question, container, false);
 
         mLaterButton = (Button) view.findViewById(R.id.btn_later);
         mSubmitButton = (Button) view.findViewById(R.id.btn_submit);
         mMessage = (EditText) view.findViewById(R.id.et_message);
-        mRatingBar = (RatingBar) view.findViewById(R.id.rating_bar_feedback);
-        mPresenter = new FeedbackDialogPresenter(this);
+        mPresenter = new AddQuestionDialogPresenter(this);
 
         mSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 //                mPresenter.addFeedback(mRatingBar.getRating(), "comment");
-                mPresenter.addFeedback(mRatingBar.getRating(), mMessage.getText().toString());
+                mPresenter.addQuestion(mMessage.getText().toString());
             }
         });
 
@@ -73,7 +70,6 @@ public class FeedbackDialog extends DialogFragment implements FeedbackDialogCont
                 dismissDialog();
             }
         });
-
 
         userInformation = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
         sessionId = userInformation.getString(getString(R.string.session_id),"");
@@ -98,7 +94,7 @@ public class FeedbackDialog extends DialogFragment implements FeedbackDialogCont
     }
 
     @Override
-    public void setPresenter(FeedbackDialogContract.Presenter presenter) {
+    public void setPresenter(AddQuestionDialogContract.Presenter presenter) {
         mPresenter = presenter;
     }
 
