@@ -56,6 +56,8 @@ public class FaqFragment extends Fragment implements FaqContract.View {
     private String courseId;
 
     private FaqAdapter mFaqAdapter;
+    FloatingActionButton fab;
+    private ArrayList<String> faqList = new ArrayList<>();
 
     public FaqFragment() {
         // Required empty public constructor
@@ -110,33 +112,16 @@ public class FaqFragment extends Fragment implements FaqContract.View {
 
         coordinatorLayout = (CoordinatorLayout) view.findViewById(R.id.faq_cl);
 
-        FloatingActionButton fab = (FloatingActionButton) getActivity().findViewById(R.id.course_fab);
+        fab = (FloatingActionButton) getActivity().findViewById(R.id.course_fab);
 
         if (userType.equals("student")) {
             fab.setVisibility(View.GONE);
         }
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                Intent intent = new Intent(getActivity(), AddEditFaqActivity.class);
-//                startActivity(intent);
-                FragmentManager fm = getFragmentManager();
-                EditFaqDialog editFaqDialogFragment = new EditFaqDialog();
-                editFaqDialogFragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.Dialog_FullScreen);
-//                FragmentTransaction transaction = fm.beginTransaction();
-//                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-//                transaction.add(R.id.course_rl, editFaqDialogFragment).addToBackStack(null).commit();
-                editFaqDialogFragment.show(fm, "fragment_alert");
-
-            }
-        });
-
         return view;
     }
 
     public void showFaq(ArrayList<Faq> faqList) {
-
         mFaqAdapter = new FaqAdapter(faqList, mItemListener, userId);
         faqListRecycler.setAdapter(mFaqAdapter);
     }
@@ -194,5 +179,23 @@ public class FaqFragment extends Fragment implements FaqContract.View {
         String answer;
         String upvotes;
 
+    }
+
+    public void setFab() {
+        if (faqList.size()==0) {
+            fab.setVisibility(View.GONE);
+        } else {
+            fab.setVisibility(View.VISIBLE);
+        }
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager fm = getFragmentManager();
+                EditFaqDialog editFaqDialogFragment = new EditFaqDialog();
+                editFaqDialogFragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.Dialog_FullScreen);
+                editFaqDialogFragment.show(fm, "fragment_alert");
+
+            }
+        });
     }
 }

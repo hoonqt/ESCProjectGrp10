@@ -10,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import android.support.design.widget.BottomSheetBehavior;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
@@ -52,6 +53,7 @@ public class ProfessorSessionsFragment extends Fragment implements SessionsContr
     private RecyclerView sessionsListRecycler;
     private SwipeRefreshLayout swipeLayout;
     private ImageButton button;
+    private FloatingActionButton fab;
     private SharedPreferences sharedPreferences;
     private BottomSheetBehavior mBottomSheetBehavior;
 
@@ -82,6 +84,12 @@ public class ProfessorSessionsFragment extends Fragment implements SessionsContr
     public void onResume() {
         super.onResume();
         mPresenter.start();
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onFabClick();
+            }
+        });
     }
 
     @Override
@@ -101,8 +109,7 @@ public class ProfessorSessionsFragment extends Fragment implements SessionsContr
         mCurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
         sessionsListRecycler.setLayoutManager(new LinearLayoutManager(this.getActivity()));
 //        button= view.findViewById(R.id.add_sessions);
-        button= view.findViewById(R.id.add_sessions);
-        button.setOnClickListener(this);
+//        button.setOnClickListener(this);
         swipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.sessions_swipe);
         swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -112,6 +119,8 @@ public class ProfessorSessionsFragment extends Fragment implements SessionsContr
         });
 
         websock = ProfWebSocket.getInstance();
+
+        fab= getActivity().findViewById(R.id.course_fab);
 
         attemptQuerySessions();
         return view;
@@ -217,6 +226,45 @@ public class ProfessorSessionsFragment extends Fragment implements SessionsContr
 
     }
 
+    public void onFabClick() {
+        AlertDialog.Builder builder=new AlertDialog.Builder(this.getContext());
+        builder.setTitle("Add new session");
+        LinearLayout layout = new LinearLayout(this.getActivity());
+        layout.setOrientation(LinearLayout.VERTICAL);
+        final EditText sessionName = new EditText(getActivity().getApplicationContext());
+        sessionName.setHint("Session Name");
+
+        builder.setNegativeButton("Submit",new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog,int id) {
+
+                Random randomGenerator=new Random();
+                int sessionId=100+ randomGenerator.nextInt(100);
+                String sessionNameToAdd=sessionName.getText().toString();
+                String months[] = {"Jan", "Feb", "March", "April", "May", "June", "July", "Aug", "Sep",
+                        "Oct", "Nov", "Dec"};
+                GregorianCalendar gcalendar = new GregorianCalendar();
+                String month=months[gcalendar.get(Calendar.MONTH)];
+                int day=gcalendar.get(Calendar.DAY_OF_MONTH);
+                StringBuilder timeOfCreation=new StringBuilder();
+                timeOfCreation.append(Integer.toString(day));
+                timeOfCreation.append(" ");
+                timeOfCreation.append(month);
+
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("AddedSessionId",  Integer.toString(sessionId));
+                editor.commit();
+                String courseId=sharedPreferences.getString(getString(R.string.course_id),"");
+
+                mPresenter.queryAddNewSession(sharedPreferences.getString(getString(R.string.user_type),""),Integer.toString(sessionId),sessionNameToAdd,timeOfCreation.toString(),courseId);
+                dialog.cancel();
+            }
+        });
+        layout.addView(sessionName);
+        builder.setView(layout);
+        builder.create();
+        builder.show();
+    }
+
     @Override
     public void onClick(View view) {
         Log.i("adding","adding");
@@ -264,5 +312,14 @@ public class ProfessorSessionsFragment extends Fragment implements SessionsContr
         }
     }
 
-
+    public void setFab() {
+        fab= getActivity().findViewById(R.id.course_fab);
+        fab.setVisibility(View.VISIBLE);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onFabClick();
+            }
+        });
+    }
 }
