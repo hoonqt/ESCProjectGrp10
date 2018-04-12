@@ -19,6 +19,7 @@ import com.example.esc_50005.R;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
@@ -165,13 +166,17 @@ public class ProgressStudentFragment extends Fragment implements ProgressContrac
                 ds[i]= "Quiz " + (i+1);
             }
 
-
             XAxis xval = mChart.getXAxis();
             xval.setDrawLabels(false);
+            mChart.getAxisLeft().setAxisMaximum(100);
+            mChart.getAxisLeft().setAxisMinimum(0);
+            mChart.getAxisRight().setAxisMaximum(100);
+            mChart.getAxisRight().setAxisMinimum(0);
 
             setData(scoreList);
             mChart.setFitBars(false);
         }
+//        mChart.setVisibleYRangeMaximum(100, YAxis.AxisDependency.LEFT);
         mChart.setNoDataText("There are no results currently");
         Paint p = mChart.getPaint(Chart.PAINT_INFO);
         p.setTextSize(50);

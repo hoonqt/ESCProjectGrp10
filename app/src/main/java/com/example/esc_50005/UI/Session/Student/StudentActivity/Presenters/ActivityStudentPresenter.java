@@ -43,7 +43,7 @@ public class ActivityStudentPresenter implements QuizStudentContract.Presenter {
     @Override
     public void start() {
 
-
+        loadQuizes("50.005","101","Quiz 1");
     }
 
 
@@ -59,7 +59,6 @@ public class ActivityStudentPresenter implements QuizStudentContract.Presenter {
     public void processEmptyQuiz() {
 
     }
-
 
 
 }

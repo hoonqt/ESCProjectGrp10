@@ -22,7 +22,7 @@ import static org.mockito.Mockito.verify;
 /**
  * Unit tests for the implementation of {@link com.example.esc_50005.UI.Course.FAQ.NameListPresenter}
  */
-public class ProfProgressPresenterTest {
+public class NameListPresenterTest {
 
     private static ArrayList<QuizScores4DO> quiz;
 
@@ -100,6 +100,7 @@ public class ProfProgressPresenterTest {
             avg.add(0.0);
 
         }
+
         mNameListPresenter.processNames(result);
         verify(mProgressView).showNames(nameList,studentId,avg);
     }

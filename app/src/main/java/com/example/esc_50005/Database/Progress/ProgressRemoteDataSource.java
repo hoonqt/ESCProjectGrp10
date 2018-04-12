@@ -179,10 +179,10 @@ public class ProgressRemoteDataSource implements ProgressDataSource {
                     if (!output.contains(output.add(name))) {
                         output.add(name);
                     }
-                    Log.i("Names in prds","names: " + name.getName().toString());
+                    Log.i("Names in prds","names: " + name.getName());
                 }
                 for (QuizScores4DO out: output){
-                    Log.i("Names in prds","out: " + out.getName().toString());
+                    Log.i("Names in prds","out: " + out.getName());
 
                 }
 

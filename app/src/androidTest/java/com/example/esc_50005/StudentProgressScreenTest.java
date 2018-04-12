@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 
 import com.example.esc_50005.R;
-import com.example.esc_50005.UI.Welcome.WelcomeActivity;
+import com.example.esc_50005.UI.Login.LoginActivity;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
@@ -37,65 +37,44 @@ import static org.hamcrest.Matchers.is;
 public class StudentProgressScreenTest {
 
     @Rule
-    public ActivityTestRule<WelcomeActivity> mActivityTestRule = new ActivityTestRule<>(WelcomeActivity.class);
+    public ActivityTestRule<LoginActivity> mActivityTestRule = new ActivityTestRule<>(LoginActivity.class);
 
     @Test
-    public void StudentProgressScreenTest() {
-        ViewInteraction appCompatButton = onView(
-                allOf(withId(R.id.sign_in_button), withText("Sign In"),
-                        childAtPosition(
-                                allOf(withId(R.id.signupFragment),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.LinearLayout")),
-                                                0)),
-                                0),
-                        isDisplayed()));
-        appCompatButton.perform(click());
-
-        ViewInteraction appCompatAutoCompleteTextView = onView(
-                allOf(withId(R.id.email),
+    public void studentProgressScreenTest() {
+        ViewInteraction appCompatEditText = onView(
+                allOf(withId(R.id.user_id),
                         childAtPosition(
                                 childAtPosition(
                                         withClassName(is("android.support.design.widget.TextInputLayout")),
                                         0),
                                 0)));
-        appCompatAutoCompleteTextView.perform(scrollTo(), replaceText("adam"), closeSoftKeyboard());
+        appCompatEditText.perform(scrollTo(), replaceText("1001566"), closeSoftKeyboard());
 
-        ViewInteraction appCompatEditText = onView(
+        ViewInteraction appCompatEditText2 = onView(
                 allOf(withId(R.id.password),
                         childAtPosition(
                                 childAtPosition(
                                         withClassName(is("android.support.design.widget.TextInputLayout")),
                                         0),
                                 0)));
-        appCompatEditText.perform(scrollTo(), replaceText("adam"), closeSoftKeyboard());
+        appCompatEditText2.perform(scrollTo(), replaceText("jiawen"), closeSoftKeyboard());
 
-        ViewInteraction appCompatRadioButton = onView(
-                allOf(withId(R.id.student), withText("Student"),
-                        childAtPosition(
-                                allOf(withId(R.id.professorOrStudent),
-                                        childAtPosition(
-                                                withId(R.id.email_login_form),
-                                                2)),
-                                1)));
-        appCompatRadioButton.perform(scrollTo(), click());
-
-        ViewInteraction appCompatButton2 = onView(
-                allOf(withId(R.id.login_button), withText("Sign in or register"),
+        ViewInteraction appCompatButton = onView(
+                allOf(withId(R.id.login_button), withText("Sign in"),
                         childAtPosition(
                                 allOf(withId(R.id.email_login_form),
                                         childAtPosition(
                                                 withId(R.id.login_form),
                                                 0)),
                                 3)));
-        appCompatButton2.perform(scrollTo(), click());
+        appCompatButton.perform(scrollTo(), click());
 
         ViewInteraction recyclerView = onView(
                 allOf(withId(R.id.recyclerViewDashboardCourses),
                         childAtPosition(
-                                withId(R.id.studentDashboardFragment),
+                                withId(R.id.courses_swipe),
                                 0)));
-        recyclerView.perform(actionOnItemAtPosition(0, click()));
+        recyclerView.perform(actionOnItemAtPosition(1, click()));
 
         ViewInteraction tabView = onView(
                 allOf(childAtPosition(
@@ -105,6 +84,16 @@ public class StudentProgressScreenTest {
                         2),
                         isDisplayed()));
         tabView.perform(click());
+
+        ViewInteraction appCompatButton2 = onView(
+                allOf(withId(R.id.name_list_progress_btn),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.name_list_cv),
+                                        0),
+                                2),
+                        isDisplayed()));
+        appCompatButton2.perform(click());
 
     }
 

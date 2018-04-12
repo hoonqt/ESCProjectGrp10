@@ -3,55 +3,47 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".UI.Session.Prof.SideScreens.EditQnListFrag"
-    android:background="#59000000"
+    android:background="#ffffff"
     android:clickable="true">
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="70dp"
-        android:background="#eeeeee">
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        >
 
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:orientation="vertical"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            >
-
-            <android.support.v7.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="0dp"
-                android:id="@+id/recyclerViewQuizList"></android.support.v7.widget.RecyclerView>
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:id="@+id/recyclerViewQuizList"></android.support.v7.widget.RecyclerView>
 
 
-            <Button
-                android:id="@+id/back"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_above="@+id/addbutton"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginBottom="12dp"
-                android:background="#fafafa"
-                android:text="Back"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+        <Button
+            android:id="@+id/back"
+            android:layout_width="match_parent"
+            android:layout_height="37dp"
+            android:layout_above="@+id/addbutton"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="12dp"
+            android:background="@color/colorPrimary"
+            android:text="Back"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="#ffffff" />
 
-            <ImageView
-                android:id="@+id/addbutton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginBottom="21dp"
-                android:background="#e0e0e0"
-                android:src="@drawable/ic_add_black_24dp" />
+        <ImageButton
+            android:id="@+id/addbutton"
+            android:layout_width="match_parent"
+            android:layout_height="34dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="28dp"
+            android:background="@color/colorPrimary"
+            android:src="@drawable/ic_add_black_24dp"
+            android:tint="#ffffff" />
 
-
-        </RelativeLayout>
 
     </RelativeLayout>
 

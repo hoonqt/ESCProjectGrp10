@@ -4,16 +4,16 @@
     android:layout_height="match_parent"
     tools:context="com.example.esc_50005.UI.Session.Prof.SideScreens.ProfResponsesFrag"
     android:background="@color/backgroundGrey"
-    android:layout_marginTop="50dp"
     android:clickable="true">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp"
         android:id="@+id/questionBox"
         android:background="#ffffff"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textAppearance="@style/Toolbar_Title"
         android:padding="8dp"
         android:textColor="#000000" />
 
