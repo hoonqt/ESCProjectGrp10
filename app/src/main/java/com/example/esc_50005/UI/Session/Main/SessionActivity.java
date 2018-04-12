@@ -15,6 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.amazonaws.mobile.client.AWSMobileClient;
 import com.example.esc_50005.R;
@@ -24,6 +25,8 @@ public class SessionActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
 
     private SharedPreferences userInformation;
+    private TextView tv_toolbar_title;
+    private TextView tv_toolbar_code;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +34,7 @@ public class SessionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.session_activity);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
-        setTitle(sharedPreferences.getString("SessionSelected",""));
+        setTitle(sharedPreferences.getString("SessionSelected", ""));
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionbar = getSupportActionBar();
@@ -39,19 +42,22 @@ public class SessionActivity extends AppCompatActivity {
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
         userInformation = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
-        TabLayout tabLayout=(TabLayout) findViewById(R.id.tab_layout);
+        tv_toolbar_title = (TextView) findViewById(R.id.toolbar_course_name);
+        tv_toolbar_title.setText(sharedPreferences.getString(getString(R.string.course_name),""));
+        tv_toolbar_code = (TextView) findViewById(R.id.toolbar_course_code);
+        String code = "Session Code: " + sharedPreferences.getString(getString(R.string.session_id),"");
+        tv_toolbar_code.setText(code);
+
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText(R.string.questions));
         tabLayout.addTab(tabLayout.newTab().setText(R.string.activities));
-
-        if(userInformation.getString(getString(R.string.user_type),"").equals("professor")) {
-            tabLayout.addTab(tabLayout.newTab().setText(R.string.feedback));
-        }
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.feedback));
 
         tabLayout.setTabGravity(tabLayout.GRAVITY_FILL);
 
-        final ViewPager viewPager=(ViewPager) findViewById(R.id.pager);
+        final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
 
-        final SessionPagerAdapter pagerAdapter=new SessionPagerAdapter(getSupportFragmentManager(),tabLayout.getTabCount(), this.getApplicationContext());
+        final SessionPagerAdapter pagerAdapter = new SessionPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount(), this.getApplicationContext());
 
         viewPager.setAdapter(pagerAdapter);
 
@@ -88,13 +94,12 @@ public class SessionActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if(sharedPreferences.getString(getString(R.string.user_type),"").equals("professor"))
-        {
+        if (sharedPreferences.getString(getString(R.string.user_type), "").equals("professor")) {
             int id = item.getItemId();
 
-            if(id == R.id.get_session_id){
-                AlertDialog.Builder builder=new AlertDialog.Builder(SessionActivity.this);
-                builder.setTitle("The sesson id is "+ sharedPreferences.getString(getString(R.string.session_id),""));
+            if (id == R.id.get_session_id) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(SessionActivity.this);
+                builder.setTitle("The sesson id is " + sharedPreferences.getString(getString(R.string.session_id), ""));
                 builder.create();
                 builder.show();
                 return true;
@@ -106,8 +111,7 @@ public class SessionActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
-        if(sharedPreferences.getString(getString(R.string.user_type),"").equals("professor"))
-        {
+        if (sharedPreferences.getString(getString(R.string.user_type), "").equals("professor")) {
             MenuInflater inflater = getMenuInflater();
             inflater.inflate(R.menu.menu_main, menu);
             return true;

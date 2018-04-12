@@ -5,8 +5,7 @@
     android:paddingTop="8dp"
     tools:context="com.example.esc_50005.UI.Course.FAQ.CourseActivity">
 
-    <android.support.v7.widget.CardView
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/faq_cv"
         style="@style/CardView.Light"
@@ -16,79 +15,71 @@
         android:layout_marginStart="-3dp"
         tools:ignore="ContentDescription">
 
-        <android.support.constraint.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/faq_tv_question"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
-                android:textAppearance="@style/CardView_Title"
+                android:paddingTop="8dp"
                 android:text="Sample Question"
-                app:layout_constraintBottom_toTopOf="@+id/faq_tv_answer"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:textAppearance="@style/CardView_Title" />
 
             <TextView
                 android:id="@+id/faq_tv_answer"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
                 android:text="Here is for the answer to the question which may have several lines"
                 android:textAppearance="@style/CardView_Subtitle"
-                android:textColor="#111111"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/faq_tv_question" />
+                android:textColor="#111111" />
 
-            <TextView
-                android:id="@+id/faq_tv_time"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
-                android:lineSpacingExtra="8dp"
-                android:text="01 March 2018"
-                android:textAppearance="@style/CardView_Subtext"
-                android:textColor="#555555"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/faq_tv_answer" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/faq_tv_upvote"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
-                android:lineSpacingExtra="8dp"
-                android:text="2 upvotes"
-                android:textAppearance="@style/CardView_Subtext"
-                android:textColor="#555555"
-                app:layout_constraintEnd_toStartOf="@id/faq_btn_upvote"
-                app:layout_constraintTop_toBottomOf="@+id/faq_tv_answer" />
+                <TextView
+                    android:id="@+id/faq_tv_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:lineSpacingExtra="8dp"
+                    android:text="01 March 2018"
+                    android:textAppearance="@style/CardView_Subtext"
+                    android:layout_alignParentLeft="true" />
 
-            <Button
-                android:id="@+id/faq_btn_upvote"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="Upvote"
-                android:textColor="#114488"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/faq_tv_answer" />
+                <TextView
+                    android:id="@+id/faq_tv_upvote"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:lineSpacingExtra="8dp"
+                    android:text="2 upvotes"
+                    android:textAppearance="@style/CardView_Subtext"
+                    android:layout_toLeftOf="@+id/faq_btn_upvote" />
 
-        </android.support.constraint.ConstraintLayout>
+                <Button
+                    android:id="@+id/faq_btn_upvote"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Upvote"
+                    android:layout_alignParentRight="true"/>
+            </RelativeLayout>
+        </LinearLayout>
 
     </android.support.v7.widget.CardView>
 

@@ -21,6 +21,8 @@ public class FeedbackPresenter implements FeedbackContract.Presenter {
     private FeedbackRemoteDataSource mFeedbackRepository;
     ArrayList<Feedback> feedbackJsonData;
 
+    String sessionId;
+
     public FeedbackPresenter(@NonNull FeedbackContract.View feedbackView) {
         mFeedbackRepository = new FeedbackRemoteDataSource();
         mFaqView = checkNotNull(feedbackView, "feedbackView cannot be null!");
@@ -34,14 +36,10 @@ public class FeedbackPresenter implements FeedbackContract.Presenter {
 
     public void loadFeedback() {
 
-        feedbackJsonData = mFeedbackRepository.getFeedbackListBySessionId("1234");
+        feedbackJsonData = mFeedbackRepository.getFeedbackListBySessionId(sessionId);
         processFeedback(feedbackJsonData);
 
         Log.i(TAG, "LoadFeedback size is " + feedbackJsonData.size());
-
-    }
-
-    public void processEmptyFaq() {
 
     }
 
@@ -49,11 +47,13 @@ public class FeedbackPresenter implements FeedbackContract.Presenter {
 
         Log.i(TAG, "Length of feedbacksonData = " + feedbackJsonData.size());
 
-        if (feedbackJsonData.size() != 0) {
-            mFaqView.showFeedback(feedbackJsonData);
-            mFaqView.feedbackLoaded();
-        }
+        mFaqView.showFeedback(feedbackJsonData);
+        mFaqView.feedbackLoaded();
+    }
 
+    @Override
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
     }
 
 }
