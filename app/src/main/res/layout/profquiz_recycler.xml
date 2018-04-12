@@ -12,8 +12,6 @@
         style="@style/CardView.Light"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         app:cardUseCompatPadding="true"
         tools:ignore="ContentDescription">
@@ -29,7 +27,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:padding="10dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textAppearance="@style/CardView_Title"
                 android:textColor="#000000" />
 
             <Switch
@@ -48,7 +46,7 @@
                 android:paddingTop="6dp"
                 android:id="@+id/moreinfobutton"
                 android:background="@android:color/white"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textAppearance="@style/CardView_Title"
                 app:layout_constraintEnd_toEndOf="parent"/>
 
 
