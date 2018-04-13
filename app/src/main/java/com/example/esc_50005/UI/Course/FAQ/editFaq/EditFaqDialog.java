@@ -54,8 +54,8 @@ public class EditFaqDialog extends DialogFragment implements EditFaqDialogContra
         mPresenter = new EditFaqDialogPresenter(this);
         userInformation = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
 //        userType = userInformation.getString("UserType","");
-        String userId = userInformation.getString("Username","");
-        String courseId = userInformation.getString("CurrentCourseActivity", "");
+        String userId = userInformation.getString(getString(R.string.user_id),"");
+        String courseId = userInformation.getString(getString(R.string.course_id), "");
         mPresenter.setUserId(userId);
         mPresenter.setCourseId(courseId);
 

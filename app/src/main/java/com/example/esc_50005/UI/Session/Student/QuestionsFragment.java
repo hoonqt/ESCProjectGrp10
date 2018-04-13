@@ -46,6 +46,7 @@ public class QuestionsFragment extends android.support.v4.app.Fragment implement
     private LinearLayout mFaqView;
     private RecyclerView faqListRecycler;
     private SwipeRefreshLayout swipeLayout;
+    private FloatingActionButton fab;
 
     private SharedPreferences userInformation;
     private String userType;
@@ -84,6 +85,12 @@ public class QuestionsFragment extends android.support.v4.app.Fragment implement
     public void onResume() {
         super.onResume();
         mPresenter.start();
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onFabClick();
+            }
+        });
     }
 
     @Override
@@ -110,23 +117,10 @@ public class QuestionsFragment extends android.support.v4.app.Fragment implement
                 mPresenter.loadQuestions();
             }
         });
+        fab = (FloatingActionButton) getActivity().findViewById(R.id.session_fab);
 
-        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.questions_fab);
+//        fab = (FloatingActionButton) view.findViewById(R.id.questions_fab);
 
-        if (userType.equals("professor")) {
-            fab.setVisibility(View.GONE);
-        }
-
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FragmentManager fm = getFragmentManager();
-                AddQuestionDialog addQuestionDialogFragment = new AddQuestionDialog();
-                addQuestionDialogFragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.Dialog_FullScreen);
-                addQuestionDialogFragment.show(fm, "fragment_alert");
-
-            }
-        });
         return view;
     }
 
@@ -182,5 +176,32 @@ public class QuestionsFragment extends android.support.v4.app.Fragment implement
             swipeLayout.setRefreshing(false);
         }
         mQuestionsAdapter.notifyDataSetChanged();
+    }
+
+    public void setFab() {
+        if (userType.equals("professor")) {
+            fab.setVisibility(View.GONE);
+        } else {
+            fab.setVisibility(View.VISIBLE);
+        }
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onFabClick();
+            }
+        });
+    }
+
+    public void onFabClick() {
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager fm = getFragmentManager();
+                AddQuestionDialog addQuestionDialogFragment = new AddQuestionDialog();
+                addQuestionDialogFragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.Dialog_FullScreen);
+                addQuestionDialogFragment.show(fm, "fragment_alert");
+
+            }
+        });
     }
 }

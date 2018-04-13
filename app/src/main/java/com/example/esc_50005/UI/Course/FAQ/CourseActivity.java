@@ -98,10 +98,10 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
                         frag.setFab();
                     }
                 } else if (tab.getPosition() == 1) {
-                    FaqFragment frag1 = (FaqFragment) viewPager
+                    FaqFragment frag = (FaqFragment) viewPager
                             .getAdapter()
                             .instantiateItem(viewPager, viewPager.getCurrentItem());
-                    frag1.setFab();
+                    frag.setFab();
                 } else if (tab.getPosition() == 0){
                     if (userType.equals("student")) {
                         StudentSessionsFragment frag = (StudentSessionsFragment) viewPager

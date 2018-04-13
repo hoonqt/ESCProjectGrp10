@@ -114,10 +114,6 @@ public class FaqFragment extends Fragment implements FaqContract.View {
 
         fab = (FloatingActionButton) getActivity().findViewById(R.id.course_fab);
 
-        if (userType.equals("student")) {
-            fab.setVisibility(View.GONE);
-        }
-
         return view;
     }
 
@@ -183,7 +179,7 @@ public class FaqFragment extends Fragment implements FaqContract.View {
     }
 
     public void setFab() {
-        if (faqList.size()==0) {
+        if (userType.equals("student") || faqList.size()==0) {
             fab.setVisibility(View.GONE);
         } else {
             fab.setVisibility(View.VISIBLE);

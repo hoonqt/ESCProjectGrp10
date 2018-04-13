@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -41,6 +42,7 @@ public class FeedbackStudentFragment extends Fragment implements FeedbackContrac
     private SwipeRefreshLayout swipeLayout;
     private TextView tv_message;
     private Button btn_add;
+    private FloatingActionButton fab;
 
     SharedPreferences userInformation;
     String sessionId;
@@ -61,6 +63,7 @@ public class FeedbackStudentFragment extends Fragment implements FeedbackContrac
         sessionId = userInformation.getString(getString(R.string.session_id), "");
         userId = userInformation.getString(getString(R.string.user_id), "");
         mPresenter.setSessionId(sessionId);
+        fab = (FloatingActionButton) getActivity().findViewById(R.id.session_fab);
     }
 
     @Override
@@ -128,5 +131,9 @@ public class FeedbackStudentFragment extends Fragment implements FeedbackContrac
         if (swipeLayout.isRefreshing()) {
             swipeLayout.setRefreshing(false);
         }
+    }
+
+    public void setFab() {
+        fab.setVisibility(View.GONE);
     }
 }
