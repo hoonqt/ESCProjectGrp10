@@ -190,6 +190,8 @@ public class LoginFragment extends Fragment implements LoginContract.View {
 
     @Override
     public void showAccountLockedOut() {
+
+//        showSecurityQuestion();
         AlertDialog.Builder builder=new AlertDialog.Builder(this.getContext());
         builder.setTitle("Failed authentication");
         builder.create();

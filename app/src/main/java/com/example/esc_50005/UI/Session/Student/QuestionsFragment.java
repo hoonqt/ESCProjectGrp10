@@ -53,8 +53,6 @@ public class QuestionsFragment extends android.support.v4.app.Fragment implement
     private String userId;
     private String sessionId;
 
-    ArrayList<com.example.esc_50005.UI.Course.FAQ.FaqFragment.FaqJsonData> FaqList;
-
     private enum LayoutManagerType {
         LINEAR_LAYOUT_MANAGER
     }
@@ -74,8 +72,8 @@ public class QuestionsFragment extends android.support.v4.app.Fragment implement
 //                Injection.provideFaqRepository(getActivity().getApplicationContext()), this);
 
         userInformation = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
-        userType = userInformation.getString("UserType","");
-        userId = userInformation.getString("Username","");
+        userType = userInformation.getString(getString(R.string.user_type),"");
+        userId = userInformation.getString(getString(R.string.user_id),"");
         sessionId = userInformation.getString(getString(R.string.session_id), "");
         mPresenter.setUserId(userId);
         mPresenter.setSessionId(sessionId);
@@ -118,8 +116,6 @@ public class QuestionsFragment extends android.support.v4.app.Fragment implement
             }
         });
         fab = (FloatingActionButton) getActivity().findViewById(R.id.session_fab);
-
-//        fab = (FloatingActionButton) view.findViewById(R.id.questions_fab);
 
         return view;
     }
