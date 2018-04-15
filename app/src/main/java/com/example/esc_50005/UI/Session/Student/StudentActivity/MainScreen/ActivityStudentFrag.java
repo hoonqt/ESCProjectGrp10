@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -40,6 +41,7 @@ public class ActivityStudentFrag extends Fragment implements QuizStudentContract
     private QuizStudentContract.Presenter mPresenter = new ActivityStudentPresenter(this);
     private ActivityStudentAdapter mQuizAdapter;
     private SharedPreferences sharedPreferences;
+    private FloatingActionButton fab;
 
     private Context context;
 
@@ -75,6 +77,8 @@ public class ActivityStudentFrag extends Fragment implements QuizStudentContract
         quizRecycler.setAdapter(mQuizAdapter);
 
         context = getActivity();
+
+        fab = getActivity().findViewById(R.id.session_fab);
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
 
@@ -162,4 +166,7 @@ public class ActivityStudentFrag extends Fragment implements QuizStudentContract
         }
     }
 
+    public void setFab() {
+        fab.setVisibility(View.GONE);
+    }
 }

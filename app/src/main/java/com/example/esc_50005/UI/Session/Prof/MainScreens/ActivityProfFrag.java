@@ -53,6 +53,7 @@ public class ActivityProfFrag extends Fragment implements QuizProfContract.View,
     private Context context;
     private QuizProfContract.Presenter mPresenter;
     SharedPreferences sharedPreferences;
+    private FloatingActionButton fab;
 
     String courseCode;
     String sessionID;
@@ -106,69 +107,7 @@ public class ActivityProfFrag extends Fragment implements QuizProfContract.View,
 
         mPresenter.loadQuizes(courseCode,sessionID);
 
-        FloatingActionButton fab = view.findViewById(R.id.fabbtn);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                final SharedPreferences.Editor edithere = sharedPreferences.edit();
-
-                final Dialog dialog = new Dialog(getActivity());
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setContentView(R.layout.prof_qn_popup);
-
-                final EditText input = dialog.findViewById(R.id.quizName);
-                final RadioGroup rg = dialog.findViewById(R.id.radiobtns);
-
-                TextView submitbtn = dialog.findViewById(R.id.submit);
-                submitbtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-
-                        int selected = rg.getCheckedRadioButtonId();
-
-                        if (selected == R.id.quizBubble) {
-                            edithere.putString("ActivityType","Quiz");
-                        }
-
-                        else {
-                            edithere.putString("ActivityType","Question");
-                        }
-
-
-                        String quizname = input.getText().toString();
-
-
-                        edithere.putString("QuizName",quizname);
-                        edithere.commit();
-
-                        String ActivityType = sharedPreferences.getString("ActivityType",null);
-
-                        Fragment editQnfrag;
-
-                        if (ActivityType.equals("Quiz")) {
-                            editQnfrag = new EditQnListFrag();
-                            Bundle bundle = new Bundle();
-                            bundle.putSerializable("allthequestions",new ArrayList<QuizQuestions2DO>());
-                            editQnfrag.setArguments(bundle);
-                            SessionActivity myActivity = (SessionActivity)context;
-                            myActivity.getSupportFragmentManager().beginTransaction().replace(R.id.profsessionhere,editQnfrag).addToBackStack(null).commit();
-                        }
-
-                        else {
-                            QnCreator(input.getText().toString());
-                        }
-
-
-                        dialog.dismiss();
-                    }
-                });
-
-                dialog.show();
-
-            }
-        });
-
+        fab = getActivity().findViewById(R.id.session_fab);
 
         return view;
     }
@@ -243,5 +182,80 @@ public class ActivityProfFrag extends Fragment implements QuizProfContract.View,
         String saltStr = salt.toString();
         return saltStr;
 
+    }
+
+    public void onFabClick() {
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                final SharedPreferences.Editor edithere = sharedPreferences.edit();
+
+                final Dialog dialog = new Dialog(getActivity());
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setContentView(R.layout.prof_qn_popup);
+
+                final EditText input = dialog.findViewById(R.id.quizName);
+                final RadioGroup rg = dialog.findViewById(R.id.radiobtns);
+
+                TextView submitbtn = dialog.findViewById(R.id.submit);
+                submitbtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        int selected = rg.getCheckedRadioButtonId();
+
+                        if (selected == R.id.quizBubble) {
+                            edithere.putString("ActivityType","Quiz");
+                        }
+
+                        else {
+                            edithere.putString("ActivityType","Question");
+                        }
+
+
+                        String quizname = input.getText().toString();
+
+
+                        edithere.putString("QuizName",quizname);
+                        edithere.commit();
+
+                        String ActivityType = sharedPreferences.getString("ActivityType",null);
+
+                        Fragment editQnfrag;
+
+                        if (ActivityType.equals("Quiz")) {
+                            editQnfrag = new EditQnListFrag();
+                            Bundle bundle = new Bundle();
+                            bundle.putSerializable("allthequestions",new ArrayList<QuizQuestions2DO>());
+                            editQnfrag.setArguments(bundle);
+                            SessionActivity myActivity = (SessionActivity)context;
+                            myActivity.getSupportFragmentManager().beginTransaction().replace(R.id.profsessionhere,editQnfrag).addToBackStack(null).commit();
+                        }
+
+                        else {
+                            QnCreator(input.getText().toString());
+                        }
+
+
+                        dialog.dismiss();
+                    }
+                });
+
+                dialog.show();
+
+            }
+        });
+    }
+
+    public void setFab() {
+        fab= getActivity().findViewById(R.id.session_fab);
+        fab.setVisibility(View.VISIBLE);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onFabClick();
+            }
+        });
     }
 }

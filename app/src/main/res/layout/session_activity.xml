@@ -110,5 +110,15 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:foregroundGravity="fill_horizontal"></FrameLayout>
 
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/session_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="8dp"
+            android:layout_gravity="bottom|center"
+            android:layout_margin="10dp"
+            android:src="@drawable/ic_add_white_24dp"
+            app:fabSize="mini" />
+
 </android.support.design.widget.CoordinatorLayout>
 
