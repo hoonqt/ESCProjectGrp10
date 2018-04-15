@@ -58,7 +58,7 @@ public class AnsweringZoneFrag extends Fragment {
         qnRecycler = view.findViewById(R.id.recyclerViewStudentQns);
         LayoutManager = new LinearLayoutManager(getActivity());
         CurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
-        qnRecycler.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        qnRecycler.setLayoutManager(LayoutManager);
 
         context = getContext();
 
@@ -88,49 +88,13 @@ public class AnsweringZoneFrag extends Fragment {
         @Override
         public void onClick(View view) {
 
-            ArrayList<Integer> input = new ArrayList<>();
-            for (int i = 0;i<allthequestions.size();i++) {
-                final RecyclerView.ViewHolder holder = qnRecycler.findViewHolderForAdapterPosition(i);
-                group = holder.itemView.findViewById(R.id.radiobuttons);
+            ArrayList<Integer> input = qnAdapter.getSelectedOptions();
+            for (int i = 0;i<input.size();i++) {
 
-                Log.i("Selected answer",Integer.toString(group.getCheckedRadioButtonId()));
-                Log.i("Correct answer",Double.toString(allthequestions.get(i).getCorrectans()));
-
-
-
-
-                if (group.getCheckedRadioButtonId() == R.id.option1) {
-                    input.add(0);
-                    if (allthequestions.get(i).getCorrectans() == 0) {
-                        score++;
-                    }
-
-
+                if ((double)input.get(i) == allthequestions.get(i).getCorrectans()) {
+                    score++;
                 }
 
-                else if (group.getCheckedRadioButtonId() == R.id.option2) {
-                    input.add(1);
-                    if (allthequestions.get(i).getCorrectans() == 1) {
-                        score++;
-                    }
-                }
-
-                else if (group.getCheckedRadioButtonId() == R.id.option3) {
-                    input.add(2);
-                    if (allthequestions.get(i).getCorrectans() == 2) {
-                        score++;
-                    }
-
-                }
-
-                else if (group.getCheckedRadioButtonId() == R.id.option4) {
-                    input.add(3);
-
-                    if (allthequestions.get(i).getCorrectans() == 3) {
-                        score++;
-                    }
-
-                }
             }
 
             ProgressRemoteDataSource data = new ProgressRemoteDataSource();
