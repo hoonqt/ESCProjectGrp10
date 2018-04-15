@@ -118,9 +118,11 @@ public class FaqAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
             upvoted = userUpvoted(faq);
             if (upvoted) {
-                btn_upvote.setText("Downvote");
+//                btn_upvote.setText("Downvote");
+                btn_upvote.setBackgroundResource(R.drawable.ic_favorite_black_24dp);
             } else {
-                btn_upvote.setText("Upvote");
+//                btn_upvote.setText("Upvote");
+                btn_upvote.setBackgroundResource(R.drawable.ic_favorite_border_black_24dp);
             }
         }
 

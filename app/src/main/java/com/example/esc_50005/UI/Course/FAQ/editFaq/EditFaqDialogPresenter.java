@@ -19,7 +19,7 @@ public class EditFaqDialogPresenter implements EditFaqDialogContract.Presenter {
     private final EditFaqDialogContract.View mFeedbackView;
 
     String courseId;
-    String userId;
+    String name;
 
     public EditFaqDialogPresenter(EditFaqDialogContract.View view) {
         mFaqRepository = new FaqRemoteDataSource();
@@ -35,7 +35,7 @@ public class EditFaqDialogPresenter implements EditFaqDialogContract.Presenter {
     public void addFaq(String question, String answer) {
         Faq newFaq = new Faq();
         newFaq.setCourseId(courseId);
-        newFaq.setAuthor(userId);
+        newFaq.setAuthor(name);
         newFaq.setUsersVoted(new ArrayList<String>());
 
         newFaq.setQuestion(question);
@@ -50,7 +50,7 @@ public class EditFaqDialogPresenter implements EditFaqDialogContract.Presenter {
         this.courseId = courseId;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setName(String userId) {
+        this.name = name;
     }
 }
