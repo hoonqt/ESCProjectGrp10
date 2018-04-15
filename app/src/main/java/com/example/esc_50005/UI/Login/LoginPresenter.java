@@ -49,7 +49,7 @@ public class LoginPresenter implements LoginContract.Presenter  {
                 count++;
                 editedUser.setBruteForceCount(Integer.toString(count));
                 mLoginRepository.addUser(editedUser);
-                loadUnsuccessfulLogin();
+//                loadUnsuccessfulLogin();
             }
         }
 
@@ -58,15 +58,24 @@ public class LoginPresenter implements LoginContract.Presenter  {
     @Override
     public void verifySecurityAnswer(String answer, String userId, String fullName) {
 
+        Log.i("answer",answer);
+        Log.i("answer",Integer.toString(answer.length()));
         userBruteForceJsonData=mLoginRepository.queryAParticularUser(userId);
         String correctSecurityAnswer=userBruteForceJsonData.get(0).getSecurityAnswer();
+        Log.i("correct answer",correctSecurityAnswer);
+        Log.i("correct answer",Integer.toString(correctSecurityAnswer.length()));
 
         if(!correctSecurityAnswer.equals(answer))
         {
-//            disableAccount();
+            disableAccount();
             mLoginView.showAccountLockedOut();
         }
         else{
+            EditedUsersInformationDO editedUser;
+            editedUser=userBruteForceJsonData.get(0);
+            editedUser.setBruteForceCount(Integer.toString(0));
+            editedUser.setDisabled(false);
+            mLoginRepository.addUser(editedUser);
             mLoginView.showSuccessfulLogin(userBruteForceJsonData.get(0).getUserId(),userBruteForceJsonData.get(0).getFullName());
         }
     }
@@ -79,7 +88,7 @@ public class LoginPresenter implements LoginContract.Presenter  {
         editedUser.setDisabled(true);
 
         mLoginRepository.addUser(editedUser);
-        mLoginView.showAccountLockedOut();
+//        mLoginView.showAccountLockedOut();
     }
 
     public void loadUsersFromDatabase(String userId, String userType, String password)
@@ -123,6 +132,10 @@ public class LoginPresenter implements LoginContract.Presenter  {
             {
                 loadAccountLockedOut();
             }
+            else if(!userInformationJsonData.get(0).getPassword().equals(password))
+            {
+                loadUnsuccessfulLogin();
+            }
             else if(userInformationJsonData.get(0).getPassword().equals(password))
             {
                 loadSuccessfulLogin(userInformationJsonData.get(0).getUserId(),userInformationJsonData.get(0).getFullName());
@@ -149,7 +162,7 @@ public class LoginPresenter implements LoginContract.Presenter  {
 
     public void loadAccountLockedOut()
     {
-        mLoginView.showAccountLockedOut();
+        mLoginView.showSecurityQuestion();
     }
 
 }

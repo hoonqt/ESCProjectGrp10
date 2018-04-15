@@ -111,6 +111,11 @@ public class ProfessorDashboardFragment extends Fragment implements DashboardCon
         mCoursesAdapter.notifyDataSetChanged();
     }
 
+    @Override
+    public void showDeleteCourse() {
+        attemptLoadCourses();
+    }
+
     public void attemptLoadCourses()
     {
         mPresenter.loadCoursesFromDatabase(
