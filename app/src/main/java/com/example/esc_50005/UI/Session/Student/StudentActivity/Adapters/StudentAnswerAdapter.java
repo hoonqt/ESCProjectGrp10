@@ -23,6 +23,7 @@ import java.util.ArrayList;
 public class StudentAnswerAdapter extends RecyclerView.Adapter<StudentAnswerAdapter.QnViewHolder> {
 
     private ArrayList<QuizQuestions2DO> dataset;
+    ArrayList<Integer> selectedOptions;
     private static int viewHolderCount = 0;
     private Context context;
     SharedPreferences sharedPreferences;
@@ -30,7 +31,11 @@ public class StudentAnswerAdapter extends RecyclerView.Adapter<StudentAnswerAdap
     public StudentAnswerAdapter(ArrayList<QuizQuestions2DO> input) {
 
         dataset = input;
+        selectedOptions = new ArrayList<>();
 
+        for (int i = 0;i<dataset.size();i++) {
+            selectedOptions.add(4);
+        }
     }
 
     @NonNull
@@ -86,8 +91,6 @@ public class StudentAnswerAdapter extends RecyclerView.Adapter<StudentAnswerAdap
             option3.setVisibility(View.GONE);
             option4.setVisibility(View.GONE);
 
-
-
         }
 
         public void bind(int position) {
@@ -111,8 +114,23 @@ public class StudentAnswerAdapter extends RecyclerView.Adapter<StudentAnswerAdap
                 option4.setVisibility(View.VISIBLE);
             }
 
+            group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(RadioGroup radioGroup, int checkID) {
+
+                    View radioBtn = group.findViewById(checkID);
+                    int index = radioGroup.indexOfChild(radioBtn);
+
+                    selectedOptions.set(getAdapterPosition(),index);
+
+                }
+            });
+
 
         }
     }
 
+    public ArrayList<Integer> getSelectedOptions() {
+        return selectedOptions;
+    }
 }
