@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 import com.example.esc_50005.Database.sessionsInformation.SessionsInformationDO;
 import com.example.esc_50005.R;
+import com.example.esc_50005.UI.Dashboard.main.DeleteCourseItemListener;
 import com.example.esc_50005.UI.Session.Main.SessionActivity;
 
 import java.util.ArrayList;
@@ -43,10 +44,12 @@ public class SessionsAdapter extends RecyclerView.Adapter<SessionsAdapter.Sessio
     private SharedPreferences sharedPreferences;
     private ImageButton button;
     private BottomSheetBehavior mBottomSheetBehavior;
+    private DeleteSessionItemListener deleteSessionItemListener;
 
-    public SessionsAdapter(ArrayList<SessionsInformationDO> sessions, Context context){
+    public SessionsAdapter(ArrayList<SessionsInformationDO> sessions, Context context, DeleteSessionItemListener DeleteItemListener){
         this.mSessionsList = sessions;
         this.context=context;
+        this.deleteSessionItemListener=DeleteItemListener;
         Log.i("size",Integer.toString(sessions.size()));
 //        for(String session: sessions)
 //        {
@@ -135,6 +138,10 @@ public class SessionsAdapter extends RecyclerView.Adapter<SessionsAdapter.Sessio
                     delete.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
+                            deleteSessionItemListener.deleteSession(mSessionsList.get(getAdapterPosition()).getSessionId(),
+                                    mSessionsList.get(getAdapterPosition()).getSessionName(),
+                                    mSessionsList.get(getAdapterPosition()).getSessionDate(),
+                                    mSessionsList.get(getAdapterPosition()).getSessionStudentList());
                             Log.i("delete","delete");
                         }
                     });
