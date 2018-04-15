@@ -169,14 +169,6 @@ public class FaqFragment extends Fragment implements FaqContract.View {
 
 
     };
-    // TO BE REMOVED (cant remove yet due to QuestionsFragment using it)
-    public class FaqJsonData {
-
-        String question;
-        String answer;
-        String upvotes;
-
-    }
 
     public void setFab() {
         if (userType.equals("student") || faqList.size()==0) {

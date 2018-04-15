@@ -33,7 +33,6 @@ public class FaqPresenter implements FaqContract.Presenter {
 
     @Override
     public void start() {
-
         loadFaq();
     }
 
@@ -54,7 +53,6 @@ public class FaqPresenter implements FaqContract.Presenter {
     public void upvoteFaq(Faq faq) {
         ArrayList<String> usersVoted = faq.getUsersVoted();
         if (!usersVoted.contains(userId)) {
-//            faq.setUpvotes(faq.getUpvotes() + 1);
             usersVoted.add(userId);
             faq.setUsersVoted(usersVoted);
             mFaqRepository.saveFaq(faq);
@@ -66,7 +64,6 @@ public class FaqPresenter implements FaqContract.Presenter {
     public void downvoteFaq(Faq faq) {
         ArrayList<String> usersVoted = faq.getUsersVoted();
         if (faq.getUsersVoted().contains(userId)) {
-//            faq.setUpvotes(usersVoted.size() - 1);
             usersVoted.remove(userId);
             faq.setUsersVoted(usersVoted);
             mFaqRepository.saveFaq(faq);
@@ -78,11 +75,8 @@ public class FaqPresenter implements FaqContract.Presenter {
     public void processFaq(ArrayList<Faq> mFaqList) {
 
         Log.i(TAG, "Length of mFaqList = " + mFaqList.size());
-
-//        if (faqJsonData.size() != 0) {
             mFaqView.showFaq(mFaqList);
             mFaqView.faqLoaded();
-//        }
 
     }
 
