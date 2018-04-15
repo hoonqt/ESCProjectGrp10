@@ -22,6 +22,7 @@ public interface DashboardContract {
         void showAddInvalidCourse();
         void showEmptyCourses();
         void coursesLoaded();
+        void showDeleteCourse();
 
     }
 }

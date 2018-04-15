@@ -62,7 +62,6 @@ public class CoursesAdapter extends RecyclerView.Adapter<CoursesAdapter.CoursesV
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         boolean shouldAttachToParentImmediately = false;
 
-        //java object of layout
         View view = inflater.inflate(layoutIDForListItem,parent,shouldAttachToParentImmediately);
 
         CoursesViewHolder coursesViewHolder = new CoursesViewHolder(view);
@@ -89,7 +88,21 @@ public class CoursesAdapter extends RecyclerView.Adapter<CoursesAdapter.CoursesV
                 public void onClick(View view) {
                     int clickedPosition=getAdapterPosition();
                     String[] fullName=mCoursesList.get(clickedPosition).split("\\s+");
-                    mDeleteCourseItemListener.deleteCourse(fullName[0],fullName[1]);
+                    StringBuilder builder= new StringBuilder();
+                    for(int i=1; i<fullName.length;i++)
+                    {
+                        builder.append(fullName[i]);
+                        if(i==fullName.length-1)
+                        {
+                            continue;
+                        }
+                        else{
+                            builder.append(" ");
+                        }
+
+                    }
+
+                    mDeleteCourseItemListener.deleteCourse(fullName[0],builder.toString());
                 }
             });
 

@@ -152,6 +152,11 @@ public class StudentDashboardFragment extends Fragment implements DashboardContr
         mCoursesAdapter.notifyDataSetChanged();
     }
 
+    @Override
+    public void showDeleteCourse() {
+        attemptLoadCourses();
+    }
+
 
     public void showLoadedCourses() {
 

@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.widget.EditText;
 
 import com.example.esc_50005.Database.CoursesInformation.CoursesInformationDO;
 import com.example.esc_50005.Database.CoursesInformation.CoursesInformationRemoteDataSource;
@@ -107,10 +108,41 @@ public class DashboardPresenter implements DashboardContract.Presenter  {
 
     @Override
     public void deleteCourse(String courseId, String courseName) {
+
+
         CoursesInformationDO courseToDelete=new CoursesInformationDO();
         courseToDelete.setCourseId(courseId);
         courseToDelete.setCourseName(courseName);
+        courseToDelete.setCourseStudentList(null);
         mCoursesRepository.removeCourse(courseToDelete);
+        EditedUsersInformationDO user=new EditedUsersInformationDO();
+        user=userCoursesInformationJsonData.get(0);
+        for(int i=0;i<user.getCourseIds().size();i++ )
+        {
+            if(user.getCourseIds().get(i).equals(courseId))
+            {  Log.i("removing","removed id");
+                user.getCourseIds().remove(i);
+                break;
+            }
+        }
+        for(int i=0;i<user.getCourseNames().size();i++ )
+        {
+
+            Log.i("print the course",user.getCourseNames().get(i));
+            Log.i("print the course",Integer.toString(user.getCourseNames().get(i).length()));
+            Log.i("course name",courseName);
+            Log.i("course name",Integer.toString(courseName.length()));
+            if(user.getCourseNames().get(i).equals(courseName))
+            {
+
+                Log.i("removing","removed name");
+                user.getCourseNames().remove(i);
+                break;
+            }
+        }
+        mUsersRepository.addUser(user);
+
+        mDashboardView.showDeleteCourse();
     }
 
 

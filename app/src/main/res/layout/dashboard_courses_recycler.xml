@@ -2,10 +2,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_gravity="top|center"
-    android:gravity="center"
-    android:paddingTop="16dp"
-    android:paddingLeft="16dp"
+    android:layout_marginTop="30dp"
+    android:layout_marginLeft="30dp"
+    android:layout_marginRight="30dp"
     android:orientation="vertical"
     tools:context="com.example.esc_50005.UI.Dashboard.main.DashboardActivity">
 
@@ -13,6 +12,8 @@
         android:id="@+id/card_view"
         android:layout_width="150dp"
         android:layout_height="150dp"
+        card_view:cardMaxElevation="1dp"
+        card_view:cardElevation="1dp"
         card_view:cardBackgroundColor="@color/colorDashboard"
         card_view:cardCornerRadius="4dp">
 

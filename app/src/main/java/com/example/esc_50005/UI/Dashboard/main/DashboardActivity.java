@@ -23,9 +23,6 @@ import com.example.esc_50005.UI.Session.Main.SessionActivity;
 
 ;
 
-/**
- * Created by cindy on 22/3/2018.
- */
 
 public class DashboardActivity extends MainActivity{
 
