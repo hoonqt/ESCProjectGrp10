@@ -80,8 +80,8 @@ public class ProgressScreenTest {
     @Test
     public void passAttemptLogin(){
         //a test to pass the login
-        onView(withId(R.id.email)).perform(typeText("cindy"));
-        onView(withId(R.id.password)).perform(typeText("cindyhello"));
+        onView(withId(R.id.user_id)).perform(typeText("1001792"));
+        onView(withId(R.id.password)).perform(typeText("cindy"));
         onView(withId(R.id.student))
                 .perform(click());
 
@@ -98,7 +98,7 @@ public class ProgressScreenTest {
     @Test
     public void failAttemptLogin(){
         //a test to fail the login
-        onView(withId(R.id.email)).perform(typeText("cindy"));
+        onView(withId(R.id.user_id)).perform(typeText("cindy"));
         onView(withId(R.id.password)).perform(typeText("cindy"));
         onView(withId(R.id.student))
                 .perform(click());

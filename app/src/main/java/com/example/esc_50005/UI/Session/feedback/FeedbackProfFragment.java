@@ -41,6 +41,7 @@ public class FeedbackProfFragment extends Fragment implements FeedbackContract.V
     private LinearLayout mFeedbackView;
     private RecyclerView feedbackListRecycler;
     private SwipeRefreshLayout swipeLayout;
+    private FloatingActionButton fab;
 
     private FeedbackAdapter mFeedbackAdapter;
 
@@ -61,6 +62,7 @@ public class FeedbackProfFragment extends Fragment implements FeedbackContract.V
         userInformation = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
         sessionId = userInformation.getString(getString(R.string.session_id),"");
         mPresenter.setSessionId(sessionId);
+        fab = (FloatingActionButton) getActivity().findViewById(R.id.session_fab);
     }
 
     @Override
@@ -121,5 +123,9 @@ public class FeedbackProfFragment extends Fragment implements FeedbackContract.V
             swipeLayout.setRefreshing(false);
         }
         mFeedbackAdapter.notifyDataSetChanged();
+    }
+
+    public void setFab() {
+        fab.setVisibility(View.GONE);
     }
 }

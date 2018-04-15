@@ -10,15 +10,4 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="0dp"
         android:id="@+id/recyclerViewProfQuiz"></android.support.v7.widget.RecyclerView>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fabbtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_gravity="bottom|center"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_input_add" />
-
-
 </RelativeLayout>

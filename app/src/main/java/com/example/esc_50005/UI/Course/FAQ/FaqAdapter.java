@@ -129,11 +129,9 @@ public class FaqAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
             if (v.getId() == btn_upvote.getId()) {
                 if (!upvoted) {
-                    Toast.makeText(v.getContext(), "False = " + String.valueOf(getAdapterPosition()), Toast.LENGTH_SHORT).show();
                     Log.i(TAG,"upvote false");
                     mFaqItemListener.onUpvoteClick(mFaqList.get(getAdapterPosition()));
                 } else {
-                    Toast.makeText(v.getContext(), "True = " + String.valueOf(getAdapterPosition()), Toast.LENGTH_SHORT).show();
                     Log.i(TAG,"upvote true");
                     mFaqItemListener.onDownvoteClick(mFaqList.get(getAdapterPosition()));
 

@@ -8,6 +8,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -58,6 +59,7 @@ public class NameListFragment extends Fragment implements ProgressContract.View 
     private NameListAdapter mNameListAdapter;
     private String courseId;
     private FrameLayout frameLayout;
+    private FloatingActionButton fab;
 
     public NameListFragment() {
         // Required empty public constructor
@@ -106,6 +108,9 @@ public class NameListFragment extends Fragment implements ProgressContract.View 
                 mPresenter.loadNames(); // change it to load namelist
             }
         });
+
+        fab = (FloatingActionButton) getActivity().findViewById(R.id.course_fab);
+
         mPresenter.setCourseId(courseId.substring(0,6));
         return view;
     }
@@ -163,5 +168,9 @@ public class NameListFragment extends Fragment implements ProgressContract.View 
 
 
     };
+
+    public void setFab() {
+        fab.setVisibility(View.GONE);
+    }
 }
 
