@@ -10,9 +10,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.esc_50005.Database.FAQ.Faq;
+import com.example.esc_50005.DateUtils;
 import com.example.esc_50005.R;
 import com.example.esc_50005.UI.Base.BaseViewHolder;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 /**
@@ -114,7 +116,8 @@ public class FaqAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             tv_question.setText(faq.getQuestion());
             tv_answer.setText(faq.getAnswer());
             tv_upvote.setText(String.valueOf(faq.getUsersVoted().size()));
-            tv_time.setText(faq.getAuthor() + ", " + faq.getDate());
+            String time = DateUtils.toDuration(Long.parseLong(faq.getDate()));
+            tv_time.setText(faq.getAuthor() + ", " + time);
 
             upvoted = userUpvoted(faq);
             if (upvoted) {
