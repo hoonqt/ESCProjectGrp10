@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
+import android.widget.Toast;
 
 import com.example.esc_50005.R;
 
@@ -64,6 +65,8 @@ public class FeedbackDialog extends DialogFragment implements FeedbackDialogCont
             public void onClick(View v) {
 //                mPresenter.addFeedback(mRatingBar.getRating(), "comment");
                 mPresenter.addFeedback(mRatingBar.getRating(), mMessage.getText().toString());
+                Toast.makeText(v.getContext(), "Feedback Submitted.", Toast.LENGTH_SHORT).show();
+
             }
         });
 
