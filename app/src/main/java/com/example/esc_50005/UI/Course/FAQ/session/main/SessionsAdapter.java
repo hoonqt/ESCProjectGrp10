@@ -23,7 +23,6 @@ import android.widget.TextView;
 
 import com.example.esc_50005.Database.sessionsInformation.SessionsInformationDO;
 import com.example.esc_50005.R;
-import com.example.esc_50005.UI.Dashboard.main.DeleteCourseItemListener;
 import com.example.esc_50005.UI.Session.Main.SessionActivity;
 import com.example.esc_50005.WebSocket.ProfWebSocket;
 
@@ -45,8 +44,8 @@ public class SessionsAdapter extends RecyclerView.Adapter<SessionsAdapter.Sessio
     private SharedPreferences sharedPreferences;
     private ImageButton button;
     private BottomSheetBehavior mBottomSheetBehavior;
-    private DeleteSessionItemListener deleteSessionItemListener;
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     private ProfWebSocket websock;
 
@@ -54,9 +53,11 @@ public class SessionsAdapter extends RecyclerView.Adapter<SessionsAdapter.Sessio
 =======
     public SessionsAdapter(ArrayList<SessionsInformationDO> sessions, Context context, DeleteSessionItemListener DeleteItemListener){
 >>>>>>> b59cd98ee493ac8977cf3190e6968c3eacf0faad
+=======
+    public SessionsAdapter(ArrayList<SessionsInformationDO> sessions, Context context){
+>>>>>>> parent of b59cd98... Merge pull request #132 from hoonqt/master
         this.mSessionsList = sessions;
         this.context=context;
-        this.deleteSessionItemListener=DeleteItemListener;
         Log.i("size",Integer.toString(sessions.size()));
 //        for(String session: sessions)
 //        {
@@ -166,10 +167,6 @@ public class SessionsAdapter extends RecyclerView.Adapter<SessionsAdapter.Sessio
                     delete.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            deleteSessionItemListener.deleteSession(mSessionsList.get(getAdapterPosition()).getSessionId(),
-                                    mSessionsList.get(getAdapterPosition()).getSessionName(),
-                                    mSessionsList.get(getAdapterPosition()).getSessionDate(),
-                                    mSessionsList.get(getAdapterPosition()).getSessionStudentList());
                             Log.i("delete","delete");
                         }
                     });

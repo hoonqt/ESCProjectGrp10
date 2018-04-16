@@ -24,13 +24,11 @@ import com.example.esc_50005.Database.sessionsInformation.SessionsInformationDO;
 import com.example.esc_50005.Database.sessionsInformation.SessionsInformationDataSource;
 import com.example.esc_50005.Database.utilities.Injection;
 import com.example.esc_50005.R;
-import com.example.esc_50005.UI.Course.FAQ.session.main.DeleteSessionItemListener;
 import com.example.esc_50005.UI.Course.FAQ.session.main.SessionsAdapter;
 import com.example.esc_50005.UI.Course.FAQ.session.main.SessionsContract;
 import com.example.esc_50005.UI.Course.FAQ.session.main.SessionsPresenter;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -109,14 +107,6 @@ public class StudentSessionsFragment extends Fragment implements SessionsContrac
         return view;
     }
 
-    DeleteSessionItemListener mDeleteSessionListener = new DeleteSessionItemListener() {
-        @Override
-        public void deleteSession(String sessionId, String sessionName, String sessionDate, List<String> listOfStudents) {
-            mPresenter.deleteSession(sessionId,sessionName,sessionDate,listOfStudents);
-        }
-
-    };
-
     public void attemptQuerySessions()
     {
         mPresenter.querySessions(
@@ -127,7 +117,7 @@ public class StudentSessionsFragment extends Fragment implements SessionsContrac
 
     @Override
     public void showSessions(ArrayList<SessionsInformationDO> sessions) {
-        mSessionsAdapter=new SessionsAdapter(sessions,this.getContext(),mDeleteSessionListener);
+        mSessionsAdapter=new SessionsAdapter(sessions,this.getContext());
         sessionsListRecycler.setAdapter(mSessionsAdapter);
     }
 
@@ -185,11 +175,6 @@ public class StudentSessionsFragment extends Fragment implements SessionsContrac
         if (swipeLayout.isRefreshing()) {
             swipeLayout.setRefreshing(false);
         }
-    }
-
-    @Override
-    public void showDeleteSession() {
-        attemptQuerySessions();
     }
 
     public void setFab() {

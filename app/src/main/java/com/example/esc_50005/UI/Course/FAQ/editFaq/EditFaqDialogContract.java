@@ -15,6 +15,6 @@ public class EditFaqDialogContract {
     interface Presenter extends BasePresenter {
         void addFaq(String question, String answer);
         void setCourseId(String courseId);
-        void setName(String name);
+        void setUserId(String userId);
     }
 }

@@ -181,50 +181,6 @@ public class SessionsPresenter implements SessionsContract.Presenter {
 
     }
 
-    @Override
-    public void deleteSession(String sessionId, String sessionName, String sessionDate, List<String>listOfStudents) {
-        SessionsInformationDO sessionToDelete=new SessionsInformationDO();
-        sessionToDelete.setSessionName(sessionName);
-        sessionToDelete.setSessionDate(sessionDate);
-        sessionToDelete.setSessionId(sessionId);
-        sessionToDelete.setSessionStudentList(listOfStudents);
-        mSessionsRepository.removeSession(sessionToDelete);
-        EditedUsersInformationDO user=new EditedUsersInformationDO();
-        user=usersJsonData.get(0);
-        for(int i=0;i<user.getSessionIds().size();i++ )
-        {
-            if(user.getSessionIds().get(i).equals(sessionId))
-            {  Log.i("removing","removed id");
-                user.getSessionIds().remove(sessionId);
-                break;
-            }
-        }
-        for(int i=0;i<user.getSessionDates().size();i++ )
-        {
-
-            if(user.getSessionDates().get(i).equals(sessionDate))
-            {
-
-                Log.i("removing","removed name");
-                user.getCourseNames().remove(i);
-                break;
-            }
-        }
-        for(int i=0;i<user.getSessionNames().size();i++ )
-        {
-
-            if(user.getSessionNames().get(i).equals(sessionName))
-            {
-
-                user.getSessionNames().remove(i);
-                break;
-            }
-        }
-        mUserRepository.addUser(user);
-
-        mSessionsView.showDeleteSession();
-    }
-
     public void addInvalidNewSession()
     {
         mSessionsView.showUnsuccessfulAddNewSession();

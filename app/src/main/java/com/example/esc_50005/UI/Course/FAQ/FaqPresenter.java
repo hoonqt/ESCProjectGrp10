@@ -41,6 +41,7 @@ public class FaqPresenter implements FaqContract.Presenter {
         mFaqList = mFaqRepository.getFaqListByCourseId(courseId);
         Log.i(TAG,"Getting mFaqList from courseId: " + courseId);
             processFaq(mFaqList);
+        mFaqView.showLoadFaqError();
         Log.i(TAG, "mFaqList size is " + mFaqList.size());
 
     }

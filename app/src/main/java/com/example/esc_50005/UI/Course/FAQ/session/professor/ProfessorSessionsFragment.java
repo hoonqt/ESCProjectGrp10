@@ -33,17 +33,14 @@ import com.example.esc_50005.Database.sessionsInformation.SessionsInformationDO;
 import com.example.esc_50005.Database.sessionsInformation.SessionsInformationDataSource;
 import com.example.esc_50005.Database.utilities.Injection;
 import com.example.esc_50005.R;
-import com.example.esc_50005.UI.Course.FAQ.session.main.DeleteSessionItemListener;
 import com.example.esc_50005.UI.Course.FAQ.session.main.SessionsAdapter;
 import com.example.esc_50005.UI.Course.FAQ.session.main.SessionsContract;
 import com.example.esc_50005.UI.Course.FAQ.session.main.SessionsPresenter;
-import com.example.esc_50005.UI.Dashboard.main.DeleteCourseItemListener;
 import com.example.esc_50005.WebSocket.ProfWebSocket;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.List;
 import java.util.Random;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -137,14 +134,6 @@ public class ProfessorSessionsFragment extends Fragment implements SessionsContr
                 sharedPreferences.getString(getString(R.string.course_full_name),""));
     }
 
-    DeleteSessionItemListener mDeleteSessionListener = new DeleteSessionItemListener() {
-        @Override
-        public void deleteSession(String sessionId, String sessionName, String sessionDate, List<String> listOfStudents) {
-            mPresenter.deleteSession(sessionId,sessionName,sessionDate,listOfStudents);
-        }
-
-    };
-
 
 
 
@@ -156,7 +145,7 @@ public class ProfessorSessionsFragment extends Fragment implements SessionsContr
 
     @Override
     public void showSessions(ArrayList<SessionsInformationDO> sessions) {
-        mSessionsAdapter=new SessionsAdapter(sessions,this.getContext(),mDeleteSessionListener);
+        mSessionsAdapter=new SessionsAdapter(sessions,this.getContext());
         sessionsListRecycler.setAdapter(mSessionsAdapter);
     }
 
@@ -321,11 +310,6 @@ public class ProfessorSessionsFragment extends Fragment implements SessionsContr
         if (swipeLayout.isRefreshing()) {
             swipeLayout.setRefreshing(false);
         }
-    }
-
-    @Override
-    public void showDeleteSession() {
-        attemptQuerySessions();
     }
 
     public void setFab() {

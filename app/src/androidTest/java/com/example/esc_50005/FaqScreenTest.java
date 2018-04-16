@@ -72,14 +72,14 @@ public class FaqScreenTest {
     @Test
     public void clickAddFaqFab_OpensEditFaqDialog() {
         // Click on the add task button
-        onView(withId(R.id.course_fab)).perform(click());
+        onView(withId(R.id.faq_fab)).perform(click());
         onView(withId(R.id.edit_faq_tv_title)).check(matches(isDisplayed()));
     }
 
     @Test
     public void addFaq() {
         // Click on the add faq button
-        onView(withId(R.id.course_fab)).perform(click());
+        onView(withId(R.id.faq_fab)).perform(click());
 
         // Add faq question and answer
         onView(withId(R.id.edit_faq_et_question)).perform(typeText("What is the colour of the sky?"),

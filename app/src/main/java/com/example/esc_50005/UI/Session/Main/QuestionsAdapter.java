@@ -11,20 +11,16 @@ import android.widget.Toast;
 
 import com.example.esc_50005.Database.Database.SessionQuestionsDO;
 import com.example.esc_50005.R;
-import com.example.esc_50005.UI.Base.BaseViewHolder;
 
 import java.util.ArrayList;
 
 
-public class QuestionsAdapter extends RecyclerView.Adapter<BaseViewHolder> {
+public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.QuestionsViewHolder> {
 
     public static final String TAG = "QuestionsAdapter";
 
     private ArrayList<SessionQuestionsDO> mQuestionsList;
     private QuestionsItemListener mQuestionsItemListener;
-
-    public static final int VIEW_TYPE_EMPTY = 0;
-    public static final int VIEW_TYPE_NORMAL = 1;
 
     private static int viewHolderCount = 0;
 
@@ -37,48 +33,36 @@ public class QuestionsAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(BaseViewHolder holder, int position) {
+    public void onBindViewHolder(QuestionsAdapter.QuestionsViewHolder holder, int position) {
         holder.bind(position);
     }
 
     @Override
     public int getItemCount() {
-        if (mQuestionsList != null && mQuestionsList.size()>0) {
-            return mQuestionsList.size();
+        if (mQuestionsList == null) {
+            return 0;
         } else {
-            return 1;
+            return mQuestionsList.size();
         }
     }
 
     @Override
-    public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public QuestionsAdapter.QuestionsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view;
+        int layoutIDForListItem = R.layout.sessionquestions_postquestions_recycler;
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         boolean shouldAttachToParentImmediately = false;
-        switch (viewType) {
-            case VIEW_TYPE_NORMAL:
-                view = inflater.inflate(R.layout.sessionquestions_postquestions_recycler,parent,shouldAttachToParentImmediately);
-                return new QuestionsViewHolder(view);
-            case VIEW_TYPE_EMPTY:
-                view = inflater.inflate(R.layout.item_empty_view,parent,shouldAttachToParentImmediately);
-                return new EmptyViewHolder(view);
-            default:
-                view = inflater.inflate(R.layout.sessionquestions_postquestions_recycler,parent,shouldAttachToParentImmediately);
-                return new QuestionsViewHolder(view);
-        }
+
+        //java object of layout
+        View view = inflater.inflate(layoutIDForListItem, parent, shouldAttachToParentImmediately);
+
+        QuestionsViewHolder questionsViewHolder = new QuestionsViewHolder(view);
+        viewHolderCount++;
+
+        return questionsViewHolder;
     }
 
-    @Override
-    public int getItemViewType(int position) {
-        if (mQuestionsList != null && mQuestionsList.size() > 0) {
-            return VIEW_TYPE_NORMAL;
-        } else {
-            return VIEW_TYPE_EMPTY;
-        }
-    }
-
-    class QuestionsViewHolder extends BaseViewHolder implements View.OnClickListener {
+    class QuestionsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView tv_question;
         TextView tv_upvote;
@@ -109,11 +93,9 @@ public class QuestionsAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 //            tv_time.setText(faq.getAuthor() + ", " + faq.getDate());
             upvoted = userUpvoted(question);
             if (upvoted) {
-//                btn_upvote.setText("Downvote");
-                btn_upvote.setBackgroundResource(R.drawable.ic_favorite_black_24dp);
+                btn_upvote.setText("Downvote");
             } else {
-//                btn_upvote.setText("Upvote");
-                btn_upvote.setBackgroundResource(R.drawable.ic_favorite_border_black_24dp);
+                btn_upvote.setText("Upvote");
             }
         }
 
@@ -121,9 +103,11 @@ public class QuestionsAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         public void onClick(View v) {
             if (v.getId() == btn_upvote.getId()) {
                 if (!upvoted) {
+                    Toast.makeText(v.getContext(), "False = " + String.valueOf(getAdapterPosition()), Toast.LENGTH_SHORT).show();
                     Log.i(TAG, "upvote false");
                     mQuestionsItemListener.onUpvoteClick(mQuestionsList.get(getAdapterPosition()));
                 } else {
+                    Toast.makeText(v.getContext(), "True = " + String.valueOf(getAdapterPosition()), Toast.LENGTH_SHORT).show();
                     Log.i(TAG, "upvote true");
                     mQuestionsItemListener.onDownvoteClick(mQuestionsList.get(getAdapterPosition()));
 
@@ -143,29 +127,6 @@ public class QuestionsAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             } else {
                 return false;
 //            }
-            }
-        }
-    }
-
-    public class EmptyViewHolder extends BaseViewHolder implements  View.OnClickListener {
-
-        Button btn_retry;
-        TextView tv_title;
-        TextView tv_message;
-
-        public EmptyViewHolder(View view) {
-            super(view);
-            btn_retry = view.findViewById(R.id.empty_btn_retry);
-            tv_title = view.findViewById(R.id.empty_tv_title);
-            tv_message = view.findViewById(R.id.empty_tv_message);
-
-            btn_retry.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View view) {
-            if (view.getId() == btn_retry.getId()) {
-                mQuestionsItemListener.onRetryClick();
             }
         }
     }

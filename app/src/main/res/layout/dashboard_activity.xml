@@ -19,6 +19,7 @@
             android:layout_height="wrap_content"
             android:text="Dashboard"
             android:textAppearance="@style/Toolbar_Title"
+            android:textColor="@color/colorTab"
             android:layout_gravity="center"
             android:id="@+id/toolbar_title" />
 

@@ -8,7 +8,6 @@ import com.example.esc_50005.UI.Base.BasePresenter;
 import com.example.esc_50005.UI.Base.BaseView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 public interface SessionsContract {
@@ -19,7 +18,6 @@ public interface SessionsContract {
         void querySessions(String userId, String currentCourse);
         void queryAddNewSession(String userType, String sessionId, String sessionName, String timeOfCreation, String courseId);
         void addNewSession(String userType, String sessionId,String sessionName,String timeOfCreation, String courseId);
-        void deleteSession(String sessionId, String sessionName, String sessionDate, List<String> listOfStudents);
 
     }
 
@@ -30,6 +28,5 @@ public interface SessionsContract {
         void showSuccessfulAddNewSession();
         void showUnsuccessfulAddNewSession();
         void sessionsLoaded();
-        void showDeleteSession();
     }
 }
