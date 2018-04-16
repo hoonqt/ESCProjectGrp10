@@ -58,8 +58,8 @@ public class ProfSessionTest {
     public void clickHereandThere() {
 
         onView(withId(R.id.pager)).perform(swipeLeft());
-        onView(withId(R.id.fabbtn)).check(matches(isDisplayed()));
-        onView(withId(R.id.fabbtn)).perform(click());
+        onView(withId(R.id.session_fab)).check(matches(isDisplayed()));
+        onView(withId(R.id.session_fab)).perform(click());
 
 
     }

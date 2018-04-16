@@ -51,8 +51,8 @@
                     android:layout_height="wrap_content"
                     android:paddingLeft="30dp"
                     android:paddingRight="30dp"
-                    android:layout_gravity="left"
-                    android:gravity="left"
+                    android:layout_gravity="center"
+                    android:gravity="center"
                     android:text="Elements of Software Construction"
                     android:textAppearance="@style/Toolbar_Title" />
 
@@ -64,7 +64,7 @@
                     android:paddingTop="8dp"
                     android:paddingLeft="30dp"
                     android:paddingRight="30dp"
-                    android:layout_gravity="left"
+                    android:layout_gravity="center"
                     android:text="Course Code: 50.003"
                     android:textAppearance="@style/Toolbar_Subtitle" />
 
