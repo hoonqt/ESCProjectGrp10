@@ -55,8 +55,8 @@ public class CourseProgressScreenTest {
     }
     @Test
     public void addNewSession(){
-        onView(withId(R.id.add_new_session)).check(matches(isDisplayed()));
-        onView(withId(R.id.add_new_session)).perform(click());
+        onView(withId(R.id.add_sessions)).check(matches(isDisplayed()));
+        onView(withId(R.id.add_sessions)).perform(click());
         onView(withText("Add new session")).check(matches(isDisplayed()));
         onView(withId(R.id.layout_add_session)).check(matches(withHint("Session Id")));
 //        onView(withText("Session Id")).perform(typeText("104"));
