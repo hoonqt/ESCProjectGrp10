@@ -53,7 +53,7 @@ public class LoginScreenTest {
     @Test
     public void testVisibility(){
         //ensures that the relevant text box and radio button are present
-        onView(withId(R.id.email)).check(matches(isDisplayed()));
+        onView(withId(R.id.user_id)).check(matches(isDisplayed()));
         onView(withId(R.id.password)).check(matches(isDisplayed()));
         onView(withId(R.id.professorOrStudent)).check(matches(isDisplayed()));
     }
@@ -61,7 +61,7 @@ public class LoginScreenTest {
     @Test
     public void passAttemptLogin(){
         //a test to pass the login
-        onView(withId(R.id.email)).perform(typeText("cindy"));
+        onView(withId(R.id.user_id)).perform(typeText("cindy"));
         onView(withId(R.id.password)).perform(typeText("cindyhello"));
         onView(withId(R.id.student))
                 .perform(click());
@@ -79,7 +79,7 @@ public class LoginScreenTest {
     @Test
     public void failAttemptLogin(){
         //a test to fail the login
-        onView(withId(R.id.email)).perform(typeText("cindy"));
+        onView(withId(R.id.user_id)).perform(typeText("cindy"));
         onView(withId(R.id.password)).perform(typeText("cindy"));
         onView(withId(R.id.student))
                 .perform(click());

@@ -5,8 +5,8 @@ import android.content.Context;
 
 import com.amazonaws.mobile.client.AWSMobileClient;
 import com.example.esc_50005.UI.DataAdder.AddDatahere;
-import com.example.esc_50005.UI.Session.Professor.Contracts.QuizProfContract;
-import com.example.esc_50005.UI.Session.Professor.Presenters.ActivityProfPresenter;
+import com.example.esc_50005.UI.Session.Prof.Contracts.QuizProfContract;
+import com.example.esc_50005.UI.Session.Prof.Presenters.ActivityProfPresenter;
 import com.example.esc_50005.UI.Session.Main.SessionActivity;
 
 import org.junit.Before;
@@ -45,26 +45,13 @@ public class SessionQnsTest {
     }
 
 
-//    @Test
-//    public void createPresenter() {
-//        mProfPresenter = new ActivityProfPresenter(mQuizView);
-//        verify(mQuizView).setPresenter(mProfPresenter);
-//
-//    }
-
-    @Test
-    public void createPresenter() {
-        mProfPresenter = new ActivityProfPresenter(mQuizView);
-        verify(mQuizView).setPresenter(mProfPresenter);
-
-    }
-
     @Test
     public void createPresenter() {
         mProfPresenter = new ActivityProfPresenter(mQuizView,sessionActivity);
         verify(mQuizView).setPresenter(mProfPresenter);
 
     }
+
 
 
 

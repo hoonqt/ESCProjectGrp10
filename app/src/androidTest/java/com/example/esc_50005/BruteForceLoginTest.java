@@ -63,7 +63,7 @@ public class BruteForceLoginTest {
         passwords.add("    ");
         passwords.add("?123abc");
         for (int i = 0; i < passwords.size(); i++) {
-            onView(withId(R.id.email)).perform(typeText("corgi101"));
+            onView(withId(R.id.user_id)).perform(typeText("corgi101"));
             onView(withId(R.id.password)).perform(typeText(passwords.get(i)));
 
             onView(withId(R.id.login_button)).perform(click());
@@ -77,7 +77,7 @@ public class BruteForceLoginTest {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            onView(withId(R.id.email)).perform(clearText());
+            onView(withId(R.id.user_id)).perform(clearText());
             onView(withId(R.id.password)).perform(clearText());
 
         }
