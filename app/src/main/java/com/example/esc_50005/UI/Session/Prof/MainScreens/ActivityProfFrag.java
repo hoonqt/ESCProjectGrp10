@@ -147,6 +147,7 @@ public class ActivityProfFrag extends Fragment implements QuizProfContract.View,
         qnBuilder.setTitle("Create " + qnName);
         qnBuilder.setMessage("Enter question");
         final EditText input = new EditText(getContext());
+        input.setHint("Question");
         qnBuilder.setView(input);
 
         qnBuilder.setNegativeButton("Submit", new DialogInterface.OnClickListener() {
@@ -258,4 +259,6 @@ public class ActivityProfFrag extends Fragment implements QuizProfContract.View,
             }
         });
     }
+
+
 }
