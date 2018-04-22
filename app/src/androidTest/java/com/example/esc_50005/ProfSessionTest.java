@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.test.espresso.Root;
+import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
@@ -31,6 +32,7 @@ import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.action.ViewActions.swipeLeft;
 import static android.support.test.espresso.action.ViewActions.swipeRight;
+import static android.support.test.espresso.action.ViewActions.swipeUp;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.RootMatchers.isDialog;
 import static android.support.test.espresso.matcher.RootMatchers.isPlatformPopup;
@@ -61,7 +63,7 @@ public class ProfSessionTest {
 
         preferencesEditor = PreferenceManager.getDefaultSharedPreferences(context).edit();
         String userType = "professor";
-        preferencesEditor.putString("UserType",userType);
+        preferencesEditor.putString(mActivitytestRule.getActivity().getString(R.string.user_type),userType);
         preferencesEditor.putString(mActivitytestRule.getActivity().getString(R.string.course_id),"50.005");
         preferencesEditor.putString(mActivitytestRule.getActivity().getString(R.string.session_id),"101");
         preferencesEditor.commit();
@@ -131,6 +133,28 @@ public class ProfSessionTest {
         onView(withId(R.id.quizBubble)).perform(click());
         onView(withId(R.id.submit)).perform(click());
 
+        onView(withId(R.id.collapsing_toolbar)).perform(swipeUp());
+
+        onView(withId(R.id.addbutton)).check(matches(isDisplayed()));
+        onView(withId(R.id.addbutton)).perform(click());
+
+        onView(withId(R.id.questionBox)).check(matches(isDisplayed()));
+        onView(withId(R.id.option1ans)).check(matches(isDisplayed()));
+        onView(withId(R.id.option2ans)).check(matches(isDisplayed()));
+        onView(withId(R.id.option3ans)).check(matches(isDisplayed()));
+        onView(withId(R.id.option4ans)).check(matches(isDisplayed()));
+
+        onView(withId(R.id.questionBox)).perform(replaceText("How many female senators are there in the US Senate?"));
+        onView(withId(R.id.option1ans)).perform(replaceText("21"));
+        onView(withId(R.id.option2ans)).perform(replaceText("22"));
+        onView(withId(R.id.option3ans)).perform(replaceText("23"));
+        onView(withId(R.id.option4ans)).perform(replaceText("24"));
+
+        onView(withId(R.id.option3)).perform(click());
+
+        onView(withId(R.id.submitbtn)).perform(click());
+
+        onView(withId(R.id.recyclerViewQuizList)).check(matches(isDisplayed()));
 
 
     }

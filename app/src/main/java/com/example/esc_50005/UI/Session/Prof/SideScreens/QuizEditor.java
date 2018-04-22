@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -57,6 +58,7 @@ public class QuizEditor extends Fragment {
     String sessionID;
 
     TextView submit;
+    FloatingActionButton fab;
 
     int index = 100;
 
@@ -170,6 +172,8 @@ public class QuizEditor extends Fragment {
             }
         });
 
+        setFab();
+
         return view;
     }
 
@@ -188,6 +192,7 @@ public class QuizEditor extends Fragment {
         String quizname = sharedPreferences.getString("QuizName",null);
         tobeadded.setQuizNameQnID(quizname + " " + getSaltString());
 
+        tobeadded.setIsItQn(false);
 
         tobeadded.setSubjectCodeSessionCode(courseCode+sessionID);
 
@@ -260,6 +265,11 @@ public class QuizEditor extends Fragment {
         String saltStr = salt.toString();
         return saltStr;
 
+    }
+
+    public void setFab() {
+        fab = getActivity().findViewById(R.id.session_fab);
+        fab.setVisibility(View.GONE);
     }
 
 
