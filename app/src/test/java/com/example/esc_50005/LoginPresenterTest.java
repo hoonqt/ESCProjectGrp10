@@ -47,32 +47,6 @@ public class LoginPresenterTest {
 
     }
 
-//    @Test
-//    public void addBruteForceCount() {
-//        mLoginPresenter.addBruteForceCount("cindy","student");
-//        ArrayList<EditedUsersInformationDO> listOfUsers=mLoginRepository.queryParticularUser("cindy","student");
-//        EditedUsersInformationDO user=new EditedUsersInformationDO();
-//        user.setBruteForceCount(Integer.toString(0));
-//        user.setUserId(12.0);
-//        user.setUserType("student");
-//        listOfUsers.add(user);
-//
-//        int count=Integer.parseInt(listOfUsers.get(0).getBruteForceCount());
-//
-//        if(count>2)
-//        {
-//            verify(mLoginView).showSecurityQuestion();
-//        }
-//        else{
-//            EditedUsersInformationDO editedUser;
-//            editedUser=listOfUsers.get(0);
-//            count++;
-//            editedUser.setBruteForceCount(Integer.toString(count));
-//            verify(mLoginRepository).addUser(editedUser);
-//            loadUnsuccessfulLogin();
-//        }
-//    }
-
     @Test
     public void createPresenter_setsThePresenterToView() {
         // Get a reference to the class under test
@@ -85,11 +59,10 @@ public class LoginPresenterTest {
     @Test
     public void loadUsersFromRepository() {
         String userId="1001792";
-        String username="cindy";
         String userType="student";
-        String password="cindyhello";
-        mLoginPresenter.loadUsersFromDatabase(userId,username,userType,password);
-        verify(mLoginRepository).queryAParticularUser(username,userType);
+        String password="cindy";
+        mLoginPresenter.loadUsersFromDatabase(userId,userType,password);
+        verify(mLoginRepository).queryAParticularUser(userId);
     }
 
     @Test
@@ -100,17 +73,13 @@ public class LoginPresenterTest {
 
     @Test
     public void loadSuccessfulLogin() {
-        String number="1001792";
-        mLoginPresenter.loadSuccessfulLogin(number);
-        verify(mLoginView).showSuccessfulLogin(number);
+        String userId="1001792";
+        String name="Cindy Ong Wen Ling";
+        mLoginPresenter.loadSuccessfulLogin(userId,name);
+        verify(mLoginView).showSuccessfulLogin(userId,name);
 
     }
 
-    @Test
-    public void loadAccountLocked() {
-        mLoginPresenter.loadAccountLockedOut();
-        verify(mLoginView).showAccountLockedOut();
-    }
 
     @Test
     public void verifySecurityAnswer() {
@@ -120,8 +89,8 @@ public class LoginPresenterTest {
         newUser.setUserId("1001792");
         newUser.setSecurityAnswer("hello");
         listOfUsers.add(newUser);
-        when(mLoginRepository.queryAParticularUser("1001792","cindy")).thenReturn(listOfUsers);
-        userBruteForceJsonData=mLoginRepository.queryAParticularUser("1001792","student");
+        when(mLoginRepository.queryAParticularUser("1001792")).thenReturn(listOfUsers);
+        userBruteForceJsonData=mLoginRepository.queryAParticularUser("1001792");
         String correctSecurityAnswer=userBruteForceJsonData.get(0).getSecurityAnswer();
 
     }
@@ -134,8 +103,8 @@ public class LoginPresenterTest {
         newUser.setSecurityAnswer("hello");
         listOfUsers.add(newUser);
 
-        when(mLoginRepository.queryAParticularUser("1001792","student")).thenReturn(listOfUsers);
-        userBruteForceJsonData=mLoginRepository.queryAParticularUser("1001792","student");
+        when(mLoginRepository.queryAParticularUser("1001792")).thenReturn(listOfUsers);
+        userBruteForceJsonData=mLoginRepository.queryAParticularUser("1001792");
         EditedUsersInformationDO editedUser=userBruteForceJsonData.get(0);
         mLoginView.showAccountLockedOut();
     }

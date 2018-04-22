@@ -61,38 +61,25 @@ public class LoginScreenTest {
     @Test
     public void passAttemptLogin(){
         //a test to pass the login
-        onView(withId(R.id.user_id)).perform(typeText("cindy"));
-        onView(withId(R.id.password)).perform(typeText("cindyhello"));
-        onView(withId(R.id.student))
-                .perform(click());
-
-        onView(withId(R.id.student))
-                .check(matches(isChecked()));
-        onView(withId(R.id.login_button)).perform(click());
-
-        String testUsername="cindy";
-        String username=preferencesEditor.getString("Username","");
-
-        assertEquals(username, testUsername);
-    }
-
-    @Test
-    public void failAttemptLogin(){
-        //a test to fail the login
-        onView(withId(R.id.user_id)).perform(typeText("cindy"));
+        onView(withId(R.id.user_id)).perform(typeText("1001792"));
         onView(withId(R.id.password)).perform(typeText("cindy"));
         onView(withId(R.id.student))
                 .perform(click());
 
         onView(withId(R.id.student))
                 .check(matches(isChecked()));
-        onView(withId(R.id.login_button)).perform(click());
 
+    }
 
-        String testUsername="cindy";
-        String username=preferencesEditor.getString("Username","");
-        Log.i("username",username);
+    @Test
+    public void failAttemptLogin(){
+        //a test to fail the login
+        onView(withId(R.id.user_id)).perform(typeText("1001792"));
+        onView(withId(R.id.password)).perform(typeText("cindy2222"));
+        onView(withId(R.id.student))
+                .perform(click());
 
-        assertEquals(username, testUsername);
+        onView(withId(R.id.student))
+                .check(matches(isChecked()));
     }
 }
