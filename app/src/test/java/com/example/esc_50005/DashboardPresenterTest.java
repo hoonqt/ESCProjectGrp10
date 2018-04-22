@@ -1,7 +1,7 @@
 package com.example.esc_50005;
 
 import com.example.esc_50005.Database.CoursesInformation.CoursesInformationRemoteDataSource;
-import com.example.esc_50005.Database.UsersInformation.UsersInformationDO;
+import com.example.esc_50005.Database.UsersInformation.EditedUsersInformationDO;
 import com.example.esc_50005.Database.UsersInformation.UsersInformationRemoteDataSource;
 import com.example.esc_50005.UI.Course.FAQ.FaqPresenter;
 import com.example.esc_50005.UI.Dashboard.main.DashboardContract;
@@ -23,7 +23,7 @@ import static org.mockito.Mockito.verify;
  */
 public class DashboardPresenterTest {
 
-    private static ArrayList<UsersInformationDO> usersInformation;
+    private static ArrayList<EditedUsersInformationDO> usersInformation;
 
     @Mock
     private DashboardContract.View mDashboardView;
@@ -36,7 +36,7 @@ public class DashboardPresenterTest {
 
     private DashboardPresenter mDashboardPresenter;
 
-    private static ArrayList<UsersInformationDO> listOfUsers=new ArrayList<>();
+    private static ArrayList<EditedUsersInformationDO> listOfUsers=new ArrayList<>();
 
     @Before
     public void setupLoginPresenter() {
@@ -67,18 +67,5 @@ public class DashboardPresenterTest {
         mDashboardPresenter.addInvalidCourse();
         mDashboardView.showAddInvalidCourse();
     }
-
-
-//    @Test
-//    public void addValidCourseProfessor()
-//    {
-//        Double courseId=102.0;
-//        String courseName="ESC";
-//        mDashboardPresenter.addValidCourseProfessor(courseId,courseName);
-//        ArrayList<String> listOfStudents=new ArrayList<>();
-//        listOfStudents.add("102");
-//        mDashboardPresenter.mCoursesRepository.addCourse(2.0,"ESC",listOfStudents);
-//
-//    }
 
 }

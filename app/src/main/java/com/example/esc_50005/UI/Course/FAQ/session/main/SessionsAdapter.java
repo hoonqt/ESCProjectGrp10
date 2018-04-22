@@ -25,6 +25,7 @@ import com.example.esc_50005.Database.sessionsInformation.SessionsInformationDO;
 import com.example.esc_50005.R;
 import com.example.esc_50005.UI.Dashboard.main.DeleteCourseItemListener;
 import com.example.esc_50005.UI.Session.Main.SessionActivity;
+import com.example.esc_50005.WebSocket.ProfWebSocket;
 
 import java.util.ArrayList;
 
@@ -45,6 +46,8 @@ public class SessionsAdapter extends RecyclerView.Adapter<SessionsAdapter.Sessio
     private ImageButton button;
     private BottomSheetBehavior mBottomSheetBehavior;
     private DeleteSessionItemListener deleteSessionItemListener;
+
+    private ProfWebSocket websock;
 
     public SessionsAdapter(ArrayList<SessionsInformationDO> sessions, Context context, DeleteSessionItemListener DeleteItemListener){
         this.mSessionsList = sessions;
@@ -81,6 +84,9 @@ public class SessionsAdapter extends RecyclerView.Adapter<SessionsAdapter.Sessio
         View view = inflater.inflate(layoutIDForListItem,parent,shouldAttachToParentImmediately);
         SessionsViewHolder sessionViewHolder = new SessionsViewHolder(view);
 
+        context = parent.getContext();
+
+        websock = ProfWebSocket.getInstance();
 
         viewHolderCount++;
 
@@ -125,6 +131,16 @@ public class SessionsAdapter extends RecyclerView.Adapter<SessionsAdapter.Sessio
                         public void onClick(View view) {
                             Log.i("start","start");
 
+                            Log.i("end","end");
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString(context.getString(R.string.delete_session), "True");
+                            editor.commit();
+
+                            String sessionCode = sharedPreferences.getString(context.getString(R.string.session_id),null);
+
+                            websock.sendMsg("pinit" + sessionCode);
+
+
                         }
                     });
 
@@ -132,6 +148,15 @@ public class SessionsAdapter extends RecyclerView.Adapter<SessionsAdapter.Sessio
                         @Override
                         public void onClick(View view) {
                             Log.i("end","end");
+                            Log.i("end","end");
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString(context.getString(R.string.end_session), "True");
+                            editor.commit();
+
+                            String sessionCode = sharedPreferences.getString(context.getString(R.string.session_id),null);
+
+                            websock.sendMsg("pend"+sessionCode);
+                            websock.end();
                         }
                     });
 
@@ -151,23 +176,23 @@ public class SessionsAdapter extends RecyclerView.Adapter<SessionsAdapter.Sessio
                     dialog.show();
 
                     switch( view.getId() ) {
-                    case R.id.click_to_get_options: {
-                        if(clicked==false)
-                        {
-                            mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-                            clicked=true;
-                            break;
+                        case R.id.click_to_get_options: {
+                            if(clicked==false)
+                            {
+                                mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                                clicked=true;
+                                break;
+                            }
+                            else if(clicked==true)
+                            {
+                                mBottomSheetBehavior.setPeekHeight(0);
+                                mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                                clicked=false;
+                                break;
+                            }
                         }
-                        else if(clicked==true)
-                        {
-                            mBottomSheetBehavior.setPeekHeight(0);
-                            mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-                            clicked=false;
-                            break;
-                        }
-                    }
 
-            }
+                    }
 
                 }
             });

@@ -3,7 +3,6 @@ package com.example.esc_50005.UI.Course.FAQ.addFaq;
 import com.example.esc_50005.Database.FAQ.Faq;
 import com.example.esc_50005.Database.FAQ.FaqRemoteDataSource;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -19,7 +18,7 @@ public class AddFaqDialogPresenter implements AddFaqDialogContract.Presenter {
     private final AddFaqDialogContract.View mFeedbackView;
 
     String courseId;
-    String name;
+    String userId;
 
     public AddFaqDialogPresenter(AddFaqDialogContract.View view) {
         mFaqRepository = new FaqRemoteDataSource();
@@ -34,16 +33,14 @@ public class AddFaqDialogPresenter implements AddFaqDialogContract.Presenter {
     @Override
     public void addFaq(String question, String answer) {
         Faq newFaq = new Faq();
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-
         newFaq.setCourseId(courseId);
-        newFaq.setAuthor(name);
+        newFaq.setAuthor(userId);
         newFaq.setUsersVoted(new ArrayList<String>());
 
         newFaq.setQuestion(question);
         newFaq.setAnswer(answer);
         newFaq.setQuestionId(UUID.randomUUID().toString());
-        newFaq.setDate(Long.toString(timestamp.getTime()));
+        newFaq.setDate("4 April 2018");
 
         mFaqRepository.saveFaq(newFaq);
     }
@@ -52,7 +49,7 @@ public class AddFaqDialogPresenter implements AddFaqDialogContract.Presenter {
         this.courseId = courseId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

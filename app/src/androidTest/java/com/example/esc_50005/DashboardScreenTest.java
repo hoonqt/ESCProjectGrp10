@@ -58,31 +58,14 @@ public class DashboardScreenTest {
 
     @Before
     public void init(){
-
-        SharedPreferences.Editor editor = preferencesEditor.edit();
-        editor.putString("Username", "jiawen");
-        editor.putString("Password", "jiawen");
-        editor.putString("UserType", "professor");
-        editor.commit();
-
-//        ProfessorDashboardFragment fragment = new ProfessorDashboardFragment();
+        Context context = getInstrumentation().getTargetContext();
+        preferencesEditor = PreferenceManager.getDefaultSharedPreferences(context);
         mActivityRule.getActivity().getSupportFragmentManager().beginTransaction().add(R.id.professorDashboardFragment,new ProfessorDashboardFragment()).commit();
-//        mActivityRule.getActivity()
-//                .getSupportFragmentManager().beginTransaction();
     }
     @Test
     public void loadCourse(){
-
-        // First, scroll to the position that needs to be matched and click on it.
-        onView(ViewMatchers.withId(R.id.recyclerViewDashboardCourses))
-                .perform(RecyclerViewActions.actionOnItemAtPosition(1,
-                        click()));
-
-        // Match the text in an item below the fold and check that it's displayed.
-        String itemElementText = "50.005 Computer System Engineering";
-        onView(withText(itemElementText)).check(matches(isDisplayed()));
-
-
+        onView(withId(R.id.add_courses))
+                .check(matches(isChecked()));
     }
 }
 

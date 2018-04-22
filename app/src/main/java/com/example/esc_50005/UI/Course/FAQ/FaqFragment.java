@@ -27,7 +27,6 @@ import android.widget.LinearLayout;
 
 import com.example.esc_50005.Database.FAQ.Faq;
 import com.example.esc_50005.Database.utilities.Injection;
-import com.example.esc_50005.Log;
 import com.example.esc_50005.R;
 import com.example.esc_50005.UI.Course.FAQ.addFaq.AddFaqDialog;
 
@@ -44,7 +43,7 @@ public class FaqFragment extends Fragment implements FaqContract.View {
     protected LayoutManagerType mCurrentLayoutManagerType;
     protected RecyclerView.LayoutManager mLayoutManager;
     private FaqContract.Presenter mPresenter;
-    //    private FaqContract.Presenter mPresenter = new FaqPresenter(this);
+//    private FaqContract.Presenter mPresenter = new FaqPresenter(this);
     private LinearLayout mFaqView;
     private RecyclerView faqListRecycler;
     private SwipeRefreshLayout swipeLayout;
@@ -74,8 +73,8 @@ public class FaqFragment extends Fragment implements FaqContract.View {
                 Injection.provideFaqRepository(getActivity().getApplicationContext()), this);
 
         userInformation = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
-        userType = userInformation.getString(getString(R.string.user_type), "");
-        userId = userInformation.getString(getString(R.string.user_id), "");
+        userType = userInformation.getString(getString(R.string.user_type),"");
+        userId = userInformation.getString(getString(R.string.user_id),"");
         courseId = userInformation.getString(getString(R.string.course_id), "");
         mPresenter.setUserId(userId);
         mPresenter.setCourseId(courseId);
@@ -84,11 +83,7 @@ public class FaqFragment extends Fragment implements FaqContract.View {
     @Override
     public void onResume() {
         super.onResume();
-        if (connected()) {
-            mPresenter.start();
-        } else {
-            showLoadFaqError();
-        }
+        mPresenter.start();
     }
 
     @Override
@@ -110,16 +105,11 @@ public class FaqFragment extends Fragment implements FaqContract.View {
         swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                if (connected()) {
-                    mPresenter.loadFaq();
-                } else {
-                    showLoadFaqError();
-                    swipeLayout.setRefreshing(false);
-                }
+                mPresenter.loadFaq();
             }
         });
 
-        coordinatorLayout = (CoordinatorLayout) getActivity().findViewById(R.id.course_rl);
+        coordinatorLayout = (CoordinatorLayout) view.findViewById(R.id.faq_cl);
 
         fab = (FloatingActionButton) getActivity().findViewById(R.id.course_fab);
 
@@ -136,33 +126,20 @@ public class FaqFragment extends Fragment implements FaqContract.View {
     }
 
     public void showLoadFaqError() {
-        Log.i("testing", "error");
-        Snackbar snackbar = Snackbar
-                .make(coordinatorLayout, "No Connection", Snackbar.LENGTH_LONG)
-                .setAction("Retry", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if (connected()) {
-                            mPresenter.loadFaq();
-                        } else {
-                            showLoadFaqError();
-                        }
-                    }
-                });
-        snackbar.show();
-    }
-
-
-    public boolean connected() {
         ConnectivityManager conMan = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo.State mobile = conMan.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState();
         NetworkInfo.State wifi = conMan.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState();
         if (mobile != NetworkInfo.State.CONNECTED && wifi != NetworkInfo.State.CONNECTED) {
-            Log.i("testing", "false");
-            return false;
-        } else {
-            Log.i("testing", "true");
-            return true;
+            Snackbar snackbar = Snackbar
+                    .make(coordinatorLayout, "No Connection", Snackbar.LENGTH_LONG)
+                    .setAction("Retry", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            mPresenter.loadFaq();
+                        }
+                    });
+            snackbar.show();
+//            snackbar.setActionTextColor(Color.WHITE);
         }
     }
 
@@ -193,7 +170,7 @@ public class FaqFragment extends Fragment implements FaqContract.View {
     };
 
     public void setFab() {
-        if (userType.equals("student") || faqList.size() == 0) {
+        if (userType.equals("student") || faqList.size()==0) {
             fab.setVisibility(View.GONE);
         } else {
             fab.setVisibility(View.VISIBLE);

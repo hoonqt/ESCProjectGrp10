@@ -3,6 +3,7 @@ package com.example.esc_50005.UI.Session.Prof.SideScreens;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -34,6 +35,8 @@ public class EditQnListFrag extends Fragment implements Serializable {
     private RecyclerView.LayoutManager mLayoutManager;
     private ArrayList<QuizQuestions2DO> dataset;
 
+    private FloatingActionButton fab;
+
     private enum LayoutManagerType {
         LINEAR_LAYOUT_MANAGER
     }
@@ -56,9 +59,9 @@ public class EditQnListFrag extends Fragment implements Serializable {
         mCurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
         quizRecycler.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
-        final Bundle bundle = this.getArguments();
+        setFab();
 
-        Log.i("Over at editqnlistfrag",bundle.toString());
+        final Bundle bundle = this.getArguments();
 
         if (bundle != null) {
             dataset = (ArrayList<QuizQuestions2DO>)bundle.getSerializable("allthequestions");
@@ -104,6 +107,11 @@ public class EditQnListFrag extends Fragment implements Serializable {
 
     public void onBackPressed() {
 
+    }
+
+    public void setFab() {
+        fab = getActivity().findViewById(R.id.session_fab);
+        fab.setVisibility(View.GONE);
     }
 
 }

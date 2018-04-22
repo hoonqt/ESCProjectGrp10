@@ -83,14 +83,14 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
                 viewPager.setCurrentItem(tab.getPosition());
                 if (tab.getPosition() == 2) {
                     if (userType.equals("student")) {
-                        ProgressStudentFragment frag = (ProgressStudentFragment) viewPager
-                                .getAdapter()
-                                .instantiateItem(viewPager,viewPager.getCurrentItem());
-                        frag.setFab();
-                    } else {
                         NameListFragment frag = (NameListFragment) viewPager
                                 .getAdapter()
                                 .instantiateItem(viewPager, viewPager.getCurrentItem());
+                        frag.setFab();
+                    } else {
+                        ProgressStudentFragment frag = (ProgressStudentFragment) viewPager
+                                .getAdapter()
+                                .instantiateItem(viewPager,viewPager.getCurrentItem());
                         frag.setFab();
                     }
                 } else if (tab.getPosition() == 1) {

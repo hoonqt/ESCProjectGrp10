@@ -1,7 +1,7 @@
 package com.example.esc_50005;
 
 import com.example.esc_50005.Database.CoursesInformation.CoursesInformationRemoteDataSource;
-import com.example.esc_50005.Database.UsersInformation.UsersInformationDO;
+import com.example.esc_50005.Database.UsersInformation.EditedUsersInformationDO;
 import com.example.esc_50005.Database.UsersInformation.UsersInformationRemoteDataSource;
 import com.example.esc_50005.Database.sessionsInformation.SessionsInformationRemoteDataSource;
 import com.example.esc_50005.UI.Course.FAQ.FaqPresenter;
@@ -28,7 +28,7 @@ import static org.mockito.Mockito.verify;
  */
 public class CoursesSessionPresenterTest {
 
-    private static ArrayList<UsersInformationDO> usersInformation;
+    private static ArrayList<EditedUsersInformationDO> usersInformation;
 
     @Mock
     private SessionsContract.View mSessionsView;
@@ -40,7 +40,7 @@ public class CoursesSessionPresenterTest {
 
     private SessionsPresenter mSessionsPresenter;
 
-    private static ArrayList<UsersInformationDO> listOfUsers=new ArrayList<>();
+    private static ArrayList<EditedUsersInformationDO> listOfUsers=new ArrayList<>();
 
     @Before
     public void setupLoginPresenter() {
@@ -48,11 +48,11 @@ public class CoursesSessionPresenterTest {
 
         mSessionsPresenter = new SessionsPresenter(mSessionsRepository, mCoursesRepository,mLoginRepository,mSessionsView);
 
-        UsersInformationDO user=new UsersInformationDO();
+        EditedUsersInformationDO user=new EditedUsersInformationDO();
         user.setBruteForceCount(Integer.toString(0));
-        user.setUserId(12.0);
+        user.setUserId("1001555");
         user.setUserType("student");
-        user.setUsername("cindy");
+        user.setFullName("Aaaron Teo");
         listOfUsers.add(user);
         mLoginRepository.addUser(user);
 
