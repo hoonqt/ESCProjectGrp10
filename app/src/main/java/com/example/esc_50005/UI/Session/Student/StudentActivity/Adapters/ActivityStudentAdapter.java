@@ -160,10 +160,11 @@ public class ActivityStudentAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         public void onClick(View view) {
 
             AlertDialog.Builder popupBuilder = new AlertDialog.Builder(context);
-            popupBuilder.setTitle("Enter question");
+            popupBuilder.setTitle("Enter answer");
             popupBuilder.setMessage(smallerdataset.get(getAdapterPosition()).getQuestion());
 
             final EditText input = new EditText(context);
+            input.setHint("Answer");
             popupBuilder.setView(input);
 
             popupBuilder.setNegativeButton("Submit", new DialogInterface.OnClickListener() {
