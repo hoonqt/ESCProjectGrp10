@@ -8,14 +8,13 @@ import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBQueryExpression;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.PaginatedList;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
-import com.example.esc_50005.Database.FAQ.FaqRemoteDataSource;
 
 import java.util.ArrayList;
 
 public class UsersInformationRemoteDataSource implements UsersInformationDataSource {
 
     DynamoDBMapper dynamoDBMapper;
-    ArrayList<EditedUsersInformationDO> usersArrayList;
+    ArrayList<UsersInformationDO> usersArrayList;
     public static final String TAG = "UsersInformationRemote";
 
     private static UsersInformationRemoteDataSource INSTANCE;
@@ -36,7 +35,7 @@ public class UsersInformationRemoteDataSource implements UsersInformationDataSou
     }
 
     @Override
-    public void removeUser(final EditedUsersInformationDO usersInformation) {
+    public void removeUser(final UsersInformationDO usersInformation) {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -48,7 +47,7 @@ public class UsersInformationRemoteDataSource implements UsersInformationDataSou
     }
 
     @Override
-    public void addUser(final EditedUsersInformationDO userInformation) {
+    public void addUser(final UsersInformationDO userInformation) {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -63,22 +62,22 @@ public class UsersInformationRemoteDataSource implements UsersInformationDataSou
     public void editUser(String course) {
 
     }
-    public ArrayList<EditedUsersInformationDO> queryAParticularUser(final String userId) {
+    public ArrayList<UsersInformationDO> queryAParticularUser(final String userId) {
         Log.i("here at query","here at query");
-        usersArrayList = new ArrayList<EditedUsersInformationDO>();
+        usersArrayList = new ArrayList<UsersInformationDO>();
 
         Thread random = new Thread(new Runnable() {
             @Override
             public void run() {
 
-                EditedUsersInformationDO userSelected = new EditedUsersInformationDO();
+                UsersInformationDO userSelected = new UsersInformationDO();
                userSelected.setUserId(userId);
 
                 DynamoDBQueryExpression queryExpression = new DynamoDBQueryExpression()
                         .withHashKeyValues(userSelected);
 
-                PaginatedList<EditedUsersInformationDO> result = dynamoDBMapper.query(EditedUsersInformationDO.class, queryExpression);
-                for (EditedUsersInformationDO userInformation : result) {
+                PaginatedList<UsersInformationDO> result = dynamoDBMapper.query(UsersInformationDO.class, queryExpression);
+                for (UsersInformationDO userInformation : result) {
                     Log.i("user id",userInformation.getUserId());
                     if(userInformation.getUserId().equals(userId))
                     {
@@ -104,22 +103,22 @@ public class UsersInformationRemoteDataSource implements UsersInformationDataSou
     }
 
 
-    public ArrayList<EditedUsersInformationDO> queryAllUsers(final String userId, final String fullName) {
-        usersArrayList = new ArrayList<EditedUsersInformationDO>();
+    public ArrayList<UsersInformationDO> queryAllUsers(final String userId, final String fullName) {
+        usersArrayList = new ArrayList<UsersInformationDO>();
 
         Thread retriever = new Thread(new Runnable() {
             @Override
             public void run() {
 
-                EditedUsersInformationDO userSelected = new EditedUsersInformationDO();
+                UsersInformationDO userSelected = new UsersInformationDO();
                 userSelected.setUserId(userId);
                 userSelected.setFullName(fullName);
 
                 DynamoDBQueryExpression queryExpression = new DynamoDBQueryExpression()
                         .withHashKeyValues(userSelected);
 
-                PaginatedList<EditedUsersInformationDO> result = dynamoDBMapper.query(EditedUsersInformationDO.class, queryExpression);
-                for (EditedUsersInformationDO userInformation : result) {
+                PaginatedList<UsersInformationDO> result = dynamoDBMapper.query(UsersInformationDO.class, queryExpression);
+                for (UsersInformationDO userInformation : result) {
                     usersArrayList.add(userInformation);
                 }
 

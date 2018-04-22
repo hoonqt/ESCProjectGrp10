@@ -7,9 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.esc_50005.Database.Database.SessionQuestionsDO;
+import com.example.esc_50005.Database.Database.Question;
 import com.example.esc_50005.R;
 import com.example.esc_50005.UI.Base.BaseViewHolder;
 
@@ -20,7 +19,7 @@ public class QuestionsAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     public static final String TAG = "QuestionsAdapter";
 
-    private ArrayList<SessionQuestionsDO> mQuestionsList;
+    private ArrayList<Question> mQuestionsList;
     private QuestionsItemListener mQuestionsItemListener;
 
     public static final int VIEW_TYPE_EMPTY = 0;
@@ -30,7 +29,7 @@ public class QuestionsAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     private String mUserId;
 
-    public QuestionsAdapter(ArrayList<SessionQuestionsDO> questionsList, QuestionsItemListener itemListener, String userId) {
+    public QuestionsAdapter(ArrayList<Question> questionsList, QuestionsItemListener itemListener, String userId) {
         this.mQuestionsList = questionsList;
         this.mQuestionsItemListener = itemListener;
         this.mUserId = userId;
@@ -99,7 +98,7 @@ public class QuestionsAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         }
 
         public void bind(int position) {
-            SessionQuestionsDO question = mQuestionsList.get(position);
+            Question question = mQuestionsList.get(position);
             tv_question.setText(question.getQuestion());
             tv_upvote.setText(String.valueOf(question.getUsersVoted().size())+" upvotes");
 //            tv_time.setText(question.getDate());
@@ -137,7 +136,7 @@ public class QuestionsAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
         }
 
-        boolean userUpvoted(SessionQuestionsDO question) {
+        boolean userUpvoted(Question question) {
             if (question.getUsersVoted().contains(mUserId)) {
                 return true;
             } else {

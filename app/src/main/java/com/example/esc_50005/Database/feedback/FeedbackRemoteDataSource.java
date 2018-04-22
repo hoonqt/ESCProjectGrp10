@@ -15,13 +15,10 @@ import java.util.ArrayList;
  */
 
 public class FeedbackRemoteDataSource implements FeedbackDataSource {
-    public static final String TAG = "FaqRemoteDataSource";
 
     DynamoDBMapper dynamoDBMapper;
 
-    ArrayList<Feedback> feedbackArrayList;
-
-//    private ArrayList<JSONObject> dataInJson;
+    ArrayList<Feedback> mFeedbackList;
 
     public FeedbackRemoteDataSource() {
         AmazonDynamoDBClient dynamoDBClient = new AmazonDynamoDBClient(AWSMobileClient.getInstance().getCredentialsProvider());
@@ -56,9 +53,7 @@ public class FeedbackRemoteDataSource implements FeedbackDataSource {
 
     public ArrayList<Feedback> getFeedbackListBySessionId(final String sessionId) {
 
-//        dataInJson = new ArrayList<>();
-
-        feedbackArrayList = new ArrayList<Feedback>();
+        mFeedbackList = new ArrayList<Feedback>();
 
         Thread retriever = new Thread(new Runnable() {
             @Override
@@ -73,8 +68,7 @@ public class FeedbackRemoteDataSource implements FeedbackDataSource {
                 PaginatedList<Feedback> result = dynamoDBMapper.query(Feedback.class, queryExpression);
 
                 for (Feedback feedback : result) {
-                    feedbackArrayList.add(feedback);
-                    Log.i(TAG, feedback.getComment());
+                    mFeedbackList.add(feedback);
                 }
 
             }
@@ -88,9 +82,7 @@ public class FeedbackRemoteDataSource implements FeedbackDataSource {
             ex.printStackTrace();
         }
 
-        Log.i(TAG, "feedbacklist2" + feedbackArrayList.toString());
-
-        return feedbackArrayList;
+        return mFeedbackList;
 
     }
 }

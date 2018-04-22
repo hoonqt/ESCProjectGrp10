@@ -16,7 +16,7 @@ public class FaqRemoteDataSource implements FaqDataSource {
 
     DynamoDBMapper dynamoDBMapper;
 
-    ArrayList<Faq> faqArrayList;
+    ArrayList<Faq> mFaqList;
 
     private static FaqRemoteDataSource INSTANCE;
 
@@ -69,7 +69,7 @@ public class FaqRemoteDataSource implements FaqDataSource {
 
 //        dataInJson = new ArrayList<>();
 
-        faqArrayList = new ArrayList<Faq>();
+        mFaqList = new ArrayList<Faq>();
 
         Thread retriever = new Thread(new Runnable() {
             @Override
@@ -84,7 +84,7 @@ public class FaqRemoteDataSource implements FaqDataSource {
                 PaginatedList<Faq> result = dynamoDBMapper.query(Faq.class, queryExpression);
 
                 for (Faq faq : result) {
-                    faqArrayList.add(faq);
+                    mFaqList.add(faq);
                     Log.i(TAG, faq.getQuestion());
                 }
 
@@ -118,9 +118,9 @@ public class FaqRemoteDataSource implements FaqDataSource {
             ex.printStackTrace();
         }
 
-        Log.i(TAG, "faqlist2" + faqArrayList.toString());
+        Log.i(TAG, "faqlist2" + mFaqList.toString());
 
-        return faqArrayList;
+        return mFaqList;
 
     }
 }

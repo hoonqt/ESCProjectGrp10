@@ -8,10 +8,10 @@ import java.util.ArrayList;
 
 public interface UsersInformationDataSource {
 
-    void removeUser(EditedUsersInformationDO faq);
-    void addUser(EditedUsersInformationDO faq);
-    ArrayList<EditedUsersInformationDO> queryAllUsers(final String userId, final String fullName);
-    ArrayList<EditedUsersInformationDO> queryAParticularUser(final String userId);
+    void removeUser(UsersInformationDO faq);
+    void addUser(UsersInformationDO faq);
+    ArrayList<UsersInformationDO> queryAllUsers(final String userId, final String fullName);
+    ArrayList<UsersInformationDO> queryAParticularUser(final String userId);
 
 
 }

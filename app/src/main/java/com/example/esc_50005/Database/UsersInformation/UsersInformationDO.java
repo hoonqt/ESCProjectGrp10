@@ -14,7 +14,7 @@ import java.util.Set;
 
 @DynamoDBTable(tableName = "escproject-mobilehub-27166461-editedUsersInformation")
 
-public class EditedUsersInformationDO {
+public class UsersInformationDO {
     private String _userId;
     private String _fullName;
     private String _bruteForceCount;

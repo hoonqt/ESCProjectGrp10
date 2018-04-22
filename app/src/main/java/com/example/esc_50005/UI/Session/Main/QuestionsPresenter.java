@@ -2,8 +2,8 @@ package com.example.esc_50005.UI.Session.Main;
 
 import android.support.annotation.NonNull;
 
-import com.example.esc_50005.Database.Database.SessionQuestionsDO;
-import com.example.esc_50005.Database.Database.SessionQuestionsRemoteDataSource;
+import com.example.esc_50005.Database.Database.Question;
+import com.example.esc_50005.Database.Database.QuestionRemoteDataSource;
 import com.example.esc_50005.Log;
 
 import java.util.ArrayList;
@@ -17,14 +17,14 @@ public class QuestionsPresenter implements QuestionsContract.Presenter {
     public static final String TAG = "QuestionsPresenter";
 
     private final QuestionsContract.View mSessionQuestionView;
-    private SessionQuestionsRemoteDataSource mSessionQuestionsRepository;
-    ArrayList<SessionQuestionsDO> questionsJsonData;
+    private QuestionRemoteDataSource mSessionQuestionsRepository;
+    ArrayList<Question> mQuestionsList;
 
     String sessionId;
     String userId;
 
     public QuestionsPresenter(@NonNull QuestionsContract.View sessionQuestionsView) {
-        mSessionQuestionsRepository = new SessionQuestionsRemoteDataSource();
+        mSessionQuestionsRepository = new QuestionRemoteDataSource();
         mSessionQuestionView = checkNotNull(sessionQuestionsView, "sessionQuestionView cannot be null!");
         mSessionQuestionView.setPresenter(this);
     }
@@ -37,8 +37,8 @@ public class QuestionsPresenter implements QuestionsContract.Presenter {
 
     @Override
     public void loadQuestions() {
-        questionsJsonData = mSessionQuestionsRepository.getQuestionsListBySessionId(sessionId);
-        processQuestions(questionsJsonData);
+        mQuestionsList = mSessionQuestionsRepository.getQuestionsListBySessionId(sessionId);
+        processQuestions(mQuestionsList);
     }
 
     @Override
@@ -49,42 +49,31 @@ public class QuestionsPresenter implements QuestionsContract.Presenter {
 
     }
 
-    @Override
-    public void processEmptyQuestion() {
-
-    }
-
-    public void processQuestions(ArrayList<SessionQuestionsDO> questionsJsonData) {
-        mSessionQuestionView.showAddedQuestion(questionsJsonData);
+    public void processQuestions(ArrayList<Question> questionsJsonData) {
+        mSessionQuestionView.showQuestions(questionsJsonData);
         mSessionQuestionView.questionsLoaded();
     }
 
 
-    public void upvoteQuestion(SessionQuestionsDO question) {
+    public void upvoteQuestion(Question question) {
         List<String> usersVoted = question.getUsersVoted();
         if (!usersVoted.contains(userId)) {
-//            question.setUpvotes(question.getUpvotes() + 1);
             usersVoted.add(userId);
             question.setUsersVoted(usersVoted);
             mSessionQuestionsRepository.saveQuestion(question);
             Log.i(TAG, "upvote Faq" + usersVoted.size());
         }
-//        tv_question.setUpvote(tv_question.getUpvote() + 1);
-//        mSessionQuestionsRepository.saveQuestion(tv_question);
         loadQuestions();
     }
 
-    public void downvoteQuestion(SessionQuestionsDO question) {
+    public void downvoteQuestion(Question question) {
         List<String> usersVoted = question.getUsersVoted();
         if (usersVoted.contains(userId)) {
-//            question.setUpvotes(question.getUpvotes() - 1);
             usersVoted.remove(userId);
             question.setUsersVoted(usersVoted);
             mSessionQuestionsRepository.saveQuestion(question);
             Log.i(TAG, "downvote Faq" + usersVoted.size());
         }
-//        tv_question.setUpvote(tv_question.getUpvote() - 1);
-//        mSessionQuestionsRepository.saveQuestion(tv_question);
         loadQuestions();
     }
 

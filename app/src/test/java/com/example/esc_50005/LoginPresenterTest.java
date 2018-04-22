@@ -1,6 +1,6 @@
 package com.example.esc_50005;
 
-import com.example.esc_50005.Database.UsersInformation.EditedUsersInformationDO;
+import com.example.esc_50005.Database.UsersInformation.UsersInformationDO;
 import com.example.esc_50005.Database.UsersInformation.UsersInformationRemoteDataSource;
 import com.example.esc_50005.UI.Course.FAQ.FaqPresenter;
 import com.example.esc_50005.UI.Login.LoginContract;
@@ -27,18 +27,18 @@ import static org.mockito.Mockito.when;
  */
 public class LoginPresenterTest {
 
-    private static ArrayList<EditedUsersInformationDO> usersInformation;
+    private static ArrayList<UsersInformationDO> usersInformation;
 
     @Mock
     private LoginContract.View mLoginView;
-    private static ArrayList<EditedUsersInformationDO> userBruteForceJsonData;
+    private static ArrayList<UsersInformationDO> userBruteForceJsonData;
 
     @Mock
     private UsersInformationRemoteDataSource mLoginRepository;
 
     private LoginPresenter mLoginPresenter;
 
-    private static ArrayList<EditedUsersInformationDO> listOfUsers=new ArrayList<>();
+    private static ArrayList<UsersInformationDO> listOfUsers=new ArrayList<>();
 
     @Before
     public void setupLoginPresenter() {
@@ -50,8 +50,8 @@ public class LoginPresenterTest {
 //    @Test
 //    public void addBruteForceCount() {
 //        mLoginPresenter.addBruteForceCount("cindy","student");
-//        ArrayList<EditedUsersInformationDO> listOfUsers=mLoginRepository.queryParticularUser("cindy","student");
-//        EditedUsersInformationDO user=new EditedUsersInformationDO();
+//        ArrayList<UsersInformationDO> listOfUsers=mLoginRepository.queryParticularUser("cindy","student");
+//        UsersInformationDO user=new UsersInformationDO();
 //        user.setBruteForceCount(Integer.toString(0));
 //        user.setUserId(12.0);
 //        user.setUserType("student");
@@ -64,7 +64,7 @@ public class LoginPresenterTest {
 //            verify(mLoginView).showSecurityQuestion();
 //        }
 //        else{
-//            EditedUsersInformationDO editedUser;
+//            UsersInformationDO editedUser;
 //            editedUser=listOfUsers.get(0);
 //            count++;
 //            editedUser.setBruteForceCount(Integer.toString(count));
@@ -115,8 +115,8 @@ public class LoginPresenterTest {
     @Test
     public void verifySecurityAnswer() {
 
-        ArrayList<EditedUsersInformationDO> listOfUsers=new ArrayList<>();
-        EditedUsersInformationDO newUser=new EditedUsersInformationDO();
+        ArrayList<UsersInformationDO> listOfUsers=new ArrayList<>();
+        UsersInformationDO newUser=new UsersInformationDO();
         newUser.setUserId("1001792");
         newUser.setSecurityAnswer("hello");
         listOfUsers.add(newUser);
@@ -128,15 +128,15 @@ public class LoginPresenterTest {
 
     @Test
     public void disableAccount() {
-        ArrayList<EditedUsersInformationDO> listOfUsers=new ArrayList<>();
-        EditedUsersInformationDO newUser=new EditedUsersInformationDO();
+        ArrayList<UsersInformationDO> listOfUsers=new ArrayList<>();
+        UsersInformationDO newUser=new UsersInformationDO();
         newUser.setUserId("cindy");
         newUser.setSecurityAnswer("hello");
         listOfUsers.add(newUser);
 
         when(mLoginRepository.queryAParticularUser("1001792","student")).thenReturn(listOfUsers);
         userBruteForceJsonData=mLoginRepository.queryAParticularUser("1001792","student");
-        EditedUsersInformationDO editedUser=userBruteForceJsonData.get(0);
+        UsersInformationDO editedUser=userBruteForceJsonData.get(0);
         mLoginView.showAccountLockedOut();
     }
 

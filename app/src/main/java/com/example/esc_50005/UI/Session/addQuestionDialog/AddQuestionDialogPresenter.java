@@ -1,8 +1,7 @@
 package com.example.esc_50005.UI.Session.addQuestionDialog;
 
-import com.example.esc_50005.Database.Database.SessionQuestionsDO;
-import com.example.esc_50005.Database.Database.SessionQuestionsRemoteDataSource;
-import com.example.esc_50005.Database.feedback.FeedbackRemoteDataSource;
+import com.example.esc_50005.Database.Database.Question;
+import com.example.esc_50005.Database.Database.QuestionRemoteDataSource;
 
 import java.util.ArrayList;
 
@@ -14,7 +13,7 @@ public class AddQuestionDialogPresenter implements AddQuestionDialogContract.Pre
 
     public static final String TAG = "AddQuestionDialogPresenter";
 
-    private final SessionQuestionsRemoteDataSource mQuestionRepository;
+    private final QuestionRemoteDataSource mQuestionRepository;
 
     private final AddQuestionDialogContract.View mFeedbackView;
 
@@ -30,7 +29,7 @@ public class AddQuestionDialogPresenter implements AddQuestionDialogContract.Pre
 //    }
 
     public AddQuestionDialogPresenter(AddQuestionDialogContract.View view) {
-        mQuestionRepository = new SessionQuestionsRemoteDataSource();
+        mQuestionRepository = new QuestionRemoteDataSource();
         mFeedbackView = view;
         mFeedbackView.setPresenter(this);
     }
@@ -41,7 +40,7 @@ public class AddQuestionDialogPresenter implements AddQuestionDialogContract.Pre
 
     @Override
     public void addQuestion(String question) {
-        SessionQuestionsDO newQuestion = new SessionQuestionsDO();
+        Question newQuestion = new Question();
         newQuestion.setSessionId(sessionId);
         newQuestion.setUsersVoted(new ArrayList<String>());
         newQuestion.setQuestion(question);

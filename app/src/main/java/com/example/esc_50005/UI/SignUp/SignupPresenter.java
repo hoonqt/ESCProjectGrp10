@@ -1,16 +1,11 @@
 package com.example.esc_50005.UI.SignUp;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
-import com.example.esc_50005.Database.UsersInformation.EditedUsersInformationDO;
+import com.example.esc_50005.Database.UsersInformation.UsersInformationDO;
 import com.example.esc_50005.Database.UsersInformation.UsersInformationRemoteDataSource;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -19,7 +14,7 @@ public class SignupPresenter implements SignupContract.Presenter  {
 
     private final SignupContract.View mSignupView;
     private final UsersInformationRemoteDataSource mLoginRepository;
-    ArrayList<EditedUsersInformationDO> userInformationJsonData;
+    ArrayList<UsersInformationDO> userInformationJsonData;
 
     public SignupPresenter(@NonNull SignupContract.View contractView) {
         mLoginRepository=new UsersInformationRemoteDataSource();
@@ -45,7 +40,7 @@ public class SignupPresenter implements SignupContract.Presenter  {
     @Override
     public void processSuccessfulSignup(String userId, String fullName, String password, String userType, String securityAnswer){
 
-        EditedUsersInformationDO newUser =new EditedUsersInformationDO();
+        UsersInformationDO newUser =new UsersInformationDO();
         newUser.setUserId(userId);
         newUser.setFullName(fullName);
         newUser.setPassword(password);
@@ -67,7 +62,7 @@ public class SignupPresenter implements SignupContract.Presenter  {
     }
 
     @Override
-    public void checkIfSignupIsValid(ArrayList<EditedUsersInformationDO> userInformationJsonData, String userId, String fullName, String password, String userType, String securityAnswer ) {
+    public void checkIfSignupIsValid(ArrayList<UsersInformationDO> userInformationJsonData, String userId, String fullName, String password, String userType, String securityAnswer ) {
         if(userInformationJsonData.size()==0)
         {
             processSuccessfulSignup(userId, fullName, password, userType, securityAnswer);

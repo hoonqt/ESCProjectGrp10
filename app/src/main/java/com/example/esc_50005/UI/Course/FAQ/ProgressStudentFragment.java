@@ -183,7 +183,7 @@ public class ProgressStudentFragment extends Fragment implements ProgressContrac
         p.setColor(getResources().getColor(R.color.colorPrimary));
 //        p.setTypeface(...);
 
-//        SessionQuestionsRemoteDataSource session= new SessionQuestionsRemoteDataSource();
+//        QuestionRemoteDataSource session= new QuestionRemoteDataSource();
 //        session.addQuestion("What is the difference between Observer and Strategy Design Pattern?","111");
 
     }

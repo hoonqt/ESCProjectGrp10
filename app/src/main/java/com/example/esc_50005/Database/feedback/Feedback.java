@@ -18,13 +18,6 @@ public class Feedback {
     private String author;
     private String studentId;
 
-//    public Feedback(String sessionId, float rating, String comments, String author) {
-//        this.sessionId = sessionId;
-//        this.rating = rating;
-//        this.comments = comments;
-//        this.author = author;
-//    }
-
     @DynamoDBHashKey(attributeName = "sessionId")
     @DynamoDBAttribute(attributeName = "sessionId")
     public String getSessionId() {

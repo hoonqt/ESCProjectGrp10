@@ -8,14 +8,14 @@ public class QuestionPresenter {
 
     public void loadQuestions(final String sessionCode) {
 
-        SessionQuestionsRemoteDataSource questionLoader = new SessionQuestionsRemoteDataSource();
+        QuestionRemoteDataSource questionLoader = new QuestionRemoteDataSource();
 //        questionLoader.getQuestionsListBySessionId(sessionCode);
         questionLoader.getQuestionsListBySessionId(sessionCode);
     };
 
     public void addNewQuestion(String question, String sessionCode) {
 
-        SessionQuestionsRemoteDataSource questionAdder = new SessionQuestionsRemoteDataSource();
+        QuestionRemoteDataSource questionAdder = new QuestionRemoteDataSource();
         questionAdder.addQuestion(question,sessionCode);
 
     };
@@ -26,7 +26,7 @@ public class QuestionPresenter {
 
     public void upvoteQuestion(String question, String sessionCode) {
 
-        final SessionQuestionsDO newQuestion = new SessionQuestionsDO();
+        final Question newQuestion = new Question();
 
         newQuestion.setSessionId(sessionCode);
         newQuestion.setQuestion(question);

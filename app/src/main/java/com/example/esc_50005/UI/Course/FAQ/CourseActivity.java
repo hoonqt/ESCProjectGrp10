@@ -6,10 +6,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -24,7 +21,6 @@ import android.widget.TextView;
 
 import com.amazonaws.mobile.client.AWSMobileClient;
 import com.example.esc_50005.R;
-import com.example.esc_50005.UI.Course.FAQ.editFaq.EditFaqDialog;
 import com.example.esc_50005.UI.Course.FAQ.session.professor.ProfessorSessionsFragment;
 import com.example.esc_50005.UI.Course.FAQ.session.student.StudentSessionsFragment;
 import com.example.esc_50005.UI.Session.Main.SessionActivity;

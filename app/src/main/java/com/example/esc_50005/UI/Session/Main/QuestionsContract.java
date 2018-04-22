@@ -1,6 +1,6 @@
 package com.example.esc_50005.UI.Session.Main;
 
-import com.example.esc_50005.Database.Database.SessionQuestionsDO;
+import com.example.esc_50005.Database.Database.Question;
 import com.example.esc_50005.UI.Base.BasePresenter;
 import com.example.esc_50005.UI.Base.BaseView;
 
@@ -13,19 +13,15 @@ import java.util.ArrayList;
 public interface QuestionsContract {
 
     interface View extends BaseView <Presenter>{
-        void showQuestions();
-        void showAddedQuestion(ArrayList<SessionQuestionsDO> questionsList);
-        void showNoQuestions();
-        void showLoadQuestionsError();
+        void showQuestions(ArrayList<Question> questionsList);
         void questionsLoaded();
     }
 
     interface Presenter extends BasePresenter{
         void loadQuestions();
         void addNewQuestion(String question);
-        void processEmptyQuestion();
-        void upvoteQuestion(SessionQuestionsDO question);
-        void downvoteQuestion(SessionQuestionsDO question);
+        void upvoteQuestion(Question question);
+        void downvoteQuestion(Question question);
         void setUserId(String userId);
         void setSessionId(String sessionId);
     }

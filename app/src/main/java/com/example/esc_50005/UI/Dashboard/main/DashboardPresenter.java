@@ -1,22 +1,15 @@
 package com.example.esc_50005.UI.Dashboard.main;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.util.Log;
-import android.widget.EditText;
 
 import com.example.esc_50005.Database.CoursesInformation.CoursesInformationDO;
 import com.example.esc_50005.Database.CoursesInformation.CoursesInformationRemoteDataSource;
-import com.example.esc_50005.Database.UsersInformation.EditedUsersInformationDO;
+import com.example.esc_50005.Database.UsersInformation.UsersInformationDO;
 import com.example.esc_50005.Database.UsersInformation.UsersInformationRemoteDataSource;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -26,7 +19,7 @@ public class DashboardPresenter implements DashboardContract.Presenter  {
     private final DashboardContract.View mDashboardView;
     public final UsersInformationRemoteDataSource mUsersRepository;
     public final CoursesInformationRemoteDataSource mCoursesRepository;
-    ArrayList<EditedUsersInformationDO> userCoursesInformationJsonData;
+    ArrayList<UsersInformationDO> userCoursesInformationJsonData;
     ArrayList<CoursesInformationDO> coursesInformationJsonData;
     private static  ArrayList<String> listOfCourses=new ArrayList<>();
 
@@ -68,7 +61,7 @@ public class DashboardPresenter implements DashboardContract.Presenter  {
         processCoursesForUsers(userCoursesInformationJsonData,userId);
     }
 
-    public void processCoursesForUsers(ArrayList<EditedUsersInformationDO> usersCoursesInformationJsonData, String username)
+    public void processCoursesForUsers(ArrayList<UsersInformationDO> usersCoursesInformationJsonData, String username)
     {
             if(usersCoursesInformationJsonData.get(0).getCourseIds()==null)
                 {
@@ -115,7 +108,7 @@ public class DashboardPresenter implements DashboardContract.Presenter  {
         courseToDelete.setCourseName(courseName);
         courseToDelete.setCourseStudentList(null);
         mCoursesRepository.removeCourse(courseToDelete);
-        EditedUsersInformationDO user=new EditedUsersInformationDO();
+        UsersInformationDO user=new UsersInformationDO();
         user=userCoursesInformationJsonData.get(0);
         for(int i=0;i<user.getCourseIds().size();i++ )
         {
@@ -181,7 +174,7 @@ public class DashboardPresenter implements DashboardContract.Presenter  {
     {
         mCoursesRepository.addCourse(courseId,courseName,null);
         CoursesInformationDO newCourse= new CoursesInformationDO();
-        EditedUsersInformationDO updateUser=userCoursesInformationJsonData.get(0);
+        UsersInformationDO updateUser=userCoursesInformationJsonData.get(0);
 
         if(updateUser.getCourseIds()!=null && updateUser.getCourseNames()!=null)
         {
@@ -204,7 +197,7 @@ public class DashboardPresenter implements DashboardContract.Presenter  {
 
     public void addValidCourseStudent(String courseId, String courseName)
     {
-        EditedUsersInformationDO updateUser=userCoursesInformationJsonData.get(0);
+        UsersInformationDO updateUser=userCoursesInformationJsonData.get(0);
         if(updateUser.getCourseIds().contains(courseId))
         {
             mDashboardView.showAddInvalidCourse();

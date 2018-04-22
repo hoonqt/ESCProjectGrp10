@@ -1,4 +1,4 @@
-package com.example.esc_50005.UI.Course.FAQ.editFaq;
+package com.example.esc_50005.UI.Course.FAQ.addFaq;
 
 import com.example.esc_50005.UI.Base.BasePresenter;
 import com.example.esc_50005.UI.Base.BaseView;
@@ -7,8 +7,8 @@ import com.example.esc_50005.UI.Base.BaseView;
  * Created by Otter on 4/4/2018.
  */
 
-public class EditFaqDialogContract {
-    interface View extends BaseView<EditFaqDialogContract.Presenter> {
+public class AddFaqDialogContract {
+    interface View extends BaseView<AddFaqDialogContract.Presenter> {
         void dismissDialog();
     }
 

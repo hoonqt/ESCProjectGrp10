@@ -33,8 +33,6 @@ public class FaqAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     private String userId;
 
-    private static int viewHolderCount = 0;
-
     public FaqAdapter(ArrayList<Faq> faqList, FaqItemListener itemListener, String userId){
         this.mFaqList = faqList;
         this.mFaqItemListener = itemListener;

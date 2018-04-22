@@ -1,15 +1,11 @@
 package com.example.esc_50005.UI.Course.FAQ.session.main;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.example.esc_50005.Database.CoursesInformation.CoursesInformationDO;
 import com.example.esc_50005.Database.CoursesInformation.CoursesInformationRemoteDataSource;
-import com.example.esc_50005.Database.FAQ.FaqRemoteDataSource;
-import com.example.esc_50005.Database.UsersInformation.EditedUsersInformationDO;
+import com.example.esc_50005.Database.UsersInformation.UsersInformationDO;
 import com.example.esc_50005.Database.UsersInformation.UsersInformationRemoteDataSource;
 import com.example.esc_50005.Database.sessionsInformation.SessionsInformationDO;
 import com.example.esc_50005.Database.sessionsInformation.SessionsInformationRemoteDataSource;
@@ -27,7 +23,7 @@ public class SessionsPresenter implements SessionsContract.Presenter {
     public UsersInformationRemoteDataSource mUserRepository;
     public SessionsInformationRemoteDataSource mSessionsRepository;
     public CoursesInformationRemoteDataSource mCoursesRepository;
-    ArrayList<EditedUsersInformationDO> usersJsonData;
+    ArrayList<UsersInformationDO> usersJsonData;
     private ArrayList<SessionsInformationDO> listOfSessions=new ArrayList<SessionsInformationDO>();
     private ArrayList<SessionsInformationDO> sessionsJsonData;
     private ArrayList<SessionsInformationDO> queriedSessionsJsonData;
@@ -60,7 +56,7 @@ public class SessionsPresenter implements SessionsContract.Presenter {
         processSessions(usersJsonData, currentCourse);
 
     }
-    public void processSessions(ArrayList<EditedUsersInformationDO> usersJsonData, String currentCourse) {
+    public void processSessions(ArrayList<UsersInformationDO> usersJsonData, String currentCourse) {
         if(usersJsonData.get(0).getSessionIds()!=null)
         {
             generateListOfSessions(currentCourse);
@@ -160,7 +156,7 @@ public class SessionsPresenter implements SessionsContract.Presenter {
                 mSessionsRepository.addSession(sessionId,sessionName,timeOfCreation,courseId);
         }
 
-        EditedUsersInformationDO updatedUser=usersJsonData.get(0);
+        UsersInformationDO updatedUser=usersJsonData.get(0);
         if(updatedUser.getSessionIds()==null)
         {
             List<String> listOfIds=new ArrayList<String>();
@@ -189,7 +185,7 @@ public class SessionsPresenter implements SessionsContract.Presenter {
         sessionToDelete.setSessionId(sessionId);
         sessionToDelete.setSessionStudentList(listOfStudents);
         mSessionsRepository.removeSession(sessionToDelete);
-        EditedUsersInformationDO user=new EditedUsersInformationDO();
+        UsersInformationDO user=new UsersInformationDO();
         user=usersJsonData.get(0);
         for(int i=0;i<user.getSessionIds().size();i++ )
         {

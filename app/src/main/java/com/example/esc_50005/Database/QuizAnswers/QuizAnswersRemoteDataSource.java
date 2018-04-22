@@ -7,8 +7,6 @@ import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.PaginatedList;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.services.dynamodbv2.model.ComparisonOperator;
-import com.example.esc_50005.Database.Database.SessionQuestionsDO;
-import com.example.esc_50005.Database.Quizstuff.QuizQuestions2DO;
 
 import java.util.ArrayList;
 import com.amazonaws.services.dynamodbv2.model.Condition;

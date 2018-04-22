@@ -173,11 +173,11 @@ public class ProgressPresenter implements ProgressContract.Presenter {
 //public class ProgressPresenter implements ProgressContract.Presenter {
 //
 //    private final ProgressContract.View mCourseProgressView;
-//    private SessionQuestionsRemoteDataSource mSessionQuestionsRepository= new SessionQuestionsRemoteDataSource();
+//    private QuestionRemoteDataSource mSessionQuestionsRepository= new QuestionRemoteDataSource();
 //    ProgressPresenter.QuizJsonData[] quizJsonData;
 //
 //
-//    public ProgressPresenter(@NonNull SessionQuestionsRemoteDataSource sessionQuestionsRepository, @NonNull ProgressContract.View courseProgressView) {
+//    public ProgressPresenter(@NonNull QuestionRemoteDataSource sessionQuestionsRepository, @NonNull ProgressContract.View courseProgressView) {
 //        Log.i("question presenter","question presenter");
 //        mSessionQuestionsRepository = checkNotNull(sessionQuestionsRepository, "sessionQuestionsRepository cannot be null");
 //        mCourseProgressView = checkNotNull(courseProgressView, "courseProgressView cannot be null!");

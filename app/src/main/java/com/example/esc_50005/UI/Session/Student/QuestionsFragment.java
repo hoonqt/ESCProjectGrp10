@@ -19,8 +19,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
-import com.example.esc_50005.Database.Database.SessionQuestionsDO;
-import com.example.esc_50005.Database.utilities.Injection;
+import com.example.esc_50005.Database.Database.Question;
 import com.example.esc_50005.R;
 import com.example.esc_50005.UI.Session.Main.QuestionsAdapter;
 import com.example.esc_50005.UI.Session.Main.QuestionsContract;
@@ -129,35 +128,19 @@ public class QuestionsFragment extends android.support.v4.app.Fragment implement
     }
 
     @Override
-    public void showQuestions() {
-
-    }
-
-
-    @Override
-    public void showAddedQuestion(ArrayList<SessionQuestionsDO> questionsList) {
+    public void showQuestions(ArrayList<Question> questionsList) {
         mQuestionsAdapter = new QuestionsAdapter(questionsList, mItemListener, userId);
         questionListRecycler.setAdapter(mQuestionsAdapter);
     }
 
-    @Override
-    public void showNoQuestions() {
-
-    }
-
-    @Override
-    public void showLoadQuestionsError() {
-
-    }
-
     QuestionsItemListener mItemListener = new QuestionsItemListener() {
         @Override
-        public void onUpvoteClick(SessionQuestionsDO clickedQuestion) {
+        public void onUpvoteClick(Question clickedQuestion) {
             mPresenter.upvoteQuestion(clickedQuestion);
         }
 
         @Override
-        public void onDownvoteClick(SessionQuestionsDO clickedQuestion) {
+        public void onDownvoteClick(Question clickedQuestion) {
             mPresenter.downvoteQuestion(clickedQuestion);
         }
 

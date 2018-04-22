@@ -6,9 +6,9 @@ import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBRangeKey
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBTable;
 
 import java.util.List;
-@DynamoDBTable(tableName = "escproject-mobilehub-27166461-SessionQuestions")
+@DynamoDBTable(tableName = "escproject-mobilehub-27166461-Question")
 
-public class SessionQuestionsDO {
+public class Question {
     private String _sessionId;
     private String _question;
     private List<String> _answer;

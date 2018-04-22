@@ -1,4 +1,4 @@
-package com.example.esc_50005.UI.Course.FAQ.editFaq;
+package com.example.esc_50005.UI.Course.FAQ.addFaq;
 
 import android.app.Dialog;
 import android.content.SharedPreferences;
@@ -13,7 +13,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.example.esc_50005.R;
 
@@ -21,9 +20,9 @@ import com.example.esc_50005.R;
  * Created by Otter on 3/4/2018.
  */
 
-public class EditFaqDialog extends DialogFragment implements EditFaqDialogContract.View {
+public class AddFaqDialog extends DialogFragment implements AddFaqDialogContract.View {
 
-    EditFaqDialogContract.Presenter mPresenter;
+    AddFaqDialogContract.Presenter mPresenter;
     SharedPreferences userInformation;
 
     EditText tv_question;
@@ -51,7 +50,7 @@ public class EditFaqDialog extends DialogFragment implements EditFaqDialogContra
             }
         });
 
-        mPresenter = new EditFaqDialogPresenter(this);
+        mPresenter = new AddFaqDialogPresenter(this);
         userInformation = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
 //        userType = userInformation.getString("UserType","");
         String name = userInformation.getString(getString(R.string.full_name),"");
@@ -74,7 +73,7 @@ public class EditFaqDialog extends DialogFragment implements EditFaqDialogContra
     }
 
     @Override
-    public void setPresenter(EditFaqDialogContract.Presenter presenter) {
+    public void setPresenter(AddFaqDialogContract.Presenter presenter) {
         mPresenter = presenter;
     }
 

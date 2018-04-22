@@ -15,13 +15,10 @@ public class FeedbackContract {
     interface Presenter extends BasePresenter {
         void loadFeedback();
         void setSessionId(String sessionId);
-//        void processEmptyFeedback();
     }
 
     interface View extends BaseView<Presenter> {
         void showFeedback(ArrayList<Feedback> data);
-//        void showNoFeedback();
-//        void showLoadFeedbackError();
         void feedbackLoaded();
     }
 }

@@ -74,23 +74,9 @@ public class FaqPresenterTest {
 
     @Test
     public void createPresenter_setsThePresenterToView() {
-        // Get a reference to the class under test
         mFaqPresenter = new FaqPresenter(mFaqRepository, mFaqView);
-
-        // Then the presenter is set to the view
         verify(mFaqView).setPresenter(mFaqPresenter);
     }
-
-
-
-//    @Test
-//    public void clickOnFab_ShowsAddFaqUi() {
-//        // When adding a new faq
-//        mFaqPresenter.addNewFaq();
-//
-//        // Then add faq activity is shown
-//        verify(mFaqView).showAddFaq();
-//    }
 
     @Test
     public void clickOnUpvoteBtn_saveFaqInRepository() {
@@ -125,27 +111,12 @@ public class FaqPresenterTest {
 
         // When upvote faq on second click
         mFaqPresenter.downvoteFaq(faq);
-
-//         Then faq is saved
         verify(mFaqPresenter.mFaqRepository).saveFaq(any(Faq.class));
     }
-
-//    @Test
-//    public void unavailableTasks_ShowsError() {
-//        // When tasks are loaded
-//        mFaqPresenter.loadFaq();
-//
-//        // And the tasks aren't available in the repository
-//        verify(mFaqRepository).getFaqListByCourseId("50005");
-//
-//        // Then an error message is shown
-//        verify(mFaqView).showLoadingTasksError();
-//    }
 
     @Test
     public void loadFaqFromRepository() {
 //         Given an initialized FaqPresenter with initialized faq
-//         When loading of faq is requested
         mFaqPresenter.loadFaq();
         verify(mFaqRepository).getFaqListByCourseId("50003");
     }
@@ -155,12 +126,6 @@ public class FaqPresenterTest {
         ArrayList<Faq> result = FAQS;
         mFaqPresenter.processFaq(result);
         verify(mFaqView).showFaq(result);
-    }
-
-    @Test
-    public void processEmptyFaqFromRepositoryAndLoadIntoView() {
-        mFaqPresenter.processEmptyFaq();
-        verify(mFaqView).showNoFaq();
     }
 
 }

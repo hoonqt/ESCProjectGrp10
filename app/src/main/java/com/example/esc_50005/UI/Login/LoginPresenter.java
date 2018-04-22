@@ -2,10 +2,8 @@ package com.example.esc_50005.UI.Login;
 
 import android.support.annotation.NonNull;
 import android.util.Log;
-import android.view.ViewDebug;
 
-import com.example.esc_50005.Database.FAQ.FaqRemoteDataSource;
-import com.example.esc_50005.Database.UsersInformation.EditedUsersInformationDO;
+import com.example.esc_50005.Database.UsersInformation.UsersInformationDO;
 import com.example.esc_50005.Database.UsersInformation.UsersInformationRemoteDataSource;
 
 import java.util.ArrayList;
@@ -18,8 +16,8 @@ public class LoginPresenter implements LoginContract.Presenter  {
     private final LoginContract.View mLoginView;
     public UsersInformationRemoteDataSource mLoginRepository;
 
-    ArrayList<EditedUsersInformationDO> userInformationJsonData;
-    ArrayList<EditedUsersInformationDO> userBruteForceJsonData;
+    ArrayList<UsersInformationDO> userInformationJsonData;
+    ArrayList<UsersInformationDO> userBruteForceJsonData;
 
     public LoginPresenter(@NonNull UsersInformationRemoteDataSource usersInformationRepository, @NonNull LoginContract.View contractView) {
         mLoginRepository=usersInformationRepository;
@@ -44,7 +42,7 @@ public class LoginPresenter implements LoginContract.Presenter  {
                 mLoginView.showSecurityQuestion();
             }
             else{
-                EditedUsersInformationDO editedUser;
+                UsersInformationDO editedUser;
                 editedUser=userBruteForceJsonData.get(0);
                 count++;
                 editedUser.setBruteForceCount(Integer.toString(count));
@@ -71,7 +69,7 @@ public class LoginPresenter implements LoginContract.Presenter  {
             mLoginView.showAccountLockedOut();
         }
         else{
-            EditedUsersInformationDO editedUser;
+            UsersInformationDO editedUser;
             editedUser=userBruteForceJsonData.get(0);
             editedUser.setBruteForceCount(Integer.toString(0));
             editedUser.setDisabled(false);
@@ -83,7 +81,7 @@ public class LoginPresenter implements LoginContract.Presenter  {
     @Override
     public void disableAccount() {
 
-        EditedUsersInformationDO editedUser;
+        UsersInformationDO editedUser;
         editedUser=userBruteForceJsonData.get(0);
         editedUser.setDisabled(true);
 
@@ -114,7 +112,7 @@ public class LoginPresenter implements LoginContract.Presenter  {
         mLoginView.showSuccessfulLogin(userId,name);
     }
 
-    public void checkIfLoginIsValid(ArrayList<EditedUsersInformationDO> userInformationJsonData, String password, String userType){
+    public void checkIfLoginIsValid(ArrayList<UsersInformationDO> userInformationJsonData, String password, String userType){
 
         Log.i("size",Integer.toString(userInformationJsonData.size()));
         if(userInformationJsonData.size()==0)

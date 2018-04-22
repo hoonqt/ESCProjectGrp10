@@ -26,7 +26,6 @@ public class Injection {
 
     public static FaqRemoteDataSource provideFaqRepository(@NonNull Context context) {
         checkNotNull(context);
-//        FaqRoomDatabase database = FaqRoomDatabase.getInstance(context);
         return FaqRemoteDataSource.getInstance();
     }
 

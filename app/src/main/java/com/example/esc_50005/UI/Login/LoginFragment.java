@@ -161,6 +161,7 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     public void showSuccessfulLogin(String userId, String name) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(getString(R.string.full_name), name);
+
         editor.commit();
         Intent intent = new Intent(getActivity(), DashboardActivity.class);
         startActivity(intent);

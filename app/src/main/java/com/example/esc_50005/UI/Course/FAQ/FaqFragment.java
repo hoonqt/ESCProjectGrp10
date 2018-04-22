@@ -16,7 +16,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -30,7 +29,7 @@ import com.example.esc_50005.Database.FAQ.Faq;
 import com.example.esc_50005.Database.utilities.Injection;
 import com.example.esc_50005.Log;
 import com.example.esc_50005.R;
-import com.example.esc_50005.UI.Course.FAQ.editFaq.EditFaqDialog;
+import com.example.esc_50005.UI.Course.FAQ.addFaq.AddFaqDialog;
 
 import java.util.ArrayList;
 
@@ -203,9 +202,9 @@ public class FaqFragment extends Fragment implements FaqContract.View {
             @Override
             public void onClick(View view) {
                 FragmentManager fm = getFragmentManager();
-                EditFaqDialog editFaqDialogFragment = new EditFaqDialog();
-                editFaqDialogFragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.Dialog_FullScreen);
-                editFaqDialogFragment.show(fm, "fragment_alert");
+                AddFaqDialog addFaqDialogFragment = new AddFaqDialog();
+                addFaqDialogFragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.Dialog_FullScreen);
+                addFaqDialogFragment.show(fm, "fragment_alert");
 
             }
         });

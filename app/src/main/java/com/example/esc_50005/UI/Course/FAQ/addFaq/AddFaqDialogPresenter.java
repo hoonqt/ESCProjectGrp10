@@ -1,28 +1,27 @@
-package com.example.esc_50005.UI.Course.FAQ.editFaq;
+package com.example.esc_50005.UI.Course.FAQ.addFaq;
 
 import com.example.esc_50005.Database.FAQ.Faq;
 import com.example.esc_50005.Database.FAQ.FaqRemoteDataSource;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.UUID;
 
 /**
  * Created by Otter on 4/4/2018.
  */
 
-public class EditFaqDialogPresenter implements EditFaqDialogContract.Presenter {
-    public static final String TAG = "EditFaqDialogPresenter";
+public class AddFaqDialogPresenter implements AddFaqDialogContract.Presenter {
+    public static final String TAG = "AddFaqDialogPresenter";
 
     private final FaqRemoteDataSource mFaqRepository;
 
-    private final EditFaqDialogContract.View mFeedbackView;
+    private final AddFaqDialogContract.View mFeedbackView;
 
     String courseId;
     String name;
 
-    public EditFaqDialogPresenter(EditFaqDialogContract.View view) {
+    public AddFaqDialogPresenter(AddFaqDialogContract.View view) {
         mFaqRepository = new FaqRemoteDataSource();
         mFeedbackView = view;
         mFeedbackView.setPresenter(this);

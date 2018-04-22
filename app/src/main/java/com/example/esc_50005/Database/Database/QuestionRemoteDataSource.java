@@ -11,13 +11,12 @@ import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 
 import java.util.ArrayList;
 
-public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSource {
+public class QuestionRemoteDataSource implements QuestionDataSource {
 
     DynamoDBMapper dynamoDBMapper;
-    ArrayList<SessionQuestionsDO> questionsArrayList;
-    public static final String TAG = "QuestionsRemote";
+    ArrayList<Question> questionsArrayList;
 
-    public SessionQuestionsRemoteDataSource() {
+    public QuestionRemoteDataSource() {
 
         AmazonDynamoDBClient dynamoDBClient = new AmazonDynamoDBClient(AWSMobileClient.getInstance().getCredentialsProvider());
         this.dynamoDBMapper = DynamoDBMapper.builder()
@@ -28,9 +27,7 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
 
     @Override
     public void addQuestion(String question, String sessionCode) {
-        Log.i("question",question);
-
-        final SessionQuestionsDO newQuestion = new SessionQuestionsDO();
+        final Question newQuestion = new Question();
 
         newQuestion.setSessionId(sessionCode);
         newQuestion.setAnswer(null);
@@ -41,17 +38,14 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
             @Override
             public void run() {
                 dynamoDBMapper.save(newQuestion);
-                // Item saved
             }
         }).start();
-
-
     }
 
     @Override
     public void removeQuestion(String question, String sessionCode) {
 
-        final SessionQuestionsDO deleteQn = new SessionQuestionsDO();
+        final Question deleteQn = new Question();
         deleteQn.setSessionId(sessionCode);
         deleteQn.setQuestion(question);
 
@@ -66,7 +60,7 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
 
     }
 
-    public void saveQuestion(final SessionQuestionsDO question) {
+    public void saveQuestion(final Question question) {
 
         new Thread(new Runnable() {
             @Override
@@ -76,31 +70,24 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
         }).start();
     }
 
-
     @Override
-    public void updateQuestion(String oldQuestion, String sessionCode, String newQuestion) {
-
-    }
-
-    @Override
-    public ArrayList<SessionQuestionsDO> getQuestionsListBySessionId(final String sessionCode) {
+    public ArrayList<Question> getQuestionsListBySessionId(final String sessionCode) {
 
         questionsArrayList=new ArrayList<>();
         Thread retriever = new Thread(new Runnable() {
             @Override
             public void run() {
 
-                SessionQuestionsDO sessionSelected = new SessionQuestionsDO();
+                Question sessionSelected = new Question();
                 sessionSelected.setSessionId(sessionCode);
 
                 DynamoDBQueryExpression queryExpression = new DynamoDBQueryExpression()
                         .withHashKeyValues(sessionSelected);
 
-                PaginatedList<SessionQuestionsDO> result = dynamoDBMapper.query(SessionQuestionsDO.class,queryExpression);
+                PaginatedList<Question> result = dynamoDBMapper.query(Question.class,queryExpression);
 
-                for (SessionQuestionsDO question : result) {
+                for (Question question : result) {
                     questionsArrayList.add(question);
-                    Log.i(TAG, question.getQuestion());
                 }
 
             }
@@ -114,16 +101,8 @@ public class SessionQuestionsRemoteDataSource implements SessionQuestionsDataSou
             ex.printStackTrace();
         }
 
-        Log.i(TAG, "questionsArrayList" + questionsArrayList.toString());
-
         return questionsArrayList;
 
     }
-
-    @Override
-    public void findQuestionsById() {
-
-    }
-
 
 }
